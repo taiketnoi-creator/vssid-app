@@ -1,176 +1,179 @@
 import React, { useState } from 'react';
-import { IconHome, IconSignOut, IconKey, IconFolder } from '../components/SVGIcon';
 
-const IconChevronLeft = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="15 18 9 12 15 6"/>
-  </svg>
-);
+const tabIcons = [
+  // BHXH
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+    <circle cx="20" cy="20" r="18" stroke="#0069ad" strokeWidth="1.5" fill="none"/>
+    <path d="M14 20h12M20 14v12" stroke="#0069ad" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>,
+  // BHTN
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+    <circle cx="20" cy="20" r="18" stroke="#888" strokeWidth="1.5" fill="none"/>
+    <circle cx="20" cy="16" r="4" stroke="#888" strokeWidth="1.5" fill="none"/>
+    <path d="M11 32v-2a9 9 0 0 1 18 0v2" stroke="#888" strokeWidth="1.5" strokeLinecap="round"/>
+    <path d="M14 23l2 2 4-4" stroke="#888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>,
+  // BHTNLĐ-BNN
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+    <circle cx="20" cy="20" r="18" stroke="#888" strokeWidth="1.5" fill="none"/>
+    <circle cx="20" cy="16" r="4" stroke="#888" strokeWidth="1.5" fill="none"/>
+    <path d="M11 32v-2a9 9 0 0 1 18 0v2" stroke="#888" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>,
+  // BHYT
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+    <circle cx="20" cy="20" r="18" stroke="#888" strokeWidth="1.5" fill="none"/>
+    <path d="M14 20h12M20 14v12" stroke="#888" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>,
+  // C14-TS
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+    <circle cx="20" cy="20" r="18" stroke="#888" strokeWidth="1.5" fill="none"/>
+    <rect x="12" y="14" width="16" height="12" rx="1" stroke="#888" strokeWidth="1.5" fill="none"/>
+  </svg>,
+];
 
-const IconEye = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-    <circle cx="12" cy="12" r="3"/>
-  </svg>
-);
-
-const InsuranceList = ({ onNavigate, onOpenSidebar }) => {
+const InsuranceList = ({ onNavigate }) => {
   const [activeTab, setActiveTab] = useState('BHXH');
-
-  const tabs = [
-    { id: 'BHXH', name: 'BHXH' },
-    { id: 'BHTN', name: 'BHTN' },
-    { id: 'BHTNLĐ-BNN', name: 'BHTNLĐ - BNN' },
-    { id: 'BHYT', name: 'BHYT' },
-    { id: 'C14-TS', name: 'C14-TS' }
-  ];
+  const tabs = ['BHXH', 'BHTN', 'BHTNLĐ-\nBNN', 'BHYT', 'C14-TS'];
+  const tabIds = ['BHXH', 'BHTN', 'BHTNLĐ-BNN', 'BHYT', 'C14-TS'];
 
   const rows = [
-    {
-      id: 'row-1',
-      from: '04/2025',
-      to: '02/2026',
-      unit: 'Công nghệ TNHH EO TECHNICS Việt Nam',
-      role: 'Nhân viên Kỹ thuật',
-      salary: '14.500.000'
-    },
-    {
-      id: 'row-2',
-      from: '09/2020',
-      to: '03/2025',
-      unit: 'Công ty Cổ phần Techcom Hà Nội',
-      role: 'Kỹ sư Vận hành',
-      salary: '12.000.000'
-    }
+    { from: '04/2025', to: '02/2026', unit: 'Công nghệ TNHH EO TECHNICS Việt Nam', role: 'Nhân viên Kỹ thuật' },
+    { from: '04/2025', to: '02/2026', unit: 'Công nghệ TNHH EO TECHNICS Việt Nam', role: 'Nhân viên Kỹ thuật' },
   ];
 
+  const S = {
+    root: { width: '100%', height: '100%', background: '#ffffff', display: 'flex', flexDirection: 'column', fontFamily: 'Inter, sans-serif', overflow: 'hidden' },
+    // Header: blue #0069ad (same as dashboard)
+    header: { width: '100%', height: '67px', background: '#0069ad', display: 'flex', alignItems: 'center', padding: '0 14px', flexShrink: 0 },
+    backBtn: { marginRight: '16px', cursor: 'pointer' },
+    headerTitle: { fontSize: '20px', fontWeight: '400', color: '#ffffff', fontFamily: 'Inter', flex: 1, textAlign: 'center', marginRight: '30px' },
+    // Tabs row: 5 icon+label tabs
+    tabsRow: { display: 'flex', borderBottom: '1px solid #e0e0e0', background: '#ffffff', flexShrink: 0, padding: '8px 4px 0' },
+    tab: { flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', padding: '0 2px 8px', cursor: 'pointer' },
+    tabLabel: { fontSize: '11px', textAlign: 'center', lineHeight: '1.2', fontFamily: 'Inter', whiteSpace: 'pre-line' },
+    tabLabelActive: { color: '#0069ad', fontWeight: '600' },
+    tabLabelInactive: { color: '#888888' },
+    // Content
+    content: { flex: 1, overflowY: 'auto', padding: '12px 16px' },
+    // Summary box
+    summaryBox: { border: '1px solid #c8c5c5', padding: '12px', marginBottom: '10px', background: '#ffffff' },
+    summaryTitle: { fontSize: '14px', fontWeight: '400', color: '#0069ad', fontFamily: 'Inter', marginBottom: '6px' },
+    summaryRow: { fontSize: '13px', fontFamily: 'Inter', color: '#3f3f3f', marginBottom: '2px' },
+    summaryRowRed: { fontSize: '13px', fontFamily: 'Inter', color: '#c1191a', fontWeight: '700' },
+    // Table
+    table: { border: '1px solid #c8c5c5', background: '#ffffff', width: '100%', borderCollapse: 'collapse' },
+    theadRow: { background: '#3f6fa8', display: 'flex' },
+    th: { fontSize: '12px', fontWeight: '400', color: '#ffffff', fontFamily: 'Inter', textAlign: 'center', padding: '8px 4px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRight: '1px solid rgba(255,255,255,0.3)' },
+    tdRow: { display: 'flex', borderBottom: '1px solid #c8c5c5', cursor: 'pointer' },
+    td: { fontSize: '12px', color: '#3f3f3f', fontFamily: 'Inter', textAlign: 'center', padding: '10px 4px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRight: '1px solid #c8c5c5', flexWrap: 'wrap' },
+    // Bottom nav
+    bottomNav: { width: '100%', height: '65px', background: '#d9d9d9', display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexShrink: 0 },
+    navItem: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', flex: 1, cursor: 'pointer' },
+    navLabel: { fontSize: '11px', color: '#3f3f3f', fontFamily: 'Inter' },
+    navLabelActive: { fontSize: '11px', color: '#0069ad', fontFamily: 'Inter', fontWeight: '600' },
+  };
+
+  const eyeIcon = (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="#0069ad" strokeWidth="1.5"/>
+      <circle cx="12" cy="12" r="3" stroke="#0069ad" strokeWidth="1.5"/>
+    </svg>
+  );
+
+  const colFromTo = { width: '50px', flexShrink: 0 };
+  const colUnit = { flex: 1 };
+  const colRole = { width: '65px', flexShrink: 0 };
+  const colView = { width: '32px', flexShrink: 0 };
+
   return (
-    <div className="relative flex flex-col w-full h-full bg-[#f4f7f9] select-none overflow-hidden">
+    <div style={S.root}>
       {/* Header */}
-      <div className="w-full bg-[#0069ad] px-4 pt-10 pb-3 text-white flex items-center shadow-md shrink-0">
-        <button
-          onClick={() => onNavigate('dashboard')}
-          className="p-1 hover:bg-white/10 rounded-full transition-colors active:scale-95"
-        >
-          <IconChevronLeft className="w-6 h-6" />
-        </button>
-        <span className="flex-1 text-[16px] font-semibold tracking-wider text-center uppercase mr-7">
-          Quản lý cá nhân
-        </span>
+      <div style={S.header}>
+        <div style={S.backBtn} onClick={() => onNavigate('dashboard')}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18l-6-6 6-6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <span style={S.headerTitle}>QUẢN LÝ CÁ NHÂN</span>
       </div>
 
-      {/* Tabs - BHXH, BHTN, BHTNLĐ- BNN, BHYT, C14-TS */}
-      <div className="w-full bg-white border-b border-gray-200 overflow-x-auto flex shrink-0" style={{ scrollbarWidth: 'none' }}>
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex-1 min-w-[70px] py-3 text-[12px] font-bold text-center border-b-2 transition-all duration-200 whitespace-nowrap px-1 ${
-              activeTab === tab.id
-                ? 'border-[#0069ad] text-[#0069ad]'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            {tab.name}
-          </button>
-        ))}
+      {/* Tabs with icons */}
+      <div style={S.tabsRow}>
+        {tabs.map((label, i) => {
+          const active = activeTab === tabIds[i];
+          return (
+            <div key={i} style={S.tab} onClick={() => setActiveTab(tabIds[i])}>
+              <div style={{ opacity: active ? 1 : 0.5 }}>{tabIcons[i]}</div>
+              <span style={{ ...S.tabLabel, ...(active ? S.tabLabelActive : S.tabLabelInactive) }}>{label}</span>
+              {active && <div style={{ position: 'absolute', bottom: 0, width: '20%', height: '2px', background: '#0069ad' }} />}
+            </div>
+          );
+        })}
       </div>
 
       {/* Content */}
-      <div className="flex-1 p-3 overflow-y-auto space-y-3">
+      <div style={S.content}>
         {activeTab === 'BHXH' ? (
           <>
-            {/* Summary box - Rectangle 13 */}
-            <div className="w-full bg-[#f6f5f3] rounded-[8px] p-3 border border-[#c8c5c5] shadow-sm">
-              <h3 className="text-[13px] font-bold text-[#38679f] border-b border-[#e2e2df] pb-1.5 mb-2">
-                Quá trình tham gia Bảo hiểm xã hội
-              </h3>
-              <div className="space-y-1 text-[12.5px]">
-                <div className="flex justify-between">
-                  <span className="text-gray-600 font-semibold">Tổng thời gian tham gia:</span>
-                  <span className="font-bold text-gray-900">5 năm 7 tháng</span>
-                </div>
-                <div className="flex justify-between text-[#c1191a]">
-                  <span className="font-semibold">Tổng thời gian chậm đóng:</span>
-                  <span className="font-extrabold">0 tháng</span>
-                </div>
-              </div>
+            {/* Summary box */}
+            <div style={S.summaryBox}>
+              <div style={S.summaryTitle}>Quá trình tham gia Bảo hiểm xã hội</div>
+              <div style={S.summaryRow}>Tổng thời gian tham gia: 5 năm 7 tháng</div>
+              <div style={S.summaryRowRed}>Tổng thời gian chậm đóng: 0 tháng</div>
             </div>
 
-            {/* Table - Rectangle 14 */}
-            <div className="w-full bg-white rounded-[8px] border border-gray-200 shadow-sm overflow-hidden">
-              {/* Table header */}
-              <div className="flex w-full bg-[#38679f] text-white text-[11px] font-bold text-center" style={{ minHeight: '38px' }}>
-                <div className="w-[55px] border-r border-[#4f7eb8] flex items-center justify-center shrink-0 p-1">Từ tháng</div>
-                <div className="w-[55px] border-r border-[#4f7eb8] flex items-center justify-center shrink-0 p-1">Đến tháng</div>
-                <div className="flex-1 border-r border-[#4f7eb8] flex items-center justify-center p-1">Đơn vị đóng</div>
-                <div className="w-[70px] border-r border-[#4f7eb8] flex items-center justify-center shrink-0 p-1">Chức vụ</div>
-                <div className="w-[32px] flex items-center justify-center shrink-0">Xem</div>
+            {/* Table */}
+            <div style={{ border: '1px solid #c8c5c5', background: '#ffffff', width: '100%', overflow: 'hidden' }}>
+              {/* Header */}
+              <div style={{ display: 'flex', background: '#3f6fa8' }}>
+                <div style={{ ...S.th, ...colFromTo }}>Từ tháng</div>
+                <div style={{ ...S.th, ...colFromTo }}>Đến tháng</div>
+                <div style={{ ...S.th, ...colUnit }}>Đơn vị</div>
+                <div style={{ ...S.th, ...colRole }}>Nghề nghiệp Chức vụ</div>
+                <div style={{ ...S.th, ...colView, borderRight: 'none' }}></div>
               </div>
 
-              {/* Table rows */}
-              <div className="flex flex-col divide-y divide-gray-200">
-                {rows.map((row) => (
-                  <div
-                    key={row.id}
-                    onClick={() => onNavigate('salary-detail', { rowData: row })}
-                    className="flex w-full text-[11px] font-semibold text-[#3f3f3f] text-center items-stretch hover:bg-blue-50/50 active:bg-blue-50 cursor-pointer transition-colors duration-150"
-                    style={{ minHeight: '55px' }}
-                  >
-                    <div className="w-[55px] border-r border-gray-200 flex items-center justify-center font-bold shrink-0 p-1">{row.from}</div>
-                    <div className="w-[55px] border-r border-gray-200 flex items-center justify-center font-bold shrink-0 p-1">{row.to}</div>
-                    <div className="flex-1 border-r border-gray-200 flex items-center justify-start p-1.5 text-left leading-snug">{row.unit}</div>
-                    <div className="w-[70px] border-r border-gray-200 flex items-center justify-center shrink-0 p-1 leading-snug text-center">{row.role}</div>
-                    <div className="w-[32px] flex items-center justify-center shrink-0">
-                      <button className="p-1 hover:bg-blue-100 rounded-full transition-colors">
-                        <IconEye className="w-[16px] h-[16px] text-[#0069ad]" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              {/* Rows */}
+              {rows.map((row, i) => (
+                <div
+                  key={i}
+                  style={{ display: 'flex', borderTop: '1px solid #c8c5c5', cursor: 'pointer' }}
+                  onClick={() => onNavigate('salary-detail', { rowData: row })}
+                >
+                  <div style={{ ...S.td, ...colFromTo }}>{row.from}</div>
+                  <div style={{ ...S.td, ...colFromTo }}>{row.to}</div>
+                  <div style={{ ...S.td, ...colUnit, textAlign: 'left', padding: '10px 6px' }}>{row.unit}</div>
+                  <div style={{ ...S.td, ...colRole }}>{row.role}</div>
+                  <div style={{ ...S.td, ...colView, borderRight: 'none' }}>{eyeIcon}</div>
+                </div>
+              ))}
             </div>
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center h-40 text-gray-400 bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <span className="text-[13px] font-bold text-gray-500">Chưa có dữ liệu cho mục {activeTab}</span>
+          <div style={{ padding: '40px 0', textAlign: 'center', color: '#888', fontSize: '14px', fontFamily: 'Inter' }}>
+            Chưa có dữ liệu
           </div>
         )}
       </div>
 
-      {/* Bottom Nav Bar */}
-      <div className="w-full bg-[#e2e8f0] border-t border-gray-300/80 flex items-center justify-around h-[60px] px-2 text-[#0069ad] shrink-0">
-        <button
-          onClick={() => alert('Tin tức đang cập nhật!')}
-          className="flex flex-col items-center justify-center flex-1 h-full py-1 hover:bg-gray-200/50 transition-colors active:scale-95"
-        >
-          <IconFolder className="w-5 h-5 text-gray-500 opacity-60" />
-          <span className="text-[10px] font-bold mt-0.5 text-gray-500">Tin tức</span>
-        </button>
-
-        <button
-          onClick={() => alert('Dịch vụ công trực tuyến!')}
-          className="flex flex-col items-center justify-center flex-1 h-full py-1 hover:bg-gray-200/50 transition-colors active:scale-95"
-        >
-          <IconKey className="w-5 h-5 text-gray-500 opacity-60" />
-          <span className="text-[10px] font-bold mt-0.5 text-gray-500">DVC</span>
-        </button>
-
-        <button
-          onClick={() => onNavigate('dashboard')}
-          className="flex flex-col items-center justify-center flex-1 h-full py-1 bg-white/80 border-t-2 border-[#0069ad] relative active:scale-95"
-        >
-          <IconHome className="w-6 h-6 text-[#0069ad]" />
-          <span className="text-[10px] font-extrabold mt-0.5 text-[#0069ad]">Quản lý cá nhân</span>
-        </button>
-
-        <button
-          onClick={() => onNavigate('login')}
-          className="flex flex-col items-center justify-center flex-1 h-full py-1 hover:bg-gray-200/50 transition-colors active:scale-95"
-        >
-          <IconSignOut className="w-5 h-5 text-red-500 opacity-80" />
-          <span className="text-[10px] font-bold mt-0.5 text-red-500 opacity-80">Đăng xuất</span>
-        </button>
+      {/* Bottom nav */}
+      <div style={S.bottomNav}>
+        <div style={S.navItem} onClick={() => onNavigate('dashboard')}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#0069ad" strokeWidth="1.5"/><path d="M8 10h8M8 14h5" stroke="#0069ad" strokeWidth="1.5" strokeLinecap="round"/></svg>
+          <span style={S.navLabelActive}>QL cá nhân</span>
+        </div>
+        <div style={S.navItem}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#616161" strokeWidth="1.5" fill="none"/><line x1="7" y1="9" x2="17" y2="9" stroke="#616161" strokeWidth="1.5" strokeLinecap="round"/><line x1="7" y1="13" x2="13" y2="13" stroke="#616161" strokeWidth="1.5" strokeLinecap="round"/></svg>
+          <span style={S.navLabel}>Dịch vụ công</span>
+        </div>
+        <div style={S.navItem}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#616161" strokeWidth="1.5"/><path d="M16.5 16.5l4 4" stroke="#616161" strokeWidth="1.5" strokeLinecap="round"/></svg>
+          <span style={S.navLabel}>Tra cứu</span>
+        </div>
+        <div style={S.navItem}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 18v-6a9 9 0 0 1 18 0v6" stroke="#616161" strokeWidth="1.5" strokeLinecap="round"/><rect x="3" y="16" width="4" height="6" rx="1" stroke="#616161" strokeWidth="1.5" fill="none"/><rect x="17" y="16" width="4" height="6" rx="1" stroke="#616161" strokeWidth="1.5" fill="none"/></svg>
+          <span style={S.navLabel}>Trợ giúp</span>
+        </div>
       </div>
     </div>
   );

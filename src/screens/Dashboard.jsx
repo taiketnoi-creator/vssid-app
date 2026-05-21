@@ -1,199 +1,236 @@
 import React from 'react';
 import avatarImg from '../assets/avatar.png';
-import { IconBurger, IconBell, IconChevronRight, IconHome, IconSignOut, IconKey, IconFolder } from '../components/SVGIcon';
 
-// Dashboard-specific icons using Figma's exact vector colors
-const IconCard = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none">
-    <rect x="2" y="5" width="20" height="14" rx="2.5" fill="#0069ad"/>
-    <rect x="2" y="9" width="20" height="3" fill="#005291"/>
-    <rect x="5" y="15" width="5" height="1.5" rx="0.75" fill="white"/>
-    <rect x="12" y="15" width="5" height="1.5" rx="0.75" fill="white"/>
+// Bottom nav icons exported from Figma (Group 2 / 3 1 bottom bar)
+const navBhytIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <circle cx="14" cy="14" r="12" stroke="#0069ad" strokeWidth="1.5" fill="none"/>
+    <path d="M9 14h10M14 9v10" stroke="#0069ad" strokeWidth="1.5" strokeLinecap="round"/>
   </svg>
 );
 
-const IconClock = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none">
-    <circle cx="12" cy="12" r="9" fill="#ff9800"/>
-    <path d="M12 7v5l3 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+// Chevron right (Vector 3/4/5/6: 8x17, stroke #616161 1.5)
+const ChevronRight = () => (
+  <svg width="8" height="17" viewBox="0 0 8 17" fill="none">
+    <path d="M1 1l6 7.5L1 16" stroke="#616161" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
-const IconDocument = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none">
-    <rect x="5" y="2" width="14" height="20" rx="2" fill="#4caf50"/>
-    <line x1="8" y1="8" x2="16" y2="8" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-    <line x1="8" y1="12" x2="16" y2="12" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-    <line x1="8" y1="16" x2="13" y2="16" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+// Bottom nav icons matching "3 1" image bar (Group 2 in Figma)
+const NavIcon1 = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="10" stroke="#0069ad" strokeWidth="1.5"/>
+    <path d="M8 10h8M8 14h5" stroke="#0069ad" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+const NavIcon2 = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <rect x="3" y="4" width="18" height="16" rx="2" stroke="#616161" strokeWidth="1.5" fill="none"/>
+    <line x1="7" y1="9" x2="17" y2="9" stroke="#616161" strokeWidth="1.5" strokeLinecap="round"/>
+    <line x1="7" y1="13" x2="13" y2="13" stroke="#616161" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+const NavIcon3 = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <circle cx="11" cy="11" r="7" stroke="#616161" strokeWidth="1.5"/>
+    <path d="M16.5 16.5l4 4" stroke="#616161" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+const NavIcon4 = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="8" r="3" stroke="#616161" strokeWidth="1.5"/>
+    <path d="M6 20v-1a6 6 0 0 1 12 0v1" stroke="#616161" strokeWidth="1.5" strokeLinecap="round"/>
+    <circle cx="19" cy="6" r="2" fill="#0069ad"/>
+    <path d="M18 6h2M19 5v2" stroke="white" strokeWidth="1" strokeLinecap="round"/>
   </svg>
 );
 
-const IconBook = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none">
-    <path d="M4 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16l-7-3-7 3V4z" fill="#e91e63"/>
-    <line x1="9" y1="8" x2="15" y2="8" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-    <line x1="9" y1="12" x2="13" y2="12" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-);
+const menuItems = [
+  { title: 'THẺ BHYT',           action: null },
+  { title: 'QUÁ TRÌNH THAM GIA', action: 'insurance-list' },
+  { title: 'THÔNG TIN HƯỞNG',    action: null },
+  { title: 'SỔ KHÁM CHỮA BỆNH', action: null },
+];
 
 const Dashboard = ({ onOpenSidebar, onNavigate }) => {
-  const profileInfo = {
-    name: 'Nguyễn Hữu Hoàng',
-    id: '4217247030',
-    dob: '24/05/1999',
-    cccd: '040299010346',
-    phone: '0896511373',
-    address: 'xóm Đông Lam, Xã Trường Lưu,'
+  const S = {
+    root: { width: '100%', height: '100%', background: '#ffffff', display: 'flex', flexDirection: 'column', fontFamily: 'Inter, sans-serif', overflow: 'hidden' },
+    // Header: Rectangle 7 (403x67, gradient #0069ad image) — replicate with solid blue
+    header: {
+      width: '100%', height: '67px', background: '#0069ad',
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '0 14px', flexShrink: 0
+    },
+    headerTitle: { fontSize: '20px', fontWeight: '400', color: '#ffffff', fontFamily: 'Inter', letterSpacing: '0.5px' },
+    // Hamburger (Group 1: 3 rectangles 25x3 white)
+    hamburger: { display: 'flex', flexDirection: 'column', gap: '5px', cursor: 'pointer', padding: '4px' },
+    hamburgerLine: { width: '25px', height: '3px', background: '#ffffff', borderRadius: '1px' },
+    // Bell vector (white, 24x26)
+    bellWrap: { cursor: 'pointer' },
+    // Content area (scrollable)
+    content: { flex: 1, overflowY: 'auto', padding: '20px 19px 0' },
+    // Profile card: Rectangle 11 (364x276, fill #eaeff3)
+    card: { width: '364px', background: '#eaeff3', padding: '18px 18px 12px', marginBottom: '12px' },
+    // Avatar row: Ellipse 6 (62x62, fill #d9d9d9, shadow)
+    avatarRow: { display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: '12px' },
+    avatar: {
+      width: '62px', height: '62px', borderRadius: '50%',
+      background: '#d9d9d9', overflow: 'hidden', flexShrink: 0,
+      boxShadow: '0px 2px 4px rgba(0,0,0,0.25)'
+    },
+    name: { fontSize: '14px', fontWeight: '700', color: '#000000', fontFamily: 'Inter', marginBottom: '2px' },
+    bhxhCode: { fontSize: '14px', fontWeight: '400', color: '#4d4d4d', fontFamily: 'Inter' },
+    // Divider: Line (width varies, stroke #948c8c 1px) — full width here
+    divider: { height: '1px', background: '#948c8c', margin: '0', width: '100%' },
+    // Info rows (fs=14, Regular, #616161)
+    infoRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', fontSize: '14px', color: '#616161', fontFamily: 'Inter' },
+    // Menu items: each row with icon (69x60) + text (fs=17, Regular, #3f3f3f) + chevron
+    menuWrap: { flex: 1, overflow: 'hidden' },
+    menuItem: {
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '18px 19px', borderBottom: '1px solid #c8c5c5', cursor: 'pointer',
+      background: '#ffffff'
+    },
+    menuLeft: { display: 'flex', alignItems: 'center', gap: '12px' },
+    menuIcon: { width: '34px', height: '34px', flexShrink: 0 },
+    menuText: { fontSize: '17px', fontWeight: '400', color: '#3f3f3f', fontFamily: 'Inter' },
+    // Bottom nav: Group 2 (402x65, fill #d9d9d9) with "3 1" image (402x50)
+    bottomNav: {
+      width: '100%', height: '65px', background: '#d9d9d9',
+      display: 'flex', alignItems: 'center', justifyContent: 'space-around',
+      flexShrink: 0
+    },
+    navItem: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', flex: 1, cursor: 'pointer' },
+    navLabel: { fontSize: '11px', color: '#3f3f3f', fontFamily: 'Inter' },
+    navLabelActive: { fontSize: '11px', color: '#0069ad', fontFamily: 'Inter', fontWeight: '600' },
   };
 
-  const menuItems = [
-    {
-      title: 'THẺ BHYT',
-      icon: <IconCard className="w-8 h-8" />,
-      action: () => alert('Tính năng Thẻ BHYT đang được phát triển!')
-    },
-    {
-      title: 'QUÁ TRÌNH THAM GIA',
-      icon: <IconClock className="w-8 h-8" />,
-      action: () => onNavigate('insurance-list')
-    },
-    {
-      title: 'THÔNG TIN HƯỞNG',
-      icon: <IconDocument className="w-8 h-8" />,
-      action: () => alert('Tính năng Thông tin hưởng đang được phát triển!')
-    },
-    {
-      title: 'SỔ KHÁM CHỮA BỆNH',
-      icon: <IconBook className="w-8 h-8" />,
-      action: () => alert('Tính năng Sổ khám chữa bệnh đang được phát triển!')
-    }
+  const menuIcons = [
+    // THẺ BHYT icon
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <circle cx="17" cy="17" r="16" stroke="#0069ad" strokeWidth="1.5" fill="none"/>
+      <rect x="8" y="13" width="18" height="11" rx="2" stroke="#0069ad" strokeWidth="1.5" fill="none"/>
+      <line x1="8" y1="17" x2="26" y2="17" stroke="#0069ad" strokeWidth="1.5"/>
+    </svg>,
+    // QUÁ TRÌNH icon
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <circle cx="17" cy="17" r="16" stroke="#0069ad" strokeWidth="1.5" fill="none"/>
+      <path d="M17 11v6l4 4" stroke="#0069ad" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M9 17a8 8 0 1 0 8-8" stroke="#0069ad" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>,
+    // THÔNG TIN HƯỞNG icon
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <circle cx="17" cy="17" r="16" stroke="#0069ad" strokeWidth="1.5" fill="none"/>
+      <circle cx="17" cy="13" r="3" stroke="#0069ad" strokeWidth="1.5" fill="none"/>
+      <path d="M10 26v-1a7 7 0 0 1 14 0v1" stroke="#0069ad" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>,
+    // SỔ KHÁM icon
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+      <circle cx="17" cy="17" r="16" stroke="#0069ad" strokeWidth="1.5" fill="none"/>
+      <path d="M12 9h14v18H12z" stroke="#0069ad" strokeWidth="1.5" fill="none"/>
+      <line x1="8" y1="9" x2="12" y2="9" stroke="#0069ad" strokeWidth="1.5"/>
+      <line x1="8" y1="27" x2="12" y2="27" stroke="#0069ad" strokeWidth="1.5"/>
+      <line x1="8" y1="9" x2="8" y2="27" stroke="#0069ad" strokeWidth="1.5"/>
+    </svg>
   ];
 
   return (
-    <div className="relative flex flex-col w-full h-full bg-[#f4f7f9] select-none overflow-hidden">
-      {/* Blue Header bar */}
-      <div className="w-full bg-[#0069ad] px-4 pt-10 pb-4 text-white flex items-center justify-between shadow-md shrink-0">
-        <button
-          onClick={onOpenSidebar}
-          className="p-1 hover:bg-white/10 rounded-full transition-colors active:scale-95"
-        >
-          <IconBurger className="w-6 h-6" />
-        </button>
-        <span className="text-[16px] font-semibold tracking-wider uppercase">
-          Quản lý cá nhân
-        </span>
-        <button className="relative p-1 hover:bg-white/10 rounded-full transition-colors">
-          <IconBell className="w-6 h-6" />
-          <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-[#0069ad]" />
-        </button>
-      </div>
-
-      {/* Scrollable main content */}
-      <div className="flex-1 overflow-y-auto">
-
-        {/* Profile Card - Rectangle 11 from Figma */}
-        <div className="mx-4 mt-4 bg-[#eaeff3] rounded-[10px] shadow-sm border border-[#d2dfeb] overflow-hidden">
-
-          {/* Top section: Avatar + Name + Code */}
-          <div className="flex items-center gap-3 p-4 pb-3">
-            {/* Avatar - 4 1 from Figma (Ellipse 6 shape) */}
-            <div className="relative shrink-0">
-              <img
-                src={avatarImg}
-                alt="avatar"
-                className="w-[62px] h-[62px] rounded-full object-cover border-2 border-white shadow"
-              />
-              <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-[#eaeff3] rounded-full" />
-            </div>
-
-            <div className="flex flex-col min-w-0">
-              <h2 className="text-[15px] font-bold text-gray-900 leading-tight">{profileInfo.name}</h2>
-              <span className="text-[12px] font-semibold text-gray-500 mt-0.5 select-all">
-                Mã BHXH: {profileInfo.id}
-              </span>
-            </div>
-          </div>
-
-          {/* Separator line */}
-          <div className="h-px bg-[#c8c5c5] mx-4" />
-
-          {/* Profile details rows */}
-          <div className="px-4 py-3 space-y-2 text-[13px]">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-500">Ngày sinh:</span>
-              <span className="font-semibold text-gray-800">{profileInfo.dob}</span>
-            </div>
-            <div className="h-px bg-[#c8c5c5]" />
-            <div className="flex justify-between items-center">
-              <span className="text-gray-500">ĐDCN/CCCD/Hộ chiếu:</span>
-              <span className="font-semibold text-gray-800 select-all">{profileInfo.cccd}</span>
-            </div>
-            <div className="h-px bg-[#c8c5c5]" />
-            <div className="flex justify-between items-center">
-              <span className="text-gray-500">Số điện thoại:</span>
-              <span className="font-semibold text-gray-800 select-all">{profileInfo.phone}</span>
-            </div>
-            <div className="h-px bg-[#c8c5c5]" />
-            <div className="flex flex-col gap-0.5">
-              <span className="text-gray-500">Địa chỉ:</span>
-              <span className="font-semibold text-gray-800 break-words">{profileInfo.address}</span>
-            </div>
-          </div>
+    <div style={S.root}>
+      {/* Header */}
+      <div style={S.header}>
+        {/* Hamburger menu (Group 1: 3 rectangles) */}
+        <div style={S.hamburger} onClick={onOpenSidebar}>
+          <div style={S.hamburgerLine} />
+          <div style={S.hamburgerLine} />
+          <div style={S.hamburgerLine} />
         </div>
-
-        {/* Menu list - white card with dividers */}
-        <div className="mx-4 mt-3 mb-4 bg-white rounded-[10px] shadow-sm border border-gray-200 overflow-hidden divide-y divide-[#c8c5c5]">
-          {menuItems.map((item, idx) => (
-            <button
-              key={idx}
-              onClick={item.action}
-              className="flex items-center justify-between w-full p-4 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150"
-            >
-              <div className="flex items-center gap-3">
-                {item.icon}
-                <span className="text-[14px] font-bold text-[#3f3f3f] tracking-wide">
-                  {item.title}
-                </span>
-              </div>
-              <IconChevronRight className="w-5 h-5 text-gray-400 shrink-0" />
-            </button>
-          ))}
+        {/* Title: "QUẢN LÝ CÁ NHÂN" */}
+        <span style={S.headerTitle}>QUẢN LÝ CÁ NHÂN</span>
+        {/* Bell icon (Vector: 24x26, fill white) */}
+        <div style={S.bellWrap}>
+          <svg width="24" height="26" viewBox="0 0 24 24" fill="white">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="white" strokeWidth="2" fill="none"/>
+          </svg>
         </div>
       </div>
 
-      {/* Bottom Nav Bar */}
-      <div className="w-full bg-[#e2e8f0] border-t border-gray-300/80 flex items-center justify-around h-[60px] px-2 text-[#0069ad] shrink-0">
-        <button
-          onClick={() => alert('Tin tức đang cập nhật!')}
-          className="flex flex-col items-center justify-center flex-1 h-full py-1 hover:bg-gray-200/50 transition-colors active:scale-95"
-        >
-          <IconFolder className="w-5 h-5 opacity-50 text-gray-600" />
-          <span className="text-[10px] font-bold mt-0.5 text-gray-500">Tin tức</span>
-        </button>
+      {/* Scrollable content */}
+      <div style={S.content}>
+        {/* Profile card: Rectangle 11 (364x276, #eaeff3) */}
+        <div style={S.card}>
+          <div style={S.avatarRow}>
+            {/* Ellipse 6 (62x62, fill #d9d9d9, shadow 0 2 4 rgba(0,0,0,0.25)) */}
+            <div style={S.avatar}>
+              <img src={avatarImg} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div>
+              {/* "Nguyễn Hữu Hoàng" fs=14 bold black */}
+              <div style={S.name}>Nguyễn Hữu Hoàng</div>
+              {/* "Mã BHXH: 4217247030" fs=14 regular #4d4d4d */}
+              <div style={S.bhxhCode}>Mã BHXH: 4217247030</div>
+            </div>
+          </div>
 
-        <button
-          onClick={() => alert('Dịch vụ công trực tuyến!')}
-          className="flex flex-col items-center justify-center flex-1 h-full py-1 hover:bg-gray-200/50 transition-colors active:scale-95"
-        >
-          <IconKey className="w-5 h-5 opacity-50 text-gray-600" />
-          <span className="text-[10px] font-bold mt-0.5 text-gray-500">DVC</span>
-        </button>
+          {/* Divider Line 1 (stroke #948c8c 1px) */}
+          <div style={S.divider} />
 
-        <button
-          onClick={() => onNavigate('dashboard')}
-          className="flex flex-col items-center justify-center flex-1 h-full py-1 bg-white/80 border-t-2 border-[#0069ad] relative active:scale-95"
-        >
-          <IconHome className="w-6 h-6 text-[#0069ad]" />
-          <span className="text-[10px] font-extrabold mt-0.5 text-[#0069ad]">Quản lý cá nhân</span>
-        </button>
+          {/* Info rows (fs=14, Regular, #616161) */}
+          <div style={S.infoRow}>
+            <span>Ngày sinh</span>
+            <span>24/05/1999</span>
+          </div>
+          <div style={S.divider} />
+          <div style={S.infoRow}>
+            <span>ĐDCN/CCCD/Hộ chiếu</span>
+            <span>040299010346</span>
+          </div>
+          <div style={S.divider} />
+          <div style={S.infoRow}>
+            <span>Số điện thoại</span>
+            <span>0896511373</span>
+          </div>
+          <div style={S.divider} />
+          <div style={S.infoRow}>
+            <span>Địa chỉ</span>
+            <span style={{ textAlign: 'right', maxWidth: '210px' }}>xóm Đông Lam, Xã Trường Lưu,</span>
+          </div>
+        </div>
 
-        <button
-          onClick={() => onNavigate('login')}
-          className="flex flex-col items-center justify-center flex-1 h-full py-1 hover:bg-gray-200/50 transition-colors active:scale-95"
-        >
-          <IconSignOut className="w-5 h-5 text-red-500 opacity-80" />
-          <span className="text-[10px] font-bold mt-0.5 text-red-500 opacity-80">Đăng xuất</span>
-        </button>
+        {/* Menu items */}
+        {menuItems.map((item, i) => (
+          <div
+            key={i}
+            style={{ ...S.menuItem, borderTop: i === 0 ? '1px solid #c8c5c5' : 'none' }}
+            onClick={() => item.action ? onNavigate(item.action) : null}
+          >
+            <div style={S.menuLeft}>
+              <div style={S.menuIcon}>{menuIcons[i]}</div>
+              <span style={S.menuText}>{item.title}</span>
+            </div>
+            <ChevronRight />
+          </div>
+        ))}
+      </div>
+
+      {/* Bottom nav: Group 2 (402x65, fill #d9d9d9) */}
+      <div style={S.bottomNav}>
+        <div style={S.navItem} onClick={() => onNavigate('dashboard')}>
+          <NavIcon1 />
+          <span style={S.navLabelActive}>QL cá nhân</span>
+        </div>
+        <div style={S.navItem}>
+          <NavIcon2 />
+          <span style={S.navLabel}>Dịch vụ công</span>
+        </div>
+        <div style={S.navItem}>
+          <NavIcon3 />
+          <span style={S.navLabel}>Tra cứu</span>
+        </div>
+        <div style={S.navItem}>
+          <NavIcon4 />
+          <span style={S.navLabel}>Trợ giúp</span>
+        </div>
       </div>
     </div>
   );
