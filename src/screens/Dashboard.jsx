@@ -1,18 +1,40 @@
 import React from 'react';
-import { 
-  IconBurger, 
-  IconAvatar, 
-  IconChevronRight, 
-  IconCard, 
-  IconClock, 
-  IconDocument, 
-  IconBook, 
-  IconBell, 
-  IconHome, 
-  IconSignOut, 
-  IconKey, 
-  IconFolder 
-} from '../components/SVGIcon';
+import avatarImg from '../assets/avatar.png';
+import { IconBurger, IconBell, IconChevronRight, IconHome, IconSignOut, IconKey, IconFolder } from '../components/SVGIcon';
+
+// Dashboard-specific icons using Figma's exact vector colors
+const IconCard = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none">
+    <rect x="2" y="5" width="20" height="14" rx="2.5" fill="#0069ad"/>
+    <rect x="2" y="9" width="20" height="3" fill="#005291"/>
+    <rect x="5" y="15" width="5" height="1.5" rx="0.75" fill="white"/>
+    <rect x="12" y="15" width="5" height="1.5" rx="0.75" fill="white"/>
+  </svg>
+);
+
+const IconClock = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="9" fill="#ff9800"/>
+    <path d="M12 7v5l3 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const IconDocument = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none">
+    <rect x="5" y="2" width="14" height="20" rx="2" fill="#4caf50"/>
+    <line x1="8" y1="8" x2="16" y2="8" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+    <line x1="8" y1="12" x2="16" y2="12" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+    <line x1="8" y1="16" x2="13" y2="16" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+
+const IconBook = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none">
+    <path d="M4 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16l-7-3-7 3V4z" fill="#e91e63"/>
+    <line x1="9" y1="8" x2="15" y2="8" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+    <line x1="9" y1="12" x2="13" y2="12" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
 
 const Dashboard = ({ onOpenSidebar, onNavigate }) => {
   const profileInfo = {
@@ -27,156 +49,150 @@ const Dashboard = ({ onOpenSidebar, onNavigate }) => {
   const menuItems = [
     {
       title: 'THẺ BHYT',
-      icon: <IconCard className="w-6 h-6 text-vssid-blue" />,
+      icon: <IconCard className="w-8 h-8" />,
       action: () => alert('Tính năng Thẻ BHYT đang được phát triển!')
     },
     {
       title: 'QUÁ TRÌNH THAM GIA',
-      icon: <IconClock className="w-6 h-6 text-[#ff9800]" />,
+      icon: <IconClock className="w-8 h-8" />,
       action: () => onNavigate('insurance-list')
     },
     {
       title: 'THÔNG TIN HƯỞNG',
-      icon: <IconDocument className="w-6 h-6 text-[#4caf50]" />,
+      icon: <IconDocument className="w-8 h-8" />,
       action: () => alert('Tính năng Thông tin hưởng đang được phát triển!')
     },
     {
       title: 'SỔ KHÁM CHỮA BỆNH',
-      icon: <IconBook className="w-6 h-6 text-[#e91e63]" />,
+      icon: <IconBook className="w-8 h-8" />,
       action: () => alert('Tính năng Sổ khám chữa bệnh đang được phát triển!')
     }
   ];
 
   return (
-    <div className="relative flex flex-col justify-between w-full h-full bg-[#f4f7f9] select-none overflow-hidden">
-      {/* Sleek Blue Header */}
-      <div className="w-full bg-vssid-blue px-4 pt-8 pb-4 text-white flex items-center justify-between shadow-md">
-        <button 
+    <div className="relative flex flex-col w-full h-full bg-[#f4f7f9] select-none overflow-hidden">
+      {/* Blue Header bar */}
+      <div className="w-full bg-[#0069ad] px-4 pt-10 pb-4 text-white flex items-center justify-between shadow-md shrink-0">
+        <button
           onClick={onOpenSidebar}
-          className="p-1 hover:bg-blue-700/50 rounded-full transition-colors active:scale-95"
+          className="p-1 hover:bg-white/10 rounded-full transition-colors active:scale-95"
         >
           <IconBurger className="w-6 h-6" />
         </button>
-        <span className="text-[17px] font-semibold tracking-wider uppercase">
+        <span className="text-[16px] font-semibold tracking-wider uppercase">
           Quản lý cá nhân
         </span>
-        <button className="relative p-1 hover:bg-blue-700/50 rounded-full transition-colors">
+        <button className="relative p-1 hover:bg-white/10 rounded-full transition-colors">
           <IconBell className="w-6 h-6" />
-          <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-vssid-blue"></span>
+          <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-[#0069ad]" />
         </button>
       </div>
 
-      {/* Main Content Area */}
-      <div className="flex-1 px-4 py-4 overflow-y-auto space-y-4">
-        
-        {/* Profile Card Container (Rectangle 11) */}
-        <div className="w-full bg-[#eaeff3] rounded-[10px] p-4 shadow-sm border border-[#d2dfeb] relative overflow-hidden">
-          {/* Subtle elegant curve/pattern background overlay */}
-          <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-y-4 translate-x-4">
-            <svg width="200" height="200" viewBox="0 0 100 100" fill="none">
-              <circle cx="100" cy="100" r="80" stroke="#0069ad" strokeWidth="10" />
-              <circle cx="100" cy="100" r="50" stroke="#0069ad" strokeWidth="5" />
-            </svg>
-          </div>
+      {/* Scrollable main content */}
+      <div className="flex-1 overflow-y-auto">
 
-          <div className="flex items-start gap-4">
-            {/* Avatar */}
-            <div className="relative cursor-pointer group">
-              <IconAvatar className="w-[62px] h-[62px] rounded-full shadow-md border-2 border-white group-hover:border-vssid-blue transition-colors duration-300" />
-              <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-[#eaeff3] rounded-full"></span>
+        {/* Profile Card - Rectangle 11 from Figma */}
+        <div className="mx-4 mt-4 bg-[#eaeff3] rounded-[10px] shadow-sm border border-[#d2dfeb] overflow-hidden">
+
+          {/* Top section: Avatar + Name + Code */}
+          <div className="flex items-center gap-3 p-4 pb-3">
+            {/* Avatar - 4 1 from Figma (Ellipse 6 shape) */}
+            <div className="relative shrink-0">
+              <img
+                src={avatarImg}
+                alt="avatar"
+                className="w-[62px] h-[62px] rounded-full object-cover border-2 border-white shadow"
+              />
+              <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-[#eaeff3] rounded-full" />
             </div>
 
-            {/* Profile Info Summary */}
-            <div className="flex-1 flex flex-col min-w-0">
-              <h2 className="text-[15px] font-bold text-gray-900 leading-tight">
-                {profileInfo.name}
-              </h2>
-              <span className="text-[13px] font-semibold text-gray-600 mt-1 select-all bg-white/50 px-2 py-0.5 rounded border border-gray-200/50 self-start">
+            <div className="flex flex-col min-w-0">
+              <h2 className="text-[15px] font-bold text-gray-900 leading-tight">{profileInfo.name}</h2>
+              <span className="text-[12px] font-semibold text-gray-500 mt-0.5 select-all">
                 Mã BHXH: {profileInfo.id}
               </span>
             </div>
           </div>
 
-          {/* Separation line */}
-          <div className="h-px bg-[#c8d8e4] my-3"></div>
+          {/* Separator line */}
+          <div className="h-px bg-[#c8c5c5] mx-4" />
 
-          {/* Profile Details */}
-          <div className="space-y-2.5 text-[13px] font-medium text-gray-700">
+          {/* Profile details rows */}
+          <div className="px-4 py-3 space-y-2 text-[13px]">
             <div className="flex justify-between items-center">
               <span className="text-gray-500">Ngày sinh:</span>
               <span className="font-semibold text-gray-800">{profileInfo.dob}</span>
             </div>
+            <div className="h-px bg-[#c8c5c5]" />
             <div className="flex justify-between items-center">
-              <span className="text-gray-500">Số CCCD:</span>
-              <span className="font-semibold text-gray-800">{profileInfo.cccd}</span>
+              <span className="text-gray-500">ĐDCN/CCCD/Hộ chiếu:</span>
+              <span className="font-semibold text-gray-800 select-all">{profileInfo.cccd}</span>
             </div>
+            <div className="h-px bg-[#c8c5c5]" />
             <div className="flex justify-between items-center">
               <span className="text-gray-500">Số điện thoại:</span>
-              <span className="font-semibold text-gray-800">{profileInfo.phone}</span>
+              <span className="font-semibold text-gray-800 select-all">{profileInfo.phone}</span>
             </div>
+            <div className="h-px bg-[#c8c5c5]" />
             <div className="flex flex-col gap-0.5">
               <span className="text-gray-500">Địa chỉ:</span>
-              <span className="font-semibold text-gray-800 break-words leading-relaxed select-all">
-                {profileInfo.address}
-              </span>
+              <span className="font-semibold text-gray-800 break-words">{profileInfo.address}</span>
             </div>
           </div>
         </div>
 
-        {/* Dashboard Grid Menu Items */}
-        <div className="bg-white rounded-[10px] shadow-sm border border-gray-200 overflow-hidden divide-y divide-gray-100">
+        {/* Menu list - white card with dividers */}
+        <div className="mx-4 mt-3 mb-4 bg-white rounded-[10px] shadow-sm border border-gray-200 overflow-hidden divide-y divide-[#c8c5c5]">
           {menuItems.map((item, idx) => (
             <button
               key={idx}
               onClick={item.action}
-              className="flex items-center justify-between w-full p-4 hover:bg-gray-50/80 active:bg-gray-100 transition-colors duration-200"
+              className="flex items-center justify-between w-full p-4 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150"
             >
-              <div className="flex items-center gap-3.5">
-                <div className="p-2 bg-gray-50 rounded-lg group-hover:bg-white transition-colors duration-300">
-                  {item.icon}
-                </div>
+              <div className="flex items-center gap-3">
+                {item.icon}
                 <span className="text-[14px] font-bold text-[#3f3f3f] tracking-wide">
                   {item.title}
                 </span>
               </div>
-              <IconChevronRight className="w-5 h-5 text-gray-400" />
+              <IconChevronRight className="w-5 h-5 text-gray-400 shrink-0" />
             </button>
           ))}
         </div>
       </div>
 
-      {/* Premium VssID Bottom Navigation Bar */}
-      <div className="w-full bg-[#e2e8f0] border-t border-gray-300/80 flex items-center justify-around h-[65px] px-2 text-vssid-blue">
-        <button 
+      {/* Bottom Nav Bar */}
+      <div className="w-full bg-[#e2e8f0] border-t border-gray-300/80 flex items-center justify-around h-[60px] px-2 text-[#0069ad] shrink-0">
+        <button
           onClick={() => alert('Tin tức đang cập nhật!')}
           className="flex flex-col items-center justify-center flex-1 h-full py-1 hover:bg-gray-200/50 transition-colors active:scale-95"
         >
-          <IconFolder className="w-5 h-5 opacity-60" />
-          <span className="text-[10px] font-bold mt-1 text-gray-500">Tin tức</span>
+          <IconFolder className="w-5 h-5 opacity-50 text-gray-600" />
+          <span className="text-[10px] font-bold mt-0.5 text-gray-500">Tin tức</span>
         </button>
 
-        <button 
+        <button
           onClick={() => alert('Dịch vụ công trực tuyến!')}
           className="flex flex-col items-center justify-center flex-1 h-full py-1 hover:bg-gray-200/50 transition-colors active:scale-95"
         >
-          <IconKey className="w-5 h-5 opacity-60" />
-          <span className="text-[10px] font-bold mt-1 text-gray-500">DVC</span>
+          <IconKey className="w-5 h-5 opacity-50 text-gray-600" />
+          <span className="text-[10px] font-bold mt-0.5 text-gray-500">DVC</span>
         </button>
 
-        <button 
+        <button
           onClick={() => onNavigate('dashboard')}
-          className="flex flex-col items-center justify-center flex-1 h-full py-1 bg-white/80 border-t-2 border-vssid-blue relative active:scale-95"
+          className="flex flex-col items-center justify-center flex-1 h-full py-1 bg-white/80 border-t-2 border-[#0069ad] relative active:scale-95"
         >
-          <IconHome className="w-6 h-6 text-vssid-blue" />
-          <span className="text-[10px] font-extrabold mt-0.5 text-vssid-blue">Quản lý cá nhân</span>
+          <IconHome className="w-6 h-6 text-[#0069ad]" />
+          <span className="text-[10px] font-extrabold mt-0.5 text-[#0069ad]">Quản lý cá nhân</span>
         </button>
 
-        <button 
+        <button
           onClick={() => onNavigate('login')}
           className="flex flex-col items-center justify-center flex-1 h-full py-1 hover:bg-gray-200/50 transition-colors active:scale-95"
         >
           <IconSignOut className="w-5 h-5 text-red-500 opacity-80" />
-          <span className="text-[10px] font-bold mt-1 text-red-500 opacity-80">Đăng xuất</span>
+          <span className="text-[10px] font-bold mt-0.5 text-red-500 opacity-80">Đăng xuất</span>
         </button>
       </div>
     </div>
