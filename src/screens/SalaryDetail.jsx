@@ -1,45 +1,29 @@
 import React from 'react';
-import icSalaryBack from '../assets/ic_salary_back.png';
+import frameSalary from '../assets/frame_salary.png';
 
-const SalaryDetail = ({ onNavigate, rowData }) => {
-  const data = rowData || {};
+const W = 402;
+const H = 874;
 
+const SalaryDetail = ({ onNavigate }) => {
   return (
-    <div style={{ width: '100%', height: '100%', background: '#ffffff', display: 'flex', flexDirection: 'column', fontFamily: 'Inter, sans-serif', overflow: 'hidden' }}>
-      {/* Header: white bg, blue back arrow (Vector 8, 13:3), "Chi tiết" (13:4) blue italic */}
-      <div style={{ width: '100%', height: '67px', background: '#fff', display: 'flex', alignItems: 'center', padding: '0 14px', flexShrink: 0 }}>
-        <div onClick={() => onNavigate('insurance-list')} style={{ cursor: 'pointer', padding: '4px' }}>
-          <img src={icSalaryBack} alt="" style={{ width: '9px', height: '18px', objectFit: 'contain' }} />
-        </div>
-        <span style={{ flex: 1, fontSize: '20px', color: '#0069ad', textAlign: 'center', marginRight: '30px', fontStyle: 'italic' }}>Chi tiết</span>
-      </div>
+    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+      {/* Full frame background from Figma */}
+      <img src={frameSalary} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} draggable={false} />
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
-        {/* Date row: (13:7) "Từ tháng: 04/2025" left, (13:8) "Đến tháng: 03/2026" right */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontSize: '14px', color: '#3f3f3f' }}>
-          <span>Từ tháng: {data.from || '04/2025'}</span>
-          <span>Đến tháng: {data.to || '03/2026'}</span>
-        </div>
-
-        {/* Blue info card: Rectangle 20 (13:9) bg #3f6fa8 */}
-        <div style={{ background: '#3f6fa8', padding: '14px', color: 'white', fontSize: '13px', lineHeight: 1.6 }}>
-          <div>Chức vụ: <strong>Nhân viên kỹ thuật</strong></div>
-          <div>Đơn vị công tác: <strong>Công ty TNHH EO TECHNICS Việt Nam</strong></div>
-          <div>Nơi làm việc: <strong>BT22, khu đô thị hud võ cường-tp bắc ninh-bắc ninh</strong></div>
-          <div style={{ textAlign: 'center', marginTop: '6px', fontWeight: 700 }}>VND</div>
-        </div>
-
-        {/* Salary table */}
-        <div style={{ border: '1px solid #c8c5c5' }}>
-          <div style={{ display: 'flex', borderBottom: '1px solid #c8c5c5' }}>
-            <div style={{ flex: 1, padding: '10px 12px', fontSize: '13px', color: '#3f3f3f' }}>Tiền lương đóng BHXH</div>
-            <div style={{ padding: '10px 12px', fontSize: '13px', color: '#3f3f3f', textAlign: 'right', minWidth: '110px' }}>14.500.000</div>
-          </div>
-          <div style={{ display: 'flex' }}>
-            <div style={{ flex: 1, padding: '10px 12px 10px 30px', fontSize: '13px', color: '#3f3f3f' }}>Mức lương</div>
-            <div style={{ padding: '10px 12px', fontSize: '13px', color: '#3f3f3f', textAlign: 'right', minWidth: '110px' }}>14.500.000</div>
-          </div>
-        </div>
+      {/* Interactive hotspots */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+        {/* Back arrow: Vector 8 (13:3) at approx x18,y50 24x24 — expand hitzone */}
+        <div
+          onClick={() => onNavigate('insurance-list')}
+          style={{
+            position: 'absolute',
+            left: `${5 / W * 100}%`,
+            top: `${35 / H * 100}%`,
+            width: `${60 / W * 100}%`,
+            height: `${50 / H * 100}%`,
+            cursor: 'pointer'
+          }}
+        />
       </div>
     </div>
   );

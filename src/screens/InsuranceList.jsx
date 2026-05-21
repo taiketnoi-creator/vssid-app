@@ -1,97 +1,58 @@
-import React, { useState } from 'react';
-import imgBottomNav from '../assets/ic_ins_bottomnav.png';
-import tabBhxh from '../assets/tab_bhxh.png';
-import tabBhtn from '../assets/tab_bhtn.png';
-import tabBhtnld from '../assets/tab_bhtnld.png';
-import tabBhyt from '../assets/tab_bhyt.png';
-import tabC14ts from '../assets/tab_c14ts.png';
-import icEye from '../assets/ic_layer1_1.png';
-import icBackArrow from '../assets/ic_back_arrow.png';
+import React from 'react';
+import frameInsurance from '../assets/frame_insurance.png';
+
+const W = 402;
+const H = 874;
 
 const InsuranceList = ({ onNavigate }) => {
-  const [activeTab, setActiveTab] = useState('BHXH');
-  const tabs = [
-    { id: 'BHXH', label: 'BHXH', icon: tabBhxh },
-    { id: 'BHTN', label: 'BHTN', icon: tabBhtn },
-    { id: 'BHTNLD', label: 'BHTNLĐ-\nBNN', icon: tabBhtnld },
-    { id: 'BHYT', label: 'BHYT', icon: tabBhyt },
-    { id: 'C14TS', label: 'C14-TS', icon: tabC14ts },
-  ];
-
-  const rows = [
-    { from: '04/2025', to: '02/2026', unit: 'Công nghệ TNHH EO TECHNICS Việt Nam', role: 'Nhân viên Kỹ thuật' },
-    { from: '04/2025', to: '02/2026', unit: 'Công nghệ TNHH EO TECHNICS Việt Nam', role: 'Nhân viên Kỹ thuật' },
-  ];
-
   return (
-    <div style={{ width: '100%', height: '100%', background: '#fff', display: 'flex', flexDirection: 'column', fontFamily: 'Inter, sans-serif', overflow: 'hidden' }}>
-      {/* Header: Rectangle 7 (14:101) blue #0069ad, 402x67 */}
-      <div style={{ width: '100%', height: '67px', background: '#0069ad', display: 'flex', alignItems: 'center', padding: '0 14px', flexShrink: 0 }}>
-        <div onClick={() => onNavigate('dashboard')} style={{ cursor: 'pointer', padding: '4px' }}>
-          {/* Back arrow from Figma - using vector since it's white on blue */}
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </div>
-        <span style={{ flex: 1, fontSize: '20px', color: '#fff', textAlign: 'center', marginRight: '30px' }}>QUẢN LÝ CÁ NHÂN</span>
-      </div>
+    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+      {/* Full frame background from Figma */}
+      <img src={frameInsurance} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} draggable={false} />
 
-      {/* Tabs: Group 3 (14:86) - using exported component icons from Figma */}
-      <div style={{ display: 'flex', borderBottom: '2px solid #e0e0e0', background: '#fff', flexShrink: 0, padding: '8px 4px 0' }}>
-        {tabs.map((tab, i) => {
-          const active = activeTab === tab.id;
-          return (
-            <div key={i} onClick={() => setActiveTab(tab.id)} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', paddingBottom: '6px', cursor: 'pointer', borderBottom: active ? '3px solid #0069ad' : '3px solid transparent', marginBottom: '-2px' }}>
-              {/* Tab icon from Figma PNG */}
-              <div style={{ width: '36px', height: '36px', borderRadius: '50%', overflow: 'hidden', opacity: active ? 1 : 0.5 }}>
-                <img src={tab.icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-              </div>
-              <span style={{ fontSize: '11px', textAlign: 'center', whiteSpace: 'pre-line', lineHeight: 1.2, color: active ? '#0069ad' : '#888', fontWeight: active ? 600 : 400 }}>{tab.label}</span>
-            </div>
-          );
-        })}
-      </div>
+      {/* Interactive hotspots */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+        {/* Back arrow: approx x10,y15 50x40 */}
+        <div
+          onClick={() => onNavigate('dashboard')}
+          style={{
+            position: 'absolute',
+            left: `${5 / W * 100}%`,
+            top: `${10 / H * 100}%`,
+            width: `${60 / W * 100}%`,
+            height: `${55 / H * 100}%`,
+            cursor: 'pointer'
+          }}
+        />
 
-      {/* Content */}
-      <div style={{ flex: 1, overflowY: 'auto', padding: '12px 12px' }}>
-        {activeTab === 'BHXH' ? (
-          <>
-            {/* Summary box */}
-            <div style={{ border: '1px solid #0069ad', padding: '10px 12px', marginBottom: '12px', background: '#f0f7fc' }}>
-              <div style={{ fontSize: '14px', color: '#0069ad', marginBottom: '4px' }}>Quá trình tham gia Bảo hiểm xã hội</div>
-              <div style={{ fontSize: '13px', color: '#3f3f3f', fontWeight: 700 }}>Tổng thời gian tham gia: 5 năm 7 tháng</div>
-              <div style={{ fontSize: '13px', color: '#c1191a', fontWeight: 700 }}>Tổng thời gian chậm đóng: 0 tháng</div>
-            </div>
+        {/* Table row 1 eye icon: approx x350,y455 40x70 */}
+        <div
+          onClick={() => onNavigate('salary-detail')}
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: `${430 / H * 100}%`,
+            width: '100%',
+            height: `${80 / H * 100}%`,
+            cursor: 'pointer'
+          }}
+        />
 
-            {/* Table */}
-            <div style={{ border: '1px solid #c8c5c5', width: '100%' }}>
-              <div style={{ display: 'flex', background: '#3f6fa8' }}>
-                <div style={{ width: '50px', padding: '8px 2px', fontSize: '11px', color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.3)' }}>Từ tháng</div>
-                <div style={{ width: '50px', padding: '8px 2px', fontSize: '11px', color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.3)' }}>Đến tháng</div>
-                <div style={{ flex: 1, padding: '8px 4px', fontSize: '11px', color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.3)' }}>Đơn vị</div>
-                <div style={{ width: '65px', padding: '8px 2px', fontSize: '11px', color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.3)' }}>Nghề nghiệp Chức vụ</div>
-                <div style={{ width: '30px', padding: '8px 2px', fontSize: '11px', color: '#fff', textAlign: 'center' }}></div>
-              </div>
-              {rows.map((row, i) => (
-                <div key={i} onClick={() => onNavigate('salary-detail', { rowData: row })} style={{ display: 'flex', borderTop: '1px solid #c8c5c5', cursor: 'pointer' }}>
-                  <div style={{ width: '50px', padding: '10px 2px', fontSize: '11px', color: '#3f3f3f', textAlign: 'center', borderRight: '1px solid #c8c5c5' }}>{row.from}</div>
-                  <div style={{ width: '50px', padding: '10px 2px', fontSize: '11px', color: '#3f3f3f', textAlign: 'center', borderRight: '1px solid #c8c5c5' }}>{row.to}</div>
-                  <div style={{ flex: 1, padding: '10px 4px', fontSize: '11px', color: '#3f3f3f', textAlign: 'center', borderRight: '1px solid #c8c5c5' }}>{row.unit}</div>
-                  <div style={{ width: '65px', padding: '10px 2px', fontSize: '11px', color: '#3f3f3f', textAlign: 'center', borderRight: '1px solid #c8c5c5' }}>{row.role}</div>
-                  <div style={{ width: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src={icEye} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </>
-        ) : (
-          <div style={{ padding: '40px 0', textAlign: 'center', color: '#888', fontSize: '14px' }}>Chưa có dữ liệu</div>
-        )}
-      </div>
+        {/* Table row 2: approx y510-590 */}
+        <div
+          onClick={() => onNavigate('salary-detail')}
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: `${510 / H * 100}%`,
+            width: '100%',
+            height: `${80 / H * 100}%`,
+            cursor: 'pointer'
+          }}
+        />
 
-      {/* Bottom nav: Group 2 (14:98) = Rectangle 12 #d9d9d9 + "3 1" (14:100) image */}
-      <div style={{ width: '100%', height: '65px', background: '#d9d9d9', flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <img src={imgBottomNav} alt="" style={{ width: '100%', height: '50px', objectFit: 'contain' }} />
-        <div style={{ position: 'absolute', inset: 0, display: 'flex' }}>
+        {/* Bottom nav: y~809-874 */}
+        <div style={{ position: 'absolute', left: 0, top: `${809 / H * 100}%`, width: '100%', height: `${65 / H * 100}%`, display: 'flex' }}>
           <div onClick={() => onNavigate('dashboard')} style={{ flex: 1, cursor: 'pointer' }} />
           <div style={{ flex: 1, cursor: 'pointer' }} />
           <div style={{ flex: 1, cursor: 'pointer' }} />
