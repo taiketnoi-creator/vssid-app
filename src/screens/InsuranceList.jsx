@@ -7,52 +7,57 @@ const H = 874;
 const InsuranceList = ({ onNavigate }) => {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-      {/* Full frame background from Figma */}
-      <img src={frameInsurance} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} draggable={false} />
+      <img src={frameInsurance} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
 
-      {/* Interactive hotspots */}
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-        {/* Back arrow: approx x10,y15 50x40 */}
+        {/* Back arrow: x~10, y~20, enlarged hit area */}
         <div
           onClick={() => onNavigate('dashboard')}
           style={{
             position: 'absolute',
-            left: `${5 / W * 100}%`,
-            top: `${10 / H * 100}%`,
+            left: `${0 / W * 100}%`,
+            top: `${5 / H * 100}%`,
             width: `${60 / W * 100}%`,
             height: `${55 / H * 100}%`,
             cursor: 'pointer'
           }}
         />
 
-        {/* Table row 1 eye icon: approx x350,y455 40x70 */}
+        {/* Table row 1: y~308-375 (Group 3 y=307, h=66; table row starts at y308, each row ~66px) */}
         <div
           onClick={() => onNavigate('salary-detail')}
           style={{
             position: 'absolute',
-            left: 0,
-            top: `${430 / H * 100}%`,
-            width: '100%',
-            height: `${80 / H * 100}%`,
+            left: `${9 / W * 100}%`,
+            top: `${308 / H * 100}%`,
+            width: `${382 / W * 100}%`,
+            height: `${66 / H * 100}%`,
             cursor: 'pointer'
           }}
         />
 
-        {/* Table row 2: approx y510-590 */}
+        {/* Table row 2: y~374-440 */}
         <div
           onClick={() => onNavigate('salary-detail')}
           style={{
             position: 'absolute',
-            left: 0,
-            top: `${510 / H * 100}%`,
-            width: '100%',
-            height: `${80 / H * 100}%`,
+            left: `${9 / W * 100}%`,
+            top: `${374 / H * 100}%`,
+            width: `${382 / W * 100}%`,
+            height: `${66 / H * 100}%`,
             cursor: 'pointer'
           }}
         />
 
-        {/* Bottom nav: y~809-874 */}
-        <div style={{ position: 'absolute', left: 0, top: `${809 / H * 100}%`, width: '100%', height: `${65 / H * 100}%`, display: 'flex' }}>
+        {/* Bottom nav: y=823, h=65 */}
+        <div style={{
+          position: 'absolute',
+          left: 0,
+          top: `${823 / H * 100}%`,
+          width: '100%',
+          height: `${65 / H * 100}%`,
+          display: 'flex'
+        }}>
           <div onClick={() => onNavigate('dashboard')} style={{ flex: 1, cursor: 'pointer' }} />
           <div style={{ flex: 1, cursor: 'pointer' }} />
           <div style={{ flex: 1, cursor: 'pointer' }} />

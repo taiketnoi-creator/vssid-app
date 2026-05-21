@@ -1,85 +1,89 @@
 import React from 'react';
 import frameDashboard from '../assets/frame_dashboard.png';
 
+// Figma frame: 402x874
 const W = 402;
 const H = 874;
 
 const Dashboard = ({ onOpenSidebar, onNavigate }) => {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-      {/* Full frame background from Figma */}
-      <img src={frameDashboard} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} draggable={false} />
+      {/* Full frame background from Figma - objectFit: fill ensures exact stretch */}
+      <img src={frameDashboard} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
 
-      {/* Interactive hotspots */}
+      {/* Interactive hotspots - positions from Figma tree coordinates */}
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-        {/* Hamburger menu: Group 1 (8:39) at approx x16,y24 40x30 */}
+        {/* Hamburger (Group 1, 8:39): x18,y34 25x18 — enlarged hit area */}
         <div
           onClick={onOpenSidebar}
           style={{
             position: 'absolute',
-            left: `${10 / W * 100}%`,
-            top: `${15 / H * 100}%`,
+            left: `${8 / W * 100}%`,
+            top: `${20 / H * 100}%`,
             width: `${50 / W * 100}%`,
-            height: `${40 / H * 100}%`,
+            height: `${45 / H * 100}%`,
             cursor: 'pointer'
           }}
         />
 
-        {/* QUÁ TRÌNH THAM GIA row: approximately y=640..700 in frame coords */}
-        {/* From Figma tree: the menu section is below the profile card */}
-        {/* Profile card ends around y=480. Menu items start around y=510 */}
-        {/* Each menu item is approx 70px tall */}
-        {/* THẺ BHYT hotspot: y~510-580 */}
+        {/* THẺ BHYT row: y385-448 (Line 1 at y448) */}
         <div
           style={{
             position: 'absolute',
             left: 0,
-            top: `${510 / H * 100}%`,
+            top: `${385 / H * 100}%`,
             width: '100%',
-            height: `${70 / H * 100}%`,
+            height: `${63 / H * 100}%`,
             cursor: 'pointer'
           }}
         />
 
-        {/* QUÁ TRÌNH THAM GIA hotspot: y~580-650 → navigate to insurance-list */}
+        {/* QUÁ TRÌNH THAM GIA row: y448-513 (Line 3 at y513) → navigate */}
         <div
           onClick={() => onNavigate('insurance-list')}
           style={{
             position: 'absolute',
             left: 0,
-            top: `${580 / H * 100}%`,
+            top: `${448 / H * 100}%`,
             width: '100%',
-            height: `${70 / H * 100}%`,
+            height: `${65 / H * 100}%`,
             cursor: 'pointer'
           }}
         />
 
-        {/* THÔNG TIN HƯỞNG hotspot: y~650-720 */}
+        {/* THÔNG TIN HƯỞNG row: y513-577 */}
         <div
           style={{
             position: 'absolute',
             left: 0,
-            top: `${650 / H * 100}%`,
+            top: `${513 / H * 100}%`,
             width: '100%',
-            height: `${70 / H * 100}%`,
+            height: `${64 / H * 100}%`,
             cursor: 'pointer'
           }}
         />
 
-        {/* SỔ KHÁM CHỮA BỆNH hotspot: y~720-790 */}
+        {/* SỔ KHÁM CHỮA BỆNH row: y577-642 */}
         <div
           style={{
             position: 'absolute',
             left: 0,
-            top: `${720 / H * 100}%`,
+            top: `${577 / H * 100}%`,
             width: '100%',
-            height: `${70 / H * 100}%`,
+            height: `${65 / H * 100}%`,
             cursor: 'pointer'
           }}
         />
 
-        {/* Bottom nav: y~809-874, 4 equal zones */}
-        <div style={{ position: 'absolute', left: 0, top: `${809 / H * 100}%`, width: '100%', height: `${65 / H * 100}%`, display: 'flex' }}>
+        {/* Bottom nav (Group 2): y823, h65 — 4 equal zones */}
+        <div style={{
+          position: 'absolute',
+          left: 0,
+          top: `${823 / H * 100}%`,
+          width: '100%',
+          height: `${65 / H * 100}%`,
+          display: 'flex'
+        }}>
           <div onClick={() => onNavigate('dashboard')} style={{ flex: 1, cursor: 'pointer' }} />
           <div style={{ flex: 1, cursor: 'pointer' }} />
           <div style={{ flex: 1, cursor: 'pointer' }} />

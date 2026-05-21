@@ -13,7 +13,7 @@ const Login = ({ onLoginSuccess }) => {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
       {/* Full frame background - pixel perfect from Figma */}
-      <img src={frameLogin} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} draggable={false} />
+      <img src={frameLogin} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
 
       {/* Interactive overlay layer - positioned using % from Figma coords */}
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>

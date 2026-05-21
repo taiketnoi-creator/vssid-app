@@ -8,7 +8,7 @@ const SalaryDetail = ({ onNavigate }) => {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
       {/* Full frame background from Figma */}
-      <img src={frameSalary} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} draggable={false} />
+      <img src={frameSalary} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
 
       {/* Interactive hotspots */}
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
