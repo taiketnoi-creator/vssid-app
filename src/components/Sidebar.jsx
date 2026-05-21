@@ -54,8 +54,7 @@ const Sidebar = ({ isOpen, onClose, onNavigate }) => {
             top: 0, left: 0,
             width: `${W / 311 * 100}%`,
             height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'left top'
+            objectFit: 'fill'
           }}
           draggable={false}
         />
