@@ -1,104 +1,130 @@
 import React from 'react';
 import avatarImg from '../assets/avatar.png';
 import icQuatrinh from '../assets/dash_icon_quatrinh.png';
-import icSokham from '../assets/dash_avatar2.png';
-import icMenuCol from '../assets/dash_avatar.png';
+import icTheBhyt from '../assets/dash_avatar2.png';
+import icPersonInfo from '../assets/dash_avatar.png';
 import imgBottomNav from '../assets/dash_bottom_nav_img.png';
 
 const Dashboard = ({ onOpenSidebar, onNavigate }) => {
+  // Menu items with correct icon mapping from Figma
+  const menuItems = [
+    {
+      title: 'THẺ BHYT',
+      icon: icTheBhyt, // Thẻ bảo hiểm icon (card with cross)
+      iconStyle: { width: '100%', height: '100%', objectFit: 'contain' },
+      action: null
+    },
+    {
+      title: 'QUÁ TRÌNH THAM GIA',
+      icon: icQuatrinh, // Clock/history icon
+      iconStyle: { width: '100%', height: '100%', objectFit: 'contain' },
+      action: 'insurance-list'
+    },
+    {
+      title: 'THÔNG TIN HƯỞNG',
+      icon: icPersonInfo, // Person + info icon (top of combined image)
+      iconStyle: { width: '100%', height: '200%', objectFit: 'cover', objectPosition: 'top center' },
+      action: null
+    },
+    {
+      title: 'SỔ KHÁM CHỮA BỆNH',
+      icon: icPersonInfo, // Cross in circle icon (bottom of combined image)
+      iconStyle: { width: '100%', height: '200%', objectFit: 'cover', objectPosition: 'bottom center' },
+      action: null
+    },
+  ];
+
   return (
     <div style={{ width: '100%', height: '100%', background: '#ffffff', display: 'flex', flexDirection: 'column', fontFamily: 'Inter, sans-serif', overflow: 'hidden' }}>
 
-      {/* Header 67px #0069ad */}
-      <div style={{ width: '100%', height: '67px', background: '#0069ad', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 14px', flexShrink: 0 }}>
-        {/* Hamburger */}
+      {/* Header: 67px, blue #0069ad */}
+      <div style={{ width: '100%', height: '67px', background: '#0069ad', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', flexShrink: 0, boxSizing: 'border-box' }}>
+        {/* Hamburger menu (3 white bars 25x3) */}
         <div onClick={onOpenSidebar} style={{ cursor: 'pointer', padding: '6px' }}>
-          <div style={{ width: '25px', height: '3px', background: '#fff', marginBottom: '5px' }} />
-          <div style={{ width: '25px', height: '3px', background: '#fff', marginBottom: '5px' }} />
-          <div style={{ width: '25px', height: '3px', background: '#fff' }} />
+          <div style={{ width: '25px', height: '3px', background: '#fff', marginBottom: '5px', borderRadius: '1px' }} />
+          <div style={{ width: '25px', height: '3px', background: '#fff', marginBottom: '5px', borderRadius: '1px' }} />
+          <div style={{ width: '25px', height: '3px', background: '#fff', borderRadius: '1px' }} />
         </div>
-        <span style={{ fontSize: '20px', color: '#ffffff', fontFamily: 'Inter, sans-serif' }}>QUẢN LÝ CÁ NHÂN</span>
-        {/* Bell */}
+        <span style={{ fontSize: '20px', color: '#ffffff' }}>QUẢN LÝ CÁ NHÂN</span>
+        {/* Bell icon */}
         <div style={{ padding: '4px' }}>
-          <svg width="24" height="26" viewBox="0 0 24 26" fill="none">
-            <path d="M20 9.5a8 8 0 0 0-16 0c0 4.5-2 7-3 8.5h22c-1-1.5-3-4-3-8.5z" fill="white"/>
-            <path d="M14 22a2.5 2.5 0 0 1-4 0" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+          <svg width="22" height="24" viewBox="0 0 22 24" fill="none">
+            <path d="M18 8.5a7 7 0 0 0-14 0c0 4-1.8 6.5-2.8 8h19.6c-1-1.5-2.8-4-2.8-8z" fill="white"/>
+            <path d="M13 20a2.2 2.2 0 0 1-4 0" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
           </svg>
         </div>
       </div>
 
       {/* Scrollable content */}
       <div style={{ flex: 1, overflowY: 'auto' }}>
-        {/* Profile card #eaeff3 */}
-        <div style={{ margin: '20px 19px 0', background: '#eaeff3', padding: '18px 18px 12px' }}>
-          {/* Avatar + Name */}
+        {/* Profile card */}
+        <div style={{ margin: '16px 19px 0', background: '#eaeff3', padding: '18px 16px 10px' }}>
+          {/* Avatar row */}
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: '14px' }}>
             <div style={{ width: '62px', height: '62px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, boxShadow: '0 2px 4px rgba(0,0,0,0.25)', background: '#d9d9d9' }}>
               <img src={avatarImg} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
-            <div style={{ paddingTop: '8px' }}>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000' }}>Nguyễn Hữu Hoàng</div>
-              <div style={{ fontSize: '14px', color: '#4d4d4d', marginTop: '2px' }}>Mã BHXH: 4217247030</div>
+            <div style={{ paddingTop: '10px' }}>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#000' }}>Nguyễn Hữu Hoàng</div>
+              <div style={{ fontSize: '14px', color: '#4d4d4d', marginTop: '3px' }}>Mã BHXH: 4217247030</div>
             </div>
           </div>
 
-          {/* Profile outline border (Vector 1 was 320x114 stroke #948c8c) - just use divider lines */}
-          <div style={{ height: '1px', background: '#948c8c' }} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', fontSize: '14px', color: '#616161' }}>
-            <span>Ngày sinh</span><span>24/05/1999</span>
-          </div>
-          <div style={{ height: '1px', background: '#948c8c' }} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', fontSize: '14px', color: '#616161' }}>
-            <span>ĐDCN/CCCD/Hộ chiếu</span><span>040299010346</span>
-          </div>
-          <div style={{ height: '1px', background: '#948c8c' }} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', fontSize: '14px', color: '#616161' }}>
-            <span>Số điện thoại</span><span>0896511373</span>
-          </div>
-          <div style={{ height: '1px', background: '#948c8c' }} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', fontSize: '14px', color: '#616161' }}>
-            <span>Địa chỉ</span><span style={{ textAlign: 'right' }}>xóm Đông Lam, Xã Trường Lưu,</span>
-          </div>
+          {/* Info rows with dividers */}
+          {[
+            ['Ngày sinh', '24/05/1999'],
+            ['ĐDCN/CCCD/Hộ chiếu', '040299010346'],
+            ['Số điện thoại', '0896511373'],
+            ['Địa chỉ', 'xóm Đông Lam, Xã Trường Lưu,'],
+          ].map(([label, value], i) => (
+            <React.Fragment key={i}>
+              <div style={{ height: '1px', background: '#948c8c' }} />
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', fontSize: '14px', color: '#616161' }}>
+                <span>{label}</span>
+                <span style={{ textAlign: 'right' }}>{value}</span>
+              </div>
+            </React.Fragment>
+          ))}
         </div>
 
         {/* Menu items */}
-        {[
-          { icon: icMenuCol, iconStyle: { width: '40px', height: '40px', objectFit: 'cover', objectPosition: 'top' }, title: 'THẺ BHYT', action: null },
-          { icon: icQuatrinh, iconStyle: { width: '40px', height: '40px', objectFit: 'contain' }, title: 'QUÁ TRÌNH THAM GIA', action: 'insurance-list' },
-          { icon: icMenuCol, iconStyle: { width: '40px', height: '40px', objectFit: 'cover', objectPosition: 'bottom' }, title: 'THÔNG TIN HƯỞNG', action: null },
-          { icon: icSokham, iconStyle: { width: '40px', height: '40px', objectFit: 'contain' }, title: 'SỔ KHÁM CHỮA BỆNH', action: null },
-        ].map((item, i) => (
-          <div
-            key={i}
-            onClick={() => item.action ? onNavigate(item.action) : null}
-            style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '16px 19px', borderBottom: '1px solid #948c8c',
-              cursor: item.action ? 'pointer' : 'default'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-              <div style={{ width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
-                <img src={item.icon} alt="" style={item.iconStyle} />
+        <div style={{ padding: '8px 0' }}>
+          {menuItems.map((item, i) => (
+            <div
+              key={i}
+              onClick={() => item.action ? onNavigate(item.action) : null}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '14px 19px',
+                borderBottom: '1px solid #c8c5c5',
+                cursor: item.action ? 'pointer' : 'default'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                {/* Icon circle from Figma PNG */}
+                <div style={{ width: '42px', height: '42px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0 }}>
+                  <img src={item.icon} alt="" style={item.iconStyle} />
+                </div>
+                <span style={{ fontSize: '17px', color: '#3f3f3f' }}>{item.title}</span>
               </div>
-              <span style={{ fontSize: '17px', color: '#3f3f3f', fontFamily: 'Inter, sans-serif' }}>{item.title}</span>
+              {/* Chevron right */}
+              <svg width="8" height="17" viewBox="0 0 8 17" fill="none">
+                <path d="M1 1l6 7.5L1 16" stroke="#616161" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
-            <svg width="8" height="17" viewBox="0 0 8 17" fill="none">
-              <path d="M1 1l6 7.5L1 16" stroke="#616161" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      {/* Bottom nav: gray bg #d9d9d9, 65px, with nav image inside */}
-      <div style={{ width: '100%', height: '65px', background: '#d9d9d9', flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'flex-end' }}>
+      {/* Bottom nav: #d9d9d9, 65px, with bottom nav image from Figma */}
+      <div style={{ width: '100%', height: '65px', background: '#d9d9d9', flexShrink: 0, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <img src={imgBottomNav} alt="" style={{ width: '100%', height: '50px', objectFit: 'contain' }} />
-        {/* Clickable zones */}
+        {/* Clickable zones overlaid */}
         <div style={{ position: 'absolute', inset: 0, display: 'flex' }}>
           <div onClick={() => onNavigate('dashboard')} style={{ flex: 1, cursor: 'pointer' }} />
-          <div onClick={() => alert('Dịch vụ công')} style={{ flex: 1, cursor: 'pointer' }} />
-          <div onClick={() => alert('Tra cứu')} style={{ flex: 1, cursor: 'pointer' }} />
-          <div onClick={() => alert('Trợ giúp')} style={{ flex: 1, cursor: 'pointer' }} />
+          <div style={{ flex: 1, cursor: 'pointer' }} />
+          <div style={{ flex: 1, cursor: 'pointer' }} />
+          <div style={{ flex: 1, cursor: 'pointer' }} />
         </div>
       </div>
     </div>
