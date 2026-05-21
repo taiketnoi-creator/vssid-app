@@ -1,8 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-vssid-blue: #0069ad;
+  --color-vssid-blueDark: #0072c8;
+  --color-vssid-blueLight: #01aef2;
+  --color-vssid-red: #d91811;
+  --color-vssid-bgGray: #f5f5f5;
+  --color-vssid-textGray: #948c8c;
+}
+
+
 
 
 body {
