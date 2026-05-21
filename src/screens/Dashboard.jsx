@@ -18,85 +18,144 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
       {/* Full frame background from Figma - objectFit: fill ensures exact stretch */}
       <img src={frameDashboard} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
 
-      {/* Dynamic Profile Card Overlay to cover the static figma image card */}
-      <div 
-        style={{
-          position: 'absolute',
-          left: `${19 / W * 100}%`,
-          top: `${83 / H * 100}%`,
-          width: `${364 / W * 100}%`,
-          height: `${258 / H * 100}%`,
-          background: '#eaeff3', // matching background to seamlessly block the image text underneath
-          padding: '16px 14px 10px',
-          boxSizing: 'border-box',
-          display: 'flex',
-          flexDirection: 'column',
-          zIndex: 10,
-          borderRadius: '4px' // very subtle curve to align with figma card shape
-        }}
-      >
-        {/* Avatar and Name/Code header row */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '12px' }}>
-          {/* Circular avatar wrapper */}
-          <div style={{ 
-            width: '58px', 
-            height: '58px', 
-            borderRadius: '50%', 
-            overflow: 'hidden', 
-            flexShrink: 0, 
-            boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
-            background: 'linear-gradient(135deg, #0069ad, #01aef2)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#fff',
-            fontWeight: 700,
-            fontSize: '18px'
-          }}>
-            {currentAccount?.avatar ? (
-              <img src={currentAccount.avatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            ) : (
-              currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'VS'
-            )}
-          </div>
+      {/* Dynamic Profile Overlays exactly positioned over static image card text */}
+      {/* 1. Avatar circle */}
+      <div style={{ 
+        position: 'absolute',
+        left: `${33 / W * 100}%`,
+        top: `${99 / H * 100}%`,
+        width: `${58 / W * 100}%`,
+        height: `${58 / H * 100}%`,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        zIndex: 12,
+        background: 'linear-gradient(135deg, #0069ad, #01aef2)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#fff',
+        fontWeight: 700,
+        fontSize: '18px'
+      }}>
+        {currentAccount?.avatar ? (
+          <img src={currentAccount.avatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        ) : (
+          currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'VS'
+        )}
+      </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-            <span style={{ fontSize: '14px', fontWeight: 700, color: '#000000', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {currentAccount?.fullName || 'Nguyễn Hữu Hoàng'}
-            </span>
-            <span style={{ fontSize: '13px', color: '#4d4d4d', marginTop: '2px', fontWeight: 500 }}>
-              Mã BHXH: {currentAccount?.bhxhCode || '4217247030'}
-            </span>
-          </div>
-        </div>
+      {/* 2. Full Name */}
+      <div style={{
+        position: 'absolute',
+        left: `${105 / W * 100}%`,
+        top: `${107 / H * 100}%`,
+        width: `${260 / W * 100}%`,
+        height: `${20 / H * 100}%`,
+        background: '#eaeff3',
+        display: 'flex',
+        alignItems: 'center',
+        zIndex: 12
+      }}>
+        <span style={{ fontSize: '14px', fontWeight: 700, color: '#000000', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontFamily: 'Inter, sans-serif' }}>
+          {currentAccount?.fullName || 'Nguyễn Hữu Hoàng'}
+        </span>
+      </div>
 
-        {/* Dynamic Detail rows */}
-        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
-          {profileDetails.map((item, idx) => (
-            <div key={idx} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              {/* Divider bar */}
-              <div style={{ height: '1px', background: '#cbd5e1', opacity: 0.5, width: '100%' }} />
-              
-              {/* Text elements row */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '7px 0', fontSize: '13px', color: '#475569' }}>
-                <span style={{ color: '#64748b', fontWeight: 500 }}>{item.label}</span>
-                <span 
-                  style={{ 
-                    color: '#0f172a', 
-                    fontWeight: 600, 
-                    textAlign: 'right', 
-                    maxWidth: '65%',
-                    lineHeight: '1.2',
-                    fontSize: item.label === 'Địa chỉ' && item.value.length > 25 ? '11px' : '13px',
-                    wordBreak: 'break-word'
-                  }}
-                >
-                  {item.value}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* 3. Mã BHXH */}
+      <div style={{
+        position: 'absolute',
+        left: `${105 / W * 100}%`,
+        top: `${127 / H * 100}%`,
+        width: `${260 / W * 100}%`,
+        height: `${18 / H * 100}%`,
+        background: '#eaeff3',
+        display: 'flex',
+        alignItems: 'center',
+        zIndex: 12
+      }}>
+        <span style={{ fontSize: '13px', color: '#4d4d4d', fontWeight: 500, fontFamily: 'Inter, sans-serif' }}>
+          Mã BHXH: {currentAccount?.bhxhCode || '4217247030'}
+        </span>
+      </div>
+
+      {/* 4. Ngày sinh value */}
+      <div style={{
+        position: 'absolute',
+        left: `${183 / W * 100}%`,
+        top: `${174 / H * 100}%`,
+        width: `${190 / W * 100}%`,
+        height: `${22 / H * 100}%`,
+        background: '#eaeff3',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        zIndex: 12
+      }}>
+        <span style={{ fontSize: '13px', color: '#0f172a', fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>
+          {currentAccount?.birthday || '24/05/1999'}
+        </span>
+      </div>
+
+      {/* 5. CCCD value */}
+      <div style={{
+        position: 'absolute',
+        left: `${183 / W * 100}%`,
+        top: `${212 / H * 100}%`,
+        width: `${190 / W * 100}%`,
+        height: `${22 / H * 100}%`,
+        background: '#eaeff3',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        zIndex: 12
+      }}>
+        <span style={{ fontSize: '13px', color: '#0f172a', fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>
+          {currentAccount?.cccd || '040299010346'}
+        </span>
+      </div>
+
+      {/* 6. Số điện thoại value */}
+      <div style={{
+        position: 'absolute',
+        left: `${183 / W * 100}%`,
+        top: `${250 / H * 100}%`,
+        width: `${190 / W * 100}%`,
+        height: `${22 / H * 100}%`,
+        background: '#eaeff3',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        zIndex: 12
+      }}>
+        <span style={{ fontSize: '13px', color: '#0f172a', fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>
+          {currentAccount?.phone || '0896511373'}
+        </span>
+      </div>
+
+      {/* 7. Địa chỉ value */}
+      <div style={{
+        position: 'absolute',
+        left: `${140 / W * 100}%`,
+        top: `${288 / H * 100}%`,
+        width: `${233 / W * 100}%`,
+        height: `${36 / H * 100}%`,
+        background: '#eaeff3',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        zIndex: 12
+      }}>
+        <span style={{ 
+          fontSize: (currentAccount?.address || 'xóm Đông Lam, Xã Trường Lưu,').length > 25 ? '11px' : '13px',
+          color: '#0f172a', 
+          fontWeight: 600, 
+          textAlign: 'right',
+          lineHeight: '1.2',
+          wordBreak: 'break-word',
+          fontFamily: 'Inter, sans-serif'
+        }}>
+          {currentAccount?.address || 'xóm Đông Lam, Xã Trường Lưu,'}
+        </span>
       </div>
 
       {/* Interactive hotspots - positions from Figma tree coordinates */}
