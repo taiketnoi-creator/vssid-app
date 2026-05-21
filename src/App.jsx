@@ -11,18 +11,39 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [navigationData, setNavigationData] = useState(null);
 
-  const navigateTo = (targetScreen, data = null) => {
-    setNavigationData(data);
-    setScreen(targetScreen);
-  };
+  // Animation states for premium native iOS transitions
+  const [transitioning, setTransitioning] = useState(false);
+  const [prevScreen, setPrevScreen] = useState(null);
+  const [slideDirection, setSlideDirection] = useState('left'); // 'left' = forward, 'right' = back
 
+  const screenOrder = ['login', 'dashboard', 'insurance-list', 'salary-detail'];
+
+  const navigateTo = (targetScreen, data = null) => {
+    if (targetScreen === screen || transitioning) return;
+
+    const curIdx = screenOrder.indexOf(screen);
+    const targetIdx = screenOrder.indexOf(targetScreen);
+    const direction = targetIdx > curIdx ? 'left' : 'right';
+
+    setSlideDirection(direction);
+    setPrevScreen(screen);
+    setNavigationData(data);
+    setTransitioning(true);
+    setScreen(targetScreen);
+
+    // End transition state after animation finishes (350ms matching CSS duration)
+    setTimeout(() => {
+      setTransitioning(false);
+      setPrevScreen(null);
+    }, 350);
+  };
 
   const handleLoginSuccess = () => {
     navigateTo('dashboard');
   };
 
-  const renderActiveScreen = () => {
-    switch (screen) {
+  const getScreen = (screenName) => {
+    switch (screenName) {
       case 'login':
         return <Login onLoginSuccess={handleLoginSuccess} />;
       case 'dashboard':
@@ -65,17 +86,64 @@ function App() {
         {/* Core app viewport container */}
         <div className="phone-screen relative">
           
-          {/* Main active screen */}
-          <div className="w-full h-full relative overflow-hidden bg-white">
-            {renderActiveScreen()}
+          <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#fff' }}>
+            {/* Previous screen sliding out */}
+            {transitioning && prevScreen && (
+              <div 
+                className={slideDirection === 'left' ? 'screen-push-leave' : 'screen-pop-leave'}
+                style={{
+                  position: 'absolute',
+                  inset: 0
+                }}
+              >
+                {getScreen(prevScreen)}
+                {/* Dimming overlay when leaving forward (it goes underneath) */}
+                {slideDirection === 'left' && (
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'black',
+                    animation: 'dimmerFadeIn 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards',
+                    pointerEvents: 'none',
+                    zIndex: 10
+                  }} />
+                )}
+              </div>
+            )}
+
+            {/* Current screen sliding in */}
+            <div 
+              className={transitioning ? (slideDirection === 'left' ? 'screen-push-enter' : 'screen-pop-enter') : ''}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: transitioning ? (slideDirection === 'left' ? 2 : 1) : 2
+              }}
+            >
+              {getScreen(screen)}
+              {/* Dimming overlay when entering backward (it enters underneath) */}
+              {transitioning && slideDirection === 'right' && (
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'black',
+                  animation: 'dimmerFadeOut 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards',
+                  pointerEvents: 'none',
+                  zIndex: 10
+                }} />
+              )}
+            </div>
           </div>
 
           {/* Overlay Sidebar Drawer */}
           <Sidebar 
             isOpen={sidebarOpen} 
             onClose={() => setSidebarOpen(false)} 
-            onNavigate={navigateTo}
-            currentScreen={screen}
+            onNavigate={(target) => {
+              setSidebarOpen(false);
+              // Wait for sidebar slide-close transition (300ms) before navigating to avoid transition clash
+              setTimeout(() => navigateTo(target), 300);
+            }}
           />
         </div>
       </div>

@@ -70,11 +70,9 @@
   background: #ffffff;
   border-radius: 34px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
-/* Dynamic notch/island */
+/* Dynamic notch/island - pointer-events none so it doesn't block clicks */
 .phone-notch {
   position: absolute;
   top: 18px;
@@ -84,9 +82,62 @@
   height: 28px;
   background: #000000;
   border-radius: 20px;
-  z-index: 50;
+  z-index: 100;
   pointer-events: none;
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.1) inset;
+}
+
+/* Screen slide transition animations (Premium iOS Stack Transition) */
+@keyframes slidePushEnter {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slidePushLeave {
+  from { transform: translateX(0); }
+  to { transform: translateX(-30%); }
+}
+
+@keyframes slidePopEnter {
+  from { transform: translateX(-30%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slidePopLeave {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes dimmerFadeIn {
+  from { opacity: 0; }
+  to { opacity: 0.4; }
+}
+
+@keyframes dimmerFadeOut {
+  from { opacity: 0.4; }
+  to { opacity: 0; }
+}
+
+.screen-push-enter {
+  animation: slidePushEnter 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+  box-shadow: -8px 0 25px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.screen-push-leave {
+  animation: slidePushLeave 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+  z-index: 1;
+}
+
+.screen-pop-enter {
+  animation: slidePopEnter 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+  z-index: 1;
+}
+
+.screen-pop-leave {
+  animation: slidePopLeave 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+  box-shadow: -8px 0 25px rgba(0, 0, 0, 0.15);
+  z-index: 2;
 }
 
 /* Fullscreen on smaller viewports */
