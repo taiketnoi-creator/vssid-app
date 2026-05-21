@@ -24,7 +24,7 @@ const InsuranceList = ({ onNavigate }) => {
 
         {/* Table row 1: y~308-375 (Group 3 y=307, h=66; table row starts at y308, each row ~66px) */}
         <div
-          onClick={() => onNavigate('salary-detail', { transition: 'slide', direction: 'left' })}
+          onClick={() => onNavigate('salary-detail', { transition: 'slide-up', direction: 'left' })}
           style={{
             position: 'absolute',
             left: `${9 / W * 100}%`,
@@ -37,7 +37,7 @@ const InsuranceList = ({ onNavigate }) => {
 
         {/* Table row 2: y~374-440 */}
         <div
-          onClick={() => onNavigate('salary-detail', { transition: 'slide', direction: 'left' })}
+          onClick={() => onNavigate('salary-detail', { transition: 'slide-up', direction: 'left' })}
           style={{
             position: 'absolute',
             left: `${9 / W * 100}%`,

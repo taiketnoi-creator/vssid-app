@@ -161,6 +161,37 @@
   z-index: 1;
 }
 
+/* Screen slide-up transition animations (Modal Sheet style) */
+@keyframes slideUpEnter {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes slideDownLeave {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+.screen-slideup-enter {
+  animation: slideUpEnter 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.screen-slideup-leave {
+  z-index: 1;
+}
+
+.screen-slidedown-enter {
+  z-index: 1;
+}
+
+.screen-slidedown-leave {
+  animation: slideDownLeave 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
 /* Fullscreen on smaller viewports */
 @media (max-width: 450px) {
   .app-viewport {

@@ -41,7 +41,11 @@ function App() {
     if (!options || !options.transition) {
       const isStackScreen = (s) => ['dashboard', 'insurance-list', 'salary-detail'].includes(s);
       if (isStackScreen(screen) && isStackScreen(targetScreen)) {
-        transition = 'slide';
+        if (screen === 'salary-detail' || targetScreen === 'salary-detail') {
+          transition = 'slide-up';
+        } else {
+          transition = 'slide';
+        }
         const curIdx = screenOrder.indexOf(screen);
         const targetIdx = screenOrder.indexOf(targetScreen);
         direction = targetIdx > curIdx ? 'left' : 'right';
@@ -129,7 +133,9 @@ function App() {
                 className={
                   transitionType === 'slide'
                     ? (slideDirection === 'left' ? 'screen-push-leave' : 'screen-pop-leave')
-                    : (transitionType === 'fade' ? 'screen-fade-leave' : '')
+                    : transitionType === 'slide-up'
+                      ? (slideDirection === 'left' ? 'screen-slideup-leave' : 'screen-slidedown-leave')
+                      : (transitionType === 'fade' ? 'screen-fade-leave' : '')
                 }
                 style={{
                   position: 'absolute',
@@ -157,7 +163,9 @@ function App() {
                 transitioning
                   ? (transitionType === 'slide'
                       ? (slideDirection === 'left' ? 'screen-push-enter' : 'screen-pop-enter')
-                      : (transitionType === 'fade' ? 'screen-fade-enter' : ''))
+                      : transitionType === 'slide-up'
+                        ? (slideDirection === 'left' ? 'screen-slideup-enter' : 'screen-slidedown-enter')
+                        : (transitionType === 'fade' ? 'screen-fade-enter' : ''))
                   : ''
               }
               style={{
