@@ -39,137 +39,154 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
   const { years, months } = calculateTotalParticipation(history);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#ffffff' }}>
+    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#f5f8fa' }}>
       <img src={frameInsurance} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
 
-      {/* If activeTab is BHXH, only overlay dynamic text and rows to keep 100% Figma layout */}
-      {activeTab === 'BHXH' ? (
-        <>
-          {/* 1. Dynamic duration overlay in summary box */}
-          <div style={{
-            position: 'absolute',
-            left: `${28 / W * 100}%`,
-            top: `${182 / H * 100}%`,
-            width: `${340 / W * 100}%`,
-            height: `${20 / H * 100}%`,
-            background: '#f0f7fc',
-            display: 'flex',
-            alignItems: 'center',
-            zIndex: 10
-          }}>
-            <span style={{ fontSize: '13px', color: '#333333', fontWeight: 700, fontFamily: 'Inter, sans-serif' }}>
-              Tổng thời gian tham gia: {years > 0 ? `${years} năm ` : ''}{months} tháng
-            </span>
-          </div>
-
-          {/* 2. Scrollable container for dynamic rows covering static Figma rows */}
-          <div style={{
-            position: 'absolute',
-            left: `${20 / W * 100}%`,
-            top: `${272 / H * 100}%`,
-            width: `${362 / W * 100}%`,
-            height: `${537 / H * 100}%`,
-            background: '#ffffff',
-            overflowY: 'auto',
-            zIndex: 10
-          }} className="scrollbar-none">
-            {history.length === 0 ? (
-              <div style={{ padding: '40px 0', textAlign: 'center', color: '#888', fontSize: '13px', fontFamily: 'Inter, sans-serif' }}>
-                Chưa có dữ liệu đóng BHXH
+      {/* Single content overlay covering from below tabs (y=145) to above bottom nav (y=823) */}
+      {/* Completely hides the static data in the Figma image and renders dynamic content */}
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: `${145 / H * 100}%`,
+          width: '100%',
+          height: `${(823 - 145) / H * 100}%`,
+          background: '#ffffff',
+          boxSizing: 'border-box',
+          display: 'flex',
+          flexDirection: 'column',
+          zIndex: 10,
+          overflowY: 'hidden',
+        }}
+      >
+        {activeTab === 'BHXH' ? (
+          <>
+            {/* Summary box — matching Figma light blue bordered box */}
+            <div style={{
+              margin: '12px 14px 10px 14px',
+              border: '1px solid #0069ad',
+              background: '#f0f7fc',
+              padding: '10px 12px',
+              flexShrink: 0,
+            }}>
+              <div style={{ fontSize: '13px', color: '#0069ad', fontWeight: 700, fontFamily: 'Inter, sans-serif', marginBottom: '3px' }}>
+                Quá trình tham gia Bảo hiểm xã hội
               </div>
-            ) : (
-              <div style={{ width: '100%' }}>
-                {history.map((row, i) => (
-                  <div 
-                    key={i} 
-                    onClick={() => onNavigate('salary-detail', { rowData: row })} 
-                    style={{ 
-                      display: 'flex', 
-                      alignItems: 'center',
-                      borderBottom: '1px solid #cbd5e1', 
+              <div style={{ fontSize: '13px', color: '#1a1a1a', fontWeight: 700, fontFamily: 'Inter, sans-serif', marginBottom: '2px' }}>
+                Tổng thời gian tham gia: {years > 0 ? `${years} năm ` : ''}{months} tháng
+              </div>
+              <div style={{ fontSize: '13px', color: '#c1191a', fontWeight: 700, fontFamily: 'Inter, sans-serif' }}>
+                Tổng thời gian chậm đóng: 0 tháng
+              </div>
+            </div>
+
+            {/* Table header row — matching Figma blue header */}
+            <div style={{
+              display: 'flex',
+              background: '#3f6fa8',
+              flexShrink: 0,
+              marginLeft: '14px',
+              marginRight: '14px',
+            }}>
+              <div style={{ width: '52px', padding: '8px 2px', fontSize: '11px', fontWeight: 600, color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.25)', boxSizing: 'border-box', lineHeight: '1.2' }}>Từ tháng</div>
+              <div style={{ width: '52px', padding: '8px 2px', fontSize: '11px', fontWeight: 600, color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.25)', boxSizing: 'border-box', lineHeight: '1.2' }}>Đến tháng</div>
+              <div style={{ flex: 1, padding: '8px 4px', fontSize: '11px', fontWeight: 600, color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.25)', boxSizing: 'border-box', lineHeight: '1.2' }}>Đơn vị</div>
+              <div style={{ width: '70px', padding: '8px 2px', fontSize: '11px', fontWeight: 600, color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.25)', boxSizing: 'border-box', lineHeight: '1.2' }}>Nghề nghiệp/ Chức vụ</div>
+              <div style={{ width: '32px', boxSizing: 'border-box' }} />
+            </div>
+
+            {/* Scrollable data rows */}
+            <div style={{
+              flex: 1,
+              overflowY: 'auto',
+              marginLeft: '14px',
+              marginRight: '14px',
+            }} className="scrollbar-none">
+              {history.length === 0 ? (
+                <div style={{ padding: '40px 0', textAlign: 'center', color: '#888', fontSize: '13px', fontFamily: 'Inter, sans-serif' }}>
+                  Chưa có dữ liệu đóng BHXH
+                </div>
+              ) : (
+                history.map((row, i) => (
+                  <div
+                    key={i}
+                    onClick={() => onNavigate('salary-detail', { rowData: row })}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'stretch',
+                      borderBottom: '1px solid #e2e8f0',
                       cursor: 'pointer',
                       background: i % 2 === 0 ? '#ffffff' : '#f8fafc',
-                      transition: 'background 0.2s ease',
-                      minHeight: '40px',
-                      boxSizing: 'border-box'
                     }}
                   >
-                    <div style={{ width: '52px', padding: '6px 2px', fontSize: '11px', color: '#334155', fontWeight: 500, textAlign: 'center', borderRight: '1px solid #cbd5e1', boxSizing: 'border-box' }}>{row.from}</div>
-                    <div style={{ width: '52px', padding: '6px 2px', fontSize: '11px', color: '#334155', fontWeight: 500, textAlign: 'center', borderRight: '1px solid #cbd5e1', boxSizing: 'border-box' }}>{row.to}</div>
-                    <div style={{ 
-                      flex: 1, 
-                      padding: '6px 6px', 
-                      fontSize: '11px', 
-                      color: '#0f172a', 
+                    <div style={{ width: '52px', padding: '10px 2px', fontSize: '11px', color: '#334155', fontWeight: 500, textAlign: 'center', borderRight: '1px solid #e2e8f0', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{row.from}</div>
+                    <div style={{ width: '52px', padding: '10px 2px', fontSize: '11px', color: '#334155', fontWeight: 500, textAlign: 'center', borderRight: '1px solid #e2e8f0', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{row.to}</div>
+                    <div style={{
+                      flex: 1,
+                      padding: '10px 6px',
+                      fontSize: '11px',
+                      color: '#0f172a',
                       fontWeight: 600,
-                      textAlign: 'left', 
-                      borderRight: '1px solid #cbd5e1',
+                      textAlign: 'left',
+                      borderRight: '1px solid #e2e8f0',
                       boxSizing: 'border-box',
-                      lineHeight: '1.2',
-                      wordBreak: 'break-word'
+                      lineHeight: '1.3',
+                      wordBreak: 'break-word',
                     }}>{row.company}</div>
-                    <div style={{ 
-                      width: '70px', 
-                      padding: '6px 2px', 
-                      fontSize: '11px', 
-                      color: '#475569', 
-                      textAlign: 'center', 
-                      borderRight: '1px solid #cbd5e1',
+                    <div style={{
+                      width: '70px',
+                      padding: '10px 2px',
+                      fontSize: '11px',
+                      color: '#475569',
+                      textAlign: 'center',
+                      borderRight: '1px solid #e2e8f0',
                       boxSizing: 'border-box',
-                      lineHeight: '1.2',
-                      wordBreak: 'break-word'
+                      lineHeight: '1.3',
+                      wordBreak: 'break-word',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}>{row.position}</div>
                     <div style={{ width: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box' }}>
                       <EyeIcon />
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </>
-      ) : (
-        /* If other tabs are active, cover with a solid white screen with message to hide static BHXH figma layout */
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: `${145 / H * 100}%`,
-            width: '100%',
-            height: `${(823 - 145) / H * 100}%`,
-            background: '#ffffff',
-            padding: '40px 20px',
-            boxSizing: 'border-box',
+                ))
+              )}
+            </div>
+          </>
+        ) : (
+          <div style={{
+            flex: 1,
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
-            zIndex: 10,
-            fontFamily: 'Inter, sans-serif'
-          }}
-        >
-          <div style={{ color: '#94a3b8', fontSize: '14px' }}>
-            📭 Chưa có dữ liệu tham gia {activeTab}
+            justifyContent: 'center',
+            color: '#94a3b8',
+            fontSize: '14px',
+            fontFamily: 'Inter, sans-serif',
+          }}>
+            Chưa có dữ liệu tham gia {activeTab}
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
-      {/* Background Interactive Layer */}
+      {/* Interactive hotspot layer (always on top) */}
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 15, pointerEvents: 'none' }}>
-        {/* Back arrow: x~10, y~20, enlarged hit area */}
+        {/* Back arrow */}
         <div
           onClick={() => onNavigate('dashboard', { transition: 'slide', direction: 'right' })}
           style={{
             position: 'absolute',
-            left: `${0 / W * 100}%`,
+            left: 0,
             top: `${5 / H * 100}%`,
             width: `${60 / W * 100}%`,
             height: `${55 / H * 100}%`,
             cursor: 'pointer',
-            pointerEvents: 'auto'
+            pointerEvents: 'auto',
           }}
         />
 
-        {/* Tab hotspots: y=67 to y=145, 5 columns */}
+        {/* Tab hotspots: y=67 to y=145 */}
         <div style={{
           position: 'absolute',
           left: 0,
@@ -177,7 +194,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
           width: '100%',
           height: `${78 / H * 100}%`,
           display: 'flex',
-          pointerEvents: 'auto'
+          pointerEvents: 'auto',
         }}>
           <div onClick={() => setActiveTab('BHXH')} style={{ flex: 1, cursor: 'pointer' }} />
           <div onClick={() => setActiveTab('BHTN')} style={{ flex: 1, cursor: 'pointer' }} />
@@ -194,7 +211,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
           width: '100%',
           height: `${65 / H * 100}%`,
           display: 'flex',
-          pointerEvents: 'auto'
+          pointerEvents: 'auto',
         }}>
           <div onClick={() => onNavigate('dashboard', { transition: 'instant' })} style={{ flex: 1, cursor: 'pointer' }} />
           <div style={{ flex: 1, cursor: 'pointer' }} />
