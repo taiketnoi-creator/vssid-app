@@ -1,0 +1,112 @@
+/* Custom CSS for VssID Premium App */
+
+/* Hide default scrollbars for clean UI */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smartphone frame simulator for desktop screens */
+.app-viewport {
+  background: #0f172a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Backdrop neon/glowing circles for premium aesthetic */
+.glow-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.glow-blue {
+  background: #0284c7;
+  width: 500px;
+  height: 500px;
+  top: -10%;
+  left: -10%;
+}
+
+.glow-cyan {
+  background: #06b6d4;
+  width: 400px;
+  height: 400px;
+  bottom: -10%;
+  right: -10%;
+}
+
+/* Smart chassis layout */
+.phone-chassis {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 402px;
+  height: 874px;
+  background: #000000;
+  border-radius: 44px;
+  padding: 12px; /* phone bezel */
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8),
+              0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+              0 0 20px 2px rgba(2, 132, 199, 0.2);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 34px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dynamic notch/island */
+.phone-notch {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 28px;
+  background: #000000;
+  border-radius: 20px;
+  z-index: 50;
+  pointer-events: none;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.1) inset;
+}
+
+/* Fullscreen on smaller viewports */
+@media (max-width: 450px) {
+  .app-viewport {
+    background: #ffffff;
+    min-height: 100vh;
+    padding: 0;
+  }
+  .phone-chassis {
+    max-width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  .phone-screen {
+    border-radius: 0;
+  }
+  .phone-notch {
+    display: none;
+  }
+}
