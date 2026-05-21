@@ -13,7 +13,7 @@ const SalaryDetail = ({ onNavigate }) => {
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
         {/* Back arrow: Vector 8 (13:3) at approx x18,y50 24x24 — expand hitzone */}
         <div
-          onClick={() => onNavigate('insurance-list')}
+          onClick={() => onNavigate('insurance-list', { transition: 'slide', direction: 'right' })}
           style={{
             position: 'absolute',
             left: `${5 / W * 100}%`,

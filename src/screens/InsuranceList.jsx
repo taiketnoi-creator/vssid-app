@@ -11,7 +11,7 @@ const InsuranceList = ({ onNavigate }) => {
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
         {/* Back arrow: x~10, y~20, enlarged hit area */}
         <div
-          onClick={() => onNavigate('dashboard')}
+          onClick={() => onNavigate('dashboard', { transition: 'slide', direction: 'right' })}
           style={{
             position: 'absolute',
             left: `${0 / W * 100}%`,
@@ -24,7 +24,7 @@ const InsuranceList = ({ onNavigate }) => {
 
         {/* Table row 1: y~308-375 (Group 3 y=307, h=66; table row starts at y308, each row ~66px) */}
         <div
-          onClick={() => onNavigate('salary-detail')}
+          onClick={() => onNavigate('salary-detail', { transition: 'slide', direction: 'left' })}
           style={{
             position: 'absolute',
             left: `${9 / W * 100}%`,
@@ -37,7 +37,7 @@ const InsuranceList = ({ onNavigate }) => {
 
         {/* Table row 2: y~374-440 */}
         <div
-          onClick={() => onNavigate('salary-detail')}
+          onClick={() => onNavigate('salary-detail', { transition: 'slide', direction: 'left' })}
           style={{
             position: 'absolute',
             left: `${9 / W * 100}%`,
@@ -57,7 +57,7 @@ const InsuranceList = ({ onNavigate }) => {
           height: `${65 / H * 100}%`,
           display: 'flex'
         }}>
-          <div onClick={() => onNavigate('dashboard')} style={{ flex: 1, cursor: 'pointer' }} />
+          <div onClick={() => onNavigate('dashboard', { transition: 'instant' })} style={{ flex: 1, cursor: 'pointer' }} />
           <div style={{ flex: 1, cursor: 'pointer' }} />
           <div style={{ flex: 1, cursor: 'pointer' }} />
           <div style={{ flex: 1, cursor: 'pointer' }} />

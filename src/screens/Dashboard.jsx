@@ -39,7 +39,7 @@ const Dashboard = ({ onOpenSidebar, onNavigate }) => {
 
         {/* QUÁ TRÌNH THAM GIA row: y448-513 (Line 3 at y513) → navigate */}
         <div
-          onClick={() => onNavigate('insurance-list')}
+          onClick={() => onNavigate('insurance-list', { transition: 'slide', direction: 'left' })}
           style={{
             position: 'absolute',
             left: 0,

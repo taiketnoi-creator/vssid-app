@@ -118,26 +118,47 @@
   to { opacity: 0; }
 }
 
+/* Screen fade transition animations (Figma Dissolve) */
+@keyframes fadeEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeLeave {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 .screen-push-enter {
-  animation: slidePushEnter 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+  animation: slidePushEnter 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
   box-shadow: -8px 0 25px rgba(0, 0, 0, 0.15);
   z-index: 2;
 }
 
 .screen-push-leave {
-  animation: slidePushLeave 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+  animation: slidePushLeave 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
   z-index: 1;
 }
 
 .screen-pop-enter {
-  animation: slidePopEnter 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+  animation: slidePopEnter 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
   z-index: 1;
 }
 
 .screen-pop-leave {
-  animation: slidePopLeave 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
+  animation: slidePopLeave 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards;
   box-shadow: -8px 0 25px rgba(0, 0, 0, 0.15);
   z-index: 2;
+}
+
+.screen-fade-enter {
+  animation: fadeEnter 0.25s ease-in-out forwards;
+  z-index: 2;
+}
+
+.screen-fade-leave {
+  animation: fadeLeave 0.25s ease-in-out forwards;
+  z-index: 1;
 }
 
 /* Fullscreen on smaller viewports */
