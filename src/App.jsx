@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Login from './screens/Login';
 import Dashboard from './screens/Dashboard';
 import InsuranceList from './screens/InsuranceList';
@@ -9,26 +9,13 @@ import './App.css';
 function App() {
   const [screen, setScreen] = useState('login');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [screenHistory, setScreenHistory] = useState(['login']);
   const [navigationData, setNavigationData] = useState(null);
 
   const navigateTo = (targetScreen, data = null) => {
-    setScreenHistory((prev) => [...prev, targetScreen]);
     setNavigationData(data);
     setScreen(targetScreen);
   };
 
-  const navigateBack = () => {
-    if (screenHistory.length > 1) {
-      const newHistory = [...screenHistory];
-      newHistory.pop(); // Remove current
-      const prevScreen = newHistory[newHistory.length - 1];
-      setScreenHistory(newHistory);
-      setScreen(prevScreen);
-    } else {
-      setScreen('login');
-    }
-  };
 
   const handleLoginSuccess = () => {
     navigateTo('dashboard');

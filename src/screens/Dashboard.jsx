@@ -1,4 +1,3 @@
-import React from 'react';
 import frameDashboard from '../assets/frame_dashboard.png';
 
 // Figma frame: 402x874

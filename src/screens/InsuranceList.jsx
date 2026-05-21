@@ -1,4 +1,3 @@
-import React from 'react';
 import frameInsurance from '../assets/frame_insurance.png';
 
 const W = 402;

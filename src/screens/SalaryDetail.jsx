@@ -1,4 +1,3 @@
-import React from 'react';
 import frameSalary from '../assets/frame_salary.png';
 
 const W = 402;

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const LogoVssID = ({ className = "w-24 h-24" }) => (
   <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
     <circle cx="50" cy="50" r="48" fill="#0069ad" />

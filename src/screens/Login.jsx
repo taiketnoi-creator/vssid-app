@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import frameLogin from '../assets/frame_login.png';
 
 // Frame is 402x874 (exported at 2x = 804x1748)

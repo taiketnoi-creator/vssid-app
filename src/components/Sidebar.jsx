@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import frameSidebar from '../assets/frame_sidebar.png';
 
 const W = 402;
@@ -10,12 +10,19 @@ const Sidebar = ({ isOpen, onClose, onNavigate }) => {
 
   useEffect(() => {
     if (isOpen) {
-      setShouldRender(true);
-      requestAnimationFrame(() => requestAnimationFrame(() => setAnimClass(true)));
+      const t1 = setTimeout(() => setShouldRender(true), 0);
+      const t2 = setTimeout(() => setAnimClass(true), 20);
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
     } else {
-      setAnimClass(false);
-      const t = setTimeout(() => setShouldRender(false), 300);
-      return () => clearTimeout(t);
+      const t1 = setTimeout(() => setAnimClass(false), 0);
+      const t2 = setTimeout(() => setShouldRender(false), 300);
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
     }
   }, [isOpen]);
 
