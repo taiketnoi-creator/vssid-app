@@ -52,7 +52,6 @@ const Sidebar = ({ isOpen, onClose, onNavigate }) => {
         transform: animClass ? 'translateX(0)' : 'translateX(-100%)',
         transition: 'transform 0.3s ease'
       }}>
-        {/* Use the full sidebar frame, cropped to show only the left 311px portion */}
         <img
           src={frameSidebar}
           alt=""
@@ -61,7 +60,8 @@ const Sidebar = ({ isOpen, onClose, onNavigate }) => {
             top: 0, left: 0,
             width: `${W / 311 * 100}%`,
             height: '100%',
-            objectFit: 'fill'
+            objectFit: 'fill',
+            maxWidth: 'none'
           }}
           draggable={false}
         />
