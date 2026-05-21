@@ -1,23 +1,76 @@
 import { useState } from 'react';
 import frameLogin from '../assets/frame_login.png';
 
-// Frame is 402x874 (exported at 2x = 804x1748)
-// All coordinates below are from Figma at 1x scale
 const W = 402;
 const H = 874;
 
-const Login = ({ onLoginSuccess }) => {
+const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [toastMsg, setToastMsg] = useState('');
+
+  const showToast = (msg) => {
+    setToastMsg(msg);
+    const t = setTimeout(() => setToastMsg(''), 3000);
+    return () => clearTimeout(t);
+  };
+
+  const handleLoginSubmit = () => {
+    if (!username || !password) {
+      showToast('Vui lòng điền đầy đủ tài khoản & mật khẩu!');
+      return;
+    }
+
+    const matched = accounts.find(a => a.username === username && a.password === password);
+    if (matched) {
+      onLogin(matched);
+    } else {
+      showToast('Tài khoản hoặc mật khẩu không chính xác!');
+    }
+  };
+
+  // VNeID or Fingerprint login defaults to first available account for instant convenience
+  const handleQuickLogin = () => {
+    if (accounts && accounts.length > 0) {
+      onLogin(accounts[0]);
+    } else {
+      showToast('Không có tài khoản nào để đăng nhập!');
+    }
+  };
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
       {/* Full frame background - pixel perfect from Figma */}
       <img src={frameLogin} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
 
+
+      {/* Custom Toast Alert bubble inside screen */}
+      {toastMsg && (
+        <div style={{
+          position: 'absolute',
+          top: '120px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: '#fee2e2',
+          border: '1px solid #fca5a5',
+          color: '#b91c1c',
+          padding: '8px 16px',
+          borderRadius: '20px',
+          fontSize: '13px',
+          fontWeight: 600,
+          zIndex: 50,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+          textAlign: 'center',
+          width: '80%',
+          boxSizing: 'border-box'
+        }}>
+          ⚠️ {toastMsg}
+        </div>
+      )}
+
       {/* Interactive overlay layer - positioned using % from Figma coords */}
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-        {/* Username input: x33,y248 338x39 - overlay transparent input on top of the Figma image */}
+        {/* Username input: x33,y248 338x39 */}
         <input
           type="text"
           value={username}
@@ -41,7 +94,7 @@ const Login = ({ onLoginSuccess }) => {
           }}
         />
 
-        {/* Password input: x32,y306 338x39 (blue box 39px on left) */}
+        {/* Password input: x32,y306 338x39 */}
         <input
           type="password"
           value={password}
@@ -67,7 +120,7 @@ const Login = ({ onLoginSuccess }) => {
 
         {/* "Đăng nhập" button hotspot: Group 15 at x33,y390 287x44 */}
         <div
-          onClick={onLoginSuccess}
+          onClick={handleLoginSubmit}
           style={{
             position: 'absolute',
             left: `${33 / W * 100}%`,
@@ -80,7 +133,7 @@ const Login = ({ onLoginSuccess }) => {
 
         {/* Fingerprint/FaceID hotspot: "1 1" at x309,y372 80x80 */}
         <div
-          onClick={onLoginSuccess}
+          onClick={handleQuickLogin}
           style={{
             position: 'absolute',
             left: `${309 / W * 100}%`,
@@ -93,7 +146,7 @@ const Login = ({ onLoginSuccess }) => {
 
         {/* VNeID button hotspot: Rectangle 6 at x31,y456 340x67 */}
         <div
-          onClick={onLoginSuccess}
+          onClick={handleQuickLogin}
           style={{
             position: 'absolute',
             left: `${31 / W * 100}%`,

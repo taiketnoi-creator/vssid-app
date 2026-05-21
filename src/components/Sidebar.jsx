@@ -4,7 +4,7 @@ import frameSidebar from '../assets/frame_sidebar.png';
 const W = 402;
 const H = 874;
 
-const Sidebar = ({ isOpen, onClose, onNavigate }) => {
+const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountManager }) => {
   const [shouldRender, setShouldRender] = useState(false);
   const [animClass, setAnimClass] = useState(false);
 
@@ -66,8 +66,56 @@ const Sidebar = ({ isOpen, onClose, onNavigate }) => {
           draggable={false}
         />
 
+        {/* Dynamic User Profile Overlay in Sidebar Header */}
+        <div style={{
+          position: 'absolute',
+          top: `${50 / H * 100}%`,
+          left: '18px',
+          width: '280px',
+          height: '75px',
+          background: '#0069ad', // Matching blue header bg to cover static content underneath
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          zIndex: 10
+        }}>
+          {/* Avatar circle */}
+          <div style={{
+            width: '56px',
+            height: '56px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            flexShrink: 0,
+            boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+            background: 'linear-gradient(135deg, #004d80, #01aef2)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: '18px',
+            border: '2px solid rgba(255, 255, 255, 0.4)'
+          }}>
+            {currentAccount.avatar ? (
+              <img src={currentAccount.avatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              currentAccount.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'VS'
+            )}
+          </div>
+          
+          {/* User Text Details */}
+          <div style={{ display: 'flex', flexDirection: 'column', color: '#ffffff', minWidth: 0 }}>
+            <span style={{ fontSize: '15px', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {currentAccount.fullName}
+            </span>
+            <span style={{ fontSize: '12px', color: '#cbe7f7', marginTop: '3px', fontWeight: 500 }}>
+              Mã số: {currentAccount.bhxhCode}
+            </span>
+          </div>
+        </div>
+
         {/* Interactive hotspots on the sidebar */}
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 15 }}>
           {/* Menu items area - sidebar menu starts approx at y=260 in 874 frame */}
           {/* Each item is approximately 65px tall */}
           {/* Thông báo: y~260 */}

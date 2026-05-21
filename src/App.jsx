@@ -1,15 +1,100 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Login from './screens/Login';
 import Dashboard from './screens/Dashboard';
 import InsuranceList from './screens/InsuranceList';
 import SalaryDetail from './screens/SalaryDetail';
 import Sidebar from './components/Sidebar';
+import AccountManager from './components/AccountManager';
 import './App.css';
+
+const SEED_ACCOUNTS = [
+  {
+    username: "4217247030",
+    password: "123",
+    fullName: "Nguyễn Hữu Hoàng",
+    bhxhCode: "4217247030",
+    birthday: "24/05/1999",
+    cccd: "040299010346",
+    phone: "0896511373",
+    address: "xóm Đông Lam, Xã Trường Lưu, Huyện Lộc Hà, Tỉnh Hà Tĩnh",
+    avatar: "",
+    insuranceHistory: [
+      {
+        from: "04/2025",
+        to: "03/2026",
+        company: "Công ty TNHH EO TECHNICS Việt Nam",
+        position: "Nhân viên kỹ thuật",
+        salary: "14.500.000",
+        workAddress: "BT22, khu đô thị hud võ cường-Tp Bắc Ninh-Bắc Ninh"
+      },
+      {
+        from: "09/2020",
+        to: "03/2025",
+        company: "Công ty TNHH EO TECHNICS Việt Nam",
+        position: "Nhân viên kỹ thuật",
+        salary: "14.500.000",
+        workAddress: "BT22, khu đô thị hud võ cường-Tp Bắc Ninh-Bắc Ninh"
+      }
+    ]
+  }
+];
 
 function App() {
   const [screen, setScreen] = useState('login');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [navigationData, setNavigationData] = useState(null);
+
+  // Load and manage dynamic accounts
+  const [accounts, setAccounts] = useState(() => {
+    const saved = localStorage.getItem('vssid_accounts');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    localStorage.setItem('vssid_accounts', JSON.stringify(SEED_ACCOUNTS));
+    return SEED_ACCOUNTS;
+  });
+
+  const [currentAccount, setCurrentAccount] = useState(() => {
+    const saved = localStorage.getItem('vssid_current_account');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {}
+    }
+    return null;
+  });
+
+  const [accountManagerOpen, setAccountManagerOpen] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('config') === 'true' || 
+           params.get('admin') === 'true' || 
+           params.get('settings') === 'true' || 
+           params.get('manage') === 'true';
+  });
+
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const params = new URLSearchParams(window.location.search);
+      const shouldOpen = params.get('config') === 'true' || 
+                         params.get('admin') === 'true' || 
+                         params.get('settings') === 'true' || 
+                         params.get('manage') === 'true';
+      setAccountManagerOpen(shouldOpen);
+    };
+
+    handleUrlChange();
+    window.addEventListener('popstate', handleUrlChange);
+    const interval = setInterval(handleUrlChange, 1000);
+
+    return () => {
+      window.removeEventListener('popstate', handleUrlChange);
+      clearInterval(interval);
+    };
+  }, []);
 
   // Animation states for premium native iOS transitions
   const [transitioning, setTransitioning] = useState(false);
@@ -18,6 +103,36 @@ function App() {
   const [transitionType, setTransitionType] = useState('instant'); // 'slide' | 'fade' | 'instant'
 
   const screenOrder = ['login', 'dashboard', 'insurance-list', 'salary-detail'];
+
+  const saveAccounts = (newAccounts) => {
+    setAccounts(newAccounts);
+    localStorage.setItem('vssid_accounts', JSON.stringify(newAccounts));
+    // Also update currentAccount if it was modified
+    if (currentAccount) {
+      const updatedCurrent = newAccounts.find(a => a.username === currentAccount.username);
+      if (updatedCurrent) {
+        setCurrentAccount(updatedCurrent);
+        localStorage.setItem('vssid_current_account', JSON.stringify(updatedCurrent));
+      } else {
+        // If logged in account was deleted
+        setCurrentAccount(null);
+        localStorage.removeItem('vssid_current_account');
+        navigateTo('login', { transition: 'fade' });
+      }
+    }
+  };
+
+  const handleLogin = (account) => {
+    setCurrentAccount(account);
+    localStorage.setItem('vssid_current_account', JSON.stringify(account));
+    navigateTo('dashboard');
+  };
+
+  const handleLogout = () => {
+    setCurrentAccount(null);
+    localStorage.removeItem('vssid_current_account');
+    navigateTo('login', { transition: 'fade' });
+  };
 
   const navigateTo = (targetScreen, options = null) => {
     if (targetScreen === screen || transitioning) return;
@@ -78,17 +193,21 @@ function App() {
     }
   };
 
-  const handleLoginSuccess = () => {
-    navigateTo('dashboard');
-  };
-
   const getScreen = (screenName) => {
+    const defaultAcc = currentAccount || accounts[0] || SEED_ACCOUNTS[0];
     switch (screenName) {
       case 'login':
-        return <Login onLoginSuccess={handleLoginSuccess} />;
+        return (
+          <Login 
+            accounts={accounts}
+            onLogin={handleLogin}
+            onOpenAccountManager={() => setAccountManagerOpen(true)}
+          />
+        );
       case 'dashboard':
         return (
           <Dashboard 
+            currentAccount={defaultAcc}
             onOpenSidebar={() => setSidebarOpen(true)} 
             onNavigate={navigateTo} 
           />
@@ -96,6 +215,7 @@ function App() {
       case 'insurance-list':
         return (
           <InsuranceList 
+            currentAccount={defaultAcc}
             onNavigate={navigateTo} 
             onOpenSidebar={() => setSidebarOpen(true)} 
           />
@@ -108,9 +228,78 @@ function App() {
           />
         );
       default:
-        return <Login onLoginSuccess={handleLoginSuccess} />;
+        return (
+          <Login 
+            accounts={accounts}
+            onLogin={handleLogin}
+            onOpenAccountManager={() => setAccountManagerOpen(true)}
+          />
+        );
     }
   };
+
+  if (accountManagerOpen) {
+    const handleCloseManager = () => {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('config');
+      url.searchParams.delete('manage');
+      url.searchParams.delete('admin');
+      url.searchParams.delete('settings');
+      window.history.pushState({}, '', url.pathname + url.search);
+      setAccountManagerOpen(false);
+    };
+
+    const handleQuickLoginManager = (acc) => {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('config');
+      url.searchParams.delete('manage');
+      url.searchParams.delete('admin');
+      url.searchParams.delete('settings');
+      window.history.pushState({}, '', url.pathname + url.search);
+      setAccountManagerOpen(false);
+      handleLogin(acc);
+    };
+
+    return (
+      <div style={{
+        width: '100vw',
+        height: '100vh',
+        background: '#0f172a',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        position: 'relative'
+      }}>
+        {/* Glow circles also for the admin panel */}
+        <div className="glow-circle glow-blue" style={{ zIndex: 1, opacity: 0.6 }} />
+        <div className="glow-circle glow-cyan" style={{ zIndex: 1, opacity: 0.6 }} />
+        
+        <div style={{
+          width: '90%',
+          maxWidth: '850px',
+          height: '85vh',
+          background: '#ffffff',
+          borderRadius: '24px',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          zIndex: 10,
+          border: '1px solid rgba(255,255,255,0.1)'
+        }}>
+          <AccountManager 
+            isOpen={true} 
+            onClose={handleCloseManager} 
+            accounts={accounts}
+            onUpdateAccounts={saveAccounts}
+            onQuickLogin={handleQuickLoginManager}
+            isStandalone={true}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="app-viewport">
@@ -193,17 +382,33 @@ function App() {
           <Sidebar 
             isOpen={sidebarOpen} 
             onClose={() => setSidebarOpen(false)} 
+            currentAccount={currentAccount || accounts[0] || SEED_ACCOUNTS[0]}
+            onOpenAccountManager={() => {
+              setSidebarOpen(false);
+              setTimeout(() => {
+                setAccountManagerOpen(true);
+              }, 300);
+            }}
             onNavigate={(target) => {
               setSidebarOpen(false);
               // Wait for sidebar slide-close transition (300ms) before navigating to avoid transition clash
               setTimeout(() => {
                 if (target === 'login') {
-                  navigateTo(target, { transition: 'fade' });
+                  handleLogout();
                 } else {
                   navigateTo(target, { transition: 'instant' });
                 }
               }, 300);
             }}
+          />
+
+          {/* Account Manager Modal Sheet overlay */}
+          <AccountManager 
+            isOpen={accountManagerOpen} 
+            onClose={() => setAccountManagerOpen(false)} 
+            accounts={accounts}
+            onUpdateAccounts={saveAccounts}
+            onQuickLogin={handleLogin}
           />
         </div>
       </div>
