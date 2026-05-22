@@ -10,7 +10,7 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
     { label: 'Ngày sinh', value: currentAccount?.birthday || '24/05/1999' },
     { label: 'ĐDCN/CCCD/Hộ chiếu', value: currentAccount?.cccd || '040299010346' },
     { label: 'Số điện thoại', value: currentAccount?.phone || '0896511373' },
-    { label: 'Địa chỉ', value: currentAccount?.address || 'xóm Đông Lam, Xã Trường Lưu,' }
+    { label: 'Địa chỉ', value: currentAccount?.address || 'xóm Đông Lam, Xã Trường Lưu,\nHuyện Lộc Hà, Tỉnh Hà Tĩnh' }
   ];
 
   return (
@@ -28,10 +28,10 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
         height: `${262 / H * 100}%`,
         background: '#ffffff', // Clean white background to cover static text
         borderRadius: '12px', // Premium smooth card corners
-        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)', // Elegant subtle card shadow
+        boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.04)', // Subtle elegant shadow matching Figma
         zIndex: 10,
         boxSizing: 'border-box',
-        padding: '16px 20px 14px 20px',
+        padding: '18px 20px 14px 20px',
         display: 'flex',
         flexDirection: 'column',
       }}>
@@ -42,7 +42,7 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             width: '58px',
             height: '58px',
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #0069ad, #01aef2)',
+            background: '#0069ad', // Perfect solid blue matching VssID exactly
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -51,23 +51,21 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             fontSize: '18px',
             fontFamily: 'Inter, sans-serif',
             flexShrink: 0,
-            overflow: 'hidden',
-            border: '2px solid #ffffff',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
+            overflow: 'hidden'
           }}>
             {currentAccount?.avatar ? (
               <img src={currentAccount.avatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
-              currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'VS'
+              currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'HO'
             )}
           </div>
 
           {/* Name + BHXH code */}
           <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
             <span style={{
-              fontSize: '14.5px',
+              fontSize: '15.5px',
               fontWeight: 700,
-              color: '#0f172a',
+              color: '#000000', // Solid crisp black for name
               fontFamily: 'Inter, sans-serif',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
@@ -76,8 +74,8 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
               {currentAccount?.fullName || 'Nguyễn Hữu Hoàng'}
             </span>
             <span style={{
-              fontSize: '12px',
-              color: '#0069ad', // Premium theme blue matching VssID
+              fontSize: '12.5px',
+              color: '#0069ad', // Clean theme blue matching VssID
               fontWeight: 600,
               fontFamily: 'Inter, sans-serif',
               marginTop: '4px',
@@ -88,7 +86,7 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
         </div>
 
         {/* Separator line */}
-        <div style={{ height: '1px', background: '#e2e8f0', marginBottom: '10px' }} />
+        <div style={{ height: '1px', background: '#f1f5f9', marginBottom: '12px' }} />
 
         {/* Field rows */}
         {fields.map((item, i) => (
@@ -96,12 +94,12 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'flex-start',
-            marginBottom: i < fields.length - 1 ? '8px' : 0,
+            marginBottom: i < fields.length - 1 ? '10px' : 0,
             minHeight: '20px',
           }}>
             <span style={{
-              fontSize: '12.5px',
-              color: '#64748b',
+              fontSize: '13px',
+              color: '#555555', // Faint premium grey labels
               fontWeight: 500,
               fontFamily: 'Inter, sans-serif',
               flexShrink: 0,
@@ -110,13 +108,14 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
               {item.label}
             </span>
             <span style={{
-              fontSize: item.value && item.value.length > 20 ? '11.5px' : '12.5px',
-              color: '#1e293b',
+              fontSize: '13px', // Keep consistent text size matching Figma
+              color: '#000000', // Crisp dark value texts
               fontWeight: 600,
               fontFamily: 'Inter, sans-serif',
               textAlign: 'right',
-              maxWidth: '58%',
-              lineHeight: '1.3',
+              maxWidth: '68%',
+              lineHeight: '1.4',
+              whiteSpace: 'pre-line', // Allow preformatted newlines
               wordBreak: 'break-word',
             }}>
               {item.value}
