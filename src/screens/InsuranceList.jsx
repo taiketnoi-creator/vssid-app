@@ -273,10 +273,10 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
               <>
                 {/* Row 1 (y=302 to 366) */}
                 {/* Cover cells with exact pixel bounds to hide Figma background text 100% */}
-                <div style={{ position: 'absolute', left: `${(15 / W) * 100}%`, top: `${(303 / H) * 100}%`, width: `${(56 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                <div style={{ position: 'absolute', left: `${(73 / W) * 100}%`, top: `${(303 / H) * 100}%`, width: `${(56 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                <div style={{ position: 'absolute', left: `${(131 / W) * 100}%`, top: `${(303 / H) * 100}%`, width: `${(139 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                <div style={{ position: 'absolute', left: `${(272 / W) * 100}%`, top: `${(303 / H) * 100}%`, width: `${(78 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                 <div style={{ position: 'absolute', left: `${(17 / W) * 100}%`, top: `${(310 / H) * 100}%`, width: `${(51 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                 <div style={{ position: 'absolute', left: `${(77 / W) * 100}%`, top: `${(310 / H) * 100}%`, width: `${(49 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                 <div style={{ position: 'absolute', left: `${(135 / W) * 100}%`, top: `${(307 / H) * 100}%`, width: `${(132 / W) * 100}%`, height: `${(54 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                 <div style={{ position: 'absolute', left: `${(275 / W) * 100}%`, top: `${(307 / H) * 100}%`, width: `${(72 / W) * 100}%`, height: `${(54 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
 
                 {/* Overlay Dynamic Text with perfect indentation and alignment */}
                 <div style={{
@@ -377,10 +377,10 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                 {history.length > 1 ? (
                   <>
                     {/* Cover cells */}
-                    <div style={{ position: 'absolute', left: `${(15 / W) * 100}%`, top: `${(367 / H) * 100}%`, width: `${(56 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                    <div style={{ position: 'absolute', left: `${(73 / W) * 100}%`, top: `${(367 / H) * 100}%`, width: `${(56 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                    <div style={{ position: 'absolute', left: `${(131 / W) * 100}%`, top: `${(367 / H) * 100}%`, width: `${(139 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                    <div style={{ position: 'absolute', left: `${(272 / W) * 100}%`, top: `${(367 / H) * 100}%`, width: `${(78 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                     <div style={{ position: 'absolute', left: `${(17 / W) * 100}%`, top: `${(374 / H) * 100}%`, width: `${(51 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                     <div style={{ position: 'absolute', left: `${(77 / W) * 100}%`, top: `${(374 / H) * 100}%`, width: `${(49 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                     <div style={{ position: 'absolute', left: `${(135 / W) * 100}%`, top: `${(371 / H) * 100}%`, width: `${(132 / W) * 100}%`, height: `${(54 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                     <div style={{ position: 'absolute', left: `${(275 / W) * 100}%`, top: `${(371 / H) * 100}%`, width: `${(72 / W) * 100}%`, height: `${(54 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
 
                     {/* Overlay Dynamic Text */}
                     <div style={{
@@ -481,24 +481,24 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                   <div style={{
                     position: 'absolute',
                     left: `${(14 / W) * 100}%`,
-                    top: `${(366 / H) * 100}%`,
+                    top: `${(368 / H) * 100}%`,
                     width: `${(374 / W) * 100}%`,
-                    height: `${(434 / H) * 100}%`,
+                    height: `${(432 / H) * 100}%`,
                     background: '#ffffff',
                     zIndex: 2
                   }} />
                 )}
 
                 {/* Cleanly cover any remaining vertical space below row 2 in table box (y=431 to 800) */}
-                <div style={{
-                  position: 'absolute',
-                  left: `${(14 / W) * 100}%`,
-                  top: `${(431 / H) * 100}%`,
-                  width: `${(374 / W) * 100}%`,
-                  height: `${(369 / H) * 100}%`,
-                  background: '#ffffff',
-                  zIndex: 2
-                }} />
+                 <div style={{
+                   position: 'absolute',
+                   left: `${(14 / W) * 100}%`,
+                   top: `${(433 / H) * 100}%`,
+                   width: `${(374 / W) * 100}%`,
+                   height: `${(367 / H) * 100}%`,
+                   background: '#ffffff',
+                   zIndex: 2
+                 }} />
               </>
             )}
           </>
