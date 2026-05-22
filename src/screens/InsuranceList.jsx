@@ -248,16 +248,15 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
               Tổng thời gian chậm đóng: 0 tháng
             </div>
 
-
-            {/* --- Table Rows Overlay --- */}
+            {/* --- Table Rows Overlay (100% Vector HTML/CSS Figma Table) --- */}
             {history.length === 0 ? (
-              /* If history is 0, cover entire table area */
+              /* If history is 0, cover entire table area with empty state */
               <div style={{
                 position: 'absolute',
-                left: `${(14 / W) * 100}%`,
-                top: `${(268 / H) * 100}%`,
-                width: `${(374 / W) * 100}%`,
-                height: `${(530 / H) * 100}%`,
+                left: `${(9 / W) * 100}%`,
+                top: `${(266 / H) * 100}%`,
+                width: `${(382 / W) * 100}%`,
+                height: `${(534 / H) * 100}%`,
                 background: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
@@ -265,241 +264,267 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                 color: '#aaa9ae',
                 fontSize: '14px',
                 fontFamily: 'Inter, sans-serif',
-                pointerEvents: 'auto'
+                pointerEvents: 'auto',
+                zIndex: 5
               }}>
                 Chưa có dữ liệu đóng BHXH
               </div>
             ) : (
-              <>
-                {/* Row 1 (y=302 to 366) */}
-                {/* Cover cells with exact pixel bounds to hide Figma background text 100% */}
-                 <div style={{ position: 'absolute', left: `${(17 / W) * 100}%`, top: `${(310 / H) * 100}%`, width: `${(51 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                 <div style={{ position: 'absolute', left: `${(77 / W) * 100}%`, top: `${(310 / H) * 100}%`, width: `${(49 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                 <div style={{ position: 'absolute', left: `${(135 / W) * 100}%`, top: `${(307 / H) * 100}%`, width: `${(132 / W) * 100}%`, height: `${(54 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                 <div style={{ position: 'absolute', left: `${(275 / W) * 100}%`, top: `${(307 / H) * 100}%`, width: `${(72 / W) * 100}%`, height: `${(54 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-
-                {/* Overlay Dynamic Text with perfect indentation and alignment */}
+              /* Pure Vector HTML/CSS Figma Table covering background sample data 100% */
+              <div style={{
+                position: 'absolute',
+                left: `${(9 / W) * 100}%`,
+                top: `${(266 / H) * 100}%`,
+                width: `${(382 / W) * 100}%`,
+                height: `${(534 / H) * 100}%`,
+                background: '#ffffff',
+                zIndex: 5,
+                boxSizing: 'border-box',
+                pointerEvents: 'none'
+              }}>
+                {/* 1. Steel Blue Header (Rectangle 14 in Figma) */}
                 <div style={{
                   position: 'absolute',
-                  left: `${(15 / W) * 100}%`,
-                  top: `${(303 / H) * 100}%`,
-                  width: `${(56 / W) * 100}%`,
-                  height: `${(62 / H) * 100}%`,
-                  color: '#3f3f3f',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '11px',
-                  fontWeight: 500,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  zIndex: 3
-                }}>{history[0]?.from}</div>
-
-                <div style={{
-                  position: 'absolute',
-                  left: `${(73 / W) * 100}%`,
-                  top: `${(303 / H) * 100}%`,
-                  width: `${(56 / W) * 100}%`,
-                  height: `${(62 / H) * 100}%`,
-                  color: '#3f3f3f',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '11px',
-                  fontWeight: 500,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  zIndex: 3
-                }}>{history[0]?.to}</div>
-
-                <div style={{
-                  position: 'absolute',
-                  left: `${(135 / W) * 100}%`,
-                  top: `${(303 / H) * 100}%`,
-                  width: `${(132 / W) * 100}%`,
-                  height: `${(62 / H) * 100}%`,
-                  color: '#3f3f3f',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  textAlign: 'left',
-                  lineHeight: '1.3',
-                  wordBreak: 'break-word',
-                  whiteSpace: 'normal',
-                  overflow: 'hidden',
-                  zIndex: 3
-                }}>{history[0]?.company}</div>
-
-                <div style={{
-                  position: 'absolute',
-                  left: `${(272 / W) * 100}%`,
-                  top: `${(303 / H) * 100}%`,
-                  width: `${(78 / W) * 100}%`,
-                  height: `${(62 / H) * 100}%`,
-                  color: '#3f3f3f',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '11px',
-                  fontWeight: 500,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textAlign: 'center',
-                  lineHeight: '1.3',
-                  wordBreak: 'break-word',
-                  whiteSpace: 'normal',
-                  overflow: 'hidden',
-                  zIndex: 3
-                }}>{history[0]?.position}</div>
-
-                {/* Hotspot Row 1 */}
-                <button
-                  onClick={() => onNavigate('salary-detail', { rowData: history[0] })}
-                  style={{
-                    position: 'absolute',
-                    left: `${(352 / W) * 100}%`,
-                    top: `${(302 / H) * 100}%`,
-                    width: `${(38 / W) * 100}%`,
-                    height: `${(64 / H) * 100}%`,
-                    background: 'transparent',
-                    border: 'none',
-                    outline: 'none',
-                    cursor: 'pointer',
-                    zIndex: 35,
-                    pointerEvents: 'auto'
-                  }}
-                  aria-label="Detail Row 1"
-                />
-
-
-                {/* Row 2 (y=366 to 430) */}
-                {history.length > 1 ? (
-                  <>
-                    {/* Cover cells */}
-                     <div style={{ position: 'absolute', left: `${(17 / W) * 100}%`, top: `${(374 / H) * 100}%`, width: `${(51 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                     <div style={{ position: 'absolute', left: `${(77 / W) * 100}%`, top: `${(374 / H) * 100}%`, width: `${(49 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                     <div style={{ position: 'absolute', left: `${(135 / W) * 100}%`, top: `${(371 / H) * 100}%`, width: `${(132 / W) * 100}%`, height: `${(54 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-                     <div style={{ position: 'absolute', left: `${(275 / W) * 100}%`, top: `${(371 / H) * 100}%`, width: `${(72 / W) * 100}%`, height: `${(54 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
-
-                    {/* Overlay Dynamic Text */}
-                    <div style={{
-                      position: 'absolute',
-                      left: `${(15 / W) * 100}%`,
-                      top: `${(367 / H) * 100}%`,
-                      width: `${(56 / W) * 100}%`,
-                      height: `${(62 / H) * 100}%`,
-                      color: '#3f3f3f',
-                      fontFamily: 'Inter, sans-serif',
-                      fontSize: '11px',
-                      fontWeight: 500,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      zIndex: 3
-                    }}>{history[1]?.from}</div>
-
-                    <div style={{
-                      position: 'absolute',
-                      left: `${(73 / W) * 100}%`,
-                      top: `${(367 / H) * 100}%`,
-                      width: `${(56 / W) * 100}%`,
-                      height: `${(62 / H) * 100}%`,
-                      color: '#3f3f3f',
-                      fontFamily: 'Inter, sans-serif',
-                      fontSize: '11px',
-                      fontWeight: 500,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      zIndex: 3
-                    }}>{history[1]?.to}</div>
-
-                    <div style={{
-                      position: 'absolute',
-                      left: `${(135 / W) * 100}%`,
-                      top: `${(367 / H) * 100}%`,
-                      width: `${(132 / W) * 100}%`,
-                      height: `${(62 / H) * 100}%`,
-                      color: '#3f3f3f',
-                      fontFamily: 'Inter, sans-serif',
-                      fontSize: '11px',
-                      fontWeight: 600,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'flex-start',
-                      textAlign: 'left',
-                      lineHeight: '1.3',
-                      wordBreak: 'break-word',
-                      whiteSpace: 'normal',
-                      overflow: 'hidden',
-                      zIndex: 3
-                    }}>{history[1]?.company}</div>
-
-                    <div style={{
-                      position: 'absolute',
-                      left: `${(272 / W) * 100}%`,
-                      top: `${(367 / H) * 100}%`,
-                      width: `${(78 / W) * 100}%`,
-                      height: `${(62 / H) * 100}%`,
-                      color: '#3f3f3f',
-                      fontFamily: 'Inter, sans-serif',
-                      fontSize: '11px',
-                      fontWeight: 500,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      textAlign: 'center',
-                      lineHeight: '1.3',
-                      wordBreak: 'break-word',
-                      whiteSpace: 'normal',
-                      overflow: 'hidden',
-                      zIndex: 3
-                    }}>{history[1]?.position}</div>
-
-                    {/* Hotspot Row 2 */}
-                    <button
-                      onClick={() => onNavigate('salary-detail', { rowData: history[1] })}
-                      style={{
-                        position: 'absolute',
-                        left: `${(352 / W) * 100}%`,
-                        top: `${(366 / H) * 100}%`,
-                        width: `${(38 / W) * 100}%`,
-                        height: `${(64 / H) * 100}%`,
-                        background: 'transparent',
-                        border: 'none',
-                        outline: 'none',
-                        cursor: 'pointer',
-                        zIndex: 35,
-                        pointerEvents: 'auto'
-                      }}
-                      aria-label="Detail Row 2"
-                    />
-                  </>
-                ) : (
-                  /* If only 1 row, cleanly cover second row area with solid white background */
+                  left: 0,
+                  top: 0,
+                  width: '100%',
+                  height: '42px',
+                  backgroundColor: '#38679f',
+                  boxSizing: 'border-box'
+                }}>
+                  {/* "Từ tháng" Header Text */}
                   <div style={{
                     position: 'absolute',
-                    left: `${(14 / W) * 100}%`,
-                    top: `${(368 / H) * 100}%`,
-                    width: `${(374 / W) * 100}%`,
-                    height: `${(432 / H) * 100}%`,
-                    background: '#ffffff',
-                    zIndex: 2
-                  }} />
-                )}
+                    left: 0,
+                    top: 0,
+                    width: `${(68 / 382) * 100}%`,
+                    height: '42px',
+                    color: '#ffffff',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '12px',
+                    fontWeight: 400,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center'
+                  }}>Từ tháng</div>
 
-                {/* Cleanly cover any remaining vertical space below row 2 in table box (y=431 to 800) */}
-                 <div style={{
-                   position: 'absolute',
-                   left: `${(14 / W) * 100}%`,
-                   top: `${(433 / H) * 100}%`,
-                   width: `${(374 / W) * 100}%`,
-                   height: `${(367 / H) * 100}%`,
-                   background: '#ffffff',
-                   zIndex: 2
-                 }} />
-              </>
+                  {/* "Đến tháng" Header Text */}
+                  <div style={{
+                    position: 'absolute',
+                    left: `${(68 / 382) * 100}%`,
+                    top: 0,
+                    width: `${(67 / 382) * 100}%`,
+                    height: '42px',
+                    color: '#ffffff',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '12px',
+                    fontWeight: 400,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    lineHeight: '1.2',
+                    whiteSpace: 'pre-wrap'
+                  }}>Đến{"\n"}tháng</div>
+
+                  {/* "Đơn vị" Header Text */}
+                  <div style={{
+                    position: 'absolute',
+                    left: `${(135 / 382) * 100}%`,
+                    top: 0,
+                    width: `${(123 / 382) * 100}%`,
+                    height: '42px',
+                    color: '#ffffff',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '12px',
+                    fontWeight: 400,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center'
+                  }}>Đơn vị</div>
+
+                  {/* "Nghề nghiệp Chức vụ" Header Text */}
+                  <div style={{
+                    position: 'absolute',
+                    left: `${(258 / 382) * 100}%`,
+                    top: 0,
+                    width: `${(92 / 382) * 100}%`,
+                    height: '42px',
+                    color: '#ffffff',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '12px',
+                    fontWeight: 400,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    lineHeight: '1.2',
+                    whiteSpace: 'pre-wrap'
+                  }}>Nghề nghiệp{"\n"}Chức vụ</div>
+                </div>
+
+                {/* 2. Dynamic Table Rows (Up to 2 rows based on active history) */}
+                {history.slice(0, 2).map((row, idx) => {
+                  const topOffset = 41 + idx * 64; // Collapses borders exactly matching Figma y=307 and y=371
+                  return (
+                    <div
+                      key={idx}
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: `${topOffset}px`,
+                        width: '100%',
+                        height: '66px',
+                        display: 'flex',
+                        boxSizing: 'border-box'
+                      }}
+                    >
+                      {/* Col 1 (Từ tháng) */}
+                      <div style={{
+                        position: 'absolute',
+                        left: 0,
+                        width: `${(68 / 382) * 100}%`,
+                        height: '66px',
+                        backgroundColor: '#ffffff',
+                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderRight: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderLeft: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderTop: idx === 0 ? '0.5px solid rgba(0, 0, 0, 0.15)' : 'none',
+                        color: '#3f3f3f',
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '11px',
+                        fontWeight: 500,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxSizing: 'border-box'
+                      }}>
+                        {row.from}
+                      </div>
+
+                      {/* Col 2 (Đến tháng) */}
+                      <div style={{
+                        position: 'absolute',
+                        left: `${(68 / 382) * 100}%`,
+                        width: `${(67 / 382) * 100}%`,
+                        height: '66px',
+                        backgroundColor: '#ffffff',
+                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderRight: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderTop: idx === 0 ? '0.5px solid rgba(0, 0, 0, 0.15)' : 'none',
+                        color: '#3f3f3f',
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '11px',
+                        fontWeight: 500,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxSizing: 'border-box'
+                      }}>
+                        {row.to}
+                      </div>
+
+                      {/* Col 3 (Đơn vị) */}
+                      <div style={{
+                        position: 'absolute',
+                        left: `${(135 / 382) * 100}%`,
+                        width: `${(123 / 382) * 100}%`,
+                        height: '66px',
+                        backgroundColor: '#ffffff',
+                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderRight: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderTop: idx === 0 ? '0.5px solid rgba(0, 0, 0, 0.15)' : 'none',
+                        color: '#3f3f3f',
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        textAlign: 'left',
+                        paddingLeft: '8px',
+                        paddingRight: '6px',
+                        lineHeight: '1.3',
+                        wordBreak: 'break-word',
+                        whiteSpace: 'normal',
+                        overflow: 'hidden',
+                        boxSizing: 'border-box'
+                      }}>
+                        {row.company}
+                      </div>
+
+                      {/* Col 4 (Nghề nghiệp Chức vụ) */}
+                      <div style={{
+                        position: 'absolute',
+                        left: `${(258 / 382) * 100}%`,
+                        width: `${(92 / 382) * 100}%`,
+                        height: '66px',
+                        backgroundColor: '#ffffff',
+                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderRight: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderTop: idx === 0 ? '0.5px solid rgba(0, 0, 0, 0.15)' : 'none',
+                        color: '#3f3f3f',
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '11px',
+                        fontWeight: 500,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center',
+                        lineHeight: '1.3',
+                        wordBreak: 'break-word',
+                        whiteSpace: 'normal',
+                        overflow: 'hidden',
+                        boxSizing: 'border-box'
+                      }}>
+                        {row.position}
+                      </div>
+
+                      {/* Col 5 (Eye Icon Column with interactive hotspot) */}
+                      <div style={{
+                        position: 'absolute',
+                        left: `${(350 / 382) * 100}%`,
+                        width: `${(32 / 382) * 100}%`,
+                        height: '66px',
+                        backgroundColor: '#ffffff',
+                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderRight: '0.5px solid rgba(0, 0, 0, 0.15)',
+                        borderTop: idx === 0 ? '0.5px solid rgba(0, 0, 0, 0.15)' : 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxSizing: 'border-box'
+                      }}>
+                        {/* Crisp inline SVG Eye Icon */}
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" fill="#38679f"/>
+                        </svg>
+
+                        {/* Clickable transparent overlay hotspot */}
+                        <button
+                          onClick={() => onNavigate('salary-detail', { rowData: row })}
+                          style={{
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                            background: 'transparent',
+                            border: 'none',
+                            outline: 'none',
+                            cursor: 'pointer',
+                            pointerEvents: 'auto',
+                            zIndex: 10
+                          }}
+                          aria-label={`Chi tiết dòng ${idx + 1}`}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             )}
           </>
         ) : (
