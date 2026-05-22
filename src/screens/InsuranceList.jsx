@@ -272,49 +272,51 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
             ) : (
               <>
                 {/* Row 1 (y=302 to 366) */}
-                {/* Cover cells */}
-                <div style={{ position: 'absolute', left: `${(16 / W) * 100}%`, top: `${(325 / H) * 100}%`, width: `${(52 / W) * 100}%`, height: `${(25 / H) * 100}%`, background: '#ffffff' }} />
-                <div style={{ position: 'absolute', left: `${(80 / W) * 100}%`, top: `${(325 / H) * 100}%`, width: `${(52 / W) * 100}%`, height: `${(25 / H) * 100}%`, background: '#ffffff' }} />
-                <div style={{ position: 'absolute', left: `${(138 / W) * 100}%`, top: `${(312 / H) * 100}%`, width: `${(132 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff' }} />
-                <div style={{ position: 'absolute', left: `${(274 / W) * 100}%`, top: `${(312 / H) * 100}%`, width: `${(76 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff' }} />
+                {/* Cover cells with exact pixel bounds to hide Figma background text 100% */}
+                <div style={{ position: 'absolute', left: `${(15 / W) * 100}%`, top: `${(303 / H) * 100}%`, width: `${(56 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                <div style={{ position: 'absolute', left: `${(73 / W) * 100}%`, top: `${(303 / H) * 100}%`, width: `${(56 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                <div style={{ position: 'absolute', left: `${(131 / W) * 100}%`, top: `${(303 / H) * 100}%`, width: `${(139 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                <div style={{ position: 'absolute', left: `${(272 / W) * 100}%`, top: `${(303 / H) * 100}%`, width: `${(78 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
 
-                {/* Overlay Text */}
+                {/* Overlay Dynamic Text with perfect indentation and alignment */}
                 <div style={{
                   position: 'absolute',
-                  left: `${(16 / W) * 100}%`,
-                  top: `${(325 / H) * 100}%`,
-                  width: `${(52 / W) * 100}%`,
-                  height: `${(25 / H) * 100}%`,
+                  left: `${(15 / W) * 100}%`,
+                  top: `${(303 / H) * 100}%`,
+                  width: `${(56 / W) * 100}%`,
+                  height: `${(62 / H) * 100}%`,
                   color: '#3f3f3f',
                   fontFamily: 'Inter, sans-serif',
                   fontSize: '11px',
                   fontWeight: 500,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  zIndex: 3
                 }}>{history[0]?.from}</div>
 
                 <div style={{
                   position: 'absolute',
-                  left: `${(80 / W) * 100}%`,
-                  top: `${(325 / H) * 100}%`,
-                  width: `${(52 / W) * 100}%`,
-                  height: `${(25 / H) * 100}%`,
+                  left: `${(73 / W) * 100}%`,
+                  top: `${(303 / H) * 100}%`,
+                  width: `${(56 / W) * 100}%`,
+                  height: `${(62 / H) * 100}%`,
                   color: '#3f3f3f',
                   fontFamily: 'Inter, sans-serif',
                   fontSize: '11px',
                   fontWeight: 500,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  zIndex: 3
                 }}>{history[0]?.to}</div>
 
                 <div style={{
                   position: 'absolute',
-                  left: `${(138 / W) * 100}%`,
-                  top: `${(312 / H) * 100}%`,
+                  left: `${(135 / W) * 100}%`,
+                  top: `${(303 / H) * 100}%`,
                   width: `${(132 / W) * 100}%`,
-                  height: `${(48 / H) * 100}%`,
+                  height: `${(62 / H) * 100}%`,
                   color: '#3f3f3f',
                   fontFamily: 'Inter, sans-serif',
                   fontSize: '11px',
@@ -326,15 +328,16 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                   lineHeight: '1.3',
                   wordBreak: 'break-word',
                   whiteSpace: 'normal',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  zIndex: 3
                 }}>{history[0]?.company}</div>
 
                 <div style={{
                   position: 'absolute',
-                  left: `${(274 / W) * 100}%`,
-                  top: `${(312 / H) * 100}%`,
-                  width: `${(76 / W) * 100}%`,
-                  height: `${(48 / H) * 100}%`,
+                  left: `${(272 / W) * 100}%`,
+                  top: `${(303 / H) * 100}%`,
+                  width: `${(78 / W) * 100}%`,
+                  height: `${(62 / H) * 100}%`,
                   color: '#3f3f3f',
                   fontFamily: 'Inter, sans-serif',
                   fontSize: '11px',
@@ -346,7 +349,8 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                   lineHeight: '1.3',
                   wordBreak: 'break-word',
                   whiteSpace: 'normal',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  zIndex: 3
                 }}>{history[0]?.position}</div>
 
                 {/* Hotspot Row 1 */}
@@ -373,48 +377,50 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                 {history.length > 1 ? (
                   <>
                     {/* Cover cells */}
-                    <div style={{ position: 'absolute', left: `${(16 / W) * 100}%`, top: `${(389 / H) * 100}%`, width: `${(52 / W) * 100}%`, height: `${(25 / H) * 100}%`, background: '#ffffff' }} />
-                    <div style={{ position: 'absolute', left: `${(80 / W) * 100}%`, top: `${(389 / H) * 100}%`, width: `${(52 / W) * 100}%`, height: `${(25 / H) * 100}%`, background: '#ffffff' }} />
-                    <div style={{ position: 'absolute', left: `${(138 / W) * 100}%`, top: `${(376 / H) * 100}%`, width: `${(132 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff' }} />
-                    <div style={{ position: 'absolute', left: `${(274 / W) * 100}%`, top: `${(376 / H) * 100}%`, width: `${(76 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff' }} />
+                    <div style={{ position: 'absolute', left: `${(15 / W) * 100}%`, top: `${(367 / H) * 100}%`, width: `${(56 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                    <div style={{ position: 'absolute', left: `${(73 / W) * 100}%`, top: `${(367 / H) * 100}%`, width: `${(56 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                    <div style={{ position: 'absolute', left: `${(131 / W) * 100}%`, top: `${(367 / H) * 100}%`, width: `${(139 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
+                    <div style={{ position: 'absolute', left: `${(272 / W) * 100}%`, top: `${(367 / H) * 100}%`, width: `${(78 / W) * 100}%`, height: `${(62 / H) * 100}%`, background: '#ffffff', zIndex: 2 }} />
 
-                    {/* Overlay Text */}
+                    {/* Overlay Dynamic Text */}
                     <div style={{
                       position: 'absolute',
-                      left: `${(16 / W) * 100}%`,
-                      top: `${(389 / H) * 100}%`,
-                      width: `${(52 / W) * 100}%`,
-                      height: `${(25 / H) * 100}%`,
+                      left: `${(15 / W) * 100}%`,
+                      top: `${(367 / H) * 100}%`,
+                      width: `${(56 / W) * 100}%`,
+                      height: `${(62 / H) * 100}%`,
                       color: '#3f3f3f',
                       fontFamily: 'Inter, sans-serif',
                       fontSize: '11px',
                       fontWeight: 500,
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center'
+                      justifyContent: 'center',
+                      zIndex: 3
                     }}>{history[1]?.from}</div>
 
                     <div style={{
                       position: 'absolute',
-                      left: `${(80 / W) * 100}%`,
-                      top: `${(389 / H) * 100}%`,
-                      width: `${(52 / W) * 100}%`,
-                      height: `${(25 / H) * 100}%`,
+                      left: `${(73 / W) * 100}%`,
+                      top: `${(367 / H) * 100}%`,
+                      width: `${(56 / W) * 100}%`,
+                      height: `${(62 / H) * 100}%`,
                       color: '#3f3f3f',
                       fontFamily: 'Inter, sans-serif',
                       fontSize: '11px',
                       fontWeight: 500,
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center'
+                      justifyContent: 'center',
+                      zIndex: 3
                     }}>{history[1]?.to}</div>
 
                     <div style={{
                       position: 'absolute',
-                      left: `${(138 / W) * 100}%`,
-                      top: `${(376 / H) * 100}%`,
+                      left: `${(135 / W) * 100}%`,
+                      top: `${(367 / H) * 100}%`,
                       width: `${(132 / W) * 100}%`,
-                      height: `${(48 / H) * 100}%`,
+                      height: `${(62 / H) * 100}%`,
                       color: '#3f3f3f',
                       fontFamily: 'Inter, sans-serif',
                       fontSize: '11px',
@@ -426,15 +432,16 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                       lineHeight: '1.3',
                       wordBreak: 'break-word',
                       whiteSpace: 'normal',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
+                      zIndex: 3
                     }}>{history[1]?.company}</div>
 
                     <div style={{
                       position: 'absolute',
-                      left: `${(274 / W) * 100}%`,
-                      top: `${(376 / H) * 100}%`,
-                      width: `${(76 / W) * 100}%`,
-                      height: `${(48 / H) * 100}%`,
+                      left: `${(272 / W) * 100}%`,
+                      top: `${(367 / H) * 100}%`,
+                      width: `${(78 / W) * 100}%`,
+                      height: `${(62 / H) * 100}%`,
                       color: '#3f3f3f',
                       fontFamily: 'Inter, sans-serif',
                       fontSize: '11px',
@@ -446,7 +453,8 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                       lineHeight: '1.3',
                       wordBreak: 'break-word',
                       whiteSpace: 'normal',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
+                      zIndex: 3
                     }}>{history[1]?.position}</div>
 
                     {/* Hotspot Row 2 */}
@@ -475,19 +483,21 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                     left: `${(14 / W) * 100}%`,
                     top: `${(366 / H) * 100}%`,
                     width: `${(374 / W) * 100}%`,
-                    height: `${(70 / H) * 100}%`,
-                    background: '#ffffff'
+                    height: `${(434 / H) * 100}%`,
+                    background: '#ffffff',
+                    zIndex: 2
                   }} />
                 )}
 
-                {/* Cleanly cover any remaining vertical space below row 2 in table box (y=430 to 800) */}
+                {/* Cleanly cover any remaining vertical space below row 2 in table box (y=431 to 800) */}
                 <div style={{
                   position: 'absolute',
                   left: `${(14 / W) * 100}%`,
-                  top: `${(430 / H) * 100}%`,
+                  top: `${(431 / H) * 100}%`,
                   width: `${(374 / W) * 100}%`,
-                  height: `${(370 / H) * 100}%`,
-                  background: '#ffffff'
+                  height: `${(369 / H) * 100}%`,
+                  background: '#ffffff',
+                  zIndex: 2
                 }} />
               </>
             )}
