@@ -152,35 +152,40 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             </div>
           </div>
 
-          {/* Separator line */}
-          <div style={{ height: '0.5px', background: '#948c8c', opacity: 0.6, marginTop: '15px', marginBottom: '12px' }} />
+          {/* Separator line below Avatar/Name */}
+          <div style={{ height: '1px', background: '#948c8c', opacity: 0.35, marginTop: '12px', marginBottom: '10px' }} />
 
-          {/* Info Fields */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '21px' }}>
+          {/* Info Fields with horizontal dividers between each field */}
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             {fields.map((field, idx) => (
-              <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '17px' }}>
-                <span style={{
-                  fontSize: '14px',
-                  fontWeight: 400,
-                  color: '#616161',
-                  lineHeight: '1.2',
-                  flexShrink: 0
-                }}>
-                  {field.label}
-                </span>
-                <span style={{
-                  fontSize: '14px',
-                  fontWeight: 400,
-                  color: '#616161',
-                  lineHeight: '1.2',
-                  textAlign: 'right',
-                  maxWidth: '65%',
-                  wordBreak: 'break-word',
-                  whiteSpace: 'pre-line'
-                }}>
-                  {field.value}
-                </span>
-              </div>
+              <React.Fragment key={idx}>
+                {idx > 0 && (
+                  <div style={{ height: '1px', background: '#948c8c', opacity: 0.35, marginTop: '10px', marginBottom: '10px' }} />
+                )}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '17px' }}>
+                  <span style={{
+                    fontSize: '14px',
+                    fontWeight: 400,
+                    color: '#616161',
+                    lineHeight: '1.2',
+                    flexShrink: 0
+                  }}>
+                    {field.label}
+                  </span>
+                  <span style={{
+                    fontSize: '14px',
+                    fontWeight: 400,
+                    color: '#616161',
+                    lineHeight: '1.2',
+                    textAlign: 'right',
+                    maxWidth: '65%',
+                    wordBreak: 'break-word',
+                    whiteSpace: 'pre-line'
+                  }}>
+                    {field.value}
+                  </span>
+                </div>
+              </React.Fragment>
             ))}
           </div>
         </div>
