@@ -76,60 +76,39 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
           background: 'linear-gradient(to bottom, #0072c8 0%, #0079cd 100%)', // Seamless gradient matching frame_sidebar.png perfectly
           zIndex: 10
         }}>
-          {/* Avatar circle */}
+          {/* Dynamic Full Name (Centered): x=82, y=128 (centered at x=153.5 in Figma) */}
           <div style={{
             position: 'absolute',
-            left: '18px',
-            top: `${118 / 183 * 100}%`,
-            width: '56px',
-            height: '56px',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-            background: 'linear-gradient(135deg, #004d80, #01aef2)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#fff',
-            fontWeight: 700,
-            fontSize: '18px',
-            border: '2px solid rgba(255, 255, 255, 0.4)'
-          }}>
-            {currentAccount?.avatar ? (
-              <img src={currentAccount.avatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            ) : (
-              currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'VS'
-            )}
-          </div>
-          
-          {/* User Text Details */}
-          <span style={{
-            position: 'absolute',
-            left: '82px',
-            top: `${128 / 183 * 100}%`,
+            left: 0,
+            width: '100%',
+            top: `${128 / 183 * 100}%`, // y = 128px relative to header container
             fontSize: '15px',
             fontWeight: 700,
             color: '#ffffff',
             fontFamily: 'Inter, sans-serif',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            maxWidth: '210px'
+            textAlign: 'center',
+            lineHeight: 1.2
           }}>
             {currentAccount?.fullName}
-          </span>
-          <span style={{
+          </div>
+
+          {/* Dynamic BHXH Code (Centered): x=106, y=153 (centered at x=153.5 in Figma) */}
+          <div style={{
             position: 'absolute',
-            left: '82px',
-            top: `${153 / 183 * 100}%`,
-            fontSize: '12px',
-            color: '#cbe7f7',
-            fontWeight: 500,
-            fontFamily: 'Inter, sans-serif'
+            left: 0,
+            width: '100%',
+            top: `${153 / 183 * 100}%`, // y = 153px relative to header container
+            fontSize: '15px',
+            fontWeight: 700,
+            color: '#ffffff',
+            fontFamily: 'Inter, sans-serif',
+            textAlign: 'center',
+            lineHeight: 1.2
           }}>
-            Mã số: {currentAccount?.bhxhCode}
-          </span>
+            {currentAccount?.bhxhCode}
+          </div>
         </div>
+
 
         {/* Interactive hotspots on the sidebar */}
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 15 }}>
