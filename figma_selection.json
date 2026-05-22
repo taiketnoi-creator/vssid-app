@@ -1,7 +1,732 @@
 {
   "success": true,
   "data": {
-    "nodes": [],
-    "message": "Nothing selected"
+    "nodes": [
+      {
+        "id": "8:32",
+        "name": "iPhone 17 - 2",
+        "type": "FRAME",
+        "x": 405,
+        "y": 0,
+        "width": 402,
+        "height": 874,
+        "fill": "#ffffff",
+        "clipsContent": true,
+        "children": [
+          {
+            "id": "19:232",
+            "name": "Group 12",
+            "type": "GROUP",
+            "x": 0,
+            "y": 0,
+            "width": 403,
+            "height": 888,
+            "children": [
+              {
+                "id": "8:34",
+                "name": "Rectangle 7",
+                "type": "RECTANGLE",
+                "x": 0,
+                "y": 0,
+                "width": 403,
+                "height": 67,
+                "fills": [
+                  {
+                    "type": "GRADIENT_LINEAR",
+                    "visible": true,
+                    "gradientStops": [
+                      {
+                        "color": "#01aef2",
+                        "position": 0
+                      },
+                      {
+                        "color": "#0073c6",
+                        "position": 1
+                      }
+                    ],
+                    "gradientAngle": 0
+                  }
+                ],
+                "constraints": {
+                  "horizontal": "CENTER",
+                  "vertical": "MIN"
+                }
+              },
+              {
+                "id": "8:40",
+                "name": "Vector",
+                "type": "VECTOR",
+                "x": 359,
+                "y": 32,
+                "width": 24,
+                "height": 26,
+                "fill": "#ffffff",
+                "constraints": {
+                  "horizontal": "SCALE",
+                  "vertical": "SCALE"
+                },
+                "pathCount": 1,
+                "isIcon": true,
+                "iconHint": "Use figma_read export_svg with nodeId to extract SVG markup"
+              },
+              {
+                "id": "8:35",
+                "name": "QUẢN LÝ CÁ NHÂN",
+                "type": "TEXT",
+                "x": 108,
+                "y": 34,
+                "width": 186,
+                "height": 24,
+                "fill": "#ffffff",
+                "content": "QUẢN LÝ CÁ NHÂN",
+                "fontSize": 20,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "CENTER",
+                "textAutoResize": "WIDTH_AND_HEIGHT",
+                "constraints": {
+                  "horizontal": "CENTER",
+                  "vertical": "MIN"
+                }
+              },
+              {
+                "id": "8:39",
+                "name": "Group 1",
+                "type": "GROUP",
+                "x": 18,
+                "y": 34,
+                "width": 25,
+                "height": 18,
+                "children": [
+                  {
+                    "id": "8:36",
+                    "name": "Rectangle 8",
+                    "type": "RECTANGLE",
+                    "x": 18,
+                    "y": 34,
+                    "width": 25,
+                    "height": 3,
+                    "fill": "#ffffff"
+                  },
+                  {
+                    "id": "8:37",
+                    "name": "Rectangle 9",
+                    "type": "RECTANGLE",
+                    "x": 18,
+                    "y": 42,
+                    "width": 25,
+                    "height": 3,
+                    "fill": "#ffffff"
+                  },
+                  {
+                    "id": "8:38",
+                    "name": "Rectangle 10",
+                    "type": "RECTANGLE",
+                    "x": 18,
+                    "y": 49,
+                    "width": 25,
+                    "height": 3,
+                    "fill": "#ffffff"
+                  }
+                ]
+              },
+              {
+                "id": "8:42",
+                "name": "Rectangle 11",
+                "type": "RECTANGLE",
+                "x": 19,
+                "y": 87,
+                "width": 364,
+                "height": 276,
+                "fill": "#eaeff3",
+                "constraints": {
+                  "horizontal": "CENTER",
+                  "vertical": "MIN"
+                }
+              },
+              {
+                "id": "9:45",
+                "name": "Nguyễn Hữu Hoàng",
+                "type": "TEXT",
+                "x": 120,
+                "y": 118,
+                "width": 134,
+                "height": 17,
+                "fill": "#000000",
+                "content": "Nguyễn Hữu Hoàng",
+                "fontSize": 14,
+                "fontFamily": "Inter",
+                "fontWeight": "Bold",
+                "lineHeight": "auto",
+                "textAlign": "CENTER",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:46",
+                "name": "Mã BHXH: 4217247030",
+                "type": "TEXT",
+                "x": 120,
+                "y": 144,
+                "width": 155,
+                "height": 17,
+                "fill": "#4d4d4d",
+                "content": "Mã BHXH: 4217247030",
+                "fontSize": 14,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "LEFT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:47",
+                "name": "Ngày sinh",
+                "type": "TEXT",
+                "x": 42,
+                "y": 197,
+                "width": 66,
+                "height": 17,
+                "fill": "#616161",
+                "content": "Ngày sinh",
+                "fontSize": 14,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "LEFT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:51",
+                "name": "24/05/1999",
+                "type": "TEXT",
+                "x": 283,
+                "y": 197,
+                "width": 78,
+                "height": 17,
+                "fill": "#616161",
+                "content": "24/05/1999",
+                "fontSize": 14,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "RIGHT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:48",
+                "name": "ĐDCN/CCCD/Hộ chiếu",
+                "type": "TEXT",
+                "x": 42,
+                "y": 235,
+                "width": 150,
+                "height": 17,
+                "fill": "#616161",
+                "content": "ĐDCN/CCCD/Hộ chiếu",
+                "fontSize": 14,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "LEFT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:52",
+                "name": "040299010346",
+                "type": "TEXT",
+                "x": 257,
+                "y": 235,
+                "width": 104,
+                "height": 17,
+                "fill": "#616161",
+                "content": "040299010346",
+                "fontSize": 14,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "RIGHT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:49",
+                "name": "Số điện thoại",
+                "type": "TEXT",
+                "x": 42,
+                "y": 273,
+                "width": 88,
+                "height": 17,
+                "fill": "#616161",
+                "content": "Số điện thoại",
+                "fontSize": 14,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "LEFT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:53",
+                "name": "0896511373",
+                "type": "TEXT",
+                "x": 279,
+                "y": 273,
+                "width": 82,
+                "height": 17,
+                "fill": "#616161",
+                "content": "0896511373",
+                "fontSize": 14,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "RIGHT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:50",
+                "name": "Địa chỉ",
+                "type": "TEXT",
+                "x": 42,
+                "y": 308,
+                "width": 45,
+                "height": 17,
+                "fill": "#616161",
+                "content": "Địa chỉ",
+                "fontSize": 14,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "LEFT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:54",
+                "name": "xóm Đông Lam, Xã Trường Lưu,",
+                "type": "TEXT",
+                "x": 153,
+                "y": 308,
+                "width": 208,
+                "height": 17,
+                "fill": "#616161",
+                "content": "xóm Đông Lam, Xã Trường Lưu,",
+                "fontSize": 14,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "RIGHT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:55",
+                "name": "4 1",
+                "type": "RECTANGLE",
+                "x": 0,
+                "y": 514,
+                "width": 75,
+                "height": 129,
+                "fills": [
+                  {
+                    "type": "IMAGE",
+                    "visible": true,
+                    "scaleMode": "CROP",
+                    "imageHash": "a2dcc9af92913ef468b45600b8ff77b800a386b5"
+                  }
+                ],
+                "hasImage": true,
+                "imageHint": "Use figma_read screenshot with nodeId to extract this image"
+              },
+              {
+                "id": "39:9",
+                "name": "4 2",
+                "type": "RECTANGLE",
+                "x": 0,
+                "y": 378,
+                "width": 75,
+                "height": 76,
+                "fills": [
+                  {
+                    "type": "IMAGE",
+                    "visible": true,
+                    "scaleMode": "CROP",
+                    "imageHash": "a2dcc9af92913ef468b45600b8ff77b800a386b5"
+                  }
+                ],
+                "hasImage": true,
+                "imageHint": "Use figma_read screenshot with nodeId to extract this image"
+              },
+              {
+                "id": "9:68",
+                "name": "Group 2",
+                "type": "GROUP",
+                "x": 0,
+                "y": 823,
+                "width": 402,
+                "height": 65,
+                "children": [
+                  {
+                    "id": "9:67",
+                    "name": "Rectangle 12",
+                    "type": "RECTANGLE",
+                    "x": 0,
+                    "y": 823,
+                    "width": 402,
+                    "height": 65,
+                    "fill": "#d9d9d9"
+                  },
+                  {
+                    "id": "9:56",
+                    "name": "3 1",
+                    "type": "RECTANGLE",
+                    "x": 0,
+                    "y": 824,
+                    "width": 402,
+                    "height": 50,
+                    "fills": [
+                      {
+                        "type": "IMAGE",
+                        "visible": true,
+                        "scaleMode": "FILL",
+                        "imageHash": "8908916c1a19c9f8624c2434e14b6f13367ec7ec"
+                      }
+                    ],
+                    "constraints": {
+                      "horizontal": "MIN",
+                      "vertical": "MAX"
+                    },
+                    "hasImage": true,
+                    "imageHint": "Use figma_read screenshot with nodeId to extract this image"
+                  }
+                ]
+              },
+              {
+                "id": "9:58",
+                "name": "THẺ BHYT",
+                "type": "TEXT",
+                "x": 87,
+                "y": 405,
+                "width": 86,
+                "height": 21,
+                "fill": "#3f3f3f",
+                "content": "THẺ BHYT",
+                "fontSize": 17,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "LEFT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:61",
+                "name": "THÔNG TIN HƯỞNG",
+                "type": "TEXT",
+                "x": 87,
+                "y": 532,
+                "width": 166,
+                "height": 21,
+                "fill": "#3f3f3f",
+                "content": "THÔNG TIN HƯỞNG",
+                "fontSize": 17,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "LEFT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:62",
+                "name": "SỔ KHÁM CHỮA BỆNH",
+                "type": "TEXT",
+                "x": 87,
+                "y": 598,
+                "width": 185,
+                "height": 21,
+                "fill": "#3f3f3f",
+                "content": "SỔ KHÁM CHỮA BỆNH",
+                "fontSize": 17,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "LEFT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:63",
+                "name": "Vector 3",
+                "type": "VECTOR",
+                "x": 368,
+                "y": 408,
+                "width": 8,
+                "height": 17,
+                "stroke": "#616161",
+                "strokeWeight": 1.5,
+                "strokeAlign": "CENTER",
+                "pathCount": 1
+              },
+              {
+                "id": "9:65",
+                "name": "Vector 5",
+                "type": "VECTOR",
+                "x": 368,
+                "y": 532,
+                "width": 8,
+                "height": 17,
+                "stroke": "#616161",
+                "strokeWeight": 1.5,
+                "strokeAlign": "CENTER",
+                "pathCount": 1
+              },
+              {
+                "id": "9:66",
+                "name": "Vector 6",
+                "type": "VECTOR",
+                "x": 368,
+                "y": 598,
+                "width": 8,
+                "height": 17,
+                "stroke": "#616161",
+                "strokeWeight": 1.5,
+                "strokeAlign": "CENTER",
+                "pathCount": 1
+              }
+            ]
+          },
+          {
+            "id": "39:4",
+            "name": "Group 13",
+            "type": "GROUP",
+            "x": 6,
+            "y": 454,
+            "width": 370,
+            "height": 60,
+            "children": [
+              {
+                "id": "9:59",
+                "name": "QUÁ TRÌNH THAM GIA",
+                "type": "TEXT",
+                "x": 87,
+                "y": 468,
+                "width": 182,
+                "height": 21,
+                "fill": "#3f3f3f",
+                "content": "QUÁ TRÌNH THAM GIA",
+                "fontSize": 17,
+                "fontFamily": "Inter",
+                "fontWeight": "Regular",
+                "lineHeight": "auto",
+                "textAlign": "LEFT",
+                "textAutoResize": "WIDTH_AND_HEIGHT"
+              },
+              {
+                "id": "9:64",
+                "name": "Vector 4",
+                "type": "VECTOR",
+                "x": 368,
+                "y": 468,
+                "width": 8,
+                "height": 17,
+                "stroke": "#616161",
+                "strokeWeight": 1.5,
+                "strokeAlign": "CENTER",
+                "pathCount": 1
+              },
+              {
+                "id": "39:2",
+                "name": "4 1",
+                "type": "RECTANGLE",
+                "x": 6,
+                "y": 454,
+                "width": 69,
+                "height": 60,
+                "fills": [
+                  {
+                    "type": "IMAGE",
+                    "visible": true,
+                    "scaleMode": "CROP",
+                    "imageHash": "a2dcc9af92913ef468b45600b8ff77b800a386b5"
+                  }
+                ],
+                "hasImage": true,
+                "imageHint": "Use figma_read screenshot with nodeId to extract this image"
+              }
+            ]
+          },
+          {
+            "id": "40:3",
+            "name": "Line 1",
+            "type": "LINE",
+            "x": 84,
+            "y": 448,
+            "width": 278,
+            "height": 0,
+            "stroke": "#948c8c",
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER"
+          },
+          {
+            "id": "40:6",
+            "name": "Line 3",
+            "type": "LINE",
+            "x": 84,
+            "y": 513,
+            "width": 278,
+            "height": 0,
+            "stroke": "#948c8c",
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER",
+            "rotation": -0.21
+          },
+          {
+            "id": "40:7",
+            "name": "Line 4",
+            "type": "LINE",
+            "x": 84,
+            "y": 577,
+            "width": 278,
+            "height": 0,
+            "stroke": "#948c8c",
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER",
+            "rotation": -0.21
+          },
+          {
+            "id": "40:8",
+            "name": "Line 5",
+            "type": "LINE",
+            "x": 84,
+            "y": 642,
+            "width": 278,
+            "height": 0,
+            "stroke": "#948c8c",
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER",
+            "rotation": -0.21
+          },
+          {
+            "id": "19:233",
+            "name": "Group 12",
+            "type": "GROUP",
+            "x": 43,
+            "y": 185,
+            "width": 320,
+            "height": 114,
+            "children": [
+              {
+                "id": "9:44",
+                "name": "Vector 1",
+                "type": "VECTOR",
+                "x": 43,
+                "y": 185,
+                "width": 320,
+                "height": 114,
+                "stroke": "#948c8c",
+                "strokeWeight": 0.5,
+                "strokeAlign": "CENTER",
+                "pathCount": 1
+              }
+            ]
+          },
+          {
+            "id": "73:237",
+            "name": "Ellipse 6",
+            "type": "INSTANCE",
+            "x": 43,
+            "y": 108,
+            "width": 62,
+            "height": 62,
+            "fill": "#ffffff",
+            "effects": [
+              {
+                "type": "DROP_SHADOW",
+                "color": "#000000",
+                "offset": {
+                  "x": 0,
+                  "y": 2
+                },
+                "radius": 4,
+                "spread": 0
+              }
+            ],
+            "overrideCount": 1,
+            "children": [
+              {
+                "id": "I73:237;73:235",
+                "name": "Ellipse 6",
+                "type": "ELLIPSE",
+                "x": 0,
+                "y": 0,
+                "width": 62,
+                "height": 62,
+                "fill": "#d9d9d9",
+                "constraints": {
+                  "horizontal": "SCALE",
+                  "vertical": "SCALE"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "tokens": {
+      "colors": [
+        "#ffffff",
+        "#eaeff3",
+        "#000000",
+        "#4d4d4d",
+        "#616161",
+        "#d9d9d9",
+        "#3f3f3f",
+        "#948c8c"
+      ],
+      "fonts": [
+        "Inter/Regular/20px",
+        "Inter/Bold/14px",
+        "Inter/Regular/14px",
+        "Inter/Regular/17px"
+      ],
+      "sizes": [
+        3,
+        8,
+        17,
+        18,
+        21,
+        24,
+        25,
+        26,
+        45,
+        50,
+        60,
+        62,
+        65,
+        66,
+        67,
+        69,
+        75,
+        76,
+        78,
+        82,
+        86,
+        88,
+        104,
+        114,
+        129,
+        134,
+        150,
+        155,
+        166,
+        182,
+        185,
+        186,
+        208,
+        276,
+        278,
+        320,
+        364,
+        370,
+        402,
+        403,
+        874,
+        888
+      ]
+    }
   }
 }

@@ -18,29 +18,29 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
       {/* Full frame background from Figma */}
       <img src={frameDashboard} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
 
-      {/* Single card overlay covering entire profile card area (y=84 to y=350) */}
-      {/* Expanded slightly and removed box-shadow to perfectly cover the background image's card and prevent double borders/shadows */}
+      {/* Single card overlay covering entire profile card area (y=87 to y=363 in Figma) */}
+      {/* Exactly matches Figma dimensions 364x276 and removes duplicate shadow for perfect alignment */}
       <div style={{
         position: 'absolute',
-        left: `${17.5 / W * 100}%`,
-        top: `${83.5 / H * 100}%`,
-        width: `${367 / W * 100}%`,
-        height: `${267 / H * 100}%`,
+        left: `${19 / W * 100}%`,
+        top: `${87 / H * 100}%`,
+        width: `${364 / W * 100}%`,
+        height: `${276 / H * 100}%`,
         background: '#ffffff', // Clean white background to cover static text
         borderRadius: '12px', // Premium smooth card corners
-        boxShadow: 'none', // Remove duplicate shadow, letting the background image's natural shadow display cleanly
+        boxShadow: 'none', // Letting the background image's natural shadow display cleanly
         zIndex: 10,
         boxSizing: 'border-box',
-        padding: '18px 20px 14px 20px',
+        padding: '21px 22px 14px 23px', // Exact Figma paddings (left: 23px, right: 22px, top: 21px)
         display: 'flex',
         flexDirection: 'column',
       }}>
         {/* Row: Avatar + Name + BHXH code */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '12px' }}>
-          {/* Avatar circle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px' }}>
+          {/* Avatar circle (Figma: 62x62) */}
           <div style={{
-            width: '58px',
-            height: '58px',
+            width: '62px',
+            height: '62px',
             borderRadius: '50%',
             background: '#0069ad', // Perfect solid blue matching VssID exactly
             display: 'flex',
@@ -56,16 +56,17 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             {currentAccount?.avatar ? (
               <img src={currentAccount.avatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
-              currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'HO'
+              currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'TA'
             )}
           </div>
 
           {/* Name + BHXH code */}
-          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, textAlign: 'left' }}>
+            {/* Name: Bold 14px Black (Figma Node 9:45) */}
             <span style={{
-              fontSize: '15.5px',
-              fontWeight: 700,
-              color: '#000000', // Solid crisp black for name
+              fontSize: '14px',
+              fontWeight: 'bold',
+              color: '#000000',
               fontFamily: 'Inter, sans-serif',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
@@ -73,44 +74,47 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             }}>
               {currentAccount?.fullName || 'Nguyễn Hữu Hoàng'}
             </span>
+            {/* BHXH Code: Regular 14px #4d4d4d Grey (Figma Node 9:46) */}
             <span style={{
-              fontSize: '12.5px',
-              color: '#0069ad', // Clean theme blue matching VssID
-              fontWeight: 600,
+              fontSize: '14px',
+              color: '#4d4d4d',
+              fontWeight: 'normal',
               fontFamily: 'Inter, sans-serif',
-              marginTop: '4px',
+              marginTop: '6px',
             }}>
               Mã BHXH: {currentAccount?.bhxhCode || '4217247030'}
             </span>
           </div>
         </div>
 
-        {/* Separator line */}
-        <div style={{ height: '1px', background: '#f1f5f9', marginBottom: '12px' }} />
+        {/* Separator line (Figma: y=185) */}
+        <div style={{ height: '0.5px', background: '#e2e8f0', margin: '12px 0' }} />
 
-        {/* Field rows */}
+        {/* Field rows (Figma details: Regular 14px #616161 Grey) */}
         {fields.map((item, i) => (
           <div key={i} style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'flex-start',
-            marginBottom: i < fields.length - 1 ? '10px' : 0,
+            marginBottom: i < fields.length - 1 ? '14px' : 0,
             minHeight: '20px',
           }}>
+            {/* Label: Regular 14px #616161 (Figma Nodes 9:47-9:50) */}
             <span style={{
-              fontSize: '13px',
-              color: '#555555', // Faint premium grey labels
-              fontWeight: 500,
+              fontSize: '14px',
+              color: '#616161',
+              fontWeight: 'normal',
               fontFamily: 'Inter, sans-serif',
               flexShrink: 0,
               lineHeight: '1.4',
             }}>
               {item.label}
             </span>
+            {/* Value: Regular 14px #616161 (Figma Nodes 9:51-9:54) */}
             <span style={{
-              fontSize: '13px', // Keep consistent text size matching Figma
-              color: '#000000', // Crisp dark value texts
-              fontWeight: 600,
+              fontSize: '14px',
+              color: '#616161',
+              fontWeight: 'normal',
               fontFamily: 'Inter, sans-serif',
               textAlign: 'right',
               maxWidth: '68%',
