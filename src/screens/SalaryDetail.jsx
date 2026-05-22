@@ -1,6 +1,6 @@
 import React from 'react';
-import frameSalary from '../assets/frame_salary.png';
 
+// Figma reference dimensions
 const W = 402;
 const H = 874;
 
@@ -16,122 +16,214 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
   const formattedSalary = formatSalary(rowData?.salary || '14.500.000');
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#ffffff' }}>
-      {/* Full frame background from Figma — keeps the header bar */}
-      <img src={frameSalary} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
+    <div style={{
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden',
+      background: '#ffffff', // Clean white background matching Figma frame iPhone 17 - 4
+      fontFamily: 'Inter, sans-serif',
+      boxSizing: 'border-box'
+    }}>
+      {/* 1. HEADER (Figma Rectangle 7: height 67px, linear-gradient) */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: `${67 / H * 100}%`,
+        background: 'linear-gradient(90deg, #01aef2 0%, #0073c6 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 20
+      }}>
+        {/* Back Chevron Left (x=18, y=34, 24x24) */}
+        <button
+          onClick={() => onNavigate('insurance-list', { transition: 'slide-up', direction: 'right' })}
+          style={{
+            position: 'absolute',
+            left: `${18 / W * 100}%`,
+            top: `${32 / H * 100}%`,
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 30
+          }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
 
-      {/* Single content overlay covering from below header (y=67) to bottom of content */}
-      {/* Hides ALL static data in the Figma image and renders dynamic content exactly matching Figma design */}
+        {/* Title: "QUẢN LÝ CÁ NHÂN": x=107, y=34, fontSize 20, Regular */}
+        <div style={{
+          position: 'absolute',
+          left: `${107 / W * 100}%`,
+          top: `${34 / H * 100}%`,
+          width: `${186 / W * 100}%`,
+          height: `${24 / H * 100}%`,
+          color: '#ffffff',
+          fontSize: '20px',
+          fontWeight: 400,
+          textAlign: 'center',
+          lineHeight: '1.2',
+          whiteSpace: 'nowrap',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          QUẢN LÝ CÁ NHÂN
+        </div>
+      </div>
+
+      {/* 2. SUBHEADER "Chi tiết" (y=67 to y=110, h=43) */}
       <div style={{
         position: 'absolute',
         left: 0,
         top: `${67 / H * 100}%`,
         width: '100%',
-        height: `${(874 - 67) / H * 100}%`,
+        height: `${43 / H * 100}%`,
         background: '#ffffff',
-        zIndex: 10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottom: '1px solid #e2e8f0',
+        zIndex: 10
+      }}>
+        <span style={{
+          fontSize: '18px',
+          fontWeight: 700,
+          color: '#38679f',
+          fontFamily: 'Inter, sans-serif'
+        }}>
+          Chi tiết
+        </span>
+      </div>
+
+      {/* 3. DYNAMIC CONTENT CONTAINER (y=110 to H) */}
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        top: `${110 / H * 100}%`,
+        width: '100%',
+        height: `${(874 - 110) / H * 100}%`,
+        background: '#ffffff',
         display: 'flex',
         flexDirection: 'column',
         overflowY: 'auto',
-        fontFamily: 'Inter, sans-serif',
+        zIndex: 10,
+        boxSizing: 'border-box'
       }} className="scrollbar-none">
-
-        {/* "Từ tháng / Đến tháng" row — white background, matching Figma layout */}
+        
+        {/* Date Row (Từ tháng / Đến tháng) */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           padding: '14px 20px',
           background: '#ffffff',
-          flexShrink: 0,
+          flexShrink: 0
         }}>
-          <span style={{ fontSize: '13px', color: '#333333', fontWeight: 500 }}>
-            Từ tháng: <strong>{rowData?.from || '04/2025'}</strong>
+          <span style={{ fontSize: '13.5px', color: '#2a2b2b', fontWeight: 500, fontFamily: 'Inter, sans-serif' }}>
+            Từ tháng: <strong style={{ color: '#000000', fontWeight: 700 }}>{rowData?.from || '04/2025'}</strong>
           </span>
-          <span style={{ fontSize: '13px', color: '#333333', fontWeight: 500 }}>
-            Đến tháng: <strong>{rowData?.to || '03/2026'}</strong>
+          <span style={{ fontSize: '13.5px', color: '#2a2b2b', fontWeight: 500, fontFamily: 'Inter, sans-serif' }}>
+            Đến tháng: <strong style={{ color: '#000000', fontWeight: 700 }}>{rowData?.to || '03/2026'}</strong>
           </span>
         </div>
 
-        {/* Blue info card — matching Figma #38679f card */}
+        {/* Dynamic Blue Info Card (Background #38679f) */}
         <div style={{
-          margin: '0 14px 0 14px',
+          margin: '0 14px 14px 14px',
           background: '#38679f',
-          padding: '12px 14px 14px 14px',
-          flexShrink: 0,
+          borderRadius: '8px',
+          padding: '16px',
+          color: '#ffffff',
+          boxSizing: 'border-box',
+          boxShadow: '0 2px 6px rgba(56, 103, 159, 0.25)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          flexShrink: 0
         }}>
           {/* Chức vụ */}
-          <div style={{ marginBottom: '6px', fontSize: '13px', color: '#ffffff', fontFamily: 'Inter, sans-serif' }}>
-            <span style={{ fontWeight: 400 }}>Chức vụ: </span>
+          <div style={{ fontSize: '13.5px', lineHeight: '1.4', fontFamily: 'Inter, sans-serif' }}>
+            <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Chức vụ: </span>
             <span style={{ fontWeight: 700 }}>{rowData?.position || 'Nhân viên kỹ thuật'}</span>
           </div>
+
           {/* Đơn vị công tác */}
-          <div style={{ marginBottom: '6px', fontSize: '13px', color: '#ffffff', fontFamily: 'Inter, sans-serif' }}>
-            <span style={{ fontWeight: 400 }}>Đơn vị công tác: </span>
+          <div style={{ fontSize: '13.5px', lineHeight: '1.4', fontFamily: 'Inter, sans-serif' }}>
+            <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Đơn vị công tác: </span>
             <span style={{ fontWeight: 700 }}>{rowData?.company || 'Công ty TNHH EO TECHNICS Việt Nam'}</span>
           </div>
+
           {/* Nơi làm việc */}
-          <div style={{ marginBottom: '6px', fontSize: '13px', color: '#ffffff', fontFamily: 'Inter, sans-serif' }}>
-            <span style={{ fontWeight: 400 }}>Nơi làm việc: </span>
+          <div style={{ fontSize: '13.5px', lineHeight: '1.4', fontFamily: 'Inter, sans-serif' }}>
+            <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Nơi làm việc: </span>
             <span style={{ fontWeight: 700 }}>{rowData?.workAddress || 'BT22, khu đô thị hud võ cường-tp bắc ninh-bắc ninh'}</span>
           </div>
-          {/* Loại tiền */}
-          <div style={{ fontSize: '13px', color: '#ffffff', fontWeight: 700, fontFamily: 'Inter, sans-serif' }}>
+
+          {/* Currency */}
+          <div style={{
+            fontSize: '13.5px',
+            fontWeight: 700,
+            fontFamily: 'Inter, sans-serif',
+            color: '#ffffff',
+            marginTop: '2px'
+          }}>
             VND
           </div>
         </div>
 
-        {/* Salary table */}
-        <div style={{ margin: '0 14px', flexShrink: 0 }}>
+        {/* Salary details table */}
+        <div style={{
+          margin: '0 14px',
+          border: '1px solid #e2e8f0',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          background: '#ffffff',
+          boxSizing: 'border-box',
+          flexShrink: 0
+        }}>
           {/* Row 1: Tiền lương đóng BHXH */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '12px 8px',
+            padding: '14px 16px',
             borderBottom: '1px solid #e2e8f0',
-            background: '#ffffff',
+            background: '#ffffff'
           }}>
-            <span style={{ fontSize: '13px', color: '#1a1a1a', fontWeight: 400, fontFamily: 'Inter, sans-serif' }}>
+            <span style={{ fontSize: '13.5px', color: '#2a2b2b', fontWeight: 500, fontFamily: 'Inter, sans-serif' }}>
               Tiền lương đóng BHXH
             </span>
-            <span style={{ fontSize: '13px', color: '#1a1a1a', fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>
+            <span style={{ fontSize: '14.5px', color: '#000000', fontWeight: 700, fontFamily: 'Inter, sans-serif' }}>
               {formattedSalary}
             </span>
           </div>
+
           {/* Row 2: Mức lương */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '12px 8px',
-            background: '#f8fafc',
+            padding: '14px 16px',
+            background: '#f8fafc'
           }}>
-            <span style={{ fontSize: '13px', color: '#1a1a1a', fontWeight: 400, fontFamily: 'Inter, sans-serif' }}>
+            <span style={{ fontSize: '13.5px', color: '#2a2b2b', fontWeight: 500, fontFamily: 'Inter, sans-serif' }}>
               Mức lương
             </span>
-            <span style={{ fontSize: '13px', color: '#1a1a1a', fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>
+            <span style={{ fontSize: '14.5px', color: '#000000', fontWeight: 700, fontFamily: 'Inter, sans-serif' }}>
               {formattedSalary}
             </span>
           </div>
         </div>
-      </div>
-
-      {/* Interactive hotspots (higher zIndex to stay clickable) */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 20, pointerEvents: 'none' }}>
-        {/* Back arrow */}
-        <div
-          onClick={() => onNavigate('insurance-list', { transition: 'slide-up', direction: 'right' })}
-          style={{
-            position: 'absolute',
-            left: `${5 / W * 100}%`,
-            top: `${35 / H * 100}%`,
-            width: `${60 / W * 100}%`,
-            height: `${50 / H * 100}%`,
-            cursor: 'pointer',
-            pointerEvents: 'auto',
-          }}
-        />
       </div>
     </div>
   );

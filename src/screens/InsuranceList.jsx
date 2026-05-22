@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
-import frameInsurance from '../assets/frame_insurance.png';
 
+// Import tab icons
+import icTabBhxh from '../assets/ic_tab_bhxh.png';
+import icTabBhxhOff from '../assets/ic_tab_bhxh_off.png';
+import icTabBhtn from '../assets/ic_tab_bhtn.png';
+import icTabBhtnOff from '../assets/ic_tab_bhtn_off.png';
+import icTabBhtnld from '../assets/ic_tab_bhtnld.png';
+import icTabBhtnldOff from '../assets/ic_tab_bhtnld_off.png';
+import icTabBhyt from '../assets/ic_tab_bhyt.png';
+import icTabBhytOff from '../assets/ic_tab_bhyt_off.png';
+import icTabC14ts from '../assets/ic_tab_c14ts.png';
+import icTabC14tsOff from '../assets/ic_tab_c14ts_off.png';
+
+// Other assets
+import icEye from '../assets/ic_eye.png';
+import dashBottomNavImg from '../assets/dash_bottom_nav_img.png';
+
+// Figma reference dimensions
 const W = 402;
 const H = 874;
-
-const EyeIcon = () => (
-  <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9 0.5C5 0.5 1.6 2.8 0 6C1.6 9.2 5 11.5 9 11.5C13 11.5 16.4 9.2 18 6C16.4 2.8 13 0.5 9 0.5ZM9 9.5C7.1 9.5 5.5 7.9 5.5 6C5.5 4.1 7.1 2.5 9 2.5C10.9 2.5 12.5 4.1 12.5 6C12.5 7.9 10.9 9.5 9 9.5ZM9 4.2C8 4.2 7.2 5 7.2 6C7.2 7 8 7.8 9 7.8C10 7.8 10.8 7 10.8 6C10.8 5 10 4.2 9 4.2Z" fill="#0069ad"/>
-  </svg>
-);
 
 const InsuranceList = ({ currentAccount, onNavigate }) => {
   const [activeTab, setActiveTab] = useState('BHXH');
@@ -38,69 +48,253 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
 
   const { years, months } = calculateTotalParticipation(history);
 
-  return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#f5f8fa' }}>
-      <img src={frameInsurance} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
+  // Tabs structure matching Figma layout exactly
+  const tabs = [
+    { id: 'BHXH', label: 'BHXH', activeIcon: icTabBhxh, inactiveIcon: icTabBhxhOff },
+    { id: 'BHTN', label: 'BHTN', activeIcon: icTabBhtn, inactiveIcon: icTabBhtnOff },
+    { id: 'BHTNLĐ-BNN', label: 'BHTNLĐ-BNN', activeIcon: icTabBhtnld, inactiveIcon: icTabBhtnldOff },
+    { id: 'BHYT', label: 'BHYT', activeIcon: icTabBhyt, inactiveIcon: icTabBhytOff },
+    { id: 'C14-TS', label: 'C14-TS', activeIcon: icTabC14ts, inactiveIcon: icTabC14tsOff }
+  ];
 
-      {/* Single content overlay covering from below tabs (y=145) to above bottom nav (y=823) */}
-      {/* Completely hides the static data in the Figma image and renders dynamic content */}
-      <div
-        style={{
+  const renderTabLabel = (label) => {
+    if (label === 'BHTNLĐ-BNN') {
+      return (
+        <span style={{ display: 'block', lineHeight: '1.1', fontSize: '11px', textAlign: 'center' }}>
+          BHTNLĐ-<br />BNN
+        </span>
+      );
+    }
+    return label;
+  };
+
+  return (
+    <div style={{
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden',
+      background: '#ffffff', // Clean white background matching Figma frame iPhone 17 - 6
+      fontFamily: 'Inter, sans-serif',
+      boxSizing: 'border-box'
+    }}>
+      {/* 1. HEADER (Figma Rectangle 7: height 67px, linear-gradient) */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: `${67 / H * 100}%`,
+        background: 'linear-gradient(90deg, #01aef2 0%, #0073c6 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 20
+      }}>
+        {/* Back Chevron Left (x=18, y=34, 24x24) */}
+        <button
+          onClick={() => onNavigate('dashboard', { transition: 'slide', direction: 'right' })}
+          style={{
+            position: 'absolute',
+            left: `${18 / W * 100}%`,
+            top: `${32 / H * 100}%`,
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 30
+          }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
+
+        {/* Title: "QUẢN LÝ CÁ NHÂN" (14:102): x=107, y=34, fontSize 20, Regular */}
+        <div style={{
           position: 'absolute',
-          left: 0,
-          top: `${145 / H * 100}%`,
-          width: '100%',
-          height: `${(823 - 145) / H * 100}%`,
-          background: '#ffffff',
-          boxSizing: 'border-box',
+          left: `${107 / W * 100}%`,
+          top: `${34 / H * 100}%`,
+          width: `${186 / W * 100}%`,
+          height: `${24 / H * 100}%`,
+          color: '#ffffff',
+          fontSize: '20px',
+          fontWeight: 400,
+          textAlign: 'center',
+          lineHeight: '1.2',
+          whiteSpace: 'nowrap',
           display: 'flex',
-          flexDirection: 'column',
-          zIndex: 10,
-          overflowY: 'hidden',
-        }}
-      >
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          QUẢN LÝ CÁ NHÂN
+        </div>
+      </div>
+
+      {/* 2. DYNAMIC 5-TAB BAR (y=67 to y=145, h=78) */}
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        top: `${67 / H * 100}%`,
+        width: '100%',
+        height: `${78 / H * 100}%`,
+        background: '#ffffff',
+        display: 'flex',
+        borderBottom: '1px solid #e2e8f0',
+        zIndex: 10,
+        boxSizing: 'border-box'
+      }}>
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                flex: 1,
+                background: 'none',
+                border: 'none',
+                padding: '4px 2px',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '4px',
+                outline: 'none',
+                position: 'relative'
+              }}
+            >
+              {/* Tab Icon */}
+              <img
+                src={isActive ? tab.activeIcon : tab.inactiveIcon}
+                alt={tab.label}
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  objectFit: 'contain'
+                }}
+              />
+              {/* Tab Label */}
+              <span style={{
+                fontSize: '11px',
+                fontWeight: isActive ? 700 : 400,
+                color: isActive ? '#0069ad' : '#aaa9ae',
+                fontFamily: 'Inter, sans-serif',
+                textAlign: 'center',
+                whiteSpace: 'nowrap'
+              }}>
+                {renderTabLabel(tab.label)}
+              </span>
+
+              {/* Premium Active Indicator line */}
+              {isActive && (
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: '15%',
+                  right: '15%',
+                  height: '3px',
+                  background: '#0069ad',
+                  borderRadius: '2px'
+                }} />
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* 3. DYNAMIC CONTENT AREA (y=145 to y=823, h=678) */}
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        top: `${145 / H * 100}%`,
+        width: '100%',
+        height: `${(823 - 145) / H * 100}%`,
+        background: '#ffffff',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        zIndex: 10,
+        overflow: 'hidden'
+      }}>
         {activeTab === 'BHXH' ? (
           <>
-            {/* Summary box — matching Figma light blue bordered box */}
+            {/* Summary Box (Border #0069ad, Background #f0f7fc) */}
             <div style={{
               margin: '12px 14px 10px 14px',
               border: '1px solid #0069ad',
               background: '#f0f7fc',
-              padding: '10px 12px',
+              borderRadius: '6px',
+              padding: '10px 14px',
               flexShrink: 0,
+              boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
             }}>
-              <div style={{ fontSize: '13px', color: '#0069ad', fontWeight: 700, fontFamily: 'Inter, sans-serif', marginBottom: '3px' }}>
+              {/* Title: Quá trình tham gia Bảo hiểm xã hội */}
+              <div style={{
+                fontSize: '14px',
+                color: '#38679f',
+                fontWeight: 700,
+                fontFamily: 'Inter, sans-serif',
+                marginBottom: '4px'
+              }}>
                 Quá trình tham gia Bảo hiểm xã hội
               </div>
-              <div style={{ fontSize: '13px', color: '#1a1a1a', fontWeight: 700, fontFamily: 'Inter, sans-serif', marginBottom: '2px' }}>
+              {/* Total participation */}
+              <div style={{
+                fontSize: '13px',
+                color: '#2a2b2b',
+                fontWeight: 500,
+                fontFamily: 'Inter, sans-serif',
+                marginBottom: '4px'
+              }}>
                 Tổng thời gian tham gia: {years > 0 ? `${years} năm ` : ''}{months} tháng
               </div>
-              <div style={{ fontSize: '13px', color: '#c1191a', fontWeight: 700, fontFamily: 'Inter, sans-serif' }}>
+              {/* Total delay */}
+              <div style={{
+                fontSize: '13px',
+                color: '#c1191a',
+                fontWeight: 500,
+                fontFamily: 'Inter, sans-serif'
+              }}>
                 Tổng thời gian chậm đóng: 0 tháng
               </div>
             </div>
 
-            {/* Table header row — matching Figma blue header */}
+            {/* Table Header Row (Background #3f6fa8) */}
             <div style={{
               display: 'flex',
               background: '#3f6fa8',
               flexShrink: 0,
               marginLeft: '14px',
               marginRight: '14px',
+              height: '34px',
+              alignItems: 'center',
+              borderTopLeftRadius: '4px',
+              borderTopRightRadius: '4px',
+              overflow: 'hidden'
             }}>
-              <div style={{ width: '52px', padding: '8px 2px', fontSize: '11px', fontWeight: 600, color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.25)', boxSizing: 'border-box', lineHeight: '1.2' }}>Từ tháng</div>
-              <div style={{ width: '52px', padding: '8px 2px', fontSize: '11px', fontWeight: 600, color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.25)', boxSizing: 'border-box', lineHeight: '1.2' }}>Đến tháng</div>
-              <div style={{ flex: 1, padding: '8px 4px', fontSize: '11px', fontWeight: 600, color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.25)', boxSizing: 'border-box', lineHeight: '1.2' }}>Đơn vị</div>
-              <div style={{ width: '70px', padding: '8px 2px', fontSize: '11px', fontWeight: 600, color: '#fff', textAlign: 'center', borderRight: '1px solid rgba(255,255,255,0.25)', boxSizing: 'border-box', lineHeight: '1.2' }}>Nghề nghiệp/ Chức vụ</div>
+              <div style={{ width: '54px', fontSize: '11px', fontWeight: 600, color: '#ffffff', textAlign: 'center', boxSizing: 'border-box', lineHeight: '1.2', borderRight: '1px solid rgba(255,255,255,0.15)' }}>Từ tháng</div>
+              <div style={{ width: '54px', fontSize: '11px', fontWeight: 600, color: '#ffffff', textAlign: 'center', boxSizing: 'border-box', lineHeight: '1.2', borderRight: '1px solid rgba(255,255,255,0.15)' }}>Đến<br />tháng</div>
+              <div style={{ flex: 1, paddingLeft: '8px', fontSize: '11px', fontWeight: 600, color: '#ffffff', textAlign: 'left', boxSizing: 'border-box', lineHeight: '1.2', borderRight: '1px solid rgba(255,255,255,0.15)' }}>Đơn vị</div>
+              <div style={{ width: '78px', fontSize: '11px', fontWeight: 600, color: '#ffffff', textAlign: 'center', boxSizing: 'border-box', lineHeight: '1.2' }}>Nghề nghiệp<br />Chức vụ</div>
               <div style={{ width: '32px', boxSizing: 'border-box' }} />
             </div>
 
-            {/* Scrollable data rows */}
+            {/* Scrollable Data Rows */}
             <div style={{
               flex: 1,
               overflowY: 'auto',
               marginLeft: '14px',
               marginRight: '14px',
+              borderLeft: '1px solid #e2e8f0',
+              borderRight: '1px solid #e2e8f0',
+              borderBottom: '1px solid #e2e8f0',
+              borderBottomLeftRadius: '4px',
+              borderBottomRightRadius: '4px'
             }} className="scrollbar-none">
               {history.length === 0 ? (
                 <div style={{ padding: '40px 0', textAlign: 'center', color: '#888', fontSize: '13px', fontFamily: 'Inter, sans-serif' }}>
@@ -117,38 +311,45 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                       borderBottom: '1px solid #e2e8f0',
                       cursor: 'pointer',
                       background: i % 2 === 0 ? '#ffffff' : '#f8fafc',
+                      minHeight: '48px',
+                      transition: 'background-color 0.15s ease'
                     }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#f8fafc'}
                   >
-                    <div style={{ width: '52px', padding: '10px 2px', fontSize: '11px', color: '#334155', fontWeight: 500, textAlign: 'center', borderRight: '1px solid #e2e8f0', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{row.from}</div>
-                    <div style={{ width: '52px', padding: '10px 2px', fontSize: '11px', color: '#334155', fontWeight: 500, textAlign: 'center', borderRight: '1px solid #e2e8f0', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{row.to}</div>
+                    <div style={{ width: '54px', fontSize: '11px', color: '#3f3f3f', fontWeight: 500, textAlign: 'center', borderRight: '1px solid #e2e8f0', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{row.from}</div>
+                    <div style={{ width: '54px', fontSize: '11px', color: '#3f3f3f', fontWeight: 500, textAlign: 'center', borderRight: '1px solid #e2e8f0', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{row.to}</div>
                     <div style={{
                       flex: 1,
-                      padding: '10px 6px',
+                      padding: '8px 8px',
                       fontSize: '11px',
-                      color: '#0f172a',
+                      color: '#3f3f3f',
                       fontWeight: 600,
                       textAlign: 'left',
                       borderRight: '1px solid #e2e8f0',
                       boxSizing: 'border-box',
                       lineHeight: '1.3',
-                      wordBreak: 'break-word',
+                      display: 'flex',
+                      alignItems: 'center',
+                      wordBreak: 'break-word'
                     }}>{row.company}</div>
                     <div style={{
-                      width: '70px',
-                      padding: '10px 2px',
+                      width: '78px',
+                      padding: '4px 2px',
                       fontSize: '11px',
-                      color: '#475569',
+                      color: '#3f3f3f',
+                      fontWeight: 500,
                       textAlign: 'center',
                       borderRight: '1px solid #e2e8f0',
                       boxSizing: 'border-box',
                       lineHeight: '1.3',
-                      wordBreak: 'break-word',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
+                      wordBreak: 'break-word'
                     }}>{row.position}</div>
                     <div style={{ width: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box' }}>
-                      <EyeIcon />
+                      <img src={icEye} alt="Xem chi tiết" style={{ width: '18px', height: '12px', objectFit: 'contain' }} />
                     </div>
                   </div>
                 ))
@@ -161,62 +362,64 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#94a3b8',
+            color: '#aaa9ae',
             fontSize: '14px',
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: 'Inter, sans-serif'
           }}>
             Chưa có dữ liệu tham gia {activeTab}
           </div>
         )}
       </div>
 
-      {/* Interactive hotspot layer (always on top) */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 15, pointerEvents: 'none' }}>
-        {/* Back arrow */}
-        <div
-          onClick={() => onNavigate('dashboard', { transition: 'slide', direction: 'right' })}
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: `${5 / H * 100}%`,
-            width: `${60 / W * 100}%`,
-            height: `${55 / H * 100}%`,
-            cursor: 'pointer',
-            pointerEvents: 'auto',
-          }}
-        />
-
-        {/* Tab hotspots: y=67 to y=145 */}
+      {/* 4. BOTTOM NAV BAR (Group 2: y=823, h=65, bg #d9d9d9) */}
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        top: `${823 / H * 100}%`,
+        width: '100%',
+        height: `${65 / H * 100}%`,
+        background: '#d9d9d9', // Figma background color: #d9d9d9
+        zIndex: 20,
+        boxSizing: 'border-box'
+      }}>
+        {/* Bottom Nav Icons strip (3 1: y=824, height 50px) */}
         <div style={{
           position: 'absolute',
+          top: 0,
           left: 0,
-          top: `${67 / H * 100}%`,
           width: '100%',
-          height: `${78 / H * 100}%`,
-          display: 'flex',
-          pointerEvents: 'auto',
+          height: '50px',
+          pointerEvents: 'none'
         }}>
-          <div onClick={() => setActiveTab('BHXH')} style={{ flex: 1, cursor: 'pointer' }} />
-          <div onClick={() => setActiveTab('BHTN')} style={{ flex: 1, cursor: 'pointer' }} />
-          <div onClick={() => setActiveTab('BHTNLD')} style={{ flex: 1, cursor: 'pointer' }} />
-          <div onClick={() => setActiveTab('BHYT')} style={{ flex: 1, cursor: 'pointer' }} />
-          <div onClick={() => setActiveTab('C14TS')} style={{ flex: 1, cursor: 'pointer' }} />
+          <img src={dashBottomNavImg} alt="" style={{ width: '100%', height: '100%', objectFit: 'fill' }} />
         </div>
 
-        {/* Bottom nav: y=823, h=65 */}
+        {/* 4 Equal clickable zones for the nav bar */}
         <div style={{
-          position: 'absolute',
-          left: 0,
-          top: `${823 / H * 100}%`,
-          width: '100%',
-          height: `${65 / H * 100}%`,
           display: 'flex',
-          pointerEvents: 'auto',
+          width: '100%',
+          height: '100%'
         }}>
-          <div onClick={() => onNavigate('dashboard', { transition: 'instant' })} style={{ flex: 1, cursor: 'pointer' }} />
-          <div style={{ flex: 1, cursor: 'pointer' }} />
-          <div style={{ flex: 1, cursor: 'pointer' }} />
-          <div style={{ flex: 1, cursor: 'pointer' }} />
+          {/* Column 1: Trang chủ / Quản lý cá nhân */}
+          <div
+            onClick={() => onNavigate('dashboard')}
+            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
+          />
+          {/* Column 2: Dịch vụ công */}
+          <div
+            onClick={() => alert('Dịch vụ công đang phát triển!')}
+            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
+          />
+          {/* Column 3: Tra cứu */}
+          <div
+            onClick={() => alert('Tra cứu trực tuyến đang phát triển!')}
+            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
+          />
+          {/* Column 4: Trợ giúp / Cài đặt */}
+          <div
+            onClick={() => onNavigate('dashboard')} // Navigates to dashboard to open drawer
+            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
+          />
         </div>
       </div>
     </div>

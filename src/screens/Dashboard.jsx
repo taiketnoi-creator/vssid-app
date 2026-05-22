@@ -1,7 +1,17 @@
 import React from 'react';
-import frameDashboard from '../assets/frame_dashboard.png';
 
-// Figma frame: 402x874
+// Import pristine individual assets from Figma
+import dashIconHamburger from '../assets/dash_icon_hamburger.png';
+import dashIconBell from '../assets/dash_icon_bell.png';
+import dashBottomNavImg from '../assets/dash_bottom_nav_img.png';
+
+// Menu icons
+import icDashAvatar from '../assets/ic_dash_avatar.png'; // BHYT Icon
+import icDashQuatrinh from '../assets/ic_dash_quatrinh.png'; // Quá Trình Icon
+import icDashMenuCol1 from '../assets/ic_dash_menu_col1.png'; // Thông Tin Hưởng Icon (red cross / circle)
+import icDashSokham from '../assets/ic_dash_sokham.png'; // Sổ Khám Icon
+
+// Figma reference dimensions
 const W = 402;
 const H = 874;
 
@@ -14,197 +24,353 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
   ];
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#eaeff3' }}>
-      {/* Full frame background from Figma */}
-      <img src={frameDashboard} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
+    <div style={{
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden',
+      background: '#ffffff', // 100% Figma frame background is white
+      fontFamily: 'Inter, sans-serif',
+      boxSizing: 'border-box'
+    }}>
+      {/* 1. HEADER (Figma Rectangle 7: height 67px, linear-gradient) */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: `${67 / H * 100}%`,
+        background: 'linear-gradient(90deg, #01aef2 0%, #0073c6 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 20
+      }}>
+        {/* Hamburger Menu (Group 1, 8:39): x=18, y=34, 25x18 */}
+        <button
+          onClick={onOpenSidebar}
+          style={{
+            position: 'absolute',
+            left: `${18 / W * 100}%`,
+            top: `${34 / H * 100}%`,
+            width: `${25 / W * 100}%`,
+            height: `${18 / H * 100}%`,
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <img src={dashIconHamburger} alt="Menu" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+        </button>
 
-      {/* Single card overlay covering entire profile card area (y=87 to y=363 in Figma) */}
-      {/* Exactly matches Figma dimensions 364x276 and removes duplicate shadow for perfect alignment */}
+        {/* Title: "QUẢN LÝ CÁ NHÂN" (8:35): x=108, y=34, fontSize 20, Regular */}
+        <div style={{
+          position: 'absolute',
+          left: `${108 / W * 100}%`,
+          top: `${34 / H * 100}%`,
+          width: `${186 / W * 100}%`,
+          height: `${24 / H * 100}%`,
+          color: '#ffffff',
+          fontSize: '20px',
+          fontWeight: 400,
+          textAlign: 'center',
+          lineHeight: '1.2',
+          whiteSpace: 'nowrap',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          QUẢN LÝ CÁ NHÂN
+        </div>
+
+        {/* Bell Icon (Vector, 8:40): x=359, y=32, 24x26 */}
+        <button
+          onClick={() => alert('Không có thông báo mới!')}
+          style={{
+            position: 'absolute',
+            left: `${359 / W * 100}%`,
+            top: `${32 / H * 100}%`,
+            width: `${24 / W * 100}%`,
+            height: `${26 / H * 100}%`,
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <img src={dashIconBell} alt="Notifications" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+        </button>
+      </div>
+
+      {/* 2. PROFILE CARD (Rectangle 11: x=19, y=87, 364x276, background #eaeff3) */}
       <div style={{
         position: 'absolute',
         left: `${19 / W * 100}%`,
         top: `${87 / H * 100}%`,
         width: `${364 / W * 100}%`,
         height: `${276 / H * 100}%`,
-        background: '#ffffff', // Clean white background to cover static text
-        borderRadius: '12px', // Premium smooth card corners
-        boxShadow: 'none', // Letting the background image's natural shadow display cleanly
-        zIndex: 10,
+        background: '#eaeff3', // Figma color: #eaeff3
+        borderRadius: '12px',
         boxSizing: 'border-box',
-        padding: '21px 22px 14px 23px', // Exact Figma paddings (left: 23px, right: 22px, top: 21px)
+        padding: '16px 20px',
         display: 'flex',
         flexDirection: 'column',
+        zIndex: 10,
+        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)'
       }}>
-        {/* Row: Avatar + Name + BHXH code */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px' }}>
-          {/* Avatar circle (Figma: 62x62) */}
+        {/* Row: Avatar Circle (Ellipse 6: 62x62 at x=43, y=108 -> local x=24, y=21) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '14px' }}>
+          {/* Avatar frame */}
           <div style={{
             width: '62px',
             height: '62px',
             borderRadius: '50%',
-            background: '#0069ad', // Perfect solid blue matching VssID exactly
+            background: '#ffffff',
+            boxShadow: '0px 2px 4px rgba(0,0,0,0.25)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#ffffff',
-            fontWeight: 700,
-            fontSize: '18px',
-            fontFamily: 'Inter, sans-serif',
-            flexShrink: 0,
-            overflow: 'hidden'
+            overflow: 'hidden',
+            flexShrink: 0
           }}>
             {currentAccount?.avatar ? (
-              <img src={currentAccount.avatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={currentAccount.avatar} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
-              currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'TA'
+              <div style={{
+                width: '100%',
+                height: '100%',
+                background: '#0069ad',
+                color: '#ffffff',
+                fontWeight: 700,
+                fontSize: '18px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                {currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'HN'}
+              </div>
             )}
           </div>
 
-          {/* Name + BHXH code */}
-          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, textAlign: 'left' }}>
-            {/* Name: Bold 14px Black (Figma Node 9:45) */}
+          {/* Name & BHXH Code info */}
+          <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', minWidth: 0 }}>
+            {/* Nguyễn Hữu Hoàng (9:45): 14px Bold, color #000000 */}
             <span style={{
               fontSize: '14px',
-              fontWeight: 'bold',
+              fontWeight: 700,
               color: '#000000',
-              fontFamily: 'Inter, sans-serif',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
-              textOverflow: 'ellipsis',
+              textOverflow: 'ellipsis'
             }}>
               {currentAccount?.fullName || 'Nguyễn Hữu Hoàng'}
             </span>
-            {/* BHXH Code: Regular 14px #4d4d4d Grey (Figma Node 9:46) */}
+            {/* Mã BHXH: 4217247030 (9:46): 14px Regular, color #4d4d4d */}
             <span style={{
               fontSize: '14px',
+              fontWeight: 400,
               color: '#4d4d4d',
-              fontWeight: 'normal',
-              fontFamily: 'Inter, sans-serif',
-              marginTop: '6px',
+              marginTop: '5px'
             }}>
               Mã BHXH: {currentAccount?.bhxhCode || '4217247030'}
             </span>
           </div>
         </div>
 
-        {/* Separator line (Figma: y=185) */}
-        <div style={{ height: '0.5px', background: '#e2e8f0', margin: '12px 0' }} />
+        {/* Separator line (Vector 1: y=185 -> local y=98) */}
+        <div style={{ height: '0.5px', background: '#948c8c', opacity: 0.6, marginBottom: '14px' }} />
 
-        {/* Field rows (Figma details: Regular 14px #616161 Grey) */}
-        {fields.map((item, i) => (
-          <div key={i} style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            marginBottom: i < fields.length - 1 ? '14px' : 0,
-            minHeight: '20px',
-          }}>
-            {/* Label: Regular 14px #616161 (Figma Nodes 9:47-9:50) */}
+        {/* Info Fields rows */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {fields.map((field, idx) => (
+            <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '17px' }}>
+              {/* Label (x=42): 14px Regular, color #616161 */}
+              <span style={{
+                fontSize: '14px',
+                fontWeight: 400,
+                color: '#616161',
+                lineHeight: '1.2',
+                flexShrink: 0
+              }}>
+                {field.label}
+              </span>
+              {/* Value (x=283/257/279/153): 14px Regular, color #616161 */}
+              <span style={{
+                fontSize: '14px',
+                fontWeight: 400,
+                color: '#616161',
+                lineHeight: '1.2',
+                textAlign: 'right',
+                maxWidth: '65%',
+                wordBreak: 'break-word',
+                whiteSpace: 'pre-line'
+              }}>
+                {field.value}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 3. MENU ITEMS LIST (y=378 to y=650) */}
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        top: `${378 / H * 100}%`,
+        width: '100%',
+        height: `${(650 - 378) / H * 100}%`,
+        display: 'flex',
+        flexDirection: 'column',
+        boxSizing: 'border-box',
+        zIndex: 10
+      }}>
+        {/* Menu rows */}
+        {[
+          {
+            label: 'THẺ BHYT',
+            icon: icDashAvatar,
+            action: () => alert('Tính năng Thẻ BHYT đang phát triển!')
+          },
+          {
+            label: 'QUÁ TRÌNH THAM GIA',
+            icon: icDashQuatrinh,
+            action: () => onNavigate('insurance-list', { transition: 'slide', direction: 'left' })
+          },
+          {
+            label: 'THÔNG TIN HƯỞNG',
+            icon: icDashMenuCol1,
+            action: () => alert('Tính năng Thông tin hưởng đang phát triển!')
+          },
+          {
+            label: 'SỔ KHÁM CHỮA BỆNH',
+            icon: icDashSokham,
+            action: () => alert('Tính năng Sổ khám chữa bệnh đang phát triển!')
+          }
+        ].map((item, idx) => (
+          <div
+            key={idx}
+            onClick={item.action}
+            style={{
+              position: 'relative',
+              width: '100%',
+              height: '65px',
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer',
+              boxSizing: 'border-box'
+            }}
+          >
+            {/* Left Icon (Figma x=19, size ~40x40) */}
+            <div style={{
+              position: 'absolute',
+              left: '19px',
+              width: '40px',
+              height: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden'
+            }}>
+              <img src={item.icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </div>
+
+            {/* Menu Label (Figma x=87, y=405/468/532/598): 17px Regular, color #3f3f3f */}
             <span style={{
-              fontSize: '14px',
-              color: '#616161',
-              fontWeight: 'normal',
-              fontFamily: 'Inter, sans-serif',
-              flexShrink: 0,
-              lineHeight: '1.4',
+              position: 'absolute',
+              left: '87px',
+              fontSize: '17px',
+              fontWeight: 400,
+              color: '#3f3f3f',
+              fontFamily: 'Inter, sans-serif'
             }}>
               {item.label}
             </span>
-            {/* Value: Regular 14px #616161 (Figma Nodes 9:51-9:54) */}
-            <span style={{
-              fontSize: '14px',
-              color: '#616161',
-              fontWeight: 'normal',
-              fontFamily: 'Inter, sans-serif',
-              textAlign: 'right',
-              maxWidth: '68%',
-              lineHeight: '1.4',
-              whiteSpace: 'pre-line', // Allow preformatted newlines
-              wordBreak: 'break-word',
+
+            {/* Chevron Right (Figma x=368, size 8x17) */}
+            <div style={{
+              position: 'absolute',
+              left: '368px',
+              width: '8px',
+              height: '17px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-              {item.value}
-            </span>
+              <svg width="8" height="17" viewBox="0 0 8 17" fill="none">
+                <path d="M1 1.5L6.5 8.5L1 15.5" stroke="#616161" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+
+            {/* Separator line at bottom of row (Figma Lines: y=448/513/577/642, x=84, w=278) */}
+            <div style={{
+              position: 'absolute',
+              left: '84px',
+              bottom: 0,
+              width: '278px',
+              height: '1px',
+              background: '#948c8c',
+              opacity: 0.4
+            }} />
           </div>
         ))}
       </div>
 
-      {/* Interactive hotspots - positions from Figma tree coordinates */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 15 }}>
-        {/* Hamburger (Group 1, 8:39): x18,y34 25x18 — enlarged hit area */}
-        <div
-          onClick={onOpenSidebar}
-          style={{
-            position: 'absolute',
-            left: `${8 / W * 100}%`,
-            top: `${20 / H * 100}%`,
-            width: `${50 / W * 100}%`,
-            height: `${45 / H * 100}%`,
-            cursor: 'pointer'
-          }}
-        />
-
-        {/* THẺ BHYT row: y385-448 */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: `${385 / H * 100}%`,
-            width: '100%',
-            height: `${63 / H * 100}%`,
-            cursor: 'pointer'
-          }}
-        />
-
-        {/* QUÁ TRÌNH THAM GIA row: y448-513 → navigate */}
-        <div
-          onClick={() => onNavigate('insurance-list', { transition: 'slide', direction: 'left' })}
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: `${448 / H * 100}%`,
-            width: '100%',
-            height: `${65 / H * 100}%`,
-            cursor: 'pointer'
-          }}
-        />
-
-        {/* THÔNG TIN HƯỞNG row: y513-577 */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: `${513 / H * 100}%`,
-            width: '100%',
-            height: `${64 / H * 100}%`,
-            cursor: 'pointer'
-          }}
-        />
-
-        {/* SỔ KHÁM CHỮA BỆNH row: y577-642 */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: `${577 / H * 100}%`,
-            width: '100%',
-            height: `${65 / H * 100}%`,
-            cursor: 'pointer'
-          }}
-        />
-
-        {/* Bottom nav (Group 2): y823, h65 — 4 equal zones */}
+      {/* 4. BOTTOM NAV BAR (Group 2: y=823, h=65, bg #d9d9d9) */}
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        top: `${823 / H * 100}%`,
+        width: '100%',
+        height: `${65 / H * 100}%`,
+        background: '#d9d9d9', // Figma background color: #d9d9d9
+        zIndex: 20,
+        boxSizing: 'border-box'
+      }}>
+        {/* Bottom Nav Icons strip (3 1: y=824, height 50px) */}
         <div style={{
           position: 'absolute',
+          top: 0,
           left: 0,
-          top: `${823 / H * 100}%`,
           width: '100%',
-          height: `${65 / H * 100}%`,
-          display: 'flex'
+          height: '50px',
+          pointerEvents: 'none'
         }}>
-          <div onClick={() => onNavigate('dashboard')} style={{ flex: 1, cursor: 'pointer' }} />
-          <div style={{ flex: 1, cursor: 'pointer' }} />
-          <div style={{ flex: 1, cursor: 'pointer' }} />
-          <div style={{ flex: 1, cursor: 'pointer' }} />
+          <img src={dashBottomNavImg} alt="" style={{ width: '100%', height: '100%', objectFit: 'fill' }} />
+        </div>
+
+        {/* 4 Equal clickable zones for the nav bar */}
+        <div style={{
+          display: 'flex',
+          width: '100%',
+          height: '100%'
+        }}>
+          {/* Column 1: Trang chủ / Quản lý cá nhân */}
+          <div
+            onClick={() => onNavigate('dashboard')}
+            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
+          />
+          {/* Column 2: Dịch vụ công */}
+          <div
+            onClick={() => alert('Dịch vụ công đang phát triển!')}
+            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
+          />
+          {/* Column 3: Tra cứu */}
+          <div
+            onClick={() => alert('Tra cứu trực tuyến đang phát triển!')}
+            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
+          />
+          {/* Column 4: Trợ giúp / Cài đặt */}
+          <div
+            onClick={() => onOpenSidebar()} // Opens sidebar as options drawer
+            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
+          />
         </div>
       </div>
     </div>
@@ -212,3 +378,4 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
 };
 
 export default Dashboard;
+
