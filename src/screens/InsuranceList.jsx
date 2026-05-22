@@ -84,7 +84,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         top: 0,
         left: 0,
         width: '100%',
-        height: `${67 / H * 100}%`,
+        height: '67px',
         background: 'linear-gradient(90deg, #01aef2 0%, #0073c6 100%)',
         display: 'flex',
         alignItems: 'center',
@@ -96,8 +96,10 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
           onClick={() => onNavigate('dashboard', { transition: 'slide', direction: 'right' })}
           style={{
             position: 'absolute',
-            left: `${18 / W * 100}%`,
-            top: `${32 / H * 100}%`,
+            left: '18px',
+            top: '32px',
+            width: '24px',
+            height: '24px',
             background: 'none',
             border: 'none',
             padding: 0,
@@ -116,19 +118,21 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         {/* Title: "QUẢN LÝ CÁ NHÂN" (14:102): x=107, y=34, fontSize 20, Regular */}
         <div style={{
           position: 'absolute',
-          left: `${107 / W * 100}%`,
-          top: `${34 / H * 100}%`,
-          width: `${186 / W * 100}%`,
-          height: `${24 / H * 100}%`,
+          left: 0,
+          right: 0,
+          top: '34px',
+          height: '24px',
+          margin: '0 auto',
           color: '#ffffff',
           fontSize: '20px',
           fontWeight: 400,
           textAlign: 'center',
-          lineHeight: '1.2',
+          lineHeight: '24px',
           whiteSpace: 'nowrap',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          fontFamily: 'Inter, sans-serif'
         }}>
           QUẢN LÝ CÁ NHÂN
         </div>
@@ -138,9 +142,9 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
       <div style={{
         position: 'absolute',
         left: 0,
-        top: `${67 / H * 100}%`,
+        top: '67px',
         width: '100%',
-        height: `${78 / H * 100}%`,
+        height: '78px',
         background: '#ffffff',
         display: 'flex',
         borderBottom: '1px solid #e2e8f0',
@@ -211,9 +215,9 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
       <div style={{
         position: 'absolute',
         left: 0,
-        top: `${145 / H * 100}%`,
+        top: '145px',
         width: '100%',
-        height: `${(823 - 145) / H * 100}%`,
+        height: 'calc(100% - 145px - 65px)',
         background: '#ffffff',
         boxSizing: 'border-box',
         display: 'flex',
@@ -371,16 +375,17 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         )}
       </div>
 
-      {/* 4. BOTTOM NAV BAR (Group 2: y=823, h=65, bg #d9d9d9) */}
+      {/* 4. BOTTOM NAV BAR (Group 2: y=823, h=65, bg #ffffff) */}
       <div style={{
         position: 'absolute',
         left: 0,
-        top: `${823 / H * 100}%`,
+        bottom: 0,
         width: '100%',
-        height: `${65 / H * 100}%`,
-        background: '#d9d9d9', // Figma background color: #d9d9d9
+        height: '65px',
+        background: '#ffffff', // Clean white background blends with dashBottomNavImg
         zIndex: 20,
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        boxShadow: '0 -2px 10px rgba(0,0,0,0.05)'
       }}>
         {/* Bottom Nav Icons strip (3 1: y=824, height 50px) */}
         <div style={{

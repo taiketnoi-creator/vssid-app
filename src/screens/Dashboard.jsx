@@ -39,11 +39,8 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
         top: 0,
         left: 0,
         width: '100%',
-        height: `${67 / H * 100}%`,
+        height: '67px',
         background: 'linear-gradient(90deg, #01aef2 0%, #0073c6 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         zIndex: 20
       }}>
         {/* Hamburger Menu (Group 1, 8:39): x=18, y=34, 25x18 */}
@@ -51,10 +48,10 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           onClick={onOpenSidebar}
           style={{
             position: 'absolute',
-            left: `${18 / W * 100}%`,
-            top: `${34 / H * 100}%`,
-            width: `${25 / W * 100}%`,
-            height: `${18 / H * 100}%`,
+            left: '18px',
+            top: '34px',
+            width: '25px',
+            height: '18px',
             background: 'none',
             border: 'none',
             padding: 0,
@@ -70,19 +67,21 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
         {/* Title: "QUẢN LÝ CÁ NHÂN" (8:35): x=108, y=34, fontSize 20, Regular */}
         <div style={{
           position: 'absolute',
-          left: `${108 / W * 100}%`,
-          top: `${34 / H * 100}%`,
-          width: `${186 / W * 100}%`,
-          height: `${24 / H * 100}%`,
+          left: 0,
+          right: 0,
+          top: '34px',
+          height: '24px',
+          margin: '0 auto',
           color: '#ffffff',
           fontSize: '20px',
           fontWeight: 400,
           textAlign: 'center',
-          lineHeight: '1.2',
+          lineHeight: '24px',
           whiteSpace: 'nowrap',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          fontFamily: 'Inter, sans-serif'
         }}>
           QUẢN LÝ CÁ NHÂN
         </div>
@@ -92,10 +91,10 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           onClick={() => alert('Không có thông báo mới!')}
           style={{
             position: 'absolute',
-            left: `${359 / W * 100}%`,
-            top: `${32 / H * 100}%`,
-            width: `${24 / W * 100}%`,
-            height: `${26 / H * 100}%`,
+            right: '19px',
+            top: '32px',
+            width: '24px',
+            height: '26px',
             background: 'none',
             border: 'none',
             padding: 0,
@@ -112,10 +111,10 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
       {/* 2. PROFILE CARD (Rectangle 11: x=19, y=87, 364x276, background #eaeff3) */}
       <div style={{
         position: 'absolute',
-        left: `${19 / W * 100}%`,
-        top: `${87 / H * 100}%`,
-        width: `${364 / W * 100}%`,
-        height: `${276 / H * 100}%`,
+        left: '19px',
+        right: '19px',
+        top: '87px',
+        height: '276px',
         background: '#eaeff3', // Figma color: #eaeff3
         borderRadius: '12px',
         boxSizing: 'border-box',
@@ -223,14 +222,15 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
       <div style={{
         position: 'absolute',
         left: 0,
-        top: `${378 / H * 100}%`,
+        top: '378px',
         width: '100%',
-        height: `${(650 - 378) / H * 100}%`,
+        height: 'calc(100% - 378px - 65px)',
         display: 'flex',
         flexDirection: 'column',
         boxSizing: 'border-box',
-        zIndex: 10
-      }}>
+        zIndex: 10,
+        overflowY: 'auto'
+      }} className="scrollbar-none">
         {/* Menu rows */}
         {[
           {
@@ -296,7 +296,7 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             {/* Chevron Right (Figma x=368, size 8x17) */}
             <div style={{
               position: 'absolute',
-              left: '368px',
+              right: '26px',
               width: '8px',
               height: '17px',
               display: 'flex',
@@ -322,16 +322,17 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
         ))}
       </div>
 
-      {/* 4. BOTTOM NAV BAR (Group 2: y=823, h=65, bg #d9d9d9) */}
+      {/* 4. BOTTOM NAV BAR (Group 2: y=823, h=65, bg #ffffff) */}
       <div style={{
         position: 'absolute',
         left: 0,
-        top: `${823 / H * 100}%`,
+        bottom: 0,
         width: '100%',
-        height: `${65 / H * 100}%`,
-        background: '#d9d9d9', // Figma background color: #d9d9d9
+        height: '65px',
+        background: '#ffffff', // Clean white background blends with dashBottomNavImg
         zIndex: 20,
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        boxShadow: '0 -2px 10px rgba(0,0,0,0.05)'
       }}>
         {/* Bottom Nav Icons strip (3 1: y=824, height 50px) */}
         <div style={{

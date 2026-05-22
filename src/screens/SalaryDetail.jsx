@@ -31,7 +31,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         top: 0,
         left: 0,
         width: '100%',
-        height: `${67 / H * 100}%`,
+        height: '67px',
         background: 'linear-gradient(90deg, #01aef2 0%, #0073c6 100%)',
         display: 'flex',
         alignItems: 'center',
@@ -43,8 +43,10 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           onClick={() => onNavigate('insurance-list', { transition: 'slide-up', direction: 'right' })}
           style={{
             position: 'absolute',
-            left: `${18 / W * 100}%`,
-            top: `${32 / H * 100}%`,
+            left: '18px',
+            top: '32px',
+            width: '24px',
+            height: '24px',
             background: 'none',
             border: 'none',
             padding: 0,
@@ -63,19 +65,21 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         {/* Title: "QUẢN LÝ CÁ NHÂN": x=107, y=34, fontSize 20, Regular */}
         <div style={{
           position: 'absolute',
-          left: `${107 / W * 100}%`,
-          top: `${34 / H * 100}%`,
-          width: `${186 / W * 100}%`,
-          height: `${24 / H * 100}%`,
+          left: 0,
+          right: 0,
+          top: '34px',
+          height: '24px',
+          margin: '0 auto',
           color: '#ffffff',
           fontSize: '20px',
           fontWeight: 400,
           textAlign: 'center',
-          lineHeight: '1.2',
+          lineHeight: '24px',
           whiteSpace: 'nowrap',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          fontFamily: 'Inter, sans-serif'
         }}>
           QUẢN LÝ CÁ NHÂN
         </div>
@@ -85,9 +89,9 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
       <div style={{
         position: 'absolute',
         left: 0,
-        top: `${67 / H * 100}%`,
+        top: '67px',
         width: '100%',
-        height: `${43 / H * 100}%`,
+        height: '43px',
         background: '#ffffff',
         display: 'flex',
         alignItems: 'center',
@@ -109,9 +113,9 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
       <div style={{
         position: 'absolute',
         left: 0,
-        top: `${110 / H * 100}%`,
+        top: '110px',
         width: '100%',
-        height: `${(874 - 110) / H * 100}%`,
+        height: 'calc(100% - 110px)',
         background: '#ffffff',
         display: 'flex',
         flexDirection: 'column',
@@ -119,7 +123,6 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         zIndex: 10,
         boxSizing: 'border-box'
       }} className="scrollbar-none">
-        
         {/* Date Row (Từ tháng / Đến tháng) */}
         <div style={{
           display: 'flex',
