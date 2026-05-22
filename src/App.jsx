@@ -11,7 +11,7 @@ const SEED_ACCOUNTS = [
   {
     username: "4217247030",
     password: "123",
-    fullName: "Nguyễn Hữu Hoàng",
+    fullName: "Cao thanh tai",
     bhxhCode: "4217247030",
     birthday: "24/05/1999",
     cccd: "040299010346",
