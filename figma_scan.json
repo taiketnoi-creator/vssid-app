@@ -1,0 +1,2087 @@
+{
+  "success": true,
+  "data": {
+    "rootId": "0:1",
+    "rootName": "Page 1",
+    "rootType": "PAGE",
+    "width": null,
+    "height": null,
+    "totalNodes": 295,
+    "sections": [
+      {
+        "id": "1:3",
+        "name": "iPhone 17 - 1",
+        "type": "FRAME",
+        "x": -616,
+        "y": 0,
+        "width": 402,
+        "height": 874,
+        "childCount": 38,
+        "iconCount": 0,
+        "imageCount": 0,
+        "textContent": [
+          "Mật khẩu",
+          "Mật khẩu",
+          "Mời cài đăt VssID",
+          "Mời cài đăt VssID",
+          "Chính sách quyền riêng tư",
+          "Chính sách quyền riêng tư",
+          "Đăng ký tài khoản",
+          "Đăng ký tài khoản",
+          "Quên mật khẩu ?",
+          "Quên mật khẩu ?",
+          "Đăng nhập",
+          "Đăng nhập",
+          "Đăng nhập bằng tài khoản\nđịnh danh điện tử",
+          "Đăng nhập bằng tài khoản\nđịnh danh điện tử",
+          "Mã số BHXH/Số ĐDCN/CCCD"
+        ]
+      },
+      {
+        "id": "64:83",
+        "name": "iPhone 17 - 7",
+        "type": "FRAME",
+        "x": -109,
+        "y": 0,
+        "width": 402,
+        "height": 874,
+        "childCount": 40,
+        "iconCount": 0,
+        "imageCount": 0,
+        "textContent": [
+          "Mật khẩu",
+          "Mật khẩu",
+          "Mời cài đăt VssID",
+          "Mời cài đăt VssID",
+          "Chính sách quyền riêng tư",
+          "Chính sách quyền riêng tư",
+          "Đăng ký tài khoản",
+          "Đăng ký tài khoản",
+          "Quên mật khẩu ?",
+          "Quên mật khẩu ?",
+          "Đăng nhập",
+          "Đăng nhập",
+          "Đăng nhập bằng tài khoản\nđịnh danh điện tử",
+          "Đăng nhập bằng tài khoản\nđịnh danh điện tử",
+          "Mã số BHXH/Số ĐDCN/CCCD",
+          "Mã số BHXH/Số ĐDCN/CCCD"
+        ]
+      },
+      {
+        "id": "8:32",
+        "name": "iPhone 17 - 2",
+        "type": "FRAME",
+        "x": 405,
+        "y": 0,
+        "width": 402,
+        "height": 874,
+        "childCount": 8,
+        "iconCount": 0,
+        "imageCount": 0,
+        "textContent": [
+          "QUẢN LÝ CÁ NHÂN",
+          "Nguyễn Hữu Hoàng",
+          "Mã BHXH: 4217247030",
+          "Ngày sinh",
+          "24/05/1999",
+          "ĐDCN/CCCD/Hộ chiếu",
+          "040299010346",
+          "Số điện thoại",
+          "0896511373",
+          "Địa chỉ",
+          "xóm Đông Lam, Xã Trường Lưu,",
+          "THẺ BHYT",
+          "THÔNG TIN HƯỞNG",
+          "SỔ KHÁM CHỮA BỆNH",
+          "QUÁ TRÌNH THAM GIA"
+        ]
+      },
+      {
+        "id": "13:2",
+        "name": "iPhone 17 - 4",
+        "type": "FRAME",
+        "x": 1932,
+        "y": 0,
+        "width": 402,
+        "height": 874,
+        "childCount": 23,
+        "iconCount": 0,
+        "imageCount": 0,
+        "textContent": [
+          "Chi tiết",
+          "Từ tháng: 04/2025",
+          "Đến tháng: 03/2026",
+          "Chức vụ:",
+          "Đơn vị công tác:",
+          "Nơi làm việc:",
+          "Loại tiền:",
+          "Nhân viên kỹ thuật",
+          "Công ty TNHH EO TECHNICS",
+          "BT22, khu đô thị hud võ cường-Tp",
+          "VND",
+          "Bắc Ninh-Bắc Ninh",
+          "Việt Nam",
+          "Tiền lương đóng BHXH",
+          "14.500.000",
+          "Mức lương",
+          "14.500.000"
+        ]
+      },
+      {
+        "id": "73:243",
+        "name": "iPhone 17 - 5",
+        "type": "FRAME",
+        "x": 912,
+        "y": 0,
+        "width": 402,
+        "height": 874,
+        "childCount": 5,
+        "iconCount": 0,
+        "imageCount": 0,
+        "textContent": [
+          "QUẢN LÝ CÁ NHÂN",
+          "Nguyễn Hữu Hoàng",
+          "Mã BHXH: 4217247030",
+          "Ngày sinh",
+          "24/05/1999",
+          "ĐDCN/CCCD/Hộ chiếu",
+          "040299010346",
+          "Số điện thoại",
+          "0896511373",
+          "Địa chỉ",
+          "xóm Đông Lam, Xã Trường Lưu,",
+          "THẺ BHYT",
+          "QUÁ TRÌNH THAM GIA",
+          "THÔNG TIN HƯỞNG",
+          "SỔ KHÁM CHỮA BỆNH",
+          "Nguyễn Hữu Hoàng",
+          "4217247030"
+        ]
+      },
+      {
+        "id": "19:231",
+        "name": "iPhone 17 - 6",
+        "type": "FRAME",
+        "x": 1425,
+        "y": 0,
+        "width": 402,
+        "height": 874,
+        "childCount": 1,
+        "iconCount": 0,
+        "imageCount": 0,
+        "textContent": [
+          "QUẢN LÝ CÁ NHÂN",
+          "BHXH",
+          "BHTN",
+          "BHTNLĐ-\nBNN",
+          "BHYT",
+          "C14-TS",
+          "Quá trình tham gia Bảo hiểm xã hội",
+          "Tổng thời gian tham gia: 5 năm 7 tháng",
+          "Tổng thời gian chậm đóng: 0 tháng",
+          "Từ tháng",
+          "Đơn vị",
+          "Đến\ntháng",
+          "Nghề nghiệp\nChức vụ",
+          "04/2025",
+          "04/2025",
+          "02/2026",
+          "02/2026",
+          "Công nghệ TNHH EO\nTECHNICS Việt\nNam",
+          "Công nghệ TNHH EO\nTECHNICS Việt\nNam",
+          "Nhân viên\nKỹ thuật"
+        ]
+      },
+      {
+        "id": "73:194",
+        "name": "Frame 1",
+        "type": "COMPONENT_SET",
+        "x": -64,
+        "y": -552,
+        "width": 88,
+        "height": 360,
+        "childCount": 5,
+        "iconCount": 0,
+        "imageCount": 0
+      }
+    ],
+    "allText": [
+      {
+        "id": "1:13",
+        "name": "Mật khẩu",
+        "x": 87,
+        "y": 317,
+        "width": 62,
+        "height": 17,
+        "content": "Mật khẩu",
+        "fill": "#948c8c",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "64:57",
+        "name": "Mật khẩu",
+        "x": 87,
+        "y": 317,
+        "width": 62,
+        "height": 17,
+        "content": "Mật khẩu",
+        "fill": "#948c8c",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "1:14",
+        "name": "Mời cài đăt VssID",
+        "x": 144,
+        "y": 740,
+        "width": 114,
+        "height": 17,
+        "content": "Mời cài đăt VssID",
+        "fill": "#0069ad",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:58",
+        "name": "Mời cài đăt VssID",
+        "x": 144,
+        "y": 740,
+        "width": 114,
+        "height": 17,
+        "content": "Mời cài đăt VssID",
+        "fill": "#0069ad",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "1:32",
+        "name": "Chính sách quyền riêng tư",
+        "x": 223,
+        "y": 779,
+        "width": 161,
+        "height": 16,
+        "content": "Chính sách quyền riêng tư",
+        "fill": "#0069ad",
+        "fontSize": 13,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:59",
+        "name": "Chính sách quyền riêng tư",
+        "x": 223,
+        "y": 779,
+        "width": 161,
+        "height": 16,
+        "content": "Chính sách quyền riêng tư",
+        "fill": "#0069ad",
+        "fontSize": 13,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "1:15",
+        "name": "Đăng ký tài khoản",
+        "x": 268,
+        "y": 355,
+        "width": 102,
+        "height": 15,
+        "content": "Đăng ký tài khoản",
+        "fill": "#0069ad",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:60",
+        "name": "Đăng ký tài khoản",
+        "x": 268,
+        "y": 355,
+        "width": 102,
+        "height": 15,
+        "content": "Đăng ký tài khoản",
+        "fill": "#0069ad",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "3:6",
+        "name": "Quên mật khẩu ?",
+        "x": 33,
+        "y": 355,
+        "width": 96,
+        "height": 15,
+        "content": "Quên mật khẩu ?",
+        "fill": "#0069ad",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:61",
+        "name": "Quên mật khẩu ?",
+        "x": 33,
+        "y": 355,
+        "width": 96,
+        "height": 15,
+        "content": "Quên mật khẩu ?",
+        "fill": "#0069ad",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "1:21",
+        "name": "Đăng nhập",
+        "x": 134,
+        "y": 403,
+        "width": 85,
+        "height": 19,
+        "content": "Đăng nhập",
+        "fill": "#0069ad",
+        "fontSize": 16,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "64:69",
+        "name": "Đăng nhập",
+        "x": 134,
+        "y": 403,
+        "width": 85,
+        "height": 19,
+        "content": "Đăng nhập",
+        "fill": "#0069ad",
+        "fontSize": 16,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "1:23",
+        "name": "Đăng nhập bằng tài khoản định danh điện tử",
+        "x": 65,
+        "y": 470,
+        "width": 203,
+        "height": 38,
+        "content": "Đăng nhập bằng tài khoản\nđịnh danh điện tử",
+        "fill": "#ffffff",
+        "fontSize": 16,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "64:70",
+        "name": "Đăng nhập bằng tài khoản định danh điện tử",
+        "x": 65,
+        "y": 470,
+        "width": 203,
+        "height": 38,
+        "content": "Đăng nhập bằng tài khoản\nđịnh danh điện tử",
+        "fill": "#ffffff",
+        "fontSize": 16,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "I60:39;60:6",
+        "name": "Mã số BHXH/Số ĐDCN/CCCD",
+        "x": 55,
+        "y": 11,
+        "width": 197,
+        "height": 17,
+        "content": "Mã số BHXH/Số ĐDCN/CCCD",
+        "fill": "#948c8c",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "64:91",
+        "name": "Mật khẩu",
+        "x": 87,
+        "y": 317,
+        "width": 62,
+        "height": 17,
+        "content": "Mật khẩu",
+        "fill": "#948c8c",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "64:92",
+        "name": "Mật khẩu",
+        "x": 87,
+        "y": 317,
+        "width": 62,
+        "height": 17,
+        "content": "Mật khẩu",
+        "fill": "#948c8c",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "64:93",
+        "name": "Mời cài đăt VssID",
+        "x": 144,
+        "y": 740,
+        "width": 114,
+        "height": 17,
+        "content": "Mời cài đăt VssID",
+        "fill": "#0069ad",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:94",
+        "name": "Mời cài đăt VssID",
+        "x": 144,
+        "y": 740,
+        "width": 114,
+        "height": 17,
+        "content": "Mời cài đăt VssID",
+        "fill": "#0069ad",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:95",
+        "name": "Chính sách quyền riêng tư",
+        "x": 223,
+        "y": 779,
+        "width": 161,
+        "height": 16,
+        "content": "Chính sách quyền riêng tư",
+        "fill": "#0069ad",
+        "fontSize": 13,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:96",
+        "name": "Chính sách quyền riêng tư",
+        "x": 223,
+        "y": 779,
+        "width": 161,
+        "height": 16,
+        "content": "Chính sách quyền riêng tư",
+        "fill": "#0069ad",
+        "fontSize": 13,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:97",
+        "name": "Đăng ký tài khoản",
+        "x": 268,
+        "y": 355,
+        "width": 102,
+        "height": 15,
+        "content": "Đăng ký tài khoản",
+        "fill": "#0069ad",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:98",
+        "name": "Đăng ký tài khoản",
+        "x": 268,
+        "y": 355,
+        "width": 102,
+        "height": 15,
+        "content": "Đăng ký tài khoản",
+        "fill": "#0069ad",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:99",
+        "name": "Quên mật khẩu ?",
+        "x": 33,
+        "y": 355,
+        "width": 96,
+        "height": 15,
+        "content": "Quên mật khẩu ?",
+        "fill": "#0069ad",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:100",
+        "name": "Quên mật khẩu ?",
+        "x": 33,
+        "y": 355,
+        "width": 96,
+        "height": 15,
+        "content": "Quên mật khẩu ?",
+        "fill": "#0069ad",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "64:113",
+        "name": "Đăng nhập",
+        "x": 134,
+        "y": 403,
+        "width": 85,
+        "height": 19,
+        "content": "Đăng nhập",
+        "fill": "#0069ad",
+        "fontSize": 16,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "64:116",
+        "name": "Đăng nhập",
+        "x": 134,
+        "y": 403,
+        "width": 85,
+        "height": 19,
+        "content": "Đăng nhập",
+        "fill": "#0069ad",
+        "fontSize": 16,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "64:117",
+        "name": "Đăng nhập bằng tài khoản định danh điện tử",
+        "x": 65,
+        "y": 470,
+        "width": 203,
+        "height": 38,
+        "content": "Đăng nhập bằng tài khoản\nđịnh danh điện tử",
+        "fill": "#ffffff",
+        "fontSize": 16,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "64:118",
+        "name": "Đăng nhập bằng tài khoản định danh điện tử",
+        "x": 65,
+        "y": 470,
+        "width": 203,
+        "height": 38,
+        "content": "Đăng nhập bằng tài khoản\nđịnh danh điện tử",
+        "fill": "#ffffff",
+        "fontSize": 16,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "I64:129;60:6",
+        "name": "Mã số BHXH/Số ĐDCN/CCCD",
+        "x": 55,
+        "y": 11,
+        "width": 197,
+        "height": 17,
+        "content": "Mã số BHXH/Số ĐDCN/CCCD",
+        "fill": "#948c8c",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "I64:130;60:6",
+        "name": "Mã số BHXH/Số ĐDCN/CCCD",
+        "x": 55,
+        "y": 11,
+        "width": 197,
+        "height": 17,
+        "content": "Mã số BHXH/Số ĐDCN/CCCD",
+        "fill": "#948c8c",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "8:35",
+        "name": "QUẢN LÝ CÁ NHÂN",
+        "x": 108,
+        "y": 34,
+        "width": 186,
+        "height": 24,
+        "content": "QUẢN LÝ CÁ NHÂN",
+        "fill": "#ffffff",
+        "fontSize": 20,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:45",
+        "name": "Nguyễn Hữu Hoàng",
+        "x": 120,
+        "y": 118,
+        "width": 134,
+        "height": 17,
+        "content": "Nguyễn Hữu Hoàng",
+        "fill": "#000000",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "9:46",
+        "name": "Mã BHXH: 4217247030",
+        "x": 120,
+        "y": 144,
+        "width": 155,
+        "height": 17,
+        "content": "Mã BHXH: 4217247030",
+        "fill": "#4d4d4d",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:47",
+        "name": "Ngày sinh",
+        "x": 42,
+        "y": 197,
+        "width": 66,
+        "height": 17,
+        "content": "Ngày sinh",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:51",
+        "name": "24/05/1999",
+        "x": 283,
+        "y": 197,
+        "width": 78,
+        "height": 17,
+        "content": "24/05/1999",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:48",
+        "name": "ĐDCN/CCCD/Hộ chiếu",
+        "x": 42,
+        "y": 235,
+        "width": 150,
+        "height": 17,
+        "content": "ĐDCN/CCCD/Hộ chiếu",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:52",
+        "name": "040299010346",
+        "x": 257,
+        "y": 235,
+        "width": 104,
+        "height": 17,
+        "content": "040299010346",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:49",
+        "name": "Số điện thoại",
+        "x": 42,
+        "y": 273,
+        "width": 88,
+        "height": 17,
+        "content": "Số điện thoại",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:53",
+        "name": "0896511373",
+        "x": 279,
+        "y": 273,
+        "width": 82,
+        "height": 17,
+        "content": "0896511373",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:50",
+        "name": "Địa chỉ",
+        "x": 42,
+        "y": 308,
+        "width": 45,
+        "height": 17,
+        "content": "Địa chỉ",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:54",
+        "name": "xóm Đông Lam, Xã Trường Lưu,",
+        "x": 153,
+        "y": 308,
+        "width": 208,
+        "height": 17,
+        "content": "xóm Đông Lam, Xã Trường Lưu,",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:58",
+        "name": "THẺ BHYT",
+        "x": 87,
+        "y": 405,
+        "width": 86,
+        "height": 21,
+        "content": "THẺ BHYT",
+        "fill": "#3f3f3f",
+        "fontSize": 17,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:61",
+        "name": "THÔNG TIN HƯỞNG",
+        "x": 87,
+        "y": 532,
+        "width": 166,
+        "height": 21,
+        "content": "THÔNG TIN HƯỞNG",
+        "fill": "#3f3f3f",
+        "fontSize": 17,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:62",
+        "name": "SỔ KHÁM CHỮA BỆNH",
+        "x": 87,
+        "y": 598,
+        "width": 185,
+        "height": 21,
+        "content": "SỔ KHÁM CHỮA BỆNH",
+        "fill": "#3f3f3f",
+        "fontSize": 17,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "9:59",
+        "name": "QUÁ TRÌNH THAM GIA",
+        "x": 87,
+        "y": 468,
+        "width": 182,
+        "height": 21,
+        "content": "QUÁ TRÌNH THAM GIA",
+        "fill": "#3f3f3f",
+        "fontSize": 17,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "13:4",
+        "name": "Chi tiết",
+        "x": 169,
+        "y": 67,
+        "width": 64,
+        "height": 22,
+        "content": "Chi tiết",
+        "fill": "#38679f",
+        "fontSize": 18,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "13:7",
+        "name": "Từ tháng: 04/2025",
+        "x": 45,
+        "y": 125,
+        "width": 124,
+        "height": 17,
+        "content": "Từ tháng: 04/2025",
+        "fill": "#2a2b2b",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "13:8",
+        "name": "Đến tháng: 03/2026",
+        "x": 226,
+        "y": 125,
+        "width": 134,
+        "height": 17,
+        "content": "Đến tháng: 03/2026",
+        "fill": "#2a2b2b",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "13:10",
+        "name": "Chức vụ:",
+        "x": 30,
+        "y": 174,
+        "width": 59,
+        "height": 17,
+        "content": "Chức vụ: ",
+        "fill": "#ffffff",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "13:15",
+        "name": "Đơn vị công tác:",
+        "x": 30,
+        "y": 191,
+        "width": 108,
+        "height": 17,
+        "content": "Đơn vị công tác:",
+        "fill": "#ffffff",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "13:18",
+        "name": "Nơi làm việc:",
+        "x": 30,
+        "y": 225,
+        "width": 85,
+        "height": 17,
+        "content": "Nơi làm việc:",
+        "fill": "#ffffff",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "165:20",
+        "name": "Loại tiền:",
+        "x": 30,
+        "y": 259,
+        "width": 60,
+        "height": 17,
+        "content": "Loại tiền:",
+        "fill": "#ffffff",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "13:11",
+        "name": "Nhân viên kỹ thuật",
+        "x": 96,
+        "y": 174,
+        "width": 128,
+        "height": 17,
+        "content": "Nhân viên kỹ thuật",
+        "fill": "#ffffff",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "13:16",
+        "name": "Công ty TNHH EO TECHNICS",
+        "x": 141,
+        "y": 191,
+        "width": 197,
+        "height": 17,
+        "content": "Công ty TNHH EO TECHNICS",
+        "fill": "#ffffff",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "13:19",
+        "name": "BT22, khu đô thị hud võ cường-Tp",
+        "x": 119,
+        "y": 225,
+        "width": 232,
+        "height": 17,
+        "content": "BT22, khu đô thị hud võ cường-Tp",
+        "fill": "#ffffff",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "13:22",
+        "name": "VND",
+        "x": 96,
+        "y": 259,
+        "width": 31,
+        "height": 17,
+        "content": "VND",
+        "fill": "#ffffff",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "13:20",
+        "name": "Bắc Ninh-Bắc Ninh",
+        "x": 30,
+        "y": 242,
+        "width": 128,
+        "height": 17,
+        "content": "Bắc Ninh-Bắc Ninh",
+        "fill": "#ffffff",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "13:17",
+        "name": "Việt Nam",
+        "x": 30,
+        "y": 208,
+        "width": 63,
+        "height": 17,
+        "content": "Việt Nam",
+        "fill": "#ffffff",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "13:21",
+        "name": "Tiền lương đóng BHXH",
+        "x": 32,
+        "y": 295,
+        "width": 152,
+        "height": 17,
+        "content": "Tiền lương đóng BHXH",
+        "fill": "#2a2b2b",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "13:32",
+        "name": "14.500.000",
+        "x": 290,
+        "y": 295,
+        "width": 77,
+        "height": 17,
+        "content": "14.500.000",
+        "fill": "#2a2b2b",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "13:31",
+        "name": "Mức lương",
+        "x": 72,
+        "y": 323,
+        "width": 72,
+        "height": 17,
+        "content": "Mức lương",
+        "fill": "#2a2b2b",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "13:33",
+        "name": "14.500.000",
+        "x": 290,
+        "y": 323,
+        "width": 77,
+        "height": 17,
+        "content": "14.500.000",
+        "fill": "#2a2b2b",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "73:247",
+        "name": "QUẢN LÝ CÁ NHÂN",
+        "x": 108,
+        "y": 34,
+        "width": 186,
+        "height": 24,
+        "content": "QUẢN LÝ CÁ NHÂN",
+        "fill": "#ffffff",
+        "fontSize": 20,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:254",
+        "name": "Nguyễn Hữu Hoàng",
+        "x": 120,
+        "y": 118,
+        "width": 134,
+        "height": 17,
+        "content": "Nguyễn Hữu Hoàng",
+        "fill": "#000000",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "73:255",
+        "name": "Mã BHXH: 4217247030",
+        "x": 120,
+        "y": 144,
+        "width": 155,
+        "height": 17,
+        "content": "Mã BHXH: 4217247030",
+        "fill": "#4d4d4d",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:256",
+        "name": "Ngày sinh",
+        "x": 42,
+        "y": 197,
+        "width": 66,
+        "height": 17,
+        "content": "Ngày sinh",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:257",
+        "name": "24/05/1999",
+        "x": 283,
+        "y": 197,
+        "width": 78,
+        "height": 17,
+        "content": "24/05/1999",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:258",
+        "name": "ĐDCN/CCCD/Hộ chiếu",
+        "x": 42,
+        "y": 235,
+        "width": 150,
+        "height": 17,
+        "content": "ĐDCN/CCCD/Hộ chiếu",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:259",
+        "name": "040299010346",
+        "x": 257,
+        "y": 235,
+        "width": 104,
+        "height": 17,
+        "content": "040299010346",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:260",
+        "name": "Số điện thoại",
+        "x": 42,
+        "y": 273,
+        "width": 88,
+        "height": 17,
+        "content": "Số điện thoại",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:261",
+        "name": "0896511373",
+        "x": 279,
+        "y": 273,
+        "width": 82,
+        "height": 17,
+        "content": "0896511373",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:262",
+        "name": "Địa chỉ",
+        "x": 42,
+        "y": 308,
+        "width": 45,
+        "height": 17,
+        "content": "Địa chỉ",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:263",
+        "name": "xóm Đông Lam, Xã Trường Lưu,",
+        "x": 153,
+        "y": 308,
+        "width": 208,
+        "height": 17,
+        "content": "xóm Đông Lam, Xã Trường Lưu,",
+        "fill": "#616161",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:268",
+        "name": "THẺ BHYT",
+        "x": 87,
+        "y": 405,
+        "width": 86,
+        "height": 21,
+        "content": "THẺ BHYT",
+        "fill": "#3f3f3f",
+        "fontSize": 17,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:269",
+        "name": "QUÁ TRÌNH THAM GIA",
+        "x": 87,
+        "y": 468,
+        "width": 182,
+        "height": 21,
+        "content": "QUÁ TRÌNH THAM GIA",
+        "fill": "#3f3f3f",
+        "fontSize": 17,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:270",
+        "name": "THÔNG TIN HƯỞNG",
+        "x": 87,
+        "y": 532,
+        "width": 166,
+        "height": 21,
+        "content": "THÔNG TIN HƯỞNG",
+        "fill": "#3f3f3f",
+        "fontSize": 17,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:271",
+        "name": "SỔ KHÁM CHỮA BỆNH",
+        "x": 87,
+        "y": 598,
+        "width": 185,
+        "height": 21,
+        "content": "SỔ KHÁM CHỮA BỆNH",
+        "fill": "#3f3f3f",
+        "fontSize": 17,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "73:283",
+        "name": "Nguyễn Hữu Hoàng",
+        "x": 82,
+        "y": 128,
+        "width": 143,
+        "height": 18,
+        "content": "Nguyễn Hữu Hoàng",
+        "fill": "#ffffff",
+        "fontSize": 15,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "73:284",
+        "name": "4217247030",
+        "x": 106,
+        "y": 153,
+        "width": 95,
+        "height": 18,
+        "content": "4217247030",
+        "fill": "#ffffff",
+        "fontSize": 15,
+        "fontFamily": "Inter",
+        "fontWeight": "Bold"
+      },
+      {
+        "id": "14:102",
+        "name": "QUẢN LÝ CÁ NHÂN",
+        "x": 107,
+        "y": 34,
+        "width": 186,
+        "height": 24,
+        "content": "QUẢN LÝ CÁ NHÂN",
+        "fill": "#ffffff",
+        "fontSize": 20,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:104",
+        "name": "BHXH",
+        "x": 16,
+        "y": 133,
+        "width": 47,
+        "height": 15,
+        "content": "BHXH",
+        "fill": "#aaa9ae",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:105",
+        "name": "BHTN",
+        "x": 97,
+        "y": 133,
+        "width": 47,
+        "height": 15,
+        "content": "BHTN",
+        "fill": "#aaa9ae",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:106",
+        "name": "BHTNLĐ- BNN",
+        "x": 160,
+        "y": 133,
+        "width": 79,
+        "height": 15,
+        "content": "BHTNLĐ-\nBNN",
+        "fill": "#aaa9ae",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:107",
+        "name": "BHYT",
+        "x": 251,
+        "y": 133,
+        "width": 61,
+        "height": 15,
+        "content": "BHYT",
+        "fill": "#aaa9ae",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:108",
+        "name": "C14-TS",
+        "x": 330,
+        "y": 133,
+        "width": 65,
+        "height": 15,
+        "content": "C14-TS",
+        "fill": "#aaa9ae",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:111",
+        "name": "Quá trình tham gia Bảo hiểm xã hội",
+        "x": 20,
+        "y": 201,
+        "width": 264,
+        "height": 19,
+        "content": "Quá trình tham gia Bảo hiểm xã hội",
+        "fill": "#38679f",
+        "fontSize": 16,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:112",
+        "name": "Tổng thời gian tham gia: 5 năm 7 tháng",
+        "x": 20,
+        "y": 221,
+        "width": 260,
+        "height": 17,
+        "content": "Tổng thời gian tham gia: 5 năm 7 tháng",
+        "fill": "#2a2b2b",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "14:113",
+        "name": "Tổng thời gian chậm đóng: 0 tháng",
+        "x": 20,
+        "y": 239,
+        "width": 233,
+        "height": 17,
+        "content": "Tổng thời gian chậm đóng: 0 tháng",
+        "fill": "#c1191a",
+        "fontSize": 14,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "14:114",
+        "name": "Từ tháng",
+        "x": 17,
+        "y": 279,
+        "width": 51,
+        "height": 15,
+        "content": "Từ tháng",
+        "fill": "#ffffff",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:115",
+        "name": "Đơn vị",
+        "x": 187,
+        "y": 279,
+        "width": 36,
+        "height": 15,
+        "content": "Đơn vị",
+        "fill": "#ffffff",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:116",
+        "name": "Đến tháng",
+        "x": 93,
+        "y": 273,
+        "width": 33,
+        "height": 28,
+        "content": "Đến\ntháng",
+        "fill": "#ffffff",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:117",
+        "name": "Nghề nghiệp Chức vụ",
+        "x": 276,
+        "y": 273,
+        "width": 73,
+        "height": 28,
+        "content": "Nghề nghiệp\nChức vụ",
+        "fill": "#ffffff",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Regular"
+      },
+      {
+        "id": "14:120",
+        "name": "04/2025",
+        "x": 17,
+        "y": 331,
+        "width": 50,
+        "height": 15,
+        "content": "04/2025",
+        "fill": "#3f3f3f",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "14:121",
+        "name": "04/2025",
+        "x": 17,
+        "y": 395,
+        "width": 50,
+        "height": 15,
+        "content": "04/2025",
+        "fill": "#3f3f3f",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "14:122",
+        "name": "02/2026",
+        "x": 85,
+        "y": 331,
+        "width": 50,
+        "height": 15,
+        "content": "02/2026",
+        "fill": "#3f3f3f",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "14:123",
+        "name": "02/2026",
+        "x": 85,
+        "y": 395,
+        "width": 50,
+        "height": 15,
+        "content": "02/2026",
+        "fill": "#3f3f3f",
+        "fontSize": 12,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "14:124",
+        "name": "Công nghệ TNHH EO TECHNICS Việt Nam",
+        "x": 149,
+        "y": 320,
+        "width": 111,
+        "height": 42,
+        "content": "Công nghệ TNHH EO\nTECHNICS Việt\nNam",
+        "fill": "#3f3f3f",
+        "fontSize": 11,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "14:125",
+        "name": "Công nghệ TNHH EO TECHNICS Việt Nam",
+        "x": 149,
+        "y": 384,
+        "width": 111,
+        "height": 42,
+        "content": "Công nghệ TNHH EO\nTECHNICS Việt\nNam",
+        "fill": "#3f3f3f",
+        "fontSize": 11,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "14:126",
+        "name": "Nhân viên Kỹ thuật",
+        "x": 286,
+        "y": 324,
+        "width": 53,
+        "height": 28,
+        "content": "Nhân viên\nKỹ thuật",
+        "fill": "#3f3f3f",
+        "fontSize": 11,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      },
+      {
+        "id": "14:127",
+        "name": "Nhân viên Kỹ thuật",
+        "x": 286,
+        "y": 388,
+        "width": 53,
+        "height": 28,
+        "content": "Nhân viên\nKỹ thuật",
+        "fill": "#3f3f3f",
+        "fontSize": 11,
+        "fontFamily": "Inter",
+        "fontWeight": "Medium"
+      }
+    ],
+    "allColors": [
+      {
+        "color": "#ffffff",
+        "count": 71
+      },
+      {
+        "color": "#0069ad",
+        "count": 31
+      },
+      {
+        "color": "#616161",
+        "count": 25
+      },
+      {
+        "color": "#3f3f3f",
+        "count": 16
+      },
+      {
+        "color": "#c8c5c5",
+        "count": 15
+      },
+      {
+        "color": "#948c8c",
+        "count": 14
+      },
+      {
+        "color": "#fefefe",
+        "count": 14
+      },
+      {
+        "color": "#000000",
+        "count": 12
+      },
+      {
+        "color": "#aaa9ae",
+        "count": 9
+      },
+      {
+        "color": "#2a2b2b",
+        "count": 7
+      },
+      {
+        "color": "#01aef2",
+        "count": 6
+      },
+      {
+        "color": "#d9d9d9",
+        "count": 6
+      },
+      {
+        "color": "#d91811",
+        "count": 4
+      },
+      {
+        "color": "#38679f",
+        "count": 4
+      },
+      {
+        "color": "#eaeff3",
+        "count": 2
+      },
+      {
+        "color": "#4d4d4d",
+        "count": 2
+      },
+      {
+        "color": "#416aa0",
+        "count": 1
+      },
+      {
+        "color": "#373737",
+        "count": 1
+      },
+      {
+        "color": "#f6f5f3",
+        "count": 1
+      },
+      {
+        "color": "#c1191a",
+        "count": 1
+      },
+      {
+        "color": "#9747ff",
+        "count": 1
+      }
+    ],
+    "allFonts": [
+      {
+        "font": "Inter/Regular/14px",
+        "count": 33
+      },
+      {
+        "font": "Inter/Medium/14px",
+        "count": 13
+      },
+      {
+        "font": "Inter/Regular/12px",
+        "count": 12
+      },
+      {
+        "font": "Inter/Bold/16px",
+        "count": 8
+      },
+      {
+        "font": "Inter/Bold/14px",
+        "count": 8
+      },
+      {
+        "font": "Inter/Regular/17px",
+        "count": 8
+      },
+      {
+        "font": "Inter/Regular/13px",
+        "count": 4
+      },
+      {
+        "font": "Inter/Medium/12px",
+        "count": 4
+      },
+      {
+        "font": "Inter/Medium/11px",
+        "count": 4
+      },
+      {
+        "font": "Inter/Regular/20px",
+        "count": 3
+      },
+      {
+        "font": "Inter/Bold/15px",
+        "count": 2
+      },
+      {
+        "font": "Inter/Bold/18px",
+        "count": 1
+      },
+      {
+        "font": "Inter/Regular/16px",
+        "count": 1
+      }
+    ],
+    "images": [
+      {
+        "id": "1:5",
+        "name": "p1 1",
+        "x": 0,
+        "y": 0,
+        "width": 402,
+        "height": 871
+      },
+      {
+        "id": "64:54",
+        "name": "p1 2",
+        "x": 0,
+        "y": 0,
+        "width": 402,
+        "height": 871
+      },
+      {
+        "id": "1:16",
+        "name": "logo-bao-hiem-xa-hoi-viet-nam 1",
+        "x": 151,
+        "y": 118,
+        "width": 99,
+        "height": 99
+      },
+      {
+        "id": "64:64",
+        "name": "logo-bao-hiem-xa-hoi-viet-nam 1",
+        "x": 151,
+        "y": 118,
+        "width": 99,
+        "height": 99
+      },
+      {
+        "id": "1:19",
+        "name": "1 1",
+        "x": 309,
+        "y": 372,
+        "width": 80,
+        "height": 80
+      },
+      {
+        "id": "64:66",
+        "name": "1 2",
+        "x": 309,
+        "y": 372,
+        "width": 80,
+        "height": 80
+      },
+      {
+        "id": "1:29",
+        "name": "image 1",
+        "x": 306,
+        "y": 462,
+        "width": 55,
+        "height": 55
+      },
+      {
+        "id": "64:71",
+        "name": "image 3",
+        "x": 306,
+        "y": 462,
+        "width": 55,
+        "height": 55
+      },
+      {
+        "id": "1:38",
+        "name": "p2 1",
+        "x": 0,
+        "y": 810,
+        "width": 402,
+        "height": 64
+      },
+      {
+        "id": "64:72",
+        "name": "p2 2",
+        "x": 0,
+        "y": 810,
+        "width": 402,
+        "height": 64
+      },
+      {
+        "id": "1:40",
+        "name": "image 2",
+        "x": 352,
+        "y": 53,
+        "width": 31,
+        "height": 21
+      },
+      {
+        "id": "64:73",
+        "name": "image 4",
+        "x": 352,
+        "y": 53,
+        "width": 31,
+        "height": 21
+      },
+      {
+        "id": "I60:39;60:7",
+        "name": "2 1",
+        "x": 6,
+        "y": 6,
+        "width": 27,
+        "height": 27
+      },
+      {
+        "id": "64:85",
+        "name": "p1 1",
+        "x": 0,
+        "y": 0,
+        "width": 402,
+        "height": 871
+      },
+      {
+        "id": "64:86",
+        "name": "p1 2",
+        "x": 0,
+        "y": 0,
+        "width": 402,
+        "height": 871
+      },
+      {
+        "id": "64:103",
+        "name": "logo-bao-hiem-xa-hoi-viet-nam 1",
+        "x": 151,
+        "y": 118,
+        "width": 99,
+        "height": 99
+      },
+      {
+        "id": "64:106",
+        "name": "logo-bao-hiem-xa-hoi-viet-nam 1",
+        "x": 151,
+        "y": 118,
+        "width": 99,
+        "height": 99
+      },
+      {
+        "id": "64:109",
+        "name": "1 1",
+        "x": 309,
+        "y": 372,
+        "width": 80,
+        "height": 80
+      },
+      {
+        "id": "64:110",
+        "name": "1 2",
+        "x": 309,
+        "y": 372,
+        "width": 80,
+        "height": 80
+      },
+      {
+        "id": "64:119",
+        "name": "image 1",
+        "x": 306,
+        "y": 462,
+        "width": 55,
+        "height": 55
+      },
+      {
+        "id": "64:120",
+        "name": "image 3",
+        "x": 306,
+        "y": 462,
+        "width": 55,
+        "height": 55
+      },
+      {
+        "id": "64:121",
+        "name": "p2 1",
+        "x": 0,
+        "y": 810,
+        "width": 402,
+        "height": 64
+      },
+      {
+        "id": "64:122",
+        "name": "p2 2",
+        "x": 0,
+        "y": 810,
+        "width": 402,
+        "height": 64
+      },
+      {
+        "id": "64:123",
+        "name": "image 2",
+        "x": 352,
+        "y": 53,
+        "width": 31,
+        "height": 21
+      },
+      {
+        "id": "64:124",
+        "name": "image 4",
+        "x": 352,
+        "y": 53,
+        "width": 31,
+        "height": 21
+      },
+      {
+        "id": "I64:129;60:7",
+        "name": "2 1",
+        "x": 6,
+        "y": 6,
+        "width": 27,
+        "height": 27
+      },
+      {
+        "id": "I64:130;60:7",
+        "name": "2 1",
+        "x": 6,
+        "y": 6,
+        "width": 27,
+        "height": 27
+      },
+      {
+        "id": "I73:225;15:152",
+        "name": "logo-bao-hiem-xa-hoi-viet-nam 1",
+        "x": 5,
+        "y": 5,
+        "width": 38,
+        "height": 38
+      },
+      {
+        "id": "9:55",
+        "name": "4 1",
+        "x": 0,
+        "y": 514,
+        "width": 75,
+        "height": 129
+      },
+      {
+        "id": "39:9",
+        "name": "4 2",
+        "x": 0,
+        "y": 378,
+        "width": 75,
+        "height": 76
+      },
+      {
+        "id": "9:56",
+        "name": "3 1",
+        "x": 0,
+        "y": 824,
+        "width": 402,
+        "height": 50
+      },
+      {
+        "id": "39:2",
+        "name": "4 1",
+        "x": 6,
+        "y": 454,
+        "width": 69,
+        "height": 60
+      },
+      {
+        "id": "73:264",
+        "name": "4 1",
+        "x": 0,
+        "y": 378,
+        "width": 75,
+        "height": 265
+      },
+      {
+        "id": "73:267",
+        "name": "3 1",
+        "x": 0,
+        "y": 824,
+        "width": 402,
+        "height": 50
+      },
+      {
+        "id": "73:285",
+        "name": "6 1",
+        "x": 0,
+        "y": 183,
+        "width": 310,
+        "height": 689
+      },
+      {
+        "id": "14:100",
+        "name": "3 1",
+        "x": -1,
+        "y": 824,
+        "width": 402,
+        "height": 50
+      },
+      {
+        "id": "14:118",
+        "name": "Layer 1 1",
+        "x": 363,
+        "y": 328,
+        "width": 24,
+        "height": 24
+      },
+      {
+        "id": "14:119",
+        "name": "Layer 1 2",
+        "x": 363,
+        "y": 392,
+        "width": 24,
+        "height": 24
+      },
+      {
+        "id": "14:130",
+        "name": "7 1",
+        "x": -1,
+        "y": 71,
+        "width": 403,
+        "height": 62
+      },
+      {
+        "id": "15:152",
+        "name": "logo-bao-hiem-xa-hoi-viet-nam 1",
+        "x": 5,
+        "y": 5,
+        "width": 38,
+        "height": 38
+      },
+      {
+        "id": "73:199",
+        "name": "logo-bao-hiem-xa-hoi-viet-nam 1",
+        "x": 5,
+        "y": 5,
+        "width": 38,
+        "height": 38
+      },
+      {
+        "id": "73:204",
+        "name": "logo-bao-hiem-xa-hoi-viet-nam 1",
+        "x": 5,
+        "y": 5,
+        "width": 38,
+        "height": 38
+      },
+      {
+        "id": "73:209",
+        "name": "logo-bao-hiem-xa-hoi-viet-nam 1",
+        "x": 5,
+        "y": 5,
+        "width": 38,
+        "height": 38
+      },
+      {
+        "id": "73:219",
+        "name": "logo-bao-hiem-xa-hoi-viet-nam 1",
+        "x": 5,
+        "y": 5,
+        "width": 38,
+        "height": 38
+      }
+    ],
+    "icons": [
+      {
+        "id": "1:43",
+        "name": "Vector",
+        "width": 24,
+        "height": 26
+      },
+      {
+        "id": "64:74",
+        "name": "Vector",
+        "width": 24,
+        "height": 26
+      },
+      {
+        "id": "2:5",
+        "name": "Vector",
+        "width": 16,
+        "height": 20
+      },
+      {
+        "id": "64:75",
+        "name": "Vector",
+        "width": 16,
+        "height": 20
+      },
+      {
+        "id": "64:125",
+        "name": "Vector",
+        "width": 24,
+        "height": 26
+      },
+      {
+        "id": "64:126",
+        "name": "Vector",
+        "width": 24,
+        "height": 26
+      },
+      {
+        "id": "64:127",
+        "name": "Vector",
+        "width": 16,
+        "height": 20
+      },
+      {
+        "id": "64:128",
+        "name": "Vector",
+        "width": 16,
+        "height": 20
+      },
+      {
+        "id": "8:40",
+        "name": "Vector",
+        "width": 24,
+        "height": 26
+      },
+      {
+        "id": "73:246",
+        "name": "Vector",
+        "width": 24,
+        "height": 26
+      },
+      {
+        "id": "73:278",
+        "name": "Vector",
+        "width": 24,
+        "height": 26
+      }
+    ],
+    "components": []
+  }
+}

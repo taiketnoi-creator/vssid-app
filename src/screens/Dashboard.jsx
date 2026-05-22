@@ -19,22 +19,24 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
       <img src={frameDashboard} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
 
       {/* Single card overlay covering entire profile card area (y=85 to y=345) */}
-      {/* This hides ALL static data text in the image and renders dynamic content */}
+      {/* This completely covers all static text in the background image and renders clean dynamic content */}
       <div style={{
         position: 'absolute',
         left: `${19 / W * 100}%`,
         top: `${85 / H * 100}%`,
         width: `${364 / W * 100}%`,
         height: `${262 / H * 100}%`,
-        background: '#eaeff3',
+        background: '#ffffff', // Clean white background to cover static text
+        borderRadius: '12px', // Premium smooth card corners
+        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)', // Elegant subtle card shadow
         zIndex: 10,
         boxSizing: 'border-box',
-        padding: '14px 16px 12px 16px',
+        padding: '16px 20px 14px 20px',
         display: 'flex',
         flexDirection: 'column',
       }}>
         {/* Row: Avatar + Name + BHXH code */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '12px' }}>
           {/* Avatar circle */}
           <div style={{
             width: '58px',
@@ -44,12 +46,14 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff',
+            color: '#ffffff',
             fontWeight: 700,
             fontSize: '18px',
             fontFamily: 'Inter, sans-serif',
             flexShrink: 0,
             overflow: 'hidden',
+            border: '2px solid #ffffff',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
           }}>
             {currentAccount?.avatar ? (
               <img src={currentAccount.avatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -61,9 +65,9 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           {/* Name + BHXH code */}
           <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
             <span style={{
-              fontSize: '14px',
+              fontSize: '14.5px',
               fontWeight: 700,
-              color: '#000000',
+              color: '#0f172a',
               fontFamily: 'Inter, sans-serif',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
@@ -73,10 +77,10 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             </span>
             <span style={{
               fontSize: '12px',
-              color: '#555555',
-              fontWeight: 500,
+              color: '#0069ad', // Premium theme blue matching VssID
+              fontWeight: 600,
               fontFamily: 'Inter, sans-serif',
-              marginTop: '2px',
+              marginTop: '4px',
             }}>
               Mã BHXH: {currentAccount?.bhxhCode || '4217247030'}
             </span>
@@ -84,7 +88,7 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
         </div>
 
         {/* Separator line */}
-        <div style={{ height: '1px', background: '#c8d3da', marginBottom: '8px' }} />
+        <div style={{ height: '1px', background: '#e2e8f0', marginBottom: '10px' }} />
 
         {/* Field rows */}
         {fields.map((item, i) => (
@@ -92,12 +96,13 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'flex-start',
-            marginBottom: i < fields.length - 1 ? '7px' : 0,
-            minHeight: item.label === 'Địa chỉ' ? '34px' : '22px',
+            marginBottom: i < fields.length - 1 ? '8px' : 0,
+            minHeight: '20px',
           }}>
             <span style={{
               fontSize: '12.5px',
-              color: '#555555',
+              color: '#64748b',
+              fontWeight: 500,
               fontFamily: 'Inter, sans-serif',
               flexShrink: 0,
               lineHeight: '1.4',
@@ -105,8 +110,8 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
               {item.label}
             </span>
             <span style={{
-              fontSize: item.value && item.value.length > 18 ? '11.5px' : '12.5px',
-              color: '#0f172a',
+              fontSize: item.value && item.value.length > 20 ? '11.5px' : '12.5px',
+              color: '#1e293b',
               fontWeight: 600,
               fontFamily: 'Inter, sans-serif',
               textAlign: 'right',
