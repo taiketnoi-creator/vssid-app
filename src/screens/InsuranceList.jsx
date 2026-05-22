@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import frameInsurance from '../assets/frame_insurance.png';
 
 // Import tab icons
 import icTabBhxh from '../assets/ic_tab_bhxh.png';
@@ -12,17 +13,13 @@ import icTabBhytOff from '../assets/ic_tab_bhyt_off.png';
 import icTabC14ts from '../assets/ic_tab_c14ts.png';
 import icTabC14tsOff from '../assets/ic_tab_c14ts_off.png';
 
-// Other assets
 import icEye from '../assets/ic_eye.png';
-import dashBottomNavImg from '../assets/dash_bottom_nav_img.png';
 
-// Figma reference dimensions
 const W = 402;
 const H = 874;
 
 const InsuranceList = ({ currentAccount, onNavigate }) => {
   const [activeTab, setActiveTab] = useState('BHXH');
-
   const history = currentAccount?.insuranceHistory || [];
 
   const calculateTotalParticipation = (list) => {
@@ -48,7 +45,6 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
 
   const { years, months } = calculateTotalParticipation(history);
 
-  // Tabs structure matching Figma layout exactly
   const tabs = [
     { id: 'BHXH', label: 'BHXH', activeIcon: icTabBhxh, inactiveIcon: icTabBhxhOff },
     { id: 'BHTN', label: 'BHTN', activeIcon: icTabBhtn, inactiveIcon: icTabBhtnOff },
@@ -74,71 +70,46 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
       width: '100%',
       height: '100%',
       overflow: 'hidden',
-      background: '#ffffff', // Clean white background matching Figma frame iPhone 17 - 6
+      background: '#ffffff',
       fontFamily: 'Inter, sans-serif',
       boxSizing: 'border-box'
     }}>
-      {/* 1. HEADER (Figma Rectangle 7: height 67px, linear-gradient) */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '67px',
-        background: 'linear-gradient(90deg, #01aef2 0%, #0073c6 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 20
-      }}>
-        {/* Back Chevron Left (x=18, y=34, 24x24) */}
-        <button
-          onClick={() => onNavigate('dashboard', { transition: 'slide', direction: 'right' })}
-          style={{
-            position: 'absolute',
-            left: '18px',
-            top: '32px',
-            width: '24px',
-            height: '24px',
-            background: 'none',
-            border: 'none',
-            padding: 0,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 30
-          }}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
-
-        {/* Title: "QUẢN LÝ CÁ NHÂN" (14:102): x=107, y=34, fontSize 20, Regular */}
-        <div style={{
+      {/* 1. Flawless 100% Figma Frame Background */}
+      <img
+        src={frameInsurance}
+        alt="Insurance Background"
+        style={{
           position: 'absolute',
+          top: 0,
           left: 0,
-          right: 0,
-          top: '34px',
-          height: '24px',
-          margin: '0 auto',
-          color: '#ffffff',
-          fontSize: '20px',
-          fontWeight: 400,
-          textAlign: 'center',
-          lineHeight: '24px',
-          whiteSpace: 'nowrap',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'Inter, sans-serif'
-        }}>
-          QUẢN LÝ CÁ NHÂN
-        </div>
-      </div>
+          width: '100%',
+          height: '100%',
+          objectFit: 'fill',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}
+        draggable={false}
+      />
 
-      {/* 2. DYNAMIC 5-TAB BAR (y=67 to y=145, h=78) */}
+      {/* 2. Transparent Back Button Hotspot: x=18, y=32, w=24, h=24 */}
+      <button
+        onClick={() => onNavigate('dashboard', { transition: 'slide', direction: 'right' })}
+        style={{
+          position: 'absolute',
+          left: `${(10 / W) * 100}%`,
+          top: `${(25 / H) * 100}%`,
+          width: `${(45 / W) * 100}%`,
+          height: `${(45 / H) * 100}%`,
+          background: 'transparent',
+          border: 'none',
+          outline: 'none',
+          cursor: 'pointer',
+          zIndex: 30
+        }}
+        aria-label="Back"
+      />
+
+      {/* 3. DYNAMIC 5-TAB BAR (y=67 to y=145, h=78) - Covers Figma Static Tabs */}
       <div style={{
         position: 'absolute',
         left: 0,
@@ -148,7 +119,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         background: '#ffffff',
         display: 'flex',
         borderBottom: '1px solid #e2e8f0',
-        zIndex: 10,
+        zIndex: 20,
         boxSizing: 'border-box'
       }}>
         {tabs.map((tab) => {
@@ -172,7 +143,6 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                 position: 'relative'
               }}
             >
-              {/* Tab Icon */}
               <img
                 src={isActive ? tab.activeIcon : tab.inactiveIcon}
                 alt={tab.label}
@@ -182,7 +152,6 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                   objectFit: 'contain'
                 }}
               />
-              {/* Tab Label */}
               <span style={{
                 fontSize: '11px',
                 fontWeight: isActive ? 700 : 400,
@@ -194,7 +163,6 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                 {renderTabLabel(tab.label)}
               </span>
 
-              {/* Premium Active Indicator line */}
               {isActive && (
                 <div style={{
                   position: 'absolute',
@@ -211,7 +179,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         })}
       </div>
 
-      {/* 3. DYNAMIC CONTENT AREA (y=145 to y=823, h=678) */}
+      {/* 4. DYNAMIC CONTENT AREA (y=145 to y=823) - Solid White Background Covers Figma Static Rows */}
       <div style={{
         position: 'absolute',
         left: 0,
@@ -222,12 +190,12 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         boxSizing: 'border-box',
         display: 'flex',
         flexDirection: 'column',
-        zIndex: 10,
+        zIndex: 20,
         overflow: 'hidden'
       }}>
         {activeTab === 'BHXH' ? (
           <>
-            {/* Summary Box (Border #0069ad, Background #f0f7fc) */}
+            {/* Summary Box */}
             <div style={{
               margin: '12px 14px 10px 14px',
               border: '1px solid #0069ad',
@@ -237,7 +205,6 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
               flexShrink: 0,
               boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
             }}>
-              {/* Title: Quá trình tham gia Bảo hiểm xã hội */}
               <div style={{
                 fontSize: '14px',
                 color: '#38679f',
@@ -247,7 +214,6 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
               }}>
                 Quá trình tham gia Bảo hiểm xã hội
               </div>
-              {/* Total participation */}
               <div style={{
                 fontSize: '13px',
                 color: '#2a2b2b',
@@ -257,7 +223,6 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
               }}>
                 Tổng thời gian tham gia: {years > 0 ? `${years} năm ` : ''}{months} tháng
               </div>
-              {/* Total delay */}
               <div style={{
                 fontSize: '13px',
                 color: '#c1191a',
@@ -268,7 +233,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
               </div>
             </div>
 
-            {/* Table Header Row (Background #3f6fa8) */}
+            {/* Table Header Row */}
             <div style={{
               display: 'flex',
               background: '#3f6fa8',
@@ -375,57 +340,36 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         )}
       </div>
 
-      {/* 4. BOTTOM NAV BAR (Group 2: y=823, h=65, bg #ffffff) */}
+      {/* 5. Bottom Nav Zone Hotspots (y=823 to 874) */}
       <div style={{
         position: 'absolute',
         left: 0,
         bottom: 0,
         width: '100%',
         height: '65px',
-        background: '#ffffff', // Clean white background blends with dashBottomNavImg
-        zIndex: 20,
-        boxSizing: 'border-box',
-        boxShadow: '0 -2px 10px rgba(0,0,0,0.05)'
+        zIndex: 30,
+        display: 'flex'
       }}>
-        {/* Bottom Nav Icons strip (3 1: y=824, height 50px) */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '50px',
-          pointerEvents: 'none'
-        }}>
-          <img src={dashBottomNavImg} alt="" style={{ width: '100%', height: '100%', objectFit: 'fill' }} />
-        </div>
-
-        {/* 4 Equal clickable zones for the nav bar */}
-        <div style={{
-          display: 'flex',
-          width: '100%',
-          height: '100%'
-        }}>
-          {/* Column 1: Trang chủ / Quản lý cá nhân */}
-          <div
-            onClick={() => onNavigate('dashboard')}
-            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
-          />
-          {/* Column 2: Dịch vụ công */}
-          <div
-            onClick={() => alert('Dịch vụ công đang phát triển!')}
-            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
-          />
-          {/* Column 3: Tra cứu */}
-          <div
-            onClick={() => alert('Tra cứu trực tuyến đang phát triển!')}
-            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
-          />
-          {/* Column 4: Trợ giúp / Cài đặt */}
-          <div
-            onClick={() => onNavigate('dashboard')} // Navigates to dashboard to open drawer
-            style={{ flex: 1, cursor: 'pointer', zIndex: 30 }}
-          />
-        </div>
+        {/* Column 1: Trang chủ */}
+        <div
+          onClick={() => onNavigate('dashboard')}
+          style={{ flex: 1, cursor: 'pointer' }}
+        />
+        {/* Column 2: Dịch vụ công */}
+        <div
+          onClick={() => alert('Dịch vụ công đang phát triển!')}
+          style={{ flex: 1, cursor: 'pointer' }}
+        />
+        {/* Column 3: Tra cứu */}
+        <div
+          onClick={() => alert('Tra cứu trực tuyến đang phát triển!')}
+          style={{ flex: 1, cursor: 'pointer' }}
+        />
+        {/* Column 4: Trợ giúp / Dashboard Menu */}
+        <div
+          onClick={() => onNavigate('dashboard')}
+          style={{ flex: 1, cursor: 'pointer' }}
+        />
       </div>
     </div>
   );

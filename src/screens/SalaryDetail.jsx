@@ -1,6 +1,6 @@
 import React from 'react';
+import frameSalary from '../assets/frame_salary.png';
 
-// Figma reference dimensions
 const W = 402;
 const H = 874;
 
@@ -21,71 +21,46 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
       width: '100%',
       height: '100%',
       overflow: 'hidden',
-      background: '#ffffff', // Clean white background matching Figma frame iPhone 17 - 4
+      background: '#ffffff',
       fontFamily: 'Inter, sans-serif',
       boxSizing: 'border-box'
     }}>
-      {/* 1. HEADER (Figma Rectangle 7: height 67px, linear-gradient) */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '67px',
-        background: 'linear-gradient(90deg, #01aef2 0%, #0073c6 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 20
-      }}>
-        {/* Back Chevron Left (x=18, y=34, 24x24) */}
-        <button
-          onClick={() => onNavigate('insurance-list', { transition: 'slide-up', direction: 'right' })}
-          style={{
-            position: 'absolute',
-            left: '18px',
-            top: '32px',
-            width: '24px',
-            height: '24px',
-            background: 'none',
-            border: 'none',
-            padding: 0,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 30
-          }}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
-
-        {/* Title: "QUẢN LÝ CÁ NHÂN": x=107, y=34, fontSize 20, Regular */}
-        <div style={{
+      {/* 1. Flawless 100% Figma Frame Background */}
+      <img
+        src={frameSalary}
+        alt="Salary Background"
+        style={{
           position: 'absolute',
+          top: 0,
           left: 0,
-          right: 0,
-          top: '34px',
-          height: '24px',
-          margin: '0 auto',
-          color: '#ffffff',
-          fontSize: '20px',
-          fontWeight: 400,
-          textAlign: 'center',
-          lineHeight: '24px',
-          whiteSpace: 'nowrap',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'Inter, sans-serif'
-        }}>
-          QUẢN LÝ CÁ NHÂN
-        </div>
-      </div>
+          width: '100%',
+          height: '100%',
+          objectFit: 'fill',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}
+        draggable={false}
+      />
 
-      {/* 2. SUBHEADER "Chi tiết" (y=67 to y=110, h=43) */}
+      {/* 2. Transparent Back Button Hotspot: x=18, y=32, w=24, h=24 */}
+      <button
+        onClick={() => onNavigate('insurance-list', { transition: 'slide-up', direction: 'right' })}
+        style={{
+          position: 'absolute',
+          left: `${(10 / W) * 100}%`,
+          top: `${(25 / H) * 100}%`,
+          width: `${(45 / W) * 100}%`,
+          height: `${(45 / H) * 100}%`,
+          background: 'transparent',
+          border: 'none',
+          outline: 'none',
+          cursor: 'pointer',
+          zIndex: 30
+        }}
+        aria-label="Back"
+      />
+
+      {/* 3. Subheader "Chi tiết" - Solid White Box covers Figma underlay */}
       <div style={{
         position: 'absolute',
         left: 0,
@@ -97,7 +72,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         alignItems: 'center',
         justifyContent: 'center',
         borderBottom: '1px solid #e2e8f0',
-        zIndex: 10
+        zIndex: 20
       }}>
         <span style={{
           fontSize: '18px',
@@ -109,7 +84,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         </span>
       </div>
 
-      {/* 3. DYNAMIC CONTENT CONTAINER (y=110 to H) */}
+      {/* 4. DYNAMIC CONTENT CONTAINER - Solid White Box covers Figma underlay */}
       <div style={{
         position: 'absolute',
         left: 0,
@@ -120,7 +95,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         display: 'flex',
         flexDirection: 'column',
         overflowY: 'auto',
-        zIndex: 10,
+        zIndex: 20,
         boxSizing: 'border-box'
       }} className="scrollbar-none">
         {/* Date Row (Từ tháng / Đến tháng) */}
@@ -140,7 +115,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           </span>
         </div>
 
-        {/* Dynamic Blue Info Card (Background #38679f) */}
+        {/* Dynamic Blue Info Card */}
         <div style={{
           margin: '0 14px 14px 14px',
           background: '#38679f',
@@ -154,25 +129,21 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           gap: '10px',
           flexShrink: 0
         }}>
-          {/* Chức vụ */}
           <div style={{ fontSize: '13.5px', lineHeight: '1.4', fontFamily: 'Inter, sans-serif' }}>
             <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Chức vụ: </span>
             <span style={{ fontWeight: 700 }}>{rowData?.position || 'Nhân viên kỹ thuật'}</span>
           </div>
 
-          {/* Đơn vị công tác */}
           <div style={{ fontSize: '13.5px', lineHeight: '1.4', fontFamily: 'Inter, sans-serif' }}>
             <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Đơn vị công tác: </span>
             <span style={{ fontWeight: 700 }}>{rowData?.company || 'Công ty TNHH EO TECHNICS Việt Nam'}</span>
           </div>
 
-          {/* Nơi làm việc */}
           <div style={{ fontSize: '13.5px', lineHeight: '1.4', fontFamily: 'Inter, sans-serif' }}>
             <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Nơi làm việc: </span>
             <span style={{ fontWeight: 700 }}>{rowData?.workAddress || 'BT22, khu đô thị hud võ cường-tp bắc ninh-bắc ninh'}</span>
           </div>
 
-          {/* Currency */}
           <div style={{
             fontSize: '13.5px',
             fontWeight: 700,
@@ -184,7 +155,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           </div>
         </div>
 
-        {/* Salary details table */}
+        {/* Salary Details Table */}
         <div style={{
           margin: '0 14px',
           border: '1px solid #e2e8f0',
@@ -194,7 +165,6 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           boxSizing: 'border-box',
           flexShrink: 0
         }}>
-          {/* Row 1: Tiền lương đóng BHXH */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -211,7 +181,6 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
             </span>
           </div>
 
-          {/* Row 2: Mức lương */}
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
