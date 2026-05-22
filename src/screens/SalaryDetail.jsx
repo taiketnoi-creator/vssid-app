@@ -93,7 +93,14 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           display: 'flex',
           alignItems: 'center'
         }}>
-          Từ tháng: <strong style={{ color: '#000000', fontWeight: 700, marginLeft: '4px' }}>{rowData?.from || '04/2025'}</strong>
+          Từ tháng: <strong style={{ 
+            color: '#000000', 
+            fontWeight: 700, 
+            marginLeft: '4px',
+            borderBottom: '1.5px solid #2a2b2b',
+            paddingBottom: '1px',
+            lineHeight: '1.1'
+          }}>{rowData?.from || '04/2025'}</strong>
         </div>
 
         {/* Cover static "Đến tháng: 03/2026" */}
@@ -118,33 +125,33 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           display: 'flex',
           alignItems: 'center'
         }}>
-          Đến tháng: <strong style={{ color: '#000000', fontWeight: 700, marginLeft: '4px' }}>{rowData?.to || '03/2026'}</strong>
+          Đến tháng: <strong style={{ 
+            color: '#000000', 
+            fontWeight: 700, 
+            marginLeft: '4px',
+            borderBottom: '1.5px solid #2a2b2b',
+            paddingBottom: '1px',
+            lineHeight: '1.1'
+          }}>{rowData?.to || '03/2026'}</strong>
         </div>
 
 
-        {/* --- Blue Card Info Overlay --- */}
-        {/* Cover text area in card */}
+        {/* --- Blue Card Info Overlay (100% Pure Vector HTML/CSS) --- */}
         <div style={{
           position: 'absolute',
-          left: `${(26 / W) * 100}%`,
-          top: `${(168 / H) * 100}%`,
-          width: `${(350 / W) * 100}%`,
-          height: `${(100 / H) * 100}%`,
-          background: '#38679f'
-        }} />
-        {/* Render dynamic elements wrapped nicely */}
-        <div style={{
-          position: 'absolute',
-          left: `${(30 / W) * 100}%`,
-          top: `${(170 / H) * 100}%`,
-          width: `${(342 / W) * 100}%`,
-          height: `${(100 / H) * 100}%`,
+          left: `${(24 / W) * 100}%`,
+          top: `${(153 / H) * 100}%`,
+          width: `${(354 / W) * 100}%`,
+          height: `${(133 / H) * 100}%`,
+          backgroundColor: '#38679f',
+          boxSizing: 'border-box',
+          padding: '12px 14px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '7px',
+          justifyContent: 'space-between',
           color: '#ffffff',
           fontFamily: 'Inter, sans-serif',
-          fontSize: '13px',
+          fontSize: '12.5px',
           lineHeight: '1.4'
         }}>
           <div>
@@ -172,68 +179,69 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
             <span style={{ fontWeight: 700 }}>{rowData?.workAddress || 'BT22, khu đô thị hud võ cường-Tp Bắc Ninh-Bắc Ninh'}</span>
           </div>
 
-          <div style={{
-            fontSize: '13px',
-            fontWeight: 700,
-            color: '#ffffff',
-            marginTop: '2px'
-          }}>
-            VND
+          <div>
+            <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Loại tiền: </span>
+            <span style={{ fontWeight: 700 }}>VND</span>
           </div>
         </div>
 
-
-        {/* --- Salary Table Overlays --- */}
-        {/* Row 1 (Tiền lương đóng BHXH) value overlay */}
+        {/* --- Salary Table (100% Pure Vector HTML/CSS standard table) --- */}
         <div style={{
           position: 'absolute',
-          left: `${(270 / W) * 100}%`,
-          top: `${(292 / H) * 100}%`,
-          width: `${(102 / W) * 100}%`,
-          height: `${(22 / H) * 100}%`,
-          background: '#ffffff'
-        }} />
-        <div style={{
-          position: 'absolute',
-          left: `${(270 / W) * 100}%`,
-          top: `${(292 / H) * 100}%`,
-          width: `${(102 / W) * 100}%`,
-          height: `${(22 / H) * 100}%`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          fontSize: '14.5px',
-          color: '#000000',
-          fontWeight: 700,
-          fontFamily: 'Inter, sans-serif'
+          left: `${(24 / W) * 100}%`,
+          top: `${(286 / H) * 100}%`,
+          width: `${(354 / W) * 100}%`,
+          boxSizing: 'border-box'
         }}>
-          {formattedSalary}
-        </div>
-
-        {/* Row 2 (Mức lương) value overlay */}
-        <div style={{
-          position: 'absolute',
-          left: `${(270 / W) * 100}%`,
-          top: `${(320 / H) * 100}%`,
-          width: `${(102 / W) * 100}%`,
-          height: `${(22 / H) * 100}%`,
-          background: '#f8fafc'
-        }} />
-        <div style={{
-          position: 'absolute',
-          left: `${(270 / W) * 100}%`,
-          top: `${(320 / H) * 100}%`,
-          width: `${(102 / W) * 100}%`,
-          height: `${(22 / H) * 100}%`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          fontSize: '14.5px',
-          color: '#000000',
-          fontWeight: 700,
-          fontFamily: 'Inter, sans-serif'
-        }}>
-          {formattedSalary}
+          <table style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '13px',
+            color: '#3f3f3f',
+            backgroundColor: '#ffffff'
+          }}>
+            <tbody>
+              <tr style={{ height: '44px' }}>
+                <td style={{ 
+                  border: '0.5px solid #d9d9d9', 
+                  padding: '0 12px', 
+                  textAlign: 'left',
+                  fontWeight: 500
+                }}>
+                  Tiền lương đóng BHXH
+                </td>
+                <td style={{ 
+                  border: '0.5px solid #d9d9d9', 
+                  padding: '0 12px', 
+                  textAlign: 'right',
+                  color: '#000000',
+                  fontWeight: 700
+                }}>
+                  {formattedSalary}
+                </td>
+              </tr>
+              <tr style={{ height: '44px' }}>
+                <td style={{ 
+                  border: '0.5px solid #d9d9d9', 
+                  padding: '0 12px', 
+                  textAlign: 'left',
+                  fontWeight: 500
+                }}>
+                  Mức lương
+                </td>
+                <td style={{ 
+                  border: '0.5px solid #d9d9d9', 
+                  padding: '0 12px', 
+                  textAlign: 'right',
+                  color: '#000000',
+                  fontWeight: 700
+                }}>
+                  {formattedSalary}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
       </div>
