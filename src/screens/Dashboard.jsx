@@ -18,17 +18,17 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
       {/* Full frame background from Figma */}
       <img src={frameDashboard} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'fill' }} draggable={false} />
 
-      {/* Single card overlay covering entire profile card area (y=85 to y=345) */}
-      {/* This completely covers all static text in the background image and renders clean dynamic content */}
+      {/* Single card overlay covering entire profile card area (y=84 to y=350) */}
+      {/* Expanded slightly and removed box-shadow to perfectly cover the background image's card and prevent double borders/shadows */}
       <div style={{
         position: 'absolute',
-        left: `${19 / W * 100}%`,
-        top: `${85 / H * 100}%`,
-        width: `${364 / W * 100}%`,
-        height: `${262 / H * 100}%`,
+        left: `${17.5 / W * 100}%`,
+        top: `${83.5 / H * 100}%`,
+        width: `${367 / W * 100}%`,
+        height: `${267 / H * 100}%`,
         background: '#ffffff', // Clean white background to cover static text
         borderRadius: '12px', // Premium smooth card corners
-        boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.04)', // Subtle elegant shadow matching Figma
+        boxShadow: 'none', // Remove duplicate shadow, letting the background image's natural shadow display cleanly
         zIndex: 10,
         boxSizing: 'border-box',
         padding: '18px 20px 14px 20px',
