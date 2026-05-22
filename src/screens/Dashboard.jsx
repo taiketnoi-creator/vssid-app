@@ -6,7 +6,7 @@ import dashIconBell from '../assets/dash_icon_bell.png';
 import dashBottomNavImg from '../assets/dash_bottom_nav_img.png';
 
 // Menu icons
-import icDashAvatar from '../assets/ic_dash_avatar.png'; // BHYT Icon
+import dashAvatar2 from '../assets/dash_avatar2.png'; // BHYT Icon (from Figma crop)
 import icDashQuatrinh from '../assets/ic_dash_quatrinh.png'; // Quá Trình Icon
 import icDashMenuCol1 from '../assets/ic_dash_menu_col1.png'; // Thông Tin Hưởng Icon (red cross / circle)
 import icDashSokham from '../assets/ic_dash_sokham.png'; // Sổ Khám Icon
@@ -118,14 +118,14 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
         background: '#eaeff3', // Figma color: #eaeff3
         borderRadius: '12px',
         boxSizing: 'border-box',
-        padding: '16px 20px',
+        padding: '21px 20px 20px 20px', // Exact Figma top-padding (108 - 87 = 21px)
         display: 'flex',
         flexDirection: 'column',
         zIndex: 10,
         boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)'
       }}>
         {/* Row: Avatar Circle (Ellipse 6: 62x62 at x=43, y=108 -> local x=24, y=21) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', height: '62px' }}>
           {/* Avatar frame */}
           <div style={{
             width: '62px',
@@ -183,11 +183,11 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           </div>
         </div>
 
-        {/* Separator line (Vector 1: y=185 -> local y=98) */}
-        <div style={{ height: '0.5px', background: '#948c8c', opacity: 0.6, marginBottom: '14px' }} />
+        {/* Separator line (Vector 1: y=185 -> local y=98, so margin-top = 15px, margin-bottom = 12px) */}
+        <div style={{ height: '0.5px', background: '#948c8c', opacity: 0.6, marginTop: '15px', marginBottom: '12px' }} />
 
         {/* Info Fields rows */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '21px' }}>
           {fields.map((field, idx) => (
             <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '17px' }}>
               {/* Label (x=42): 14px Regular, color #616161 */}
@@ -235,23 +235,27 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
         {[
           {
             label: 'THẺ BHYT',
-            icon: icDashAvatar,
-            action: () => alert('Tính năng Thẻ BHYT đang phát triển!')
+            icon: dashAvatar2,
+            action: () => alert('Tính năng Thẻ BHYT đang phát triển!'),
+            imgStyle: { objectFit: 'contain' }
           },
           {
             label: 'QUÁ TRÌNH THAM GIA',
             icon: icDashQuatrinh,
-            action: () => onNavigate('insurance-list', { transition: 'slide', direction: 'left' })
+            action: () => onNavigate('insurance-list', { transition: 'slide', direction: 'left' }),
+            imgStyle: { objectFit: 'contain' }
           },
           {
             label: 'THÔNG TIN HƯỞNG',
             icon: icDashMenuCol1,
-            action: () => alert('Tính năng Thông tin hưởng đang phát triển!')
+            action: () => alert('Tính năng Thông tin hưởng đang phát triển!'),
+            imgStyle: { width: '100%', height: '200%', objectFit: 'fill' }
           },
           {
             label: 'SỔ KHÁM CHỮA BỆNH',
             icon: icDashSokham,
-            action: () => alert('Tính năng Sổ khám chữa bệnh đang phát triển!')
+            action: () => alert('Tính năng Sổ khám chữa bệnh đang phát triển!'),
+            imgStyle: { objectFit: 'contain' }
           }
         ].map((item, idx) => (
           <div
@@ -278,7 +282,15 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
               justifyContent: 'center',
               overflow: 'hidden'
             }}>
-              <img src={item.icon} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              <img 
+                src={item.icon} 
+                alt="" 
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  ...item.imgStyle 
+                }} 
+              />
             </div>
 
             {/* Menu Label (Figma x=87, y=405/468/532/598): 17px Regular, color #3f3f3f */}
