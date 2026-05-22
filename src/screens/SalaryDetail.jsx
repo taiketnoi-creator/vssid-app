@@ -53,6 +53,9 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
     return { line1: addrStr.substring(0, 32), line2: addrStr.substring(32) };
   };
 
+  const company = splitCompany(rowData?.company);
+  const address = splitAddress(rowData?.workAddress);
+
   return (
     <div style={{
       position: 'relative',
@@ -63,7 +66,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
       fontFamily: 'Inter, sans-serif',
       boxSizing: 'border-box'
     }}>
-      {/* 1. Flawless 100% Figma Frame Background */}
+      {/* 1. Figma Frame Background Image */}
       <img
         src={frameSalary}
         alt="Salary Background"
@@ -80,7 +83,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         draggable={false}
       />
 
-      {/* 2. Transparent Back Button Hotspot: x=10, y=25, w=45, h=45 */}
+      {/* 2. Transparent Back Button: x=10, y=25, w=45, h=45 */}
       <button
         onClick={() => onNavigate('insurance-list', { transition: 'slide-up', direction: 'right' })}
         style={{
@@ -98,7 +101,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         aria-label="Back"
       />
 
-      {/* 3. 100% FIGMA DYNAMIC TEXT OVERLAY & COVER LAYER (zIndex = 10) */}
+      {/* 3. Dynamic Overlay Layer */}
       <div style={{
         position: 'absolute',
         left: 0,
@@ -108,61 +111,61 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         zIndex: 10,
         pointerEvents: 'none'
       }}>
-        {/* --- 3.1. PRECISE LOCALIZED COVER BLOCKS (zIndex = 5) --- */}
-        {/* Mask the pre-printed date text lines but NOT their dotted underlines underneath (height is constrained to 15px) */}
+
+        {/* ===== COVER BLOCKS: Erase static Figma-printed text from the background image ===== */}
+
+        {/* Cover: Date row (Figma prints static "Từ tháng: 04/2025" and "Đến tháng: 03/2026") */}
+        {/* Figma y=125, h=17 → cover from y=122 to y=144 with white */}
         <div style={{
           position: 'absolute',
           left: `${(44 / W) * 100}%`,
-          top: `${(124 / H) * 100}%`,
-          width: `${(126 / W) * 100}%`,
-          height: `${(15 / H) * 100}%`,
+          top: `${(122 / H) * 100}%`,
+          width: `${(320 / W) * 100}%`,
+          height: `${(20 / H) * 100}%`,
           backgroundColor: '#ffffff',
-          zIndex: 5
-        }} />
-        <div style={{
-          position: 'absolute',
-          left: `${(225 / W) * 100}%`,
-          top: `${(124 / H) * 100}%`,
-          width: `${(136 / W) * 100}%`,
-          height: `${(15 / H) * 100}%`,
-          backgroundColor: '#ffffff',
-          zIndex: 5
+          zIndex: 6
         }} />
 
-        {/* Mask the pre-printed blue card's text area cleanly without covering the card's rounded borders */}
+        {/* Cover: Entire blue card area (Figma has all static white text on blue card background)
+            Blue card: from y≈155 to y≈280 (text range 174 to 259+17=276, card starts ~155)
+            Cover starts at y=155 so we don't erase the card's own rounded border corner arc */}
         <div style={{
           position: 'absolute',
-          left: `${(29 / W) * 100}%`,
-          top: `${(172 / H) * 100}%`,
-          width: `${(344 / W) * 100}%`,
-          height: `${(104 / H) * 100}%`,
+          left: `${(30 / W) * 100}%`,
+          top: `${(155 / H) * 100}%`,
+          width: `${(342 / W) * 100}%`,
+          height: `${(125 / H) * 100}%`,
           backgroundColor: '#38679f',
-          zIndex: 5
+          zIndex: 6
         }} />
 
-        {/* Mask the pre-printed table value cells only, leaving the table's native grid borders and labels 100% untouched */}
+        {/* Cover: Table value cells only — leave native Figma table grid lines intact
+            Row 1 value: x=240→372 (right of vertical divider at x≈240), y=287 to y=314
+            Row 2 value: same x range, y=315 to y=342 */}
         <div style={{
           position: 'absolute',
-          left: `${(242 / W) * 100}%`,
-          top: `${(288 / H) * 100}%`,
-          width: `${(129 / W) * 100}%`,
-          height: `${(24 / H) * 100}%`,
+          left: `${(241 / W) * 100}%`,
+          top: `${(287 / H) * 100}%`,
+          width: `${(128 / W) * 100}%`,
+          height: `${(27 / H) * 100}%`,
           backgroundColor: '#ffffff',
-          zIndex: 5
+          zIndex: 6
         }} />
         <div style={{
           position: 'absolute',
-          left: `${(242 / W) * 100}%`,
-          top: `${(316 / H) * 100}%`,
-          width: `${(129 / W) * 100}%`,
-          height: `${(24 / H) * 100}%`,
+          left: `${(241 / W) * 100}%`,
+          top: `${(315 / H) * 100}%`,
+          width: `${(128 / W) * 100}%`,
+          height: `${(27 / H) * 100}%`,
           backgroundColor: '#ffffff',
-          zIndex: 5
+          zIndex: 6
         }} />
 
 
-        {/* --- 3.2. DYNAMIC TEXT OVERLAYS POSITIONED EXACTLY ACCORDING TO FIGMA (zIndex = 10) --- */}
-        {/* Date Row 1: Từ tháng */}
+        {/* ===== DYNAMIC TEXT OVERLAYS: Exact Figma coordinates ===== */}
+
+        {/* DATE ROW — Figma: 13:7 x=45 y=125 w=124 h=17  |  13:8 x=226 y=125 w=134 h=17 */}
+        {/* "Từ tháng: 04/2025" — rendered as label + bold value inline */}
         <div style={{
           position: 'absolute',
           left: `${(45 / W) * 100}%`,
@@ -173,17 +176,16 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           color: '#2a2b2b',
           fontFamily: 'Inter, sans-serif',
           fontWeight: 400,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
-          zIndex: 10
+          zIndex: 10,
+          whiteSpace: 'nowrap'
         }}>
-          Từ tháng:&nbsp;
-          <span style={{ fontWeight: 700 }}>
-            {rowData?.from || '04/2025'}
-          </span>
+          Từ tháng: <span style={{ fontWeight: 700, marginLeft: '2px' }}>{rowData?.from || '04/2025'}</span>
         </div>
 
-        {/* Date Row 2: Đến tháng */}
+        {/* "Đến tháng: 03/2026" */}
         <div style={{
           position: 'absolute',
           left: `${(226 / W) * 100}%`,
@@ -194,18 +196,18 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           color: '#2a2b2b',
           fontFamily: 'Inter, sans-serif',
           fontWeight: 400,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
-          zIndex: 10
+          zIndex: 10,
+          whiteSpace: 'nowrap'
         }}>
-          Đến tháng:&nbsp;
-          <span style={{ fontWeight: 700 }}>
-            {rowData?.to || '03/2026'}
-          </span>
+          Đến tháng: <span style={{ fontWeight: 700, marginLeft: '2px' }}>{rowData?.to || '03/2026'}</span>
         </div>
 
-        {/* --- 3.3. Blue Card Texts (Exact coordinates and styling) --- */}
-        {/* Row 1: Chức vụ label & value */}
+
+        {/* BLUE CARD — Row 1: Chức vụ */}
+        {/* Label: 13:10 x=30 y=174 w=59 h=17  Regular #fff */}
         <div style={{
           position: 'absolute',
           left: `${(30 / W) * 100}%`,
@@ -213,15 +215,17 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           width: `${(59 / W) * 100}%`,
           height: `${(17 / H) * 100}%`,
           fontSize: '14px',
-          color: 'rgba(255, 255, 255, 0.85)',
+          color: 'rgba(255,255,255,0.85)',
           fontFamily: 'Inter, sans-serif',
           fontWeight: 400,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
           zIndex: 10
         }}>
           Chức vụ:
         </div>
+        {/* Value: 13:11 x=96 y=174 w=128 h=17  Bold #fff */}
         <div style={{
           position: 'absolute',
           left: `${(96 / W) * 100}%`,
@@ -232,6 +236,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           color: '#ffffff',
           fontFamily: 'Inter, sans-serif',
           fontWeight: 700,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
           zIndex: 10
@@ -239,7 +244,8 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           {rowData?.position || 'Nhân viên kỹ thuật'}
         </div>
 
-        {/* Row 2: Đơn vị công tác label & value (line 1 & line 2) */}
+        {/* BLUE CARD — Row 2: Đơn vị công tác */}
+        {/* Label: 13:15 x=30 y=191 w=108 h=17  Regular #fff */}
         <div style={{
           position: 'absolute',
           left: `${(30 / W) * 100}%`,
@@ -247,15 +253,17 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           width: `${(108 / W) * 100}%`,
           height: `${(17 / H) * 100}%`,
           fontSize: '14px',
-          color: 'rgba(255, 255, 255, 0.85)',
+          color: 'rgba(255,255,255,0.85)',
           fontFamily: 'Inter, sans-serif',
           fontWeight: 400,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
           zIndex: 10
         }}>
           Đơn vị công tác:
         </div>
+        {/* Value Line 1: 13:16 x=141 y=191 w=197 h=17  Bold #fff */}
         <div style={{
           position: 'absolute',
           left: `${(141 / W) * 100}%`,
@@ -266,13 +274,16 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           color: '#ffffff',
           fontFamily: 'Inter, sans-serif',
           fontWeight: 700,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
-          zIndex: 10
+          zIndex: 10,
+          overflow: 'hidden'
         }}>
-          {splitCompany(rowData?.company).line1}
+          {company.line1}
         </div>
-        {splitCompany(rowData?.company).line2 && (
+        {/* Value Line 2: 13:17 x=30 y=208 w=63 h=17  Bold #fff */}
+        {company.line2 && (
           <div style={{
             position: 'absolute',
             left: `${(30 / W) * 100}%`,
@@ -283,15 +294,17 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
             color: '#ffffff',
             fontFamily: 'Inter, sans-serif',
             fontWeight: 700,
+            lineHeight: '17px',
             display: 'flex',
             alignItems: 'center',
             zIndex: 10
           }}>
-            {splitCompany(rowData?.company).line2}
+            {company.line2}
           </div>
         )}
 
-        {/* Row 3: Nơi làm việc label & value (line 1 & line 2) */}
+        {/* BLUE CARD — Row 3: Nơi làm việc */}
+        {/* Label: 13:18 x=30 y=225 w=85 h=17  Regular #fff */}
         <div style={{
           position: 'absolute',
           left: `${(30 / W) * 100}%`,
@@ -299,15 +312,17 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           width: `${(85 / W) * 100}%`,
           height: `${(17 / H) * 100}%`,
           fontSize: '14px',
-          color: 'rgba(255, 255, 255, 0.85)',
+          color: 'rgba(255,255,255,0.85)',
           fontFamily: 'Inter, sans-serif',
           fontWeight: 400,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
           zIndex: 10
         }}>
           Nơi làm việc:
         </div>
+        {/* Value Line 1: 13:19 x=119 y=225 w=232 h=17  Bold #fff */}
         <div style={{
           position: 'absolute',
           left: `${(119 / W) * 100}%`,
@@ -318,13 +333,16 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           color: '#ffffff',
           fontFamily: 'Inter, sans-serif',
           fontWeight: 700,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
-          zIndex: 10
+          zIndex: 10,
+          overflow: 'hidden'
         }}>
-          {splitAddress(rowData?.workAddress).line1}
+          {address.line1}
         </div>
-        {splitAddress(rowData?.workAddress).line2 && (
+        {/* Value Line 2: 13:20 x=30 y=242 w=128 h=17  Bold #fff */}
+        {address.line2 && (
           <div style={{
             position: 'absolute',
             left: `${(30 / W) * 100}%`,
@@ -335,15 +353,17 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
             color: '#ffffff',
             fontFamily: 'Inter, sans-serif',
             fontWeight: 700,
+            lineHeight: '17px',
             display: 'flex',
             alignItems: 'center',
             zIndex: 10
           }}>
-            {splitAddress(rowData?.workAddress).line2}
+            {address.line2}
           </div>
         )}
 
-        {/* Row 4: Loại tiền label & value */}
+        {/* BLUE CARD — Row 4: Loại tiền */}
+        {/* Label: 165:20 x=30 y=259 w=60 h=17  Regular #fff */}
         <div style={{
           position: 'absolute',
           left: `${(30 / W) * 100}%`,
@@ -351,25 +371,28 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
           width: `${(60 / W) * 100}%`,
           height: `${(17 / H) * 100}%`,
           fontSize: '14px',
-          color: 'rgba(255, 255, 255, 0.85)',
+          color: 'rgba(255,255,255,0.85)',
           fontFamily: 'Inter, sans-serif',
           fontWeight: 400,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
           zIndex: 10
         }}>
           Loại tiền:
         </div>
+        {/* Value: 13:22 x=96 y=259 w=31 h=17  Bold #fff */}
         <div style={{
           position: 'absolute',
           left: `${(96 / W) * 100}%`,
           top: `${(259 / H) * 100}%`,
-          width: `${(50 / W) * 100}%`,
+          width: `${(60 / W) * 100}%`,
           height: `${(17 / H) * 100}%`,
           fontSize: '14px',
           color: '#ffffff',
           fontFamily: 'Inter, sans-serif',
           fontWeight: 700,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
           zIndex: 10
@@ -378,42 +401,50 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         </div>
 
 
-        {/* --- 3.4. Table Dynamic Values (Right side right-aligned) --- */}
+        {/* SALARY TABLE — Row 1: Tiền lương đóng BHXH */}
+        {/* Value: 13:32 x=290 y=295 w=77 h=17  Medium #2a2b2b — right-aligned */}
         <div style={{
           position: 'absolute',
-          left: `${(290 / W) * 100}%`,
+          left: `${(241 / W) * 100}%`,
           top: `${(295 / H) * 100}%`,
-          width: `${(77 / W) * 100}%`,
+          width: `${(128 / W) * 100}%`,
           height: `${(17 / H) * 100}%`,
           fontSize: '14px',
           color: '#2a2b2b',
           fontFamily: 'Inter, sans-serif',
-          fontWeight: 700,
+          fontWeight: 500,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-end',
+          paddingRight: `${(7 / W) * 100}%`,
           zIndex: 10
         }}>
           {formattedSalary}
         </div>
 
+        {/* SALARY TABLE — Row 2: Mức lương */}
+        {/* Value: 13:33 x=290 y=323 w=77 h=17  Medium #2a2b2b — right-aligned */}
         <div style={{
           position: 'absolute',
-          left: `${(290 / W) * 100}%`,
+          left: `${(241 / W) * 100}%`,
           top: `${(323 / H) * 100}%`,
-          width: `${(77 / W) * 100}%`,
+          width: `${(128 / W) * 100}%`,
           height: `${(17 / H) * 100}%`,
           fontSize: '14px',
           color: '#2a2b2b',
           fontFamily: 'Inter, sans-serif',
-          fontWeight: 700,
+          fontWeight: 500,
+          lineHeight: '17px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-end',
+          paddingRight: `${(7 / W) * 100}%`,
           zIndex: 10
         }}>
           {formattedSalary}
         </div>
+
       </div>
     </div>
   );
