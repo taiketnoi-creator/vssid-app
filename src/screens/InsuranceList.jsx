@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import frameInsurance from '../assets/frame_insurance.png';
 
-// Import tab icons
-import icTabBhxh from '../assets/ic_tab_bhxh.png';
-import icTabBhxhOff from '../assets/ic_tab_bhxh_off.png';
-import icTabBhtn from '../assets/ic_tab_bhtn.png';
-import icTabBhtnOff from '../assets/ic_tab_bhtn_off.png';
-import icTabBhtnld from '../assets/ic_tab_bhtnld.png';
-import icTabBhtnldOff from '../assets/ic_tab_bhtnld_off.png';
-import icTabBhyt from '../assets/ic_tab_bhyt.png';
-import icTabBhytOff from '../assets/ic_tab_bhyt_off.png';
-import icTabC14ts from '../assets/ic_tab_c14ts.png';
-import icTabC14tsOff from '../assets/ic_tab_c14ts_off.png';
+// Import high-fidelity tab icons from Figma
+import tabBhxh from '../assets/tab_bhxh.png';
+import tabBhtn from '../assets/tab_bhtn.png';
+import tabBhtnld from '../assets/tab_bhtnld.png';
+import tabBhyt from '../assets/tab_bhyt.png';
+import tabC14ts from '../assets/tab_c14ts.png';
 
 import icEye from '../assets/ic_eye.png';
 
@@ -46,11 +41,11 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
   const { years, months } = calculateTotalParticipation(history);
 
   const tabs = [
-    { id: 'BHXH', label: 'BHXH', activeIcon: icTabBhxh, inactiveIcon: icTabBhxhOff },
-    { id: 'BHTN', label: 'BHTN', activeIcon: icTabBhtn, inactiveIcon: icTabBhtnOff },
-    { id: 'BHTNLĐ-BNN', label: 'BHTNLĐ-BNN', activeIcon: icTabBhtnld, inactiveIcon: icTabBhtnldOff },
-    { id: 'BHYT', label: 'BHYT', activeIcon: icTabBhyt, inactiveIcon: icTabBhytOff },
-    { id: 'C14-TS', label: 'C14-TS', activeIcon: icTabC14ts, inactiveIcon: icTabC14tsOff }
+    { id: 'BHXH', label: 'BHXH', icon: tabBhxh },
+    { id: 'BHTN', label: 'BHTN', icon: tabBhtn },
+    { id: 'BHTNLĐ-BNN', label: 'BHTNLĐ-BNN', icon: tabBhtnld },
+    { id: 'BHYT', label: 'BHYT', icon: tabBhyt },
+    { id: 'C14-TS', label: 'C14-TS', icon: tabC14ts }
   ];
 
   const renderTabLabel = (label) => {
@@ -144,12 +139,15 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
               }}
             >
               <img
-                src={isActive ? tab.activeIcon : tab.inactiveIcon}
+                src={tab.icon}
                 alt={tab.label}
                 style={{
-                  width: '28px',
-                  height: '28px',
-                  objectFit: 'contain'
+                  width: '32px',
+                  height: '32px',
+                  objectFit: 'contain',
+                  filter: isActive ? 'none' : 'grayscale(100%)',
+                  opacity: isActive ? 1 : 0.4,
+                  transition: 'all 0.2s ease'
                 }}
               />
               <span style={{
