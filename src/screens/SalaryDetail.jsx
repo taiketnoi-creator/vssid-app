@@ -1,11 +1,21 @@
 import React from 'react';
-import frameSalary from '../assets/frame_salary.png';
 
-// Figma frame: 402 x 874
+// ─── Figma Frame: iPhone 17 - 4  (ID: 13:2) ───
+// Size: 402 × 874 px
+// Source: Figma MCP live scan — all coordinates are pixel-exact from Figma
+
 const W = 402;
 const H = 874;
 
+// ─── Pixel helpers ───
+const px = (v) => `${(v / W) * 100}%`;
+const py = (v) => `${(v / H) * 100}%`;
+const pw = (v) => `${(v / W) * 100}%`;
+const ph = (v) => `${(v / H) * 100}%`;
+
 const SalaryDetail = ({ onNavigate, rowData }) => {
+
+  // ─── Format salary number ───
   const formatSalary = (val) => {
     if (!val) return '0';
     if (typeof val === 'string' && val.includes('.')) return val;
@@ -16,73 +26,55 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
 
   const formattedSalary = formatSalary(rowData?.salary || '14.500.000');
 
-  const splitCompany = (companyStr) => {
-    const defaultVal = { line1: 'Công ty TNHH EO TECHNICS', line2: 'Việt Nam' };
-    if (!companyStr) return defaultVal;
-    if (companyStr.includes('EO TECHNICS Việt Nam')) {
-      return {
-        line1: companyStr.replace('Việt Nam', '').trim(),
-        line2: 'Việt Nam'
-      };
+  // ─── Split company name into 2 lines (matching Figma layout) ───
+  const splitCompany = (s) => {
+    if (!s) return { line1: 'Công ty TNHH EO TECHNICS', line2: 'Việt Nam' };
+    if (s.includes('EO TECHNICS Việt Nam')) {
+      return { line1: s.replace('Việt Nam', '').trim(), line2: 'Việt Nam' };
     }
-    if (companyStr.length <= 24) {
-      return { line1: companyStr, line2: '' };
-    }
-    const idx = companyStr.lastIndexOf(' ', 24);
-    if (idx !== -1) {
-      return { line1: companyStr.substring(0, idx), line2: companyStr.substring(idx).trim() };
-    }
-    return { line1: companyStr.substring(0, 24), line2: companyStr.substring(24) };
+    if (s.length <= 24) return { line1: s, line2: '' };
+    const idx = s.lastIndexOf(' ', 24);
+    return idx > 0
+      ? { line1: s.slice(0, idx), line2: s.slice(idx).trim() }
+      : { line1: s.slice(0, 24), line2: s.slice(24) };
   };
 
-  const splitAddress = (addrStr) => {
-    const defaultVal = { line1: 'BT22, khu đô thị hud võ cường-Tp', line2: 'Bắc Ninh-Bắc Ninh' };
-    if (!addrStr) return defaultVal;
-    if (addrStr.includes('Bắc Ninh-Bắc Ninh')) {
-      return {
-        line1: addrStr.replace('Bắc Ninh-Bắc Ninh', '').trim().replace(/-$/, '').replace(/,$/, '').trim(),
-        line2: 'Bắc Ninh-Bắc Ninh'
-      };
+  // ─── Split address into 2 lines ───
+  const splitAddress = (s) => {
+    if (!s) return { line1: 'BT22, khu đô thị hud võ cường-Tp', line2: 'Bắc Ninh-Bắc Ninh' };
+    if (s.includes('Bắc Ninh-Bắc Ninh')) {
+      const line1 = s.replace('Bắc Ninh-Bắc Ninh', '').trim().replace(/[-,]$/, '').trim();
+      return { line1, line2: 'Bắc Ninh-Bắc Ninh' };
     }
-    if (addrStr.length <= 32) {
-      return { line1: addrStr, line2: '' };
-    }
-    const idx = addrStr.lastIndexOf(' ', 32);
-    if (idx !== -1) {
-      return { line1: addrStr.substring(0, idx), line2: addrStr.substring(idx).trim() };
-    }
-    return { line1: addrStr.substring(0, 32), line2: addrStr.substring(32) };
+    if (s.length <= 32) return { line1: s, line2: '' };
+    const idx = s.lastIndexOf(' ', 32);
+    return idx > 0
+      ? { line1: s.slice(0, idx), line2: s.slice(idx).trim() }
+      : { line1: s.slice(0, 32), line2: s.slice(32) };
   };
 
   const company = splitCompany(rowData?.company);
   const address = splitAddress(rowData?.workAddress);
 
-  // Helper: position as percentage of Figma frame
-  const px = (x) => `${(x / W) * 100}%`;
-  const py = (y) => `${(y / H) * 100}%`;
-  const pw = (w) => `${(w / W) * 100}%`;
-  const ph = (h) => `${(h / H) * 100}%`;
-
-  // Cover block style: erases background image text with solid color
-  const cover = (x, y, w, h, color) => ({
+  // ─── Common style builders ───
+  const abs = (x, y, w, h, extra = {}) => ({
     position: 'absolute',
     left: px(x), top: py(y),
     width: pw(w), height: ph(h),
-    backgroundColor: color,
-    zIndex: 5,
+    boxSizing: 'border-box',
+    ...extra,
   });
 
-  // Text overlay style: renders dynamic text at exact Figma position
-  const text = (x, y, w, h, style = {}) => ({
-    position: 'absolute',
-    left: px(x), top: py(y),
-    width: pw(w), height: ph(h),
+  const figmaText = (x, y, w, h, fontSize, fontWeight, color, extra = {}) => ({
+    ...abs(x, y, w, h),
     fontFamily: 'Inter, sans-serif',
+    fontSize: `${fontSize}px`,
+    fontWeight: fontWeight,
+    color: color,
     display: 'flex',
     alignItems: 'center',
-    zIndex: 10,
-    lineHeight: `${ph(h)}`,
-    ...style,
+    lineHeight: '1',
+    ...extra,
   });
 
   return (
@@ -91,148 +83,190 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
       width: '100%',
       height: '100%',
       overflow: 'hidden',
-      background: '#ffffff',
+      backgroundColor: '#ffffff',   // Figma frame fill: #ffffff
       fontFamily: 'Inter, sans-serif',
     }}>
 
-      {/* ── Background image (full frame_salary.png) ── */}
-      <img
-        src={frameSalary}
-        alt="Salary Background"
-        style={{
-          position: 'absolute',
-          top: 0, left: 0,
-          width: '100%', height: '100%',
-          objectFit: 'fill',
-          zIndex: 1,
-          pointerEvents: 'none',
-        }}
-        draggable={false}
-      />
+      {/* ══════════════════════════════════════════════════════════
+          HEADER  (blue gradient — Figma: top navigation area)
+          Figma shows "QUẢN LÝ CÁ NHÂN" style blue header at y=0–105
+          Header background: blue gradient like other screens
+          ══════════════════════════════════════════════════════════ */}
+      <div style={{
+        position: 'absolute',
+        left: 0, top: 0,
+        width: '100%',
+        height: py(105),
+        background: 'linear-gradient(180deg, #01aef2 0%, #0073c6 100%)',
+        zIndex: 1,
+      }} />
 
-      {/* ── Back button hotspot ── */}
+      {/* ── Back Arrow (Figma: Vector 8, x=27 y=76 w=9 h=18, stroke=#416aa0→white on gradient) ── */}
       <button
         onClick={() => onNavigate('insurance-list', { transition: 'slide-up', direction: 'right' })}
         style={{
           position: 'absolute',
-          left: px(10), top: py(25),
-          width: pw(45), height: ph(45),
+          left: px(10), top: py(60),
+          width: pw(45), height: ph(40),
           background: 'transparent',
           border: 'none', outline: 'none',
-          cursor: 'pointer', zIndex: 30,
+          cursor: 'pointer', zIndex: 20,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}
         aria-label="Back"
-      />
+      >
+        {/* Chevron left icon */}
+        <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
+          <path d="M9 1L1 9L9 17" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
 
-      {/* ════════════════════════════════════════════
-          COVER + OVERLAY LAYER  (zIndex 5-10)
-          ════════════════════════════════════════════ */}
-
-      {/*
-        ─── DATE ROW ───
-        Figma: "Từ tháng: 04/2025"  x=45 y=125 w=124 h=17
-               "Đến tháng: 03/2026" x=226 y=125 w=134 h=17
-        Strategy: cover entire date value area with white, then overlay dynamic text.
-        The background image already has "Từ tháng:" and "Đến tháng:" labels printed.
-        Only the DATE VALUES need to be replaced.
-        "Từ tháng:" label text ends at approx x=108 in the image.
-        "Đến tháng:" label text ends at approx x=295.
-        So cover the VALUE portions only.
-      */}
-      {/* Cover "04/2025" value (right part of left date block) */}
-      <div style={cover(108, 122, 62, 20, '#ffffff')} />
-      {/* Cover "03/2026" value (right part of right date block) */}
-      <div style={cover(292, 122, 70, 20, '#ffffff')} />
-
-      {/* Overlay: date values only (bold, positioned right after label) */}
-      <div style={text(108, 124, 62, 17, { fontSize: '14px', color: '#2a2b2b', fontWeight: 700 })}>
-        {rowData?.from || '04/2025'}
-      </div>
-      <div style={text(292, 124, 78, 17, { fontSize: '14px', color: '#2a2b2b', fontWeight: 700 })}>
-        {rowData?.to || '03/2026'}
+      {/* ── Title: "Chi tiết" — Figma: 13:4  x=169 y=67 w=64 h=22  fontSize=18 Bold #38679f
+          On gradient header → use white text instead ── */}
+      <div style={figmaText(169, 67, 64, 22, 18, 700, '#ffffff', { justifyContent: 'center', zIndex: 10 })}>
+        Chi tiết
       </div>
 
+      {/* ══════════════════════════════════════════════════════════
+          DATE ROW
+          Figma: 13:7  "Từ tháng: 04/2025"   x=45  y=125 w=124 h=17  Regular  #2a2b2b
+                 13:8  "Đến tháng: 03/2026"  x=226 y=125 w=134 h=17  Regular  #2a2b2b
+          ══════════════════════════════════════════════════════════ */}
+      {/* Left: "Từ tháng:" label + dynamic value */}
+      <div style={figmaText(45, 125, 124, 17, 14, 400, '#2a2b2b', { zIndex: 5 })}>
+        Từ tháng:&nbsp;
+        <span style={{ fontWeight: 700 }}>{rowData?.from || '04/2025'}</span>
+      </div>
 
-      {/*
-        ─── BLUE CARD ───
-        Background image has ALL card content baked in as static text.
-        Strategy: cover the ENTIRE card interior with solid #38679f,
-        then re-render ALL text rows (both labels and values) as dynamic HTML.
+      {/* Right: "Đến tháng:" label + dynamic value */}
+      <div style={figmaText(226, 125, 134, 17, 14, 400, '#2a2b2b', { zIndex: 5 })}>
+        Đến tháng:&nbsp;
+        <span style={{ fontWeight: 700 }}>{rowData?.to || '03/2026'}</span>
+      </div>
 
-        Figma card text spans y=174 to y=276 (with 17px line height).
-        Card itself likely starts y≈160, ends y≈283 (adding ~8-10px padding each side).
-        Use y=157 to y=283 as cover, full width x=30 to x=372.
-      */}
-      <div style={cover(30, 157, 342, 126, '#38679f')} />
+      {/* ══════════════════════════════════════════════════════════
+          BLUE INFO CARD
+          Figma: 13:9  Rectangle 20  x=20 y=165 w=362 h=124 fill=#38679f
+          ══════════════════════════════════════════════════════════ */}
+      <div style={{
+        ...abs(20, 165, 362, 124),
+        backgroundColor: '#38679f',
+        zIndex: 2,
+      }} />
 
-      {/* Row 1: Chức vụ — Figma: label x=30,y=174,w=59 | value x=96,y=174,w=128 */}
-      <div style={text(30, 174, 59, 17, { fontSize: '14px', color: 'rgba(255,255,255,0.85)', fontWeight: 400 })}>
+      {/* Row 1 — Chức vụ
+          Label:  13:10  x=30 y=174 w=59  h=17  Regular  rgba(255,255,255,0.85)
+          Value:  13:11  x=96 y=174 w=128 h=17  Bold     #ffffff              */}
+      <div style={figmaText(30, 174, 59, 17, 14, 400, 'rgba(255,255,255,0.85)', { zIndex: 5 })}>
         Chức vụ:
       </div>
-      <div style={text(96, 174, 276, 17, { fontSize: '14px', color: '#ffffff', fontWeight: 700 })}>
+      <div style={figmaText(96, 174, 276, 17, 14, 700, '#ffffff', { zIndex: 5 })}>
         {rowData?.position || 'Nhân viên kỹ thuật'}
       </div>
 
-      {/* Row 2: Đơn vị công tác — Figma: label x=30,y=191,w=108 | value x=141,y=191,w=197 / line2 x=30,y=208 */}
-      <div style={text(30, 191, 108, 17, { fontSize: '14px', color: 'rgba(255,255,255,0.85)', fontWeight: 400 })}>
+      {/* Row 2 — Đơn vị công tác
+          Label: 13:15  x=30  y=191  w=108  Regular  rgba(255,255,255,0.85)
+          Value: 13:16  x=141 y=191  w=197  Bold     #ffffff  (line 1)
+                 13:17  x=30  y=208  w=63   Bold     #ffffff  (line 2)        */}
+      <div style={figmaText(30, 191, 108, 17, 14, 400, 'rgba(255,255,255,0.85)', { zIndex: 5 })}>
         Đơn vị công tác:
       </div>
-      <div style={text(141, 191, 231, 17, { fontSize: '14px', color: '#ffffff', fontWeight: 700, overflow: 'hidden' })}>
+      <div style={figmaText(141, 191, 231, 17, 14, 700, '#ffffff', { zIndex: 5, overflow: 'hidden' })}>
         {company.line1}
       </div>
       {company.line2 && (
-        <div style={text(30, 208, 342, 17, { fontSize: '14px', color: '#ffffff', fontWeight: 700 })}>
+        <div style={figmaText(30, 208, 342, 17, 14, 700, '#ffffff', { zIndex: 5 })}>
           {company.line2}
         </div>
       )}
 
-      {/* Row 3: Nơi làm việc — Figma: label x=30,y=225,w=85 | value x=119,y=225,w=232 / line2 x=30,y=242 */}
-      <div style={text(30, 225, 85, 17, { fontSize: '14px', color: 'rgba(255,255,255,0.85)', fontWeight: 400 })}>
+      {/* Row 3 — Nơi làm việc
+          Label: 13:18  x=30  y=225  w=85   Regular  rgba(255,255,255,0.85)
+          Value: 13:19  x=119 y=225  w=232  Bold     #ffffff  (line 1)
+                 13:20  x=30  y=242  w=128  Bold     #ffffff  (line 2)        */}
+      <div style={figmaText(30, 225, 85, 17, 14, 400, 'rgba(255,255,255,0.85)', { zIndex: 5 })}>
         Nơi làm việc:
       </div>
-      <div style={text(119, 225, 253, 17, { fontSize: '14px', color: '#ffffff', fontWeight: 700, overflow: 'hidden' })}>
+      <div style={figmaText(119, 225, 253, 17, 14, 700, '#ffffff', { zIndex: 5, overflow: 'hidden' })}>
         {address.line1}
       </div>
       {address.line2 && (
-        <div style={text(30, 242, 342, 17, { fontSize: '14px', color: '#ffffff', fontWeight: 700 })}>
+        <div style={figmaText(30, 242, 342, 17, 14, 700, '#ffffff', { zIndex: 5 })}>
           {address.line2}
         </div>
       )}
 
-      {/* Row 4: Loại tiền — Figma: label x=30,y=259,w=60 | value x=96,y=259,w=31 */}
-      <div style={text(30, 259, 60, 17, { fontSize: '14px', color: 'rgba(255,255,255,0.85)', fontWeight: 400 })}>
+      {/* Row 4 — Loại tiền
+          Label: 165:20  x=30 y=259  w=60   Regular  rgba(255,255,255,0.85)
+          Value: 13:22   x=96 y=259  w=31   Bold     #ffffff                 */}
+      <div style={figmaText(30, 259, 60, 17, 14, 400, 'rgba(255,255,255,0.85)', { zIndex: 5 })}>
         Loại tiền:
       </div>
-      <div style={text(96, 259, 60, 17, { fontSize: '14px', color: '#ffffff', fontWeight: 700 })}>
+      <div style={figmaText(96, 259, 60, 17, 14, 700, '#ffffff', { zIndex: 5 })}>
         VND
       </div>
 
+      {/* ══════════════════════════════════════════════════════════
+          SALARY TABLE  (4 rectangles = 2 rows × 2 cols)
+          Figma:
+            13:27  Rectangle 21  x=20  y=289  w=181 h=28  fill=#fefefe stroke=#aaa9ae 0.4
+            13:29  Rectangle 22  x=201 y=289  w=181 h=28  fill=#fefefe stroke=#aaa9ae 0.4
+            13:28  Rectangle 23  x=20  y=317  w=181 h=28  fill=#fefefe stroke=#aaa9ae 0.4
+            13:30  Rectangle 24  x=201 y=317  w=181 h=28  fill=#fefefe stroke=#aaa9ae 0.4
 
-      {/*
-        ─── SALARY TABLE ───
-        Background image has "14.500.000" values baked in.
-        Strategy: cover only the VALUE cells (right column), keep labels and borders.
-        Figma: value col x=290, y=295 / 323, w=77, h=17
-        Cover from x=242 (after vertical border) to x=372 (right table edge).
-      */}
-      {/* Cover row 1 value cell */}
-      <div style={cover(242, 287, 128, 27, '#ffffff')} />
-      {/* Cover row 2 value cell */}
-      <div style={cover(242, 315, 128, 27, '#ffffff')} />
+          Text:
+            13:21  "Tiền lương đóng BHXH"  x=32  y=295  w=152 h=17  Medium  #2a2b2b
+            13:32  "14.500.000"             x=290 y=295  w=77  h=17  Medium  #2a2b2b
+            13:31  "Mức lương"              x=72  y=323  w=72  h=17  Medium  #2a2b2b
+            13:33  "14.500.000"             x=290 y=323  w=77  h=17  Medium  #2a2b2b
+          ══════════════════════════════════════════════════════════ */}
 
-      {/* Overlay: row 1 value — Figma: x=290 y=295 w=77 h=17 */}
-      <div style={text(242, 295, 122, 17, {
-        fontSize: '14px', color: '#2a2b2b', fontWeight: 500,
-        justifyContent: 'flex-end', paddingRight: pw(8),
-      })}>
+      {/* Row 1, Col 1 — label cell */}
+      <div style={{
+        ...abs(20, 289, 181, 28),
+        backgroundColor: '#fefefe',
+        border: '0.4px solid #aaa9ae',
+        zIndex: 2,
+      }} />
+      {/* Row 1, Col 2 — value cell */}
+      <div style={{
+        ...abs(201, 289, 181, 28),
+        backgroundColor: '#fefefe',
+        border: '0.4px solid #aaa9ae',
+        zIndex: 2,
+      }} />
+      {/* Row 2, Col 1 — label cell */}
+      <div style={{
+        ...abs(20, 317, 181, 28),
+        backgroundColor: '#fefefe',
+        border: '0.4px solid #aaa9ae',
+        zIndex: 2,
+      }} />
+      {/* Row 2, Col 2 — value cell */}
+      <div style={{
+        ...abs(201, 317, 181, 28),
+        backgroundColor: '#fefefe',
+        border: '0.4px solid #aaa9ae',
+        zIndex: 2,
+      }} />
+
+      {/* Table text — Row 1 */}
+      {/* 13:21  x=32 y=295 w=152 h=17  Medium  #2a2b2b */}
+      <div style={figmaText(32, 295, 152, 17, 14, 500, '#2a2b2b', { zIndex: 5 })}>
+        Tiền lương đóng BHXH
+      </div>
+      {/* 13:32  x=290 y=295 w=77 h=17  Medium  #2a2b2b (right-aligned in its cell 201–382) */}
+      <div style={figmaText(201, 295, 181, 17, 14, 500, '#2a2b2b', { zIndex: 5, justifyContent: 'flex-end', paddingRight: pw(8) })}>
         {formattedSalary}
       </div>
 
-      {/* Overlay: row 2 value — Figma: x=290 y=323 w=77 h=17 */}
-      <div style={text(242, 323, 122, 17, {
-        fontSize: '14px', color: '#2a2b2b', fontWeight: 500,
-        justifyContent: 'flex-end', paddingRight: pw(8),
-      })}>
+      {/* Table text — Row 2 */}
+      {/* 13:31  x=72 y=323 w=72 h=17  Medium  #2a2b2b */}
+      <div style={figmaText(72, 323, 130, 17, 14, 500, '#2a2b2b', { zIndex: 5 })}>
+        Mức lương
+      </div>
+      {/* 13:33  x=290 y=323 w=77 h=17  Medium  #2a2b2b */}
+      <div style={figmaText(201, 323, 181, 17, 14, 500, '#2a2b2b', { zIndex: 5, justifyContent: 'flex-end', paddingRight: pw(8) })}>
         {formattedSalary}
       </div>
 
