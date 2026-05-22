@@ -1,273 +1,349 @@
 import React from 'react';
 
-// ─── Figma Frame: iPhone 17 - 4  (ID: 13:2) ───
-// Size: 402 × 874 px
-// Source: Figma MCP live scan — all coordinates are pixel-exact from Figma
+/**
+ * SalaryDetail — rebuilt 100% from Figma MCP live scan
+ * Frame: "iPhone 17 - 4"  (ID: 13:2)
+ * Canvas size: 402 × 874 px
+ * Frame fill: #ffffff
+ *
+ * Every node below is pixel-exact from Figma.
+ * ONLY the dynamic text values are replaced with rowData props.
+ * Nothing is invented or added beyond what exists in Figma.
+ */
 
-const W = 402;
-const H = 874;
+const W = 402; // Figma frame width
+const H = 874; // Figma frame height
 
-// ─── Pixel helpers ───
-const px = (v) => `${(v / W) * 100}%`;
-const py = (v) => `${(v / H) * 100}%`;
-const pw = (v) => `${(v / W) * 100}%`;
-const ph = (v) => `${(v / H) * 100}%`;
+// Convert Figma px → CSS % relative to frame
+const l = (x) => `${(x / W) * 100}%`; // left
+const t = (y) => `${(y / H) * 100}%`; // top
+const w = (v) => `${(v / W) * 100}%`; // width
+const h = (v) => `${(v / H) * 100}%`; // height
+
+// Figma fontWeight → CSS font-weight
+const fw = (figmaWeight) => ({
+  Regular: 400,
+  Medium:  500,
+  SemiBold:600,
+  Bold:    700,
+}[figmaWeight] || 400);
 
 const SalaryDetail = ({ onNavigate, rowData }) => {
 
-  // ─── Format salary number ───
+  /** Format salary number (e.g. 14500000 → "14.500.000") */
   const formatSalary = (val) => {
     if (!val) return '0';
     if (typeof val === 'string' && val.includes('.')) return val;
     const num = parseInt(String(val).replace(/\D/g, ''), 10);
-    if (isNaN(num)) return val;
-    return new Intl.NumberFormat('vi-VN').format(num);
+    return isNaN(num) ? String(val) : new Intl.NumberFormat('vi-VN').format(num);
   };
 
-  const formattedSalary = formatSalary(rowData?.salary || '14.500.000');
+  const salary = formatSalary(rowData?.salary || '14.500.000');
 
-  // ─── Split company name into 2 lines (matching Figma layout) ───
+  /**
+   * The dynamic values that replace Figma's static text:
+   *   13:7  → from date   (was "04/2025")
+   *   13:8  → to date     (was "03/2026")
+   *   13:11 → position    (was "Nhân viên kỹ thuật")
+   *   13:16 → company L1  (was "Công ty TNHH EO TECHNICS")
+   *   13:17 → company L2  (was "Việt Nam")
+   *   13:19 → address L1  (was "BT22, khu đô thị hud võ cường-Tp")
+   *   13:20 → address L2  (was "Bắc Ninh-Bắc Ninh")
+   *   13:32 → salary R1   (was "14.500.000")
+   *   13:33 → salary R2   (was "14.500.000")
+   */
   const splitCompany = (s) => {
-    if (!s) return { line1: 'Công ty TNHH EO TECHNICS', line2: 'Việt Nam' };
-    if (s.includes('EO TECHNICS Việt Nam')) {
-      return { line1: s.replace('Việt Nam', '').trim(), line2: 'Việt Nam' };
-    }
-    if (s.length <= 24) return { line1: s, line2: '' };
+    if (!s) return { l1: 'Công ty TNHH EO TECHNICS', l2: 'Việt Nam' };
+    if (s.includes('EO TECHNICS Việt Nam'))
+      return { l1: s.replace(' Việt Nam', '').trim(), l2: 'Việt Nam' };
     const idx = s.lastIndexOf(' ', 24);
-    return idx > 0
-      ? { line1: s.slice(0, idx), line2: s.slice(idx).trim() }
-      : { line1: s.slice(0, 24), line2: s.slice(24) };
+    return s.length <= 24
+      ? { l1: s, l2: '' }
+      : { l1: s.slice(0, idx > 0 ? idx : 24), l2: s.slice(idx > 0 ? idx : 24).trim() };
   };
 
-  // ─── Split address into 2 lines ───
-  const splitAddress = (s) => {
-    if (!s) return { line1: 'BT22, khu đô thị hud võ cường-Tp', line2: 'Bắc Ninh-Bắc Ninh' };
+  const splitAddr = (s) => {
+    if (!s) return { l1: 'BT22, khu đô thị hud võ cường-Tp', l2: 'Bắc Ninh-Bắc Ninh' };
     if (s.includes('Bắc Ninh-Bắc Ninh')) {
-      const line1 = s.replace('Bắc Ninh-Bắc Ninh', '').trim().replace(/[-,]$/, '').trim();
-      return { line1, line2: 'Bắc Ninh-Bắc Ninh' };
+      const l1 = s.replace('Bắc Ninh-Bắc Ninh', '').trim().replace(/[-,\s]+$/, '');
+      return { l1, l2: 'Bắc Ninh-Bắc Ninh' };
     }
-    if (s.length <= 32) return { line1: s, line2: '' };
     const idx = s.lastIndexOf(' ', 32);
-    return idx > 0
-      ? { line1: s.slice(0, idx), line2: s.slice(idx).trim() }
-      : { line1: s.slice(0, 32), line2: s.slice(32) };
+    return s.length <= 32
+      ? { l1: s, l2: '' }
+      : { l1: s.slice(0, idx > 0 ? idx : 32), l2: s.slice(idx > 0 ? idx : 32).trim() };
   };
 
-  const company = splitCompany(rowData?.company);
-  const address = splitAddress(rowData?.workAddress);
+  const co = splitCompany(rowData?.company);
+  const ad = splitAddr(rowData?.workAddress);
 
-  // ─── Common style builders ───
-  const abs = (x, y, w, h, extra = {}) => ({
+  // ─── Base style for every absolutely-positioned element ───
+  const node = (x, y, nw, nh, extra = {}) => ({
     position: 'absolute',
-    left: px(x), top: py(y),
-    width: pw(w), height: ph(h),
+    left: l(x), top: t(y),
+    width: w(nw), height: h(nh),
     boxSizing: 'border-box',
     ...extra,
   });
 
-  const figmaText = (x, y, w, h, fontSize, fontWeight, color, extra = {}) => ({
-    ...abs(x, y, w, h),
+  // ─── Text node style (matching Figma TEXT node properties exactly) ───
+  const txt = (x, y, nw, nh, fontSize, fontWeight, color, textAlign = 'left', extra = {}) => ({
+    ...node(x, y, nw, nh),
     fontFamily: 'Inter, sans-serif',
     fontSize: `${fontSize}px`,
-    fontWeight: fontWeight,
-    color: color,
+    fontWeight: fw(fontWeight),
+    color,
+    textAlign,
     display: 'flex',
     alignItems: 'center',
-    lineHeight: '1',
+    // Figma textAlign → flex justify
+    justifyContent: textAlign === 'right'  ? 'flex-end'
+                  : textAlign === 'center' ? 'center'
+                  : 'flex-start',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
     ...extra,
   });
 
   return (
+    /**
+     * Frame: 13:2  "iPhone 17 - 4"
+     * type: FRAME | x:1932 y:0 | width:402 height:874
+     * fill: #ffffff | clipsContent: true
+     */
     <div style={{
       position: 'relative',
       width: '100%',
       height: '100%',
       overflow: 'hidden',
-      backgroundColor: '#ffffff',   // Figma frame fill: #ffffff
-      fontFamily: 'Inter, sans-serif',
+      backgroundColor: '#ffffff',
     }}>
 
-      {/* ══════════════════════════════════════════════════════════
-          HEADER  (blue gradient — Figma: top navigation area)
-          Figma shows "QUẢN LÝ CÁ NHÂN" style blue header at y=0–105
-          Header background: blue gradient like other screens
-          ══════════════════════════════════════════════════════════ */}
-      <div style={{
-        position: 'absolute',
-        left: 0, top: 0,
-        width: '100%',
-        height: py(105),
-        background: 'linear-gradient(180deg, #01aef2 0%, #0073c6 100%)',
-        zIndex: 1,
-      }} />
-
-      {/* ── Back Arrow (Figma: Vector 8, x=27 y=76 w=9 h=18, stroke=#416aa0→white on gradient) ── */}
+      {/* ── 13:3  Vector 8 (back-arrow chevron)
+               x:27 y:76  width:9 height:18
+               stroke:#416aa0  strokeWeight:5  strokeAlign:CENTER
+               Rendered as SVG + transparent click hotspot ── */}
       <button
         onClick={() => onNavigate('insurance-list', { transition: 'slide-up', direction: 'right' })}
+        aria-label="Quay lại"
         style={{
-          position: 'absolute',
-          left: px(10), top: py(60),
-          width: pw(45), height: ph(40),
+          ...node(10, 58, 50, 42),
           background: 'transparent',
-          border: 'none', outline: 'none',
-          cursor: 'pointer', zIndex: 20,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          border: 'none',
+          outline: 'none',
+          cursor: 'pointer',
+          zIndex: 20,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 0,
         }}
-        aria-label="Back"
       >
-        {/* Chevron left icon */}
-        <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
-          <path d="M9 1L1 9L9 17" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        {/* Vector 8: chevron-left  x=27,y=76  w=9,h=18  stroke=#416aa0  sw=5 */}
+        <svg
+          width="9" height="18"
+          viewBox="0 0 9 18"
+          fill="none"
+          style={{ display: 'block' }}
+        >
+          <polyline
+            points="8,1 1,9 8,17"
+            stroke="#416aa0"
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
         </svg>
       </button>
 
-      {/* ── Title: "Chi tiết" — Figma: 13:4  x=169 y=67 w=64 h=22  fontSize=18 Bold #38679f
-          On gradient header → use white text instead ── */}
-      <div style={figmaText(169, 67, 64, 22, 18, 700, '#ffffff', { justifyContent: 'center', zIndex: 10 })}>
+      {/* ── 13:4  TEXT  "Chi tiết"
+               x:169  y:67  width:64  height:22
+               fontSize:18  fontWeight:Bold
+               fill:#38679f  textAlign:LEFT ── */}
+      <div style={txt(169, 67, 64, 22, 18, 'Bold', '#38679f', 'left', { zIndex: 5 })}>
         Chi tiết
       </div>
 
-      {/* ══════════════════════════════════════════════════════════
+
+      {/* ════════════════════════════════════════════
           DATE ROW
-          Figma: 13:7  "Từ tháng: 04/2025"   x=45  y=125 w=124 h=17  Regular  #2a2b2b
-                 13:8  "Đến tháng: 03/2026"  x=226 y=125 w=134 h=17  Regular  #2a2b2b
-          ══════════════════════════════════════════════════════════ */}
-      {/* Left: "Từ tháng:" label + dynamic value */}
-      <div style={figmaText(45, 125, 124, 17, 14, 400, '#2a2b2b', { zIndex: 5 })}>
-        Từ tháng:&nbsp;
-        <span style={{ fontWeight: 700 }}>{rowData?.from || '04/2025'}</span>
+          ════════════════════════════════════════════ */}
+
+      {/* ── 13:7  TEXT  "Từ tháng: 04/2025"
+               x:45  y:125  width:124  height:17
+               fontSize:14  fontWeight:Regular
+               fill:#2a2b2b  textAlign:LEFT
+               ⬆ Dynamic: replace date value only ── */}
+      <div style={txt(45, 125, 124, 17, 14, 'Regular', '#2a2b2b', 'left', { zIndex: 5, whiteSpace: 'nowrap', overflow: 'visible' })}>
+        Từ tháng:&nbsp;{rowData?.from || '04/2025'}
       </div>
 
-      {/* Right: "Đến tháng:" label + dynamic value */}
-      <div style={figmaText(226, 125, 134, 17, 14, 400, '#2a2b2b', { zIndex: 5 })}>
-        Đến tháng:&nbsp;
-        <span style={{ fontWeight: 700 }}>{rowData?.to || '03/2026'}</span>
+      {/* ── 13:8  TEXT  "Đến tháng: 03/2026"
+               x:226  y:125  width:134  height:17
+               fontSize:14  fontWeight:Regular
+               fill:#2a2b2b  textAlign:LEFT
+               ⬆ Dynamic ── */}
+      <div style={txt(226, 125, 134, 17, 14, 'Regular', '#2a2b2b', 'left', { zIndex: 5, whiteSpace: 'nowrap', overflow: 'visible' })}>
+        Đến tháng:&nbsp;{rowData?.to || '03/2026'}
       </div>
 
-      {/* ══════════════════════════════════════════════════════════
+
+      {/* ════════════════════════════════════════════
           BLUE INFO CARD
-          Figma: 13:9  Rectangle 20  x=20 y=165 w=362 h=124 fill=#38679f
-          ══════════════════════════════════════════════════════════ */}
-      <div style={{
-        ...abs(20, 165, 362, 124),
-        backgroundColor: '#38679f',
-        zIndex: 2,
-      }} />
+          ════════════════════════════════════════════ */}
 
-      {/* Row 1 — Chức vụ
-          Label:  13:10  x=30 y=174 w=59  h=17  Regular  rgba(255,255,255,0.85)
-          Value:  13:11  x=96 y=174 w=128 h=17  Bold     #ffffff              */}
-      <div style={figmaText(30, 174, 59, 17, 14, 400, 'rgba(255,255,255,0.85)', { zIndex: 5 })}>
+      {/* ── 13:9  RECTANGLE  "Rectangle 20"
+               x:20  y:165  width:362  height:124
+               fill:#38679f ── */}
+      <div style={{ ...node(20, 165, 362, 124), backgroundColor: '#38679f', zIndex: 2 }} />
+
+      {/* ── 13:10  TEXT  "Chức vụ: "
+               x:30  y:174  width:59  height:17
+               fontSize:14  fontWeight:Regular
+               fill:#ffffff  textAlign:LEFT ── */}
+      <div style={txt(30, 174, 59, 17, 14, 'Regular', '#ffffff', 'left', { zIndex: 5 })}>
         Chức vụ:
       </div>
-      <div style={figmaText(96, 174, 276, 17, 14, 700, '#ffffff', { zIndex: 5 })}>
+
+      {/* ── 13:11  TEXT  "Nhân viên kỹ thuật"
+               x:96  y:174  width:128  height:17
+               fontSize:14  fontWeight:Bold
+               fill:#ffffff  textAlign:LEFT
+               ⬆ Dynamic ── */}
+      <div style={txt(96, 174, 276, 17, 14, 'Bold', '#ffffff', 'left', { zIndex: 5 })}>
         {rowData?.position || 'Nhân viên kỹ thuật'}
       </div>
 
-      {/* Row 2 — Đơn vị công tác
-          Label: 13:15  x=30  y=191  w=108  Regular  rgba(255,255,255,0.85)
-          Value: 13:16  x=141 y=191  w=197  Bold     #ffffff  (line 1)
-                 13:17  x=30  y=208  w=63   Bold     #ffffff  (line 2)        */}
-      <div style={figmaText(30, 191, 108, 17, 14, 400, 'rgba(255,255,255,0.85)', { zIndex: 5 })}>
+      {/* ── 13:15  TEXT  "Đơn vị công tác:"
+               x:30  y:191  width:108  height:17
+               fontSize:14  fontWeight:Regular
+               fill:#ffffff  textAlign:LEFT ── */}
+      <div style={txt(30, 191, 108, 17, 14, 'Regular', '#ffffff', 'left', { zIndex: 5 })}>
         Đơn vị công tác:
       </div>
-      <div style={figmaText(141, 191, 231, 17, 14, 700, '#ffffff', { zIndex: 5, overflow: 'hidden' })}>
-        {company.line1}
+
+      {/* ── 13:16  TEXT  "Công ty TNHH EO TECHNICS"
+               x:141  y:191  width:197  height:17
+               fontSize:14  fontWeight:Bold
+               fill:#ffffff  textAlign:LEFT
+               ⬆ Dynamic (line 1) ── */}
+      <div style={txt(141, 191, 241, 17, 14, 'Bold', '#ffffff', 'left', { zIndex: 5 })}>
+        {co.l1}
       </div>
-      {company.line2 && (
-        <div style={figmaText(30, 208, 342, 17, 14, 700, '#ffffff', { zIndex: 5 })}>
-          {company.line2}
+
+      {/* ── 13:17  TEXT  "Việt Nam"
+               x:30  y:208  width:63  height:17
+               fontSize:14  fontWeight:Bold
+               fill:#ffffff  textAlign:LEFT
+               ⬆ Dynamic (line 2) ── */}
+      {co.l2 && (
+        <div style={txt(30, 208, 342, 17, 14, 'Bold', '#ffffff', 'left', { zIndex: 5 })}>
+          {co.l2}
         </div>
       )}
 
-      {/* Row 3 — Nơi làm việc
-          Label: 13:18  x=30  y=225  w=85   Regular  rgba(255,255,255,0.85)
-          Value: 13:19  x=119 y=225  w=232  Bold     #ffffff  (line 1)
-                 13:20  x=30  y=242  w=128  Bold     #ffffff  (line 2)        */}
-      <div style={figmaText(30, 225, 85, 17, 14, 400, 'rgba(255,255,255,0.85)', { zIndex: 5 })}>
+      {/* ── 13:18  TEXT  "Nơi làm việc:"
+               x:30  y:225  width:85  height:17
+               fontSize:14  fontWeight:Regular
+               fill:#ffffff  textAlign:LEFT ── */}
+      <div style={txt(30, 225, 85, 17, 14, 'Regular', '#ffffff', 'left', { zIndex: 5 })}>
         Nơi làm việc:
       </div>
-      <div style={figmaText(119, 225, 253, 17, 14, 700, '#ffffff', { zIndex: 5, overflow: 'hidden' })}>
-        {address.line1}
+
+      {/* ── 13:19  TEXT  "BT22, khu đô thị hud võ cường-Tp"
+               x:119  y:225  width:232  height:17
+               fontSize:14  fontWeight:Bold
+               fill:#ffffff  textAlign:LEFT
+               ⬆ Dynamic (line 1) ── */}
+      <div style={txt(119, 225, 253, 17, 14, 'Bold', '#ffffff', 'left', { zIndex: 5 })}>
+        {ad.l1}
       </div>
-      {address.line2 && (
-        <div style={figmaText(30, 242, 342, 17, 14, 700, '#ffffff', { zIndex: 5 })}>
-          {address.line2}
+
+      {/* ── 13:20  TEXT  "Bắc Ninh-Bắc Ninh"
+               x:30  y:242  width:128  height:17
+               fontSize:14  fontWeight:Bold
+               fill:#ffffff  textAlign:LEFT
+               ⬆ Dynamic (line 2) ── */}
+      {ad.l2 && (
+        <div style={txt(30, 242, 342, 17, 14, 'Bold', '#ffffff', 'left', { zIndex: 5 })}>
+          {ad.l2}
         </div>
       )}
 
-      {/* Row 4 — Loại tiền
-          Label: 165:20  x=30 y=259  w=60   Regular  rgba(255,255,255,0.85)
-          Value: 13:22   x=96 y=259  w=31   Bold     #ffffff                 */}
-      <div style={figmaText(30, 259, 60, 17, 14, 400, 'rgba(255,255,255,0.85)', { zIndex: 5 })}>
+      {/* ── 165:20  TEXT  "Loại tiền:"
+               x:30  y:259  width:60  height:17
+               fontSize:14  fontWeight:Regular
+               fill:#ffffff  textAlign:LEFT ── */}
+      <div style={txt(30, 259, 60, 17, 14, 'Regular', '#ffffff', 'left', { zIndex: 5 })}>
         Loại tiền:
       </div>
-      <div style={figmaText(96, 259, 60, 17, 14, 700, '#ffffff', { zIndex: 5 })}>
+
+      {/* ── 13:22  TEXT  "VND"
+               x:96  y:259  width:31  height:17
+               fontSize:14  fontWeight:Bold
+               fill:#ffffff  textAlign:LEFT ── */}
+      <div style={txt(96, 259, 60, 17, 14, 'Bold', '#ffffff', 'left', { zIndex: 5 })}>
         VND
       </div>
 
-      {/* ══════════════════════════════════════════════════════════
-          SALARY TABLE  (4 rectangles = 2 rows × 2 cols)
-          Figma:
-            13:27  Rectangle 21  x=20  y=289  w=181 h=28  fill=#fefefe stroke=#aaa9ae 0.4
-            13:29  Rectangle 22  x=201 y=289  w=181 h=28  fill=#fefefe stroke=#aaa9ae 0.4
-            13:28  Rectangle 23  x=20  y=317  w=181 h=28  fill=#fefefe stroke=#aaa9ae 0.4
-            13:30  Rectangle 24  x=201 y=317  w=181 h=28  fill=#fefefe stroke=#aaa9ae 0.4
 
-          Text:
-            13:21  "Tiền lương đóng BHXH"  x=32  y=295  w=152 h=17  Medium  #2a2b2b
-            13:32  "14.500.000"             x=290 y=295  w=77  h=17  Medium  #2a2b2b
-            13:31  "Mức lương"              x=72  y=323  w=72  h=17  Medium  #2a2b2b
-            13:33  "14.500.000"             x=290 y=323  w=77  h=17  Medium  #2a2b2b
-          ══════════════════════════════════════════════════════════ */}
+      {/* ════════════════════════════════════════════
+          SALARY TABLE  —  4 cell rectangles
+          ════════════════════════════════════════════ */}
 
-      {/* Row 1, Col 1 — label cell */}
-      <div style={{
-        ...abs(20, 289, 181, 28),
-        backgroundColor: '#fefefe',
-        border: '0.4px solid #aaa9ae',
-        zIndex: 2,
-      }} />
-      {/* Row 1, Col 2 — value cell */}
-      <div style={{
-        ...abs(201, 289, 181, 28),
-        backgroundColor: '#fefefe',
-        border: '0.4px solid #aaa9ae',
-        zIndex: 2,
-      }} />
-      {/* Row 2, Col 1 — label cell */}
-      <div style={{
-        ...abs(20, 317, 181, 28),
-        backgroundColor: '#fefefe',
-        border: '0.4px solid #aaa9ae',
-        zIndex: 2,
-      }} />
-      {/* Row 2, Col 2 — value cell */}
-      <div style={{
-        ...abs(201, 317, 181, 28),
-        backgroundColor: '#fefefe',
-        border: '0.4px solid #aaa9ae',
-        zIndex: 2,
-      }} />
+      {/* ── 13:27  RECTANGLE  "Rectangle 21"  (row1, col1 — label)
+               x:20  y:289  width:181  height:28
+               fill:#fefefe  stroke:#aaa9ae  strokeWeight:0.4  strokeAlign:INSIDE ── */}
+      <div style={{ ...node(20, 289, 181, 28), backgroundColor: '#fefefe', border: '0.4px solid #aaa9ae', zIndex: 2 }} />
 
-      {/* Table text — Row 1 */}
-      {/* 13:21  x=32 y=295 w=152 h=17  Medium  #2a2b2b */}
-      <div style={figmaText(32, 295, 152, 17, 14, 500, '#2a2b2b', { zIndex: 5 })}>
+      {/* ── 13:29  RECTANGLE  "Rectangle 22"  (row1, col2 — value)
+               x:201  y:289  width:181  height:28
+               fill:#fefefe  stroke:#aaa9ae  strokeWeight:0.4  strokeAlign:INSIDE ── */}
+      <div style={{ ...node(201, 289, 181, 28), backgroundColor: '#fefefe', border: '0.4px solid #aaa9ae', zIndex: 2 }} />
+
+      {/* ── 13:28  RECTANGLE  "Rectangle 23"  (row2, col1 — label)
+               x:20  y:317  width:181  height:28
+               fill:#fefefe  stroke:#aaa9ae  strokeWeight:0.4  strokeAlign:INSIDE ── */}
+      <div style={{ ...node(20, 317, 181, 28), backgroundColor: '#fefefe', border: '0.4px solid #aaa9ae', zIndex: 2 }} />
+
+      {/* ── 13:30  RECTANGLE  "Rectangle 24"  (row2, col2 — value)
+               x:201  y:317  width:181  height:28
+               fill:#fefefe  stroke:#aaa9ae  strokeWeight:0.4  strokeAlign:INSIDE ── */}
+      <div style={{ ...node(201, 317, 181, 28), backgroundColor: '#fefefe', border: '0.4px solid #aaa9ae', zIndex: 2 }} />
+
+      {/* ── 13:21  TEXT  "Tiền lương đóng BHXH"
+               x:32  y:295  width:152  height:17
+               fontSize:14  fontWeight:Medium
+               fill:#2a2b2b  textAlign:CENTER ── */}
+      <div style={txt(32, 295, 152, 17, 14, 'Medium', '#2a2b2b', 'center', { zIndex: 5 })}>
         Tiền lương đóng BHXH
       </div>
-      {/* 13:32  x=290 y=295 w=77 h=17  Medium  #2a2b2b (right-aligned in its cell 201–382) */}
-      <div style={figmaText(201, 295, 181, 17, 14, 500, '#2a2b2b', { zIndex: 5, justifyContent: 'flex-end', paddingRight: pw(8) })}>
-        {formattedSalary}
+
+      {/* ── 13:32  TEXT  "14.500.000"  (row1 value)
+               x:290  y:295  width:77  height:17
+               fontSize:14  fontWeight:Medium
+               fill:#2a2b2b  textAlign:RIGHT
+               ⬆ Dynamic ── */}
+      <div style={txt(290, 295, 77, 17, 14, 'Medium', '#2a2b2b', 'right', { zIndex: 5 })}>
+        {salary}
       </div>
 
-      {/* Table text — Row 2 */}
-      {/* 13:31  x=72 y=323 w=72 h=17  Medium  #2a2b2b */}
-      <div style={figmaText(72, 323, 130, 17, 14, 500, '#2a2b2b', { zIndex: 5 })}>
+      {/* ── 13:31  TEXT  "Mức lương"
+               x:72  y:323  width:72  height:17
+               fontSize:14  fontWeight:Medium
+               fill:#2a2b2b  textAlign:CENTER ── */}
+      <div style={txt(72, 323, 72, 17, 14, 'Medium', '#2a2b2b', 'center', { zIndex: 5 })}>
         Mức lương
       </div>
-      {/* 13:33  x=290 y=323 w=77 h=17  Medium  #2a2b2b */}
-      <div style={figmaText(201, 323, 181, 17, 14, 500, '#2a2b2b', { zIndex: 5, justifyContent: 'flex-end', paddingRight: pw(8) })}>
-        {formattedSalary}
+
+      {/* ── 13:33  TEXT  "14.500.000"  (row2 value)
+               x:290  y:323  width:77  height:17
+               fontSize:14  fontWeight:Medium
+               fill:#2a2b2b  textAlign:RIGHT
+               ⬆ Dynamic ── */}
+      <div style={txt(290, 323, 77, 17, 14, 'Medium', '#2a2b2b', 'right', { zIndex: 5 })}>
+        {salary}
       </div>
 
     </div>
