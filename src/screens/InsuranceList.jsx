@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 import frameInsurance from '../assets/frame_insurance.png';
 
-// Import high-fidelity tab icons from Figma
-import tabBhxh from '../assets/tab_bhxh.png';
-import tabBhtn from '../assets/tab_bhtn.png';
-import tabBhtnld from '../assets/tab_bhtnld.png';
-import tabBhyt from '../assets/tab_bhyt.png';
-import tabC14ts from '../assets/tab_c14ts.png';
-
-import icEye from '../assets/ic_eye.png';
-
 const W = 402;
 const H = 874;
 
@@ -39,25 +30,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
   };
 
   const { years, months } = calculateTotalParticipation(history);
-
-  const tabs = [
-    { id: 'BHXH', label: 'BHXH', icon: tabBhxh },
-    { id: 'BHTN', label: 'BHTN', icon: tabBhtn },
-    { id: 'BHTNLĐ-BNN', label: 'BHTNLĐ-BNN', icon: tabBhtnld },
-    { id: 'BHYT', label: 'BHYT', icon: tabBhyt },
-    { id: 'C14-TS', label: 'C14-TS', icon: tabC14ts }
-  ];
-
-  const renderTabLabel = (label) => {
-    if (label === 'BHTNLĐ-BNN') {
-      return (
-        <span style={{ display: 'block', lineHeight: '1.1', fontSize: '11px', textAlign: 'center' }}>
-          BHTNLĐ-<br />BNN
-        </span>
-      );
-    }
-    return label;
-  };
+  const tabs = ['BHXH', 'BHTN', 'BHTNLĐ-BNN', 'BHYT', 'C14-TS'];
 
   return (
     <div style={{
@@ -86,7 +59,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         draggable={false}
       />
 
-      {/* 2. Transparent Back Button Hotspot: x=18, y=32, w=24, h=24 */}
+      {/* 2. Transparent Back Button Hotspot: x=10, y=25, w=45, h=45 */}
       <button
         onClick={() => onNavigate('dashboard', { transition: 'slide', direction: 'right' })}
         style={{
@@ -104,241 +77,444 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         aria-label="Back"
       />
 
-      {/* 3. DYNAMIC 5-TAB BAR (y=67 to y=145, h=78) - Covers Figma Static Tabs */}
+      {/* 3. Transparent Tab Hotspots - Lets the perfect Figma icons & text show through */}
       <div style={{
         position: 'absolute',
         left: 0,
         top: '67px',
         width: '100%',
         height: '78px',
-        background: '#ffffff',
+        zIndex: 25,
         display: 'flex',
-        borderBottom: '1px solid #e2e8f0',
-        zIndex: 20,
-        boxSizing: 'border-box'
+        background: 'transparent'
       }}>
-        {tabs.map((tab) => {
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              style={{
-                flex: 1,
-                background: 'none',
-                border: 'none',
-                padding: '4px 2px',
-                cursor: 'pointer',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '4px',
-                outline: 'none',
-                position: 'relative'
-              }}
-            >
-              <img
-                src={tab.icon}
-                alt={tab.label}
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  objectFit: 'contain',
-                  filter: isActive ? 'none' : 'grayscale(100%)',
-                  opacity: isActive ? 1 : 0.4,
-                  transition: 'all 0.2s ease'
-                }}
-              />
-              <span style={{
-                fontSize: '11px',
-                fontWeight: isActive ? 700 : 400,
-                color: isActive ? '#0069ad' : '#aaa9ae',
-                fontFamily: 'Inter, sans-serif',
-                textAlign: 'center',
-                whiteSpace: 'nowrap'
-              }}>
-                {renderTabLabel(tab.label)}
-              </span>
-
-              {isActive && (
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: '15%',
-                  right: '15%',
-                  height: '3px',
-                  background: '#0069ad',
-                  borderRadius: '2px'
-                }} />
-              )}
-            </button>
-          );
-        })}
+        {tabs.map((tabId) => (
+          <button
+            key={tabId}
+            onClick={() => setActiveTab(tabId)}
+            style={{
+              flex: 1,
+              background: 'transparent',
+              border: 'none',
+              outline: 'none',
+              cursor: 'pointer'
+            }}
+            aria-label={tabId}
+          />
+        ))}
       </div>
 
-      {/* 4. DYNAMIC CONTENT AREA (y=145 to y=823) - Solid White Background Covers Figma Static Rows */}
+      {/* 4. Active Tab Mask Overlays (Only if another tab is clicked, to show indicator and hide BHXH selection) */}
+      {activeTab !== 'BHXH' && (
+        <div style={{
+          position: 'absolute',
+          left: 0,
+          top: '67px',
+          width: '100%',
+          height: '78px',
+          background: '#ffffff',
+          zIndex: 20,
+          display: 'flex',
+          borderBottom: '1px solid #e2e8f0',
+          boxSizing: 'border-box'
+        }}>
+          {tabs.map((tabId, idx) => {
+            const isActive = activeTab === tabId;
+            return (
+              <div
+                key={tabId}
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '4px',
+                  position: 'relative'
+                }}
+              >
+                {/* Fallback grey circular indicators only shown for non-BHXH inactive tabs */}
+                <div style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '50%',
+                  background: isActive ? '#0069ad' : '#aaa9ae',
+                  opacity: isActive ? 1 : 0.4,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ffffff',
+                  fontSize: '9px',
+                  fontWeight: 'bold'
+                }}>
+                  {tabId.slice(0, 2)}
+                </div>
+                <span style={{
+                  fontSize: '11px',
+                  fontWeight: isActive ? 700 : 400,
+                  color: isActive ? '#0069ad' : '#aaa9ae',
+                  textAlign: 'center',
+                  whiteSpace: 'nowrap'
+                }}>
+                  {tabId === 'BHTNLĐ-BNN' ? (
+                    <span style={{ display: 'block', lineHeight: '1.1', fontSize: '11px' }}>
+                      BHTNLĐ-<br />BNN
+                    </span>
+                  ) : tabId}
+                </span>
+                {isActive && (
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: '15%',
+                    right: '15%',
+                    height: '3px',
+                    background: '#0069ad',
+                    borderRadius: '2px'
+                  }} />
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* 5. 100% FIGMA DYNAMIC TEXT OVERLAY LAYER (zIndex = 10) */}
+      {/* This layer has pointerEvents = 'none' so that it doesn't block transparent hotspot clicks */}
       <div style={{
         position: 'absolute',
         left: 0,
-        top: '145px',
+        top: 0,
         width: '100%',
-        height: 'calc(100% - 145px - 65px)',
-        background: '#ffffff',
-        boxSizing: 'border-box',
-        display: 'flex',
-        flexDirection: 'column',
-        zIndex: 20,
-        overflow: 'hidden'
+        height: '100%',
+        zIndex: 10,
+        pointerEvents: 'none'
       }}>
+
         {activeTab === 'BHXH' ? (
           <>
-            {/* Summary Box */}
+            {/* --- Summary Box Overlay --- */}
+            {/* Cover and overlay "Tổng thời gian tham gia" */}
             <div style={{
-              margin: '12px 14px 10px 14px',
-              border: '1px solid #0069ad',
+              position: 'absolute',
+              left: `${(20 / W) * 100}%`,
+              top: `${(221 / H) * 100}%`,
+              width: `${(260 / W) * 100}%`,
+              height: `${(17 / H) * 100}%`,
               background: '#f0f7fc',
-              borderRadius: '6px',
-              padding: '10px 14px',
-              flexShrink: 0,
-              boxShadow: '0 1px 2px rgba(0,0,0,0.02)'
-            }}>
-              <div style={{
-                fontSize: '14px',
-                color: '#38679f',
-                fontWeight: 700,
-                fontFamily: 'Inter, sans-serif',
-                marginBottom: '4px'
-              }}>
-                Quá trình tham gia Bảo hiểm xã hội
-              </div>
-              <div style={{
-                fontSize: '13px',
-                color: '#2a2b2b',
-                fontWeight: 500,
-                fontFamily: 'Inter, sans-serif',
-                marginBottom: '4px'
-              }}>
-                Tổng thời gian tham gia: {years > 0 ? `${years} năm ` : ''}{months} tháng
-              </div>
-              <div style={{
-                fontSize: '13px',
-                color: '#c1191a',
-                fontWeight: 500,
-                fontFamily: 'Inter, sans-serif'
-              }}>
-                Tổng thời gian chậm đóng: 0 tháng
-              </div>
-            </div>
-
-            {/* Table Header Row */}
+              pointerEvents: 'none'
+            }} />
             <div style={{
+              position: 'absolute',
+              left: `${(20 / W) * 100}%`,
+              top: `${(221 / H) * 100}%`,
+              width: `${(260 / W) * 100}%`,
+              height: `${(17 / H) * 100}%`,
+              color: '#2a2b2b',
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '13.5px',
+              fontWeight: 500,
               display: 'flex',
-              background: '#3f6fa8',
-              flexShrink: 0,
-              marginLeft: '14px',
-              marginRight: '14px',
-              height: '34px',
               alignItems: 'center',
-              borderTopLeftRadius: '4px',
-              borderTopRightRadius: '4px',
-              overflow: 'hidden'
+              pointerEvents: 'none'
             }}>
-              <div style={{ width: '54px', fontSize: '11px', fontWeight: 600, color: '#ffffff', textAlign: 'center', boxSizing: 'border-box', lineHeight: '1.2', borderRight: '1px solid rgba(255,255,255,0.15)' }}>Từ tháng</div>
-              <div style={{ width: '54px', fontSize: '11px', fontWeight: 600, color: '#ffffff', textAlign: 'center', boxSizing: 'border-box', lineHeight: '1.2', borderRight: '1px solid rgba(255,255,255,0.15)' }}>Đến<br />tháng</div>
-              <div style={{ flex: 1, paddingLeft: '8px', fontSize: '11px', fontWeight: 600, color: '#ffffff', textAlign: 'left', boxSizing: 'border-box', lineHeight: '1.2', borderRight: '1px solid rgba(255,255,255,0.15)' }}>Đơn vị</div>
-              <div style={{ width: '78px', fontSize: '11px', fontWeight: 600, color: '#ffffff', textAlign: 'center', boxSizing: 'border-box', lineHeight: '1.2' }}>Nghề nghiệp<br />Chức vụ</div>
-              <div style={{ width: '32px', boxSizing: 'border-box' }} />
+              Tổng thời gian tham gia: {years > 0 ? `${years} năm ` : ''}{months} tháng
             </div>
 
-            {/* Scrollable Data Rows */}
+            {/* Cover and overlay "Tổng thời gian chậm đóng" */}
             <div style={{
-              flex: 1,
-              overflowY: 'auto',
-              marginLeft: '14px',
-              marginRight: '14px',
-              borderLeft: '1px solid #e2e8f0',
-              borderRight: '1px solid #e2e8f0',
-              borderBottom: '1px solid #e2e8f0',
-              borderBottomLeftRadius: '4px',
-              borderBottomRightRadius: '4px'
-            }} className="scrollbar-none">
-              {history.length === 0 ? (
-                <div style={{ padding: '40px 0', textAlign: 'center', color: '#888', fontSize: '13px', fontFamily: 'Inter, sans-serif' }}>
-                  Chưa có dữ liệu đóng BHXH
-                </div>
-              ) : (
-                history.map((row, i) => (
-                  <div
-                    key={i}
-                    onClick={() => onNavigate('salary-detail', { rowData: row })}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'stretch',
-                      borderBottom: '1px solid #e2e8f0',
-                      cursor: 'pointer',
-                      background: i % 2 === 0 ? '#ffffff' : '#f8fafc',
-                      minHeight: '48px',
-                      transition: 'background-color 0.15s ease'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f1f5f9'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = i % 2 === 0 ? '#ffffff' : '#f8fafc'}
-                  >
-                    <div style={{ width: '54px', fontSize: '11px', color: '#3f3f3f', fontWeight: 500, textAlign: 'center', borderRight: '1px solid #e2e8f0', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{row.from}</div>
-                    <div style={{ width: '54px', fontSize: '11px', color: '#3f3f3f', fontWeight: 500, textAlign: 'center', borderRight: '1px solid #e2e8f0', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{row.to}</div>
+              position: 'absolute',
+              left: `${(20 / W) * 100}%`,
+              top: `${(239 / H) * 100}%`,
+              width: `${(240 / W) * 100}%`,
+              height: `${(17 / H) * 100}%`,
+              background: '#f0f7fc',
+              pointerEvents: 'none'
+            }} />
+            <div style={{
+              position: 'absolute',
+              left: `${(20 / W) * 100}%`,
+              top: `${(239 / H) * 100}%`,
+              width: `${(240 / W) * 100}%`,
+              height: `${(17 / H) * 100}%`,
+              color: '#c1191a',
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '13.5px',
+              fontWeight: 500,
+              display: 'flex',
+              alignItems: 'center',
+              pointerEvents: 'none'
+            }}>
+              Tổng thời gian chậm đóng: 0 tháng
+            </div>
+
+
+            {/* --- Table Rows Overlay --- */}
+            {history.length === 0 ? (
+              /* If history is 0, cover entire table area */
+              <div style={{
+                position: 'absolute',
+                left: `${(14 / W) * 100}%`,
+                top: `${(268 / H) * 100}%`,
+                width: `${(374 / W) * 100}%`,
+                height: `${(530 / H) * 100}%`,
+                background: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#aaa9ae',
+                fontSize: '14px',
+                fontFamily: 'Inter, sans-serif',
+                pointerEvents: 'auto'
+              }}>
+                Chưa có dữ liệu đóng BHXH
+              </div>
+            ) : (
+              <>
+                {/* Row 1 (y=302 to 366) */}
+                {/* Cover cells */}
+                <div style={{ position: 'absolute', left: `${(16 / W) * 100}%`, top: `${(325 / H) * 100}%`, width: `${(52 / W) * 100}%`, height: `${(25 / H) * 100}%`, background: '#ffffff' }} />
+                <div style={{ position: 'absolute', left: `${(80 / W) * 100}%`, top: `${(325 / H) * 100}%`, width: `${(52 / W) * 100}%`, height: `${(25 / H) * 100}%`, background: '#ffffff' }} />
+                <div style={{ position: 'absolute', left: `${(138 / W) * 100}%`, top: `${(312 / H) * 100}%`, width: `${(132 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff' }} />
+                <div style={{ position: 'absolute', left: `${(274 / W) * 100}%`, top: `${(312 / H) * 100}%`, width: `${(76 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff' }} />
+
+                {/* Overlay Text */}
+                <div style={{
+                  position: 'absolute',
+                  left: `${(16 / W) * 100}%`,
+                  top: `${(325 / H) * 100}%`,
+                  width: `${(52 / W) * 100}%`,
+                  height: `${(25 / H) * 100}%`,
+                  color: '#3f3f3f',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '11px',
+                  fontWeight: 500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>{history[0]?.from}</div>
+
+                <div style={{
+                  position: 'absolute',
+                  left: `${(80 / W) * 100}%`,
+                  top: `${(325 / H) * 100}%`,
+                  width: `${(52 / W) * 100}%`,
+                  height: `${(25 / H) * 100}%`,
+                  color: '#3f3f3f',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '11px',
+                  fontWeight: 500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>{history[0]?.to}</div>
+
+                <div style={{
+                  position: 'absolute',
+                  left: `${(138 / W) * 100}%`,
+                  top: `${(312 / H) * 100}%`,
+                  width: `${(132 / W) * 100}%`,
+                  height: `${(48 / H) * 100}%`,
+                  color: '#3f3f3f',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  textAlign: 'left',
+                  lineHeight: '1.3',
+                  wordBreak: 'break-word',
+                  whiteSpace: 'normal',
+                  overflow: 'hidden'
+                }}>{history[0]?.company}</div>
+
+                <div style={{
+                  position: 'absolute',
+                  left: `${(274 / W) * 100}%`,
+                  top: `${(312 / H) * 100}%`,
+                  width: `${(76 / W) * 100}%`,
+                  height: `${(48 / H) * 100}%`,
+                  color: '#3f3f3f',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '11px',
+                  fontWeight: 500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  lineHeight: '1.3',
+                  wordBreak: 'break-word',
+                  whiteSpace: 'normal',
+                  overflow: 'hidden'
+                }}>{history[0]?.position}</div>
+
+                {/* Hotspot Row 1 */}
+                <button
+                  onClick={() => onNavigate('salary-detail', { rowData: history[0] })}
+                  style={{
+                    position: 'absolute',
+                    left: `${(352 / W) * 100}%`,
+                    top: `${(302 / H) * 100}%`,
+                    width: `${(38 / W) * 100}%`,
+                    height: `${(64 / H) * 100}%`,
+                    background: 'transparent',
+                    border: 'none',
+                    outline: 'none',
+                    cursor: 'pointer',
+                    zIndex: 35,
+                    pointerEvents: 'auto'
+                  }}
+                  aria-label="Detail Row 1"
+                />
+
+
+                {/* Row 2 (y=366 to 430) */}
+                {history.length > 1 ? (
+                  <>
+                    {/* Cover cells */}
+                    <div style={{ position: 'absolute', left: `${(16 / W) * 100}%`, top: `${(389 / H) * 100}%`, width: `${(52 / W) * 100}%`, height: `${(25 / H) * 100}%`, background: '#ffffff' }} />
+                    <div style={{ position: 'absolute', left: `${(80 / W) * 100}%`, top: `${(389 / H) * 100}%`, width: `${(52 / W) * 100}%`, height: `${(25 / H) * 100}%`, background: '#ffffff' }} />
+                    <div style={{ position: 'absolute', left: `${(138 / W) * 100}%`, top: `${(376 / H) * 100}%`, width: `${(132 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff' }} />
+                    <div style={{ position: 'absolute', left: `${(274 / W) * 100}%`, top: `${(376 / H) * 100}%`, width: `${(76 / W) * 100}%`, height: `${(48 / H) * 100}%`, background: '#ffffff' }} />
+
+                    {/* Overlay Text */}
                     <div style={{
-                      flex: 1,
-                      padding: '8px 8px',
-                      fontSize: '11px',
+                      position: 'absolute',
+                      left: `${(16 / W) * 100}%`,
+                      top: `${(389 / H) * 100}%`,
+                      width: `${(52 / W) * 100}%`,
+                      height: `${(25 / H) * 100}%`,
                       color: '#3f3f3f',
-                      fontWeight: 600,
-                      textAlign: 'left',
-                      borderRight: '1px solid #e2e8f0',
-                      boxSizing: 'border-box',
-                      lineHeight: '1.3',
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '11px',
+                      fontWeight: 500,
                       display: 'flex',
                       alignItems: 'center',
-                      wordBreak: 'break-word'
-                    }}>{row.company}</div>
+                      justifyContent: 'center'
+                    }}>{history[1]?.from}</div>
+
                     <div style={{
-                      width: '78px',
-                      padding: '4px 2px',
-                      fontSize: '11px',
+                      position: 'absolute',
+                      left: `${(80 / W) * 100}%`,
+                      top: `${(389 / H) * 100}%`,
+                      width: `${(52 / W) * 100}%`,
+                      height: `${(25 / H) * 100}%`,
                       color: '#3f3f3f',
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '11px',
                       fontWeight: 500,
-                      textAlign: 'center',
-                      borderRight: '1px solid #e2e8f0',
-                      boxSizing: 'border-box',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>{history[1]?.to}</div>
+
+                    <div style={{
+                      position: 'absolute',
+                      left: `${(138 / W) * 100}%`,
+                      top: `${(376 / H) * 100}%`,
+                      width: `${(132 / W) * 100}%`,
+                      height: `${(48 / H) * 100}%`,
+                      color: '#3f3f3f',
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      textAlign: 'left',
                       lineHeight: '1.3',
+                      wordBreak: 'break-word',
+                      whiteSpace: 'normal',
+                      overflow: 'hidden'
+                    }}>{history[1]?.company}</div>
+
+                    <div style={{
+                      position: 'absolute',
+                      left: `${(274 / W) * 100}%`,
+                      top: `${(376 / H) * 100}%`,
+                      width: `${(76 / W) * 100}%`,
+                      height: `${(48 / H) * 100}%`,
+                      color: '#3f3f3f',
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '11px',
+                      fontWeight: 500,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      wordBreak: 'break-word'
-                    }}>{row.position}</div>
-                    <div style={{ width: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box' }}>
-                      <img src={icEye} alt="Xem chi tiết" style={{ width: '18px', height: '12px', objectFit: 'contain' }} />
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
+                      textAlign: 'center',
+                      lineHeight: '1.3',
+                      wordBreak: 'break-word',
+                      whiteSpace: 'normal',
+                      overflow: 'hidden'
+                    }}>{history[1]?.position}</div>
+
+                    {/* Hotspot Row 2 */}
+                    <button
+                      onClick={() => onNavigate('salary-detail', { rowData: history[1] })}
+                      style={{
+                        position: 'absolute',
+                        left: `${(352 / W) * 100}%`,
+                        top: `${(366 / H) * 100}%`,
+                        width: `${(38 / W) * 100}%`,
+                        height: `${(64 / H) * 100}%`,
+                        background: 'transparent',
+                        border: 'none',
+                        outline: 'none',
+                        cursor: 'pointer',
+                        zIndex: 35,
+                        pointerEvents: 'auto'
+                      }}
+                      aria-label="Detail Row 2"
+                    />
+                  </>
+                ) : (
+                  /* If only 1 row, cleanly cover second row area with solid white background */
+                  <div style={{
+                    position: 'absolute',
+                    left: `${(14 / W) * 100}%`,
+                    top: `${(366 / H) * 100}%`,
+                    width: `${(374 / W) * 100}%`,
+                    height: `${(70 / H) * 100}%`,
+                    background: '#ffffff'
+                  }} />
+                )}
+
+                {/* Cleanly cover any remaining vertical space below row 2 in table box (y=430 to 800) */}
+                <div style={{
+                  position: 'absolute',
+                  left: `${(14 / W) * 100}%`,
+                  top: `${(430 / H) * 100}%`,
+                  width: `${(374 / W) * 100}%`,
+                  height: `${(370 / H) * 100}%`,
+                  background: '#ffffff'
+                }} />
+              </>
+            )}
           </>
         ) : (
+          /* Non-BHXH empty tab states: cover entire content area below header */
           <div style={{
-            flex: 1,
+            position: 'absolute',
+            left: 0,
+            top: '145px',
+            width: '100%',
+            height: 'calc(100% - 145px - 65px)',
+            background: '#ffffff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: '#aaa9ae',
             fontSize: '14px',
-            fontFamily: 'Inter, sans-serif'
+            fontFamily: 'Inter, sans-serif',
+            pointerEvents: 'auto'
           }}>
             Chưa có dữ liệu tham gia {activeTab}
           </div>
         )}
       </div>
 
-      {/* 5. Bottom Nav Zone Hotspots (y=823 to 874) */}
+      {/* 6. Bottom Nav Zone Hotspots (y=823 to 874) */}
       <div style={{
         position: 'absolute',
         left: 0,
@@ -363,7 +539,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
           onClick={() => alert('Tra cứu trực tuyến đang phát triển!')}
           style={{ flex: 1, cursor: 'pointer' }}
         />
-        {/* Column 4: Trợ giúp / Dashboard Menu */}
+        {/* Column 4: Trợ giúp */}
         <div
           onClick={() => onNavigate('dashboard')}
           style={{ flex: 1, cursor: 'pointer' }}
