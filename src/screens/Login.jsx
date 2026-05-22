@@ -137,7 +137,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             left: `${(149 / W) * 100}%`,
             top: `${(116 / H) * 100}%`,
             width: `${(103 / W) * 100}%`,
-            height: `${(103 / W) * 100}%`, // Keep aspect ratio square based on viewport width
+            aspectRatio: '1 / 1', // Guarantees perfect square circle aspect ratio regardless of container height
             borderRadius: '50%',
             background: '#ffffff',
             boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.25)',
