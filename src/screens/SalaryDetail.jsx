@@ -15,6 +15,44 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
 
   const formattedSalary = formatSalary(rowData?.salary || '14.500.000');
 
+  const splitCompany = (companyStr) => {
+    const defaultVal = { line1: 'Công ty TNHH EO TECHNICS', line2: 'Việt Nam' };
+    if (!companyStr) return defaultVal;
+    if (companyStr.includes('EO TECHNICS Việt Nam')) {
+      return {
+        line1: companyStr.replace('Việt Nam', '').trim(),
+        line2: 'Việt Nam'
+      };
+    }
+    if (companyStr.length <= 24) {
+      return { line1: companyStr, line2: '' };
+    }
+    const idx = companyStr.lastIndexOf(' ', 24);
+    if (idx !== -1) {
+      return { line1: companyStr.substring(0, idx), line2: companyStr.substring(idx).trim() };
+    }
+    return { line1: companyStr.substring(0, 24), line2: companyStr.substring(24) };
+  };
+
+  const splitAddress = (addrStr) => {
+    const defaultVal = { line1: 'BT22, khu đô thị hud võ cường-Tp', line2: 'Bắc Ninh-Bắc Ninh' };
+    if (!addrStr) return defaultVal;
+    if (addrStr.includes('Bắc Ninh-Bắc Ninh')) {
+      return {
+        line1: addrStr.replace('Bắc Ninh-Bắc Ninh', '').trim().replace(/-$/, '').replace(/,$/, '').trim(),
+        line2: 'Bắc Ninh-Bắc Ninh'
+      };
+    }
+    if (addrStr.length <= 32) {
+      return { line1: addrStr, line2: '' };
+    }
+    const idx = addrStr.lastIndexOf(' ', 32);
+    if (idx !== -1) {
+      return { line1: addrStr.substring(0, idx), line2: addrStr.substring(idx).trim() };
+    }
+    return { line1: addrStr.substring(0, 32), line2: addrStr.substring(32) };
+  };
+
   return (
     <div style={{
       position: 'relative',
@@ -70,180 +108,295 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
         zIndex: 10,
         pointerEvents: 'none'
       }}>
-        {/* --- Date Row (Từ tháng / Đến tháng) --- */}
-        {/* Cover static "Từ tháng: 04/2025" */}
+        {/* --- 3.1. Date Row (Từ tháng / Đến tháng) --- */}
+        {/* Cover static months only, leaving label and underlines from background intact */}
         <div style={{
           position: 'absolute',
-          left: `${(40 / W) * 100}%`,
-          top: `${(120 / H) * 100}%`,
-          width: `${(140 / W) * 100}%`,
-          height: `${(22 / H) * 100}%`,
+          left: `${(112 / W) * 100}%`,
+          top: `${(124 / H) * 100}%`,
+          width: `${(55 / W) * 100}%`,
+          height: `${(18 / H) * 100}%`,
           background: '#ffffff'
         }} />
         <div style={{
           position: 'absolute',
-          left: `${(40 / W) * 100}%`,
-          top: `${(120 / H) * 100}%`,
-          width: `${(140 / W) * 100}%`,
-          height: `${(22 / H) * 100}%`,
+          left: `${(112 / W) * 100}%`,
+          top: `${(124 / H) * 100}%`,
+          width: `${(55 / W) * 100}%`,
+          height: `${(18 / H) * 100}%`,
           fontSize: '13.5px',
-          color: '#2a2b2b',
-          fontWeight: 500,
+          color: '#000000',
+          fontWeight: 700,
           fontFamily: 'Inter, sans-serif',
           display: 'flex',
           alignItems: 'center'
         }}>
-          Từ tháng: <strong style={{ 
-            color: '#000000', 
-            fontWeight: 700, 
-            marginLeft: '4px',
-            borderBottom: '1.5px solid #2a2b2b',
-            paddingBottom: '1px',
-            lineHeight: '1.1'
-          }}>{rowData?.from || '04/2025'}</strong>
+          {rowData?.from || '04/2025'}
         </div>
 
-        {/* Cover static "Đến tháng: 03/2026" */}
         <div style={{
           position: 'absolute',
-          left: `${(220 / W) * 100}%`,
-          top: `${(120 / H) * 100}%`,
-          width: `${(150 / W) * 100}%`,
-          height: `${(22 / H) * 100}%`,
+          left: `${(298 / W) * 100}%`,
+          top: `${(124 / H) * 100}%`,
+          width: `${(58 / W) * 100}%`,
+          height: `${(18 / H) * 100}%`,
           background: '#ffffff'
         }} />
         <div style={{
           position: 'absolute',
-          left: `${(220 / W) * 100}%`,
-          top: `${(120 / H) * 100}%`,
-          width: `${(150 / W) * 100}%`,
-          height: `${(22 / H) * 100}%`,
+          left: `${(298 / W) * 100}%`,
+          top: `${(124 / H) * 100}%`,
+          width: `${(58 / W) * 100}%`,
+          height: `${(18 / H) * 100}%`,
           fontSize: '13.5px',
-          color: '#2a2b2b',
-          fontWeight: 500,
+          color: '#000000',
+          fontWeight: 700,
           fontFamily: 'Inter, sans-serif',
           display: 'flex',
           alignItems: 'center'
         }}>
-          Đến tháng: <strong style={{ 
-            color: '#000000', 
-            fontWeight: 700, 
-            marginLeft: '4px',
-            borderBottom: '1.5px solid #2a2b2b',
-            paddingBottom: '1px',
-            lineHeight: '1.1'
-          }}>{rowData?.to || '03/2026'}</strong>
+          {rowData?.to || '03/2026'}
         </div>
 
 
-        {/* --- Blue Card Info Overlay (100% Pure Vector HTML/CSS) --- */}
+        {/* --- 3.2. Blue Card Info Overlay (100% Pure Vector HTML/CSS) --- */}
+        {/* Cover all dynamic details text area inside the blue block cleanly without breaking background margins */}
         <div style={{
           position: 'absolute',
-          left: `${(24 / W) * 100}%`,
-          top: `${(153 / H) * 100}%`,
-          width: `${(354 / W) * 100}%`,
-          height: `${(133 / H) * 100}%`,
-          backgroundColor: '#38679f',
-          boxSizing: 'border-box',
-          padding: '12px 14px',
+          left: `${(30 / W) * 100}%`,
+          top: `${(170 / H) * 100}%`,
+          width: `${(342 / W) * 100}%`,
+          height: `${(96 / H) * 100}%`,
+          backgroundColor: '#38679f'
+        }} />
+
+        {/* Dynamic Texts positioned EXACTLY according to Figma specifications (x, y, w, h) */}
+        {/* Row 1: Chức vụ label & value */}
+        <div style={{
+          position: 'absolute',
+          left: `${(30 / W) * 100}%`,
+          top: `${(174 / H) * 100}%`,
+          width: `${(59 / W) * 100}%`,
+          height: `${(17 / H) * 100}%`,
+          fontSize: '13.5px',
+          color: 'rgba(255, 255, 255, 0.85)',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: 400,
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          Chức vụ:
+        </div>
+        <div style={{
+          position: 'absolute',
+          left: `${(96 / W) * 100}%`,
+          top: `${(174 / H) * 100}%`,
+          width: `${(276 / W) * 100}%`,
+          height: `${(17 / H) * 100}%`,
+          fontSize: '13.5px',
           color: '#ffffff',
           fontFamily: 'Inter, sans-serif',
-          fontSize: '12.5px',
-          lineHeight: '1.4'
+          fontWeight: 700,
+          display: 'flex',
+          alignItems: 'center'
         }}>
-          <div>
-            <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Chức vụ: </span>
-            <span style={{ fontWeight: 700 }}>{rowData?.position || 'Nhân viên kỹ thuật'}</span>
-          </div>
-
-          <div style={{
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden'
-          }}>
-            <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Đơn vị công tác: </span>
-            <span style={{ fontWeight: 700 }}>{rowData?.company || 'Công ty TNHH EO TECHNICS Việt Nam'}</span>
-          </div>
-
-          <div style={{
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden'
-          }}>
-            <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Nơi làm việc: </span>
-            <span style={{ fontWeight: 700 }}>{rowData?.workAddress || 'BT22, khu đô thị hud võ cường-Tp Bắc Ninh-Bắc Ninh'}</span>
-          </div>
-
-          <div>
-            <span style={{ color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400 }}>Loại tiền: </span>
-            <span style={{ fontWeight: 700 }}>VND</span>
-          </div>
+          {rowData?.position || 'Nhân viên kỹ thuật'}
         </div>
 
-        {/* --- Salary Table (100% Pure Vector HTML/CSS standard table) --- */}
+        {/* Row 2: Đơn vị công tác label & value (line 1 & line 2) */}
         <div style={{
           position: 'absolute',
-          left: `${(24 / W) * 100}%`,
-          top: `${(286 / H) * 100}%`,
-          width: `${(354 / W) * 100}%`,
-          boxSizing: 'border-box'
+          left: `${(30 / W) * 100}%`,
+          top: `${(191 / H) * 100}%`,
+          width: `${(108 / W) * 100}%`,
+          height: `${(17 / H) * 100}%`,
+          fontSize: '13.5px',
+          color: 'rgba(255, 255, 255, 0.85)',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: 400,
+          display: 'flex',
+          alignItems: 'center'
         }}>
-          <table style={{
-            width: '100%',
-            borderCollapse: 'collapse',
+          Đơn vị công tác:
+        </div>
+        <div style={{
+          position: 'absolute',
+          left: `${(141 / W) * 100}%`,
+          top: `${(191 / H) * 100}%`,
+          width: `${(231 / W) * 100}%`,
+          height: `${(17 / H) * 100}%`,
+          fontSize: '13.5px',
+          color: '#ffffff',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: 700,
+          display: 'flex',
+          alignItems: 'center',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        }}>
+          {splitCompany(rowData?.company).line1}
+        </div>
+        {splitCompany(rowData?.company).line2 && (
+          <div style={{
+            position: 'absolute',
+            left: `${(30 / W) * 100}%`,
+            top: `${(208 / H) * 100}%`,
+            width: `${(342 / W) * 100}%`,
+            height: `${(17 / H) * 100}%`,
+            fontSize: '13.5px',
+            color: '#ffffff',
             fontFamily: 'Inter, sans-serif',
-            fontSize: '13px',
-            color: '#3f3f3f',
-            backgroundColor: '#ffffff'
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
           }}>
-            <tbody>
-              <tr style={{ height: '44px' }}>
-                <td style={{ 
-                  border: '0.5px solid #d9d9d9', 
-                  padding: '0 12px', 
-                  textAlign: 'left',
-                  fontWeight: 500
-                }}>
-                  Tiền lương đóng BHXH
-                </td>
-                <td style={{ 
-                  border: '0.5px solid #d9d9d9', 
-                  padding: '0 12px', 
-                  textAlign: 'right',
-                  color: '#000000',
-                  fontWeight: 700
-                }}>
-                  {formattedSalary}
-                </td>
-              </tr>
-              <tr style={{ height: '44px' }}>
-                <td style={{ 
-                  border: '0.5px solid #d9d9d9', 
-                  padding: '0 12px', 
-                  textAlign: 'left',
-                  fontWeight: 500
-                }}>
-                  Mức lương
-                </td>
-                <td style={{ 
-                  border: '0.5px solid #d9d9d9', 
-                  padding: '0 12px', 
-                  textAlign: 'right',
-                  color: '#000000',
-                  fontWeight: 700
-                }}>
-                  {formattedSalary}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            {splitCompany(rowData?.company).line2}
+          </div>
+        )}
+
+        {/* Row 3: Nơi làm việc label & value (line 1 & line 2) */}
+        <div style={{
+          position: 'absolute',
+          left: `${(30 / W) * 100}%`,
+          top: `${(225 / H) * 100}%`,
+          width: `${(85 / W) * 100}%`,
+          height: `${(17 / H) * 100}%`,
+          fontSize: '13.5px',
+          color: 'rgba(255, 255, 255, 0.85)',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: 400,
+          display: 'flex',
+          alignItems: 'center'
+        }}>
+          Nơi làm việc:
+        </div>
+        <div style={{
+          position: 'absolute',
+          left: `${(119 / W) * 100}%`,
+          top: `${(225 / H) * 100}%`,
+          width: `${(253 / W) * 100}%`,
+          height: `${(17 / H) * 100}%`,
+          fontSize: '13.5px',
+          color: '#ffffff',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: 700,
+          display: 'flex',
+          alignItems: 'center',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        }}>
+          {splitAddress(rowData?.workAddress).line1}
+        </div>
+        {splitAddress(rowData?.workAddress).line2 && (
+          <div style={{
+            position: 'absolute',
+            left: `${(30 / W) * 100}%`,
+            top: `${(242 / H) * 100}%`,
+            width: `${(342 / W) * 100}%`,
+            height: `${(17 / H) * 100}%`,
+            fontSize: '13.5px',
+            color: '#ffffff',
+            fontFamily: 'Inter, sans-serif',
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}>
+            {splitAddress(rowData?.workAddress).line2}
+          </div>
+        )}
+
+        {/* Row 4: Loại tiền label & value */}
+        <div style={{
+          position: 'absolute',
+          left: `${(30 / W) * 100}%`,
+          top: `${(259 / H) * 100}%`,
+          width: `${(60 / W) * 100}%`,
+          height: `${(17 / H) * 100}%`,
+          fontSize: '13.5px',
+          color: 'rgba(255, 255, 255, 0.85)',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: 400,
+          display: 'flex',
+          alignItems: 'center'
+        }}>
+          Loại tiền:
+        </div>
+        <div style={{
+          position: 'absolute',
+          left: `${(96 / W) * 100}%`,
+          top: `${(259 / H) * 100}%`,
+          width: `${(31 / W) * 100}%`,
+          height: `${(17 / H) * 100}%`,
+          fontSize: '13.5px',
+          color: '#ffffff',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: 700,
+          display: 'flex',
+          alignItems: 'center'
+        }}>
+          VND
         </div>
 
+
+        {/* --- 3.3. Salary Table values --- */}
+        {/* Cover only the static values on the right, keeping background table borders and labels 100% untouched */}
+        <div style={{
+          position: 'absolute',
+          left: `${(280 / W) * 100}%`,
+          top: `${(293 / H) * 100}%`,
+          width: `${(92 / W) * 100}%`,
+          height: `${(20 / H) * 100}%`,
+          background: '#ffffff'
+        }} />
+        <div style={{
+          position: 'absolute',
+          left: `${(280 / W) * 100}%`,
+          top: `${(293 / H) * 100}%`,
+          width: `${(92 / W) * 100}%`,
+          height: `${(20 / H) * 100}%`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          fontSize: '14.5px',
+          color: '#000000',
+          fontWeight: 700,
+          fontFamily: 'Inter, sans-serif'
+        }}>
+          {formattedSalary}
+        </div>
+
+        <div style={{
+          position: 'absolute',
+          left: `${(280 / W) * 100}%`,
+          top: `${(321 / H) * 100}%`,
+          width: `${(92 / W) * 100}%`,
+          height: `${(20 / H) * 100}%`,
+          background: '#ffffff'
+        }} />
+        <div style={{
+          position: 'absolute',
+          left: `${(280 / W) * 100}%`,
+          top: `${(321 / H) * 100}%`,
+          width: `${(92 / W) * 100}%`,
+          height: `${(20 / H) * 100}%`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          fontSize: '14.5px',
+          color: '#000000',
+          fontWeight: 700,
+          fontFamily: 'Inter, sans-serif'
+        }}>
+          {formattedSalary}
+        </div>
       </div>
     </div>
   );
