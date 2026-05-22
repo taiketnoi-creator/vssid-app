@@ -44,12 +44,39 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [navigationData, setNavigationData] = useState(null);
 
-  // Load and manage dynamic accounts
+  // Load and manage dynamic accounts with auto-sync from code edits
   const [accounts, setAccounts] = useState(() => {
     const saved = localStorage.getItem('vssid_accounts');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // SMART DEV SYNC: If the developer updated hardcoded SEED_ACCOUNTS in code,
+        // we automatically detect the difference and update the localStorage cache.
+        let hasChanges = false;
+        const updated = parsed.map(acc => {
+          const seed = SEED_ACCOUNTS.find(s => s.username === acc.username);
+          if (seed) {
+            if (
+              seed.fullName !== acc.fullName ||
+              seed.phone !== acc.phone ||
+              seed.cccd !== acc.cccd ||
+              seed.address !== acc.address ||
+              seed.birthday !== acc.birthday ||
+              seed.password !== acc.password ||
+              JSON.stringify(seed.insuranceHistory) !== JSON.stringify(acc.insuranceHistory)
+            ) {
+              hasChanges = true;
+              return { ...acc, ...seed }; // Merge new code seed edits
+            }
+          }
+          return acc;
+        });
+
+        if (hasChanges) {
+          localStorage.setItem('vssid_accounts', JSON.stringify(updated));
+          return updated;
+        }
+        return parsed;
       } catch (e) {
         console.error(e);
       }
@@ -62,7 +89,25 @@ function App() {
     const saved = localStorage.getItem('vssid_current_account');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        const seed = SEED_ACCOUNTS.find(s => s.username === parsed.username);
+        if (seed) {
+          // Sync current logged-in account if its seed values in code changed
+          if (
+            seed.fullName !== parsed.fullName ||
+            seed.phone !== parsed.phone ||
+            seed.cccd !== parsed.cccd ||
+            seed.address !== parsed.address ||
+            seed.birthday !== parsed.birthday ||
+            seed.password !== parsed.password ||
+            JSON.stringify(seed.insuranceHistory) !== JSON.stringify(parsed.insuranceHistory)
+          ) {
+            const updated = { ...parsed, ...seed };
+            localStorage.setItem('vssid_current_account', JSON.stringify(updated));
+            return updated;
+          }
+        }
+        return parsed;
       } catch (e) {}
     }
     return null;
