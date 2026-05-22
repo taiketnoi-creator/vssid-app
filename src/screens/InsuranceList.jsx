@@ -280,250 +280,120 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                 background: '#ffffff',
                 zIndex: 5,
                 boxSizing: 'border-box',
-                pointerEvents: 'none'
+                pointerEvents: 'auto'
               }}>
-                {/* 1. Steel Blue Header (Rectangle 14 in Figma) */}
-                <div style={{
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
+                <table style={{
                   width: '100%',
-                  height: '42px',
-                  backgroundColor: '#38679f',
-                  boxSizing: 'border-box'
+                  borderCollapse: 'collapse',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '11px',
+                  color: '#3f3f3f',
+                  backgroundColor: '#ffffff'
                 }}>
-                  {/* "Từ tháng" Header Text */}
-                  <div style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    width: `${(68 / 382) * 100}%`,
-                    height: '42px',
-                    color: '#ffffff',
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textAlign: 'center'
-                  }}>Từ tháng</div>
-
-                  {/* "Đến tháng" Header Text */}
-                  <div style={{
-                    position: 'absolute',
-                    left: `${(68 / 382) * 100}%`,
-                    top: 0,
-                    width: `${(67 / 382) * 100}%`,
-                    height: '42px',
-                    color: '#ffffff',
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    lineHeight: '1.2',
-                    whiteSpace: 'pre-wrap'
-                  }}>Đến{"\n"}tháng</div>
-
-                  {/* "Đơn vị" Header Text */}
-                  <div style={{
-                    position: 'absolute',
-                    left: `${(135 / 382) * 100}%`,
-                    top: 0,
-                    width: `${(123 / 382) * 100}%`,
-                    height: '42px',
-                    color: '#ffffff',
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textAlign: 'center'
-                  }}>Đơn vị</div>
-
-                  {/* "Nghề nghiệp Chức vụ" Header Text */}
-                  <div style={{
-                    position: 'absolute',
-                    left: `${(258 / 382) * 100}%`,
-                    top: 0,
-                    width: `${(92 / 382) * 100}%`,
-                    height: '42px',
-                    color: '#ffffff',
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    lineHeight: '1.2',
-                    whiteSpace: 'pre-wrap'
-                  }}>Nghề nghiệp{"\n"}Chức vụ</div>
-                </div>
-
-                {/* 2. Dynamic Table Rows (Up to 2 rows based on active history) */}
-                {history.slice(0, 2).map((row, idx) => {
-                  const topOffset = 41 + idx * 64; // Collapses borders exactly matching Figma y=307 and y=371
-                  return (
-                    <div
-                      key={idx}
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        top: `${topOffset}px`,
-                        width: '100%',
-                        height: '66px',
-                        display: 'flex',
-                        boxSizing: 'border-box'
-                      }}
-                    >
-                      {/* Col 1 (Từ tháng) */}
-                      <div style={{
-                        position: 'absolute',
-                        left: 0,
-                        width: `${(68 / 382) * 100}%`,
-                        height: '66px',
-                        backgroundColor: '#ffffff',
-                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderRight: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderLeft: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderTop: idx === 0 ? '0.5px solid rgba(0, 0, 0, 0.15)' : 'none',
-                        color: '#3f3f3f',
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: '11px',
-                        fontWeight: 500,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxSizing: 'border-box'
-                      }}>
-                        {row.from}
-                      </div>
-
-                      {/* Col 2 (Đến tháng) */}
-                      <div style={{
-                        position: 'absolute',
-                        left: `${(68 / 382) * 100}%`,
-                        width: `${(67 / 382) * 100}%`,
-                        height: '66px',
-                        backgroundColor: '#ffffff',
-                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderRight: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderTop: idx === 0 ? '0.5px solid rgba(0, 0, 0, 0.15)' : 'none',
-                        color: '#3f3f3f',
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: '11px',
-                        fontWeight: 500,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxSizing: 'border-box'
-                      }}>
-                        {row.to}
-                      </div>
-
-                      {/* Col 3 (Đơn vị) */}
-                      <div style={{
-                        position: 'absolute',
-                        left: `${(135 / 382) * 100}%`,
-                        width: `${(123 / 382) * 100}%`,
-                        height: '66px',
-                        backgroundColor: '#ffffff',
-                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderRight: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderTop: idx === 0 ? '0.5px solid rgba(0, 0, 0, 0.15)' : 'none',
-                        color: '#3f3f3f',
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-start',
-                        textAlign: 'left',
-                        paddingLeft: '8px',
-                        paddingRight: '6px',
-                        lineHeight: '1.3',
-                        wordBreak: 'break-word',
-                        whiteSpace: 'normal',
-                        overflow: 'hidden',
-                        boxSizing: 'border-box'
-                      }}>
-                        {row.company}
-                      </div>
-
-                      {/* Col 4 (Nghề nghiệp Chức vụ) */}
-                      <div style={{
-                        position: 'absolute',
-                        left: `${(258 / 382) * 100}%`,
-                        width: `${(92 / 382) * 100}%`,
-                        height: '66px',
-                        backgroundColor: '#ffffff',
-                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderRight: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderTop: idx === 0 ? '0.5px solid rgba(0, 0, 0, 0.15)' : 'none',
-                        color: '#3f3f3f',
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: '11px',
-                        fontWeight: 500,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                  <thead>
+                    <tr style={{ backgroundColor: '#38679f', height: '42px', color: '#ffffff' }}>
+                      <th style={{ 
+                        width: `${(68 / 382) * 100}%`, 
+                        fontWeight: 400, 
+                        border: '0.5px solid #d9d9d9',
+                        fontSize: '12px',
                         textAlign: 'center',
-                        lineHeight: '1.3',
-                        wordBreak: 'break-word',
-                        whiteSpace: 'normal',
-                        overflow: 'hidden',
-                        boxSizing: 'border-box'
-                      }}>
-                        {row.position}
-                      </div>
-
-                      {/* Col 5 (Eye Icon Column with interactive hotspot) */}
-                      <div style={{
-                        position: 'absolute',
-                        left: `${(350 / 382) * 100}%`,
-                        width: `${(32 / 382) * 100}%`,
-                        height: '66px',
-                        backgroundColor: '#ffffff',
-                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderRight: '0.5px solid rgba(0, 0, 0, 0.15)',
-                        borderTop: idx === 0 ? '0.5px solid rgba(0, 0, 0, 0.15)' : 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxSizing: 'border-box'
-                      }}>
-                        {/* Crisp inline SVG Eye Icon */}
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" fill="#38679f"/>
-                        </svg>
-
-                        {/* Clickable transparent overlay hotspot */}
-                        <button
-                          onClick={() => onNavigate('salary-detail', { rowData: row })}
-                          style={{
-                            position: 'absolute',
-                            left: 0,
-                            top: 0,
-                            width: '100%',
-                            height: '100%',
-                            background: 'transparent',
-                            border: 'none',
-                            outline: 'none',
-                            cursor: 'pointer',
-                            pointerEvents: 'auto',
-                            zIndex: 10
-                          }}
-                          aria-label={`Chi tiết dòng ${idx + 1}`}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
+                        padding: 0
+                      }}>Từ tháng</th>
+                      <th style={{ 
+                        width: `${(67 / 382) * 100}%`, 
+                        fontWeight: 400, 
+                        border: '0.5px solid #d9d9d9',
+                        fontSize: '12px',
+                        lineHeight: '1.2',
+                        textAlign: 'center',
+                        padding: 0
+                      }}>Đến<br/>tháng</th>
+                      <th style={{ 
+                        width: `${(123 / 382) * 100}%`, 
+                        fontWeight: 400, 
+                        border: '0.5px solid #d9d9d9',
+                        fontSize: '12px',
+                        textAlign: 'center',
+                        padding: 0
+                      }}>Đơn vị</th>
+                      <th style={{ 
+                        width: `${(92 / 382) * 100}%`, 
+                        fontWeight: 400, 
+                        border: '0.5px solid #d9d9d9',
+                        fontSize: '12px',
+                        lineHeight: '1.2',
+                        textAlign: 'center',
+                        padding: 0
+                      }}>Nghề nghiệp<br/>Chức vụ</th>
+                      <th style={{ 
+                        width: `${(32 / 382) * 100}%`, 
+                        border: '0.5px solid #d9d9d9',
+                        padding: 0
+                      }}></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {history.slice(0, 2).map((row, idx) => (
+                      <tr key={idx} style={{ height: '66px', backgroundColor: '#ffffff' }}>
+                        <td style={{ 
+                          textAlign: 'center', 
+                          fontWeight: 500, 
+                          border: '0.5px solid #d9d9d9',
+                          padding: 0 
+                        }}>{row.from}</td>
+                        <td style={{ 
+                          textAlign: 'center', 
+                          fontWeight: 500, 
+                          border: '0.5px solid #d9d9d9',
+                          padding: 0 
+                        }}>{row.to}</td>
+                        <td style={{ 
+                          fontWeight: 600, 
+                          border: '0.5px solid #d9d9d9', 
+                          padding: '0 6px 0 8px', 
+                          textAlign: 'left', 
+                          lineHeight: '1.3',
+                          wordBreak: 'break-word'
+                        }}>{row.company}</td>
+                        <td style={{ 
+                          textAlign: 'center', 
+                          fontWeight: 500, 
+                          border: '0.5px solid #d9d9d9', 
+                          padding: '0 4px', 
+                          lineHeight: '1.3',
+                          wordBreak: 'break-word'
+                        }}>{row.position}</td>
+                        <td style={{ 
+                          textAlign: 'center', 
+                          border: '0.5px solid #d9d9d9', 
+                          position: 'relative',
+                          padding: 0 
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" fill="#38679f"/>
+                            </svg>
+                          </div>
+                          <button
+                            onClick={() => onNavigate('salary-detail', { rowData: row })}
+                            style={{
+                              position: 'absolute',
+                              inset: 0,
+                              background: 'transparent',
+                              border: 'none',
+                              outline: 'none',
+                              cursor: 'pointer',
+                              pointerEvents: 'auto',
+                              zIndex: 10
+                            }}
+                            aria-label={`Chi tiết dòng ${idx + 1}`}
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             )}
           </>
