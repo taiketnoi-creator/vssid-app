@@ -86,107 +86,232 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
         <div style={{
           position: 'absolute',
           left: '19px',
-          right: '19px',
           top: '87px',
+          width: '364px',
           height: '276px',
           background: '#eaeff3', // Matches Figma card background perfectly
           borderRadius: '12px',
           boxSizing: 'border-box',
-          padding: '21px 20px 20px 20px',
-          display: 'flex',
-          flexDirection: 'column',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)'
+          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)',
+          overflow: 'hidden'
         }}>
-          {/* Avatar & Name Info Row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', height: '62px' }}>
-            <div style={{
-              width: '62px',
-              height: '62px',
-              borderRadius: '50%',
-              background: '#ffffff',
-              boxShadow: '0px 2px 4px rgba(0,0,0,0.25)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden',
-              flexShrink: 0
-            }}>
-              {currentAccount?.avatar ? (
-                <img src={currentAccount.avatar} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              ) : (
-                <div style={{
-                  width: '100%',
-                  height: '100%',
-                  background: '#0069ad',
-                  color: '#ffffff',
-                  fontWeight: 700,
-                  fontSize: '18px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  {currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'HN'}
-                </div>
-              )}
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', minWidth: 0 }}>
-              <span style={{
-                fontSize: '14px',
+          {/* Avatar Circle: x=43, y=108, w=62, h=62 (relative x=24, y=21) */}
+          <div style={{
+            position: 'absolute',
+            left: '24px',
+            top: '21px',
+            width: '62px',
+            height: '62px',
+            borderRadius: '50%',
+            background: '#ffffff',
+            boxShadow: '0px 2px 4px rgba(0,0,0,0.25)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden'
+          }}>
+            {currentAccount?.avatar ? (
+              <img src={currentAccount.avatar} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <div style={{
+                width: '100%',
+                height: '100%',
+                background: '#0069ad',
+                color: '#ffffff',
                 fontWeight: 700,
-                color: '#000000',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis'
+                fontSize: '18px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}>
-                {currentAccount?.fullName || 'Nguyễn Hữu Hoàng'}
-              </span>
-              <span style={{
-                fontSize: '14px',
-                fontWeight: 400,
-                color: '#4d4d4d',
-                marginTop: '5px'
-              }}>
-                Mã BHXH: {currentAccount?.bhxhCode || '4217247030'}
-              </span>
-            </div>
+                {currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'HN'}
+              </div>
+            )}
           </div>
 
-          {/* Separator line below Avatar/Name */}
-          <div style={{ height: '1px', background: '#948c8c', opacity: 0.35, marginTop: '12px', marginBottom: '10px' }} />
+          {/* Full Name: x=120, y=118, w=224, h=17 (relative x=101, y=31) */}
+          <div style={{
+            position: 'absolute',
+            left: '101px',
+            top: '31px',
+            width: '224px',
+            height: '17px',
+            fontSize: '14px',
+            fontWeight: 700,
+            color: '#000000',
+            fontFamily: 'Inter, sans-serif',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            {currentAccount?.fullName || 'Nguyễn Hữu Hoàng'}
+          </div>
 
-          {/* Info Fields with horizontal dividers between each field */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {fields.map((field, idx) => (
-              <React.Fragment key={idx}>
-                {idx > 0 && (
-                  <div style={{ height: '1px', background: '#948c8c', opacity: 0.35, marginTop: '10px', marginBottom: '10px' }} />
-                )}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: '17px' }}>
-                  <span style={{
-                    fontSize: '14px',
-                    fontWeight: 400,
-                    color: '#616161',
-                    lineHeight: '1.2',
-                    flexShrink: 0
-                  }}>
-                    {field.label}
-                  </span>
-                  <span style={{
-                    fontSize: '14px',
-                    fontWeight: 400,
-                    color: '#616161',
-                    lineHeight: '1.2',
-                    textAlign: 'right',
-                    maxWidth: '65%',
-                    wordBreak: 'break-word',
-                    whiteSpace: 'pre-line'
-                  }}>
-                    {field.value}
-                  </span>
-                </div>
-              </React.Fragment>
-            ))}
+          {/* BHXH Code: x=120, y=144, w=224, h=17 (relative x=101, y=57) */}
+          <div style={{
+            position: 'absolute',
+            left: '101px',
+            top: '57px',
+            width: '224px',
+            height: '17px',
+            fontSize: '14px',
+            fontWeight: 400,
+            color: '#4d4d4d',
+            fontFamily: 'Inter, sans-serif',
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Mã BHXH: {currentAccount?.bhxhCode || '4217247030'}
+          </div>
+
+          {/* Line 1 (Divider under Avatar): absolute y=182 (relative y=95) */}
+          <div style={{
+            position: 'absolute',
+            left: '20px',
+            right: '20px',
+            top: '95px',
+            height: '1px',
+            background: '#948c8c',
+            opacity: 0.35
+          }} />
+
+          {/* ──── Field 1: Ngày sinh (y=197, relative y=110) ──── */}
+          <div style={{
+            position: 'absolute',
+            left: '23px',
+            top: '110px',
+            fontSize: '14px',
+            fontWeight: 400,
+            color: '#616161',
+            fontFamily: 'Inter, sans-serif'
+          }}>
+            Ngày sinh
+          </div>
+          <div style={{
+            position: 'absolute',
+            right: '22px',
+            top: '110px',
+            fontSize: '14px',
+            fontWeight: 400,
+            color: '#616161',
+            fontFamily: 'Inter, sans-serif',
+            textAlign: 'right'
+          }}>
+            {currentAccount?.birthday || '24/05/1999'}
+          </div>
+
+          {/* Line 3 (Divider 2): absolute y=224 (relative y=137) */}
+          <div style={{
+            position: 'absolute',
+            left: '20px',
+            right: '20px',
+            top: '137px',
+            height: '1px',
+            background: '#948c8c',
+            opacity: 0.35
+          }} />
+
+          {/* ──── Field 2: ĐDCN/CCCD/Hộ chiếu (y=235, relative y=148) ──── */}
+          <div style={{
+            position: 'absolute',
+            left: '23px',
+            top: '148px',
+            fontSize: '14px',
+            fontWeight: 400,
+            color: '#616161',
+            fontFamily: 'Inter, sans-serif'
+          }}>
+            ĐDCN/CCCD/Hộ chiếu
+          </div>
+          <div style={{
+            position: 'absolute',
+            right: '22px',
+            top: '148px',
+            fontSize: '14px',
+            fontWeight: 400,
+            color: '#616161',
+            fontFamily: 'Inter, sans-serif',
+            textAlign: 'right'
+          }}>
+            {currentAccount?.cccd || '040299010346'}
+          </div>
+
+          {/* Line 4 (Divider 3): absolute y=262 (relative y=175) */}
+          <div style={{
+            position: 'absolute',
+            left: '20px',
+            right: '20px',
+            top: '175px',
+            height: '1px',
+            background: '#948c8c',
+            opacity: 0.35
+          }} />
+
+          {/* ──── Field 3: Số điện thoại (y=273, relative y=186) ──── */}
+          <div style={{
+            position: 'absolute',
+            left: '23px',
+            top: '186px',
+            fontSize: '14px',
+            fontWeight: 400,
+            color: '#616161',
+            fontFamily: 'Inter, sans-serif'
+          }}>
+            Số điện thoại
+          </div>
+          <div style={{
+            position: 'absolute',
+            right: '22px',
+            top: '186px',
+            fontSize: '14px',
+            fontWeight: 400,
+            color: '#616161',
+            fontFamily: 'Inter, sans-serif',
+            textAlign: 'right'
+          }}>
+            {currentAccount?.phone || '0896511373'}
+          </div>
+
+          {/* Line 5 (Divider 4): absolute y=300 (relative y=213) */}
+          <div style={{
+            position: 'absolute',
+            left: '20px',
+            right: '20px',
+            top: '213px',
+            height: '1px',
+            background: '#948c8c',
+            opacity: 0.35
+          }} />
+
+          {/* ──── Field 4: Địa chỉ (y=308, relative y=221) ──── */}
+          <div style={{
+            position: 'absolute',
+            left: '23px',
+            top: '221px',
+            fontSize: '14px',
+            fontWeight: 400,
+            color: '#616161',
+            fontFamily: 'Inter, sans-serif'
+          }}>
+            Địa chỉ
+          </div>
+          <div style={{
+            position: 'absolute',
+            right: '22px',
+            top: '221px',
+            width: '208px',
+            fontSize: '14px',
+            fontWeight: 400,
+            color: '#616161',
+            fontFamily: 'Inter, sans-serif',
+            textAlign: 'right',
+            lineHeight: '1.2',
+            whiteSpace: 'pre-line',
+            wordBreak: 'break-word'
+          }}>
+            {currentAccount?.address || 'xóm Đông Lam, Xã Trường Lưu,\nHuyện Lộc Hà, Tỉnh Hà Tĩnh'}
           </div>
         </div>
 

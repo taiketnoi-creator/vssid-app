@@ -73,7 +73,7 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
           left: 0,
           width: '100%',
           height: `${183 / H * 100}%`,
-          background: 'linear-gradient(to bottom, #0072c8, #01aef2)',
+          background: 'linear-gradient(to bottom, #0072c8 0%, #0079cd 100%)', // Seamless gradient matching frame_sidebar.png perfectly
           zIndex: 10
         }}>
           {/* Ellipse 4: Outer Circle (White border) x=121, y=51, w=64, h=64 */}
@@ -104,7 +104,7 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
             boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.25)',
             boxSizing: 'border-box'
           }}>
-            {currentAccount.avatar ? (
+            {currentAccount?.avatar ? (
               <img src={currentAccount.avatar} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
               <div style={{
@@ -118,7 +118,7 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
                 alignItems: 'center',
                 justifyContent: 'center'
               }}>
-                {currentAccount.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'VS'}
+                {currentAccount?.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'VS'}
               </div>
             )}
           </div>
@@ -142,7 +142,7 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
             overflow: 'hidden',
             textOverflow: 'ellipsis'
           }}>
-            {currentAccount.fullName}
+            {currentAccount?.fullName}
           </div>
 
           {/* Code Text x=106, y=153, w=95, h=18 */}
@@ -164,7 +164,7 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
             overflow: 'hidden',
             textOverflow: 'ellipsis'
           }}>
-            {currentAccount.bhxhCode}
+            {currentAccount?.bhxhCode}
           </div>
         </div>
 
