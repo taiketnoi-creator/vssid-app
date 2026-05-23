@@ -5,7 +5,7 @@ import InsuranceList from './screens/InsuranceList';
 import SalaryDetail from './screens/SalaryDetail';
 import Sidebar from './components/Sidebar';
 import AccountManager from './components/AccountManager';
-import './App.css';
+import './App.css/A1.png';
 
 const SEED_ACCOUNTS = [
   {
@@ -17,7 +17,7 @@ const SEED_ACCOUNTS = [
     cccd: "040299010346",
     phone: "0864777665",
     address: "Thôn 7, Ngọc Đường, Hồng Châu, Yên Lạc, Vĩnh Phúc",
-    avatar: "",
+    avatar: userAvatar,
     insuranceHistory: [
       {
         from: "09/2025",
