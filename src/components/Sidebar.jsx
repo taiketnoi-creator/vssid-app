@@ -66,51 +66,105 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
           draggable={false}
         />
 
-        {/* Dynamic User Profile Overlay in Sidebar Header */}
+        {/* Dynamic User Profile Overlay in Sidebar Header — 100% Pixel-exact Figma standard */}
         <div style={{
           position: 'absolute',
-          top: `${50 / H * 100}%`,
-          left: '18px',
-          width: '280px',
-          height: '75px',
-          background: '#0069ad', // Matching blue header bg to cover static content underneath
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: `${183 / H * 100}%`,
+          background: 'linear-gradient(to bottom, #0072c8, #01aef2)',
           zIndex: 10
         }}>
-          {/* Avatar circle */}
+          {/* Ellipse 4: Outer Circle (White border) x=121, y=51, w=64, h=64 */}
           <div style={{
-            width: '56px',
-            height: '56px',
+            position: 'absolute',
+            left: `${(121 / 311) * 100}%`,
+            top: `${(51 / 183) * 100}%`,
+            width: `${(64 / 311) * 100}%`,
+            aspectRatio: '1 / 1',
             borderRadius: '50%',
-            overflow: 'hidden',
-            flexShrink: 0,
-            boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
-            background: 'linear-gradient(135deg, #004d80, #01aef2)',
+            border: '1.5px solid #ffffff',
+            boxSizing: 'border-box'
+          }} />
+
+          {/* Ellipse 6: Inner Avatar Circle x=127, y=57, w=52, h=52 */}
+          <div style={{
+            position: 'absolute',
+            left: `${(127 / 311) * 100}%`,
+            top: `${(57 / 183) * 100}%`,
+            width: `${(52 / 311) * 100}%`,
+            aspectRatio: '1 / 1',
+            borderRadius: '50%',
+            backgroundColor: '#ffffff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff',
-            fontWeight: 700,
-            fontSize: '18px',
-            border: '2px solid rgba(255, 255, 255, 0.4)'
+            overflow: 'hidden',
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.25)',
+            boxSizing: 'border-box'
           }}>
             {currentAccount.avatar ? (
-              <img src={currentAccount.avatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={currentAccount.avatar} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
-              currentAccount.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'VS'
+              <div style={{
+                width: '100%',
+                height: '100%',
+                background: 'linear-gradient(135deg, #004d80, #01aef2)',
+                color: '#ffffff',
+                fontWeight: 700,
+                fontSize: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                {currentAccount.fullName ? currentAccount.fullName.split(' ').pop().slice(0, 2).toUpperCase() : 'VS'}
+              </div>
             )}
           </div>
-          
-          {/* User Text Details */}
-          <div style={{ display: 'flex', flexDirection: 'column', color: '#ffffff', minWidth: 0 }}>
-            <span style={{ fontSize: '15px', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {currentAccount.fullName}
-            </span>
-            <span style={{ fontSize: '12px', color: '#cbe7f7', marginTop: '3px', fontWeight: 500 }}>
-              Mã số: {currentAccount.bhxhCode}
-            </span>
+
+          {/* Name Text x=82, y=128, w=143, h=18 */}
+          <div style={{
+            position: 'absolute',
+            left: `${(82 / 311) * 100}%`,
+            top: `${(128 / 183) * 100}%`,
+            width: `${(143 / 311) * 100}%`,
+            height: `${(18 / 183) * 100}%`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '15px',
+            fontWeight: 700,
+            textAlign: 'center',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}>
+            {currentAccount.fullName}
+          </div>
+
+          {/* Code Text x=106, y=153, w=95, h=18 */}
+          <div style={{
+            position: 'absolute',
+            left: `${(106 / 311) * 100}%`,
+            top: `${(153 / 183) * 100}%`,
+            width: `${(95 / 311) * 100}%`,
+            height: `${(18 / 183) * 100}%`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '15px',
+            fontWeight: 700,
+            textAlign: 'center',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
+          }}>
+            {currentAccount.bhxhCode}
           </div>
         </div>
 
