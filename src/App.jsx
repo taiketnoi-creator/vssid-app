@@ -12,10 +12,10 @@ const SEED_ACCOUNTS = [
     username: "123456789",
     password: "123",
     fullName: "Cao Thành Tai",
-    bhxhCode: "4217247030",
+    bhxhCode: "123456789999",
     birthday: "24/05/1994",
     cccd: "040299010346",
-    phone: "0896511373",
+    phone: "0864777665",
     address: "Thôn 7, Ngọc Đường, Hồng Châu, Yên Lạc, Vĩnh Phúc",
     avatar: "",
     insuranceHistory: [
