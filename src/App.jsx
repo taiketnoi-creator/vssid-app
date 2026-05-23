@@ -60,88 +60,51 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [navigationData, setNavigationData] = useState(null);
 
-  // Load and manage dynamic accounts with auto-sync from code edits
+  // 100% BULLETPROOF DEV SYNC:
+  // If the developer makes ANY change to SEED_ACCOUNTS in the code (usernames, names, history, commas, etc.),
+  // we immediately detect it by comparing the raw string hash and reset/sync the localStorage cache instantly.
+  const currentSeedRaw = JSON.stringify(SEED_ACCOUNTS);
+  const lastSyncedSeedRaw = localStorage.getItem('vssid_seed_accounts_raw');
+  const isSeedChanged = currentSeedRaw !== lastSyncedSeedRaw;
+
+  // Load and manage dynamic accounts
   const [accounts, setAccounts] = useState(() => {
+    if (isSeedChanged) {
+      localStorage.setItem('vssid_accounts', JSON.stringify(SEED_ACCOUNTS));
+      localStorage.setItem('vssid_seed_accounts_raw', currentSeedRaw);
+      return SEED_ACCOUNTS;
+    }
+
     const saved = localStorage.getItem('vssid_accounts');
     if (saved) {
       try {
-        const parsed = JSON.parse(saved);
-        // SMART DEV SYNC: If the developer updated hardcoded SEED_ACCOUNTS in code,
-        // we automatically detect the difference and update the localStorage cache.
-        
-        // Robust check: If usernames list changed, added, or removed, reset/sync accounts entirely
-        const seedUsernames = SEED_ACCOUNTS.map(s => s.username);
-        const parsedUsernames = parsed.map(p => p.username);
-        const listsMatch = seedUsernames.length === parsedUsernames.length && 
-                           seedUsernames.every(u => parsedUsernames.includes(u));
-                           
-        if (!listsMatch) {
-          localStorage.setItem('vssid_accounts', JSON.stringify(SEED_ACCOUNTS));
-          return SEED_ACCOUNTS;
-        }
-
-        let hasChanges = false;
-        const updated = parsed.map(acc => {
-          const seed = SEED_ACCOUNTS.find(s => s.username === acc.username);
-          if (seed) {
-            if (
-              seed.fullName !== acc.fullName ||
-              seed.phone !== acc.phone ||
-              seed.cccd !== acc.cccd ||
-              seed.address !== acc.address ||
-              seed.birthday !== acc.birthday ||
-              seed.password !== acc.password ||
-              JSON.stringify(seed.insuranceHistory) !== JSON.stringify(acc.insuranceHistory)
-            ) {
-              hasChanges = true;
-              return { ...acc, ...seed }; // Merge new code seed edits
-            }
-          }
-          return acc;
-        });
-
-        if (hasChanges) {
-          localStorage.setItem('vssid_accounts', JSON.stringify(updated));
-          return updated;
-        }
-        return parsed;
+        return JSON.parse(saved);
       } catch (e) {
         console.error(e);
       }
     }
     localStorage.setItem('vssid_accounts', JSON.stringify(SEED_ACCOUNTS));
+    localStorage.setItem('vssid_seed_accounts_raw', currentSeedRaw);
     return SEED_ACCOUNTS;
   });
 
   const [currentAccount, setCurrentAccount] = useState(() => {
+    if (isSeedChanged) {
+      // If code changed, dynamically update the logged-in session to the new seed account
+      const newDefault = SEED_ACCOUNTS[0];
+      localStorage.setItem('vssid_current_account', JSON.stringify(newDefault));
+      return newDefault;
+    }
+
     const saved = localStorage.getItem('vssid_current_account');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        const seed = SEED_ACCOUNTS.find(s => s.username === parsed.username);
-        if (seed) {
-          // Sync current logged-in account if its seed values in code changed
-          if (
-            seed.fullName !== parsed.fullName ||
-            seed.phone !== parsed.phone ||
-            seed.cccd !== parsed.cccd ||
-            seed.address !== parsed.address ||
-            seed.birthday !== parsed.birthday ||
-            seed.password !== parsed.password ||
-            JSON.stringify(seed.insuranceHistory) !== JSON.stringify(parsed.insuranceHistory)
-          ) {
-            const updated = { ...parsed, ...seed };
-            localStorage.setItem('vssid_current_account', JSON.stringify(updated));
-            return updated;
-          }
-        } else {
-          // If the logged in account is no longer in SEED_ACCOUNTS (username changed)
-          // Automatically switch currentAccount to the new seed account
-          const newDefault = SEED_ACCOUNTS[0];
-          localStorage.setItem('vssid_current_account', JSON.stringify(newDefault));
-          return newDefault;
+        // Verify current account still exists in current seed list
+        const matched = SEED_ACCOUNTS.find(s => s.username === parsed.username);
+        if (matched) {
+          return parsed;
         }
-        return parsed;
       } catch (e) {}
     }
     return null;
