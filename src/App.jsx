@@ -34,7 +34,7 @@ const SEED_ACCOUNTS = [
         position: "Nhân viên kỹ thuật",
         salary: "14.500.000",
         workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
-      }
+      },
       {
         from: "01/2026",
         to: "09/2026",
@@ -42,7 +42,7 @@ const SEED_ACCOUNTS = [
         position: "Nhân viên kỹ thuật",
         salary: "14.500.000",
         workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
-      }
+      },
       {
         from: "01/2026",
         to: "09/2026",
