@@ -68,6 +68,18 @@ function App() {
         const parsed = JSON.parse(saved);
         // SMART DEV SYNC: If the developer updated hardcoded SEED_ACCOUNTS in code,
         // we automatically detect the difference and update the localStorage cache.
+        
+        // Robust check: If usernames list changed, added, or removed, reset/sync accounts entirely
+        const seedUsernames = SEED_ACCOUNTS.map(s => s.username);
+        const parsedUsernames = parsed.map(p => p.username);
+        const listsMatch = seedUsernames.length === parsedUsernames.length && 
+                           seedUsernames.every(u => parsedUsernames.includes(u));
+                           
+        if (!listsMatch) {
+          localStorage.setItem('vssid_accounts', JSON.stringify(SEED_ACCOUNTS));
+          return SEED_ACCOUNTS;
+        }
+
         let hasChanges = false;
         const updated = parsed.map(acc => {
           const seed = SEED_ACCOUNTS.find(s => s.username === acc.username);
@@ -122,6 +134,12 @@ function App() {
             localStorage.setItem('vssid_current_account', JSON.stringify(updated));
             return updated;
           }
+        } else {
+          // If the logged in account is no longer in SEED_ACCOUNTS (username changed)
+          // Automatically switch currentAccount to the new seed account
+          const newDefault = SEED_ACCOUNTS[0];
+          localStorage.setItem('vssid_current_account', JSON.stringify(newDefault));
+          return newDefault;
         }
         return parsed;
       } catch (e) {}
