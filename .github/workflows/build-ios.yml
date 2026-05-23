@@ -57,7 +57,7 @@ jobs:
           cd ios/App/build/Build/Products/Release-iphoneos
           mkdir Payload
           cp -r App.app Payload/
-          zip -vr App.ipa Payload/
+          zip -r -y App.ipa Payload/
           mv App.ipa $GITHUB_WORKSPACE/App.ipa
 
       - name: Upload IPA Artifact
