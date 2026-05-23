@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { supabase } from './supabaseClient';
 import Login from './screens/Login';
 import Dashboard from './screens/Dashboard';
 import InsuranceList from './screens/InsuranceList';
@@ -165,10 +166,66 @@ function App() {
     }
   };
 
-  const handleLogin = (account) => {
-    setCurrentAccount(account);
-    localStorage.setItem('vssid_current_account', JSON.stringify(account));
-    navigateTo('dashboard');
+  const handleLogin = async (username, password) => {
+    // If called with a full account object (e.g. from AccountManager quick login)
+    if (username && typeof username === 'object') {
+      const account = username;
+      setCurrentAccount(account);
+      localStorage.setItem('vssid_current_account', JSON.stringify(account));
+      navigateTo('dashboard');
+      return { success: true };
+    }
+
+    const isSupabaseConfigured = 
+      supabase && supabase.supabaseUrl && !supabase.supabaseUrl.includes('YOUR_SUPABASE_URL');
+
+    if (!isSupabaseConfigured) {
+      // Fallback to Offline mode
+      const matched = accounts.find(a => a.username === username && a.password === password);
+      if (matched) {
+        setCurrentAccount(matched);
+        localStorage.setItem('vssid_current_account', JSON.stringify(matched));
+        navigateTo('dashboard');
+        return { success: true };
+      } else {
+        return { success: false, message: 'Tài khoản hoặc mật khẩu không chính xác!' };
+      }
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('accounts')
+        .select('*')
+        .eq('username', username)
+        .eq('password', password)
+        .single();
+
+      if (error || !data) {
+        return { success: false, message: 'Tài khoản hoặc mật khẩu không chính xác!' };
+      }
+
+      // Convert snake_case fields from database to camelCase for full compatibility with React UI
+      const formattedAcc = {
+        username: data.username,
+        password: data.password,
+        fullName: data.full_name,
+        bhxhCode: data.bhxh_code,
+        birthday: data.birthday,
+        cccd: data.cccd,
+        phone: data.phone,
+        address: data.address,
+        avatar: data.avatar,
+        insuranceHistory: data.insurance_history || []
+      };
+
+      setCurrentAccount(formattedAcc);
+      localStorage.setItem('vssid_current_account', JSON.stringify(formattedAcc));
+      navigateTo('dashboard');
+      return { success: true };
+    } catch (err) {
+      console.error('Supabase login error:', err);
+      return { success: false, message: 'Lỗi kết nối mạng đến máy chủ database!' };
+    }
   };
 
   const handleLogout = () => {

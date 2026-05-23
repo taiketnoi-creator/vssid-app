@@ -18,6 +18,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
   const [toastMsg, setToastMsg] = useState('');
   const [logoClicks, setLogoClicks] = useState(0);
   const [focusedField, setFocusedField] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const showToast = (msg) => {
     setToastMsg(msg);
@@ -25,26 +26,37 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
     return () => clearTimeout(t);
   };
 
-  const handleLoginSubmit = () => {
+  const handleLoginSubmit = async () => {
+    if (loading) return;
     if (!username || !password) {
       showToast('Vui lòng điền đầy đủ tài khoản & mật khẩu!');
       return;
     }
 
-    const matched = accounts.find(a => a.username === username && a.password === password);
-    if (matched) {
-      onLogin(matched);
-    } else {
-      showToast('Tài khoản hoặc mật khẩu không chính xác!');
+    setLoading(true);
+    const result = await onLogin(username, password);
+    setLoading(false);
+
+    if (result && !result.success) {
+      showToast(result.message || 'Lỗi đăng nhập!');
     }
   };
 
   // VNeID or Fingerprint login defaults to first available account for instant convenience
-  const handleQuickLogin = () => {
-    if (accounts && accounts.length > 0) {
-      onLogin(accounts[0]);
-    } else {
-      showToast('Không có tài khoản nào để đăng nhập!');
+  const handleQuickLogin = async () => {
+    if (loading) return;
+    setLoading(true);
+    // Try to login online with the default seed account
+    const result = await onLogin('123456789', '123');
+    setLoading(false);
+
+    if (result && !result.success) {
+      // If online/database login fails (unconfigured or offline), fallback to the local offline seed
+      if (accounts && accounts.length > 0) {
+        onLogin(accounts[0]);
+      } else {
+        showToast('Không có tài khoản nào để đăng nhập!');
+      }
     }
   };
 
@@ -344,7 +356,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.6)'}
           onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.45)'}
         >
-          Đăng nhập
+          {loading ? 'Đang kết nối...' : 'Đăng nhập'}
         </div>
 
         {/* Fingerprint/FaceID button: x309,y372 80x80 */}
