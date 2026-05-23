@@ -35,6 +35,22 @@ const SEED_ACCOUNTS = [
         salary: "14.500.000",
         workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
       }
+      {
+        from: "01/2026",
+        to: "09/2026",
+        company: "Công ty Cổ phần Masscom Việt Nam",
+        position: "Nhân viên kỹ thuật",
+        salary: "14.500.000",
+        workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
+      }
+      {
+        from: "01/2026",
+        to: "09/2026",
+        company: "Công ty Cổ phần Masscom Việt Nam",
+        position: "Nhân viên kỹ thuật",
+        salary: "14.500.000",
+        workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
+      }
     ]
   }
 ];
