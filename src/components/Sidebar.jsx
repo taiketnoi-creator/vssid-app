@@ -4,7 +4,7 @@ import frameSidebar from '../assets/frame_sidebar.png';
 const W = 402;
 const H = 874;
 
-const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountManager, onLogout, logoutText = 'Đăng xuất' }) => {
+const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountManager }) => {
   const [shouldRender, setShouldRender] = useState(false);
   const [animClass, setAnimClass] = useState(false);
 
@@ -192,47 +192,8 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
           <div onClick={onClose} style={{ position: 'absolute', left: 0, top: `${650 / H * 100}%`, width: '100%', height: `${65 / H * 100}%`, cursor: 'pointer' }} />
           {/* Đổi mật khẩu: y~645 */}
           <div onClick={onClose} style={{ position: 'absolute', left: 0, top: `${645 / H * 100}%`, width: '100%', height: `${55 / H * 100}%`, cursor: 'pointer' }} />
-          {/* Dynamic Logout Button Overlay: y~700 */}
-          <div 
-            onClick={() => {
-              if (onLogout) {
-                onLogout();
-              } else {
-                onNavigate('login');
-              }
-              onClose();
-            }} 
-            style={{ 
-              position: 'absolute', 
-              left: 0, 
-              top: `${700 / H * 100}%`, 
-              width: '100%', 
-              height: `${55 / H * 100}%`, 
-              backgroundColor: '#009be1', // Perfectly covers the static text in frame_sidebar.png
-              display: 'flex',
-              alignItems: 'center',
-              paddingLeft: '24px',
-              boxSizing: 'border-box',
-              cursor: 'pointer',
-              zIndex: 20
-            }}
-          >
-            {/* White Power Icon SVG matching VssID style */}
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '16px' }}>
-              <path d="M18.36 6.64a9 9 0 1 1-12.73 0" />
-              <line x1="12" y1="2" x2="12" y2="12" />
-            </svg>
-            
-            {/* Dynamic Logout Text */}
-            <span style={{
-              color: '#ffffff',
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '16px',
-              fontWeight: 500
-            }}>
-              {logoutText}
-            </span>
-          </div>
+          {/* Đăng xuất: y~700 */}
+          <div onClick={() => { onNavigate('login'); onClose(); }} style={{ position: 'absolute', left: 0, top: `${700 / H * 100}%`, width: '100%', height: `${55 / H * 100}%`, cursor: 'pointer' }} />
         </div>
       </div>
     </div>

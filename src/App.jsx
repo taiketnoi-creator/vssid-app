@@ -483,12 +483,6 @@ function App() {
             isOpen={sidebarOpen} 
             onClose={() => setSidebarOpen(false)} 
             currentAccount={currentAccount || accounts[0] || SEED_ACCOUNTS[0]}
-            onLogout={() => {
-              setSidebarOpen(false);
-              setTimeout(() => {
-                handleLogout();
-              }, 300);
-            }}
             onOpenAccountManager={() => {
               setSidebarOpen(false);
               setTimeout(() => {
