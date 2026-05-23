@@ -5,7 +5,8 @@ import InsuranceList from './screens/InsuranceList';
 import SalaryDetail from './screens/SalaryDetail';
 import Sidebar from './components/Sidebar';
 import AccountManager from './components/AccountManager';
-import './App.css/A1.png';
+import './App.css';
+import userAvatar from './assets/A1.png';
 
 const SEED_ACCOUNTS = [
   {
