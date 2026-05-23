@@ -190,9 +190,9 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
           <div onClick={onClose} style={{ position: 'absolute', left: 0, top: `${585 / H * 100}%`, width: '100%', height: `${65 / H * 100}%`, cursor: 'pointer' }} />
           {/* Cài đặt: y~650 */}
           <div onClick={onClose} style={{ position: 'absolute', left: 0, top: `${650 / H * 100}%`, width: '100%', height: `${65 / H * 100}%`, cursor: 'pointer' }} />
-          {/* Đổi mật khẩu: y~745 */}
-          <div onClick={onClose} style={{ position: 'absolute', left: 0, top: `${745 / H * 100}%`, width: '100%', height: `${55 / H * 100}%`, cursor: 'pointer' }} />
-          {/* Dynamic Logout Button Overlay: y~800 */}
+          {/* Đổi mật khẩu: y~645 */}
+          <div onClick={onClose} style={{ position: 'absolute', left: 0, top: `${645 / H * 100}%`, width: '100%', height: `${55 / H * 100}%`, cursor: 'pointer' }} />
+          {/* Dynamic Logout Button Overlay: y~700 */}
           <div 
             onClick={() => {
               if (onLogout) {
@@ -205,7 +205,7 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
             style={{ 
               position: 'absolute', 
               left: 0, 
-              top: `${800 / H * 100}%`, 
+              top: `${700 / H * 100}%`, 
               width: '100%', 
               height: `${55 / H * 100}%`, 
               backgroundColor: '#009be1', // Perfectly covers the static text in frame_sidebar.png
