@@ -96,7 +96,15 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
       )}
 
       {/* Interactive overlay layer */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2 }}>
+      <div style={{
+        position: 'absolute',
+        top: 'var(--safe-area-top)',
+        left: 'var(--safe-area-left)',
+        right: 'var(--safe-area-right)',
+        width: 'calc(100% - var(--safe-area-left) - var(--safe-area-right))',
+        height: 'calc(100% - var(--safe-area-top) - var(--safe-area-bottom))',
+        zIndex: 2
+      }}>
         
         {/* Bell Icon: x=21, y=53, w=24, h=26 */}
         <img 

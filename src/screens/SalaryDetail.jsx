@@ -118,6 +118,16 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
       overflow: 'hidden',
       backgroundColor: '#ffffff',
     }}>
+      {/* Interactive safe area container */}
+      <div style={{
+        position: 'absolute',
+        top: 'var(--safe-area-top)',
+        left: 'var(--safe-area-left)',
+        right: 'var(--safe-area-right)',
+        width: 'calc(100% - var(--safe-area-left) - var(--safe-area-right))',
+        height: 'calc(100% - var(--safe-area-top) - var(--safe-area-bottom))',
+        zIndex: 10
+      }}>
 
       {/* ── 13:3  Vector 8 (back-arrow chevron)
                x:27 y:76  width:9 height:18
@@ -345,7 +355,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
       <div style={txt(290, 323, 77, 17, 14, 'Medium', '#2a2b2b', 'right', { zIndex: 5 })}>
         {salary}
       </div>
-
+      </div>
     </div>
   );
 };

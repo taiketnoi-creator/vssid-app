@@ -1,0 +1,12 @@
+{
+  "appId": "com.taiq.vssidapp",
+  "appName": "VssID Premium",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  },
+  "ios": {
+    "contentInset": "always"
+  }
+}

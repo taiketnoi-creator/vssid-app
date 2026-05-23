@@ -59,9 +59,19 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         draggable={false}
       />
 
-      {/* 2. Transparent Back Button Hotspot: x=10, y=25, w=45, h=45 */}
-      <button
-        onClick={() => onNavigate('dashboard', { transition: 'slide', direction: 'right' })}
+      {/* Interactive safe area container */}
+      <div style={{
+        position: 'absolute',
+        top: 'var(--safe-area-top)',
+        left: 'var(--safe-area-left)',
+        right: 'var(--safe-area-right)',
+        width: 'calc(100% - var(--safe-area-left) - var(--safe-area-right))',
+        height: 'calc(100% - var(--safe-area-top) - var(--safe-area-bottom))',
+        zIndex: 10
+      }}>
+        {/* 2. Transparent Back Button Hotspot: x=10, y=25, w=45, h=45 */}
+        <button
+          onClick={() => onNavigate('dashboard', { transition: 'slide', direction: 'right' })}
         style={{
           position: 'absolute',
           left: `${(10 / W) * 100}%`,
@@ -271,22 +281,17 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
               </div>
             ) : (
               /* Pure Vector HTML/CSS Figma Table covering background sample data 100% */
-              <div 
-                className="scrollbar-none"
-                style={{
-                  position: 'absolute',
-                  left: `${(9 / W) * 100}%`,
-                  top: `${(266 / H) * 100}%`,
-                  width: `${(382 / W) * 100}%`,
-                  height: `${(534 / H) * 100}%`,
-                  background: '#ffffff',
-                  zIndex: 5,
-                  boxSizing: 'border-box',
-                  pointerEvents: 'auto',
-                  overflowY: 'auto',
-                  paddingBottom: '20px' // Add comfortable padding at bottom for scrolling
-                }}
-              >
+              <div style={{
+                position: 'absolute',
+                left: `${(9 / W) * 100}%`,
+                top: `${(266 / H) * 100}%`,
+                width: `${(382 / W) * 100}%`,
+                height: `${(534 / H) * 100}%`,
+                background: '#ffffff',
+                zIndex: 5,
+                boxSizing: 'border-box',
+                pointerEvents: 'auto'
+              }}>
                 <table style={{
                   width: '100%',
                   borderCollapse: 'collapse',
@@ -295,7 +300,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                   color: '#3f3f3f',
                   backgroundColor: '#ffffff'
                 }}>
-                  <thead style={{ position: 'sticky', top: 0, zIndex: 10 }}>
+                  <thead>
                     <tr style={{ backgroundColor: '#38679f', height: '42px', color: '#ffffff' }}>
                       <th style={{ 
                         width: `${(68 / 382) * 100}%`, 
@@ -339,7 +344,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {history.map((row, idx) => (
+                    {history.slice(0, 2).map((row, idx) => (
                       <tr key={idx} style={{ height: '66px', backgroundColor: '#ffffff' }}>
                         <td style={{ 
                           textAlign: 'center', 
@@ -454,6 +459,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
           onClick={() => onNavigate('dashboard')}
           style={{ flex: 1, cursor: 'pointer' }}
         />
+      </div>
       </div>
     </div>
   );

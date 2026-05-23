@@ -42,10 +42,11 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
       {/* 2. Interactive Overlay Layer */}
       <div style={{
         position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
+        top: 'var(--safe-area-top)',
+        left: 'var(--safe-area-left)',
+        right: 'var(--safe-area-right)',
+        width: 'calc(100% - var(--safe-area-left) - var(--safe-area-right))',
+        height: 'calc(100% - var(--safe-area-top) - var(--safe-area-bottom))',
         zIndex: 10
       }}>
         {/* Hamburger Menu Hotspot: x=18, y=34, w=25, h=18 */}

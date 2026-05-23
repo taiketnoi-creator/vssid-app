@@ -1,0 +1,67 @@
+name: Build iOS IPA
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    name: Build iOS IPA
+    runs-on: macos-14
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install Dependencies
+        run: |
+          npm install
+
+      - name: Build Web Assets
+        run: |
+          npm run build
+
+      - name: Setup Capacitor iOS Platform
+        run: |
+          npx cap add ios || true
+          npx cap sync ios
+
+      - name: Setup Xcode Project Settings
+        run: |
+          # Print Xcode SDK details
+          xcrun xcodebuild -showsdks
+
+      - name: Build Xcode Archive (.xcarchive)
+        run: |
+          cd ios/App
+          xcodebuild -workspace App.xcworkspace \
+                     -scheme App \
+                     -configuration Release \
+                     -sdk iphoneos \
+                     -archivePath $PWD/build/App.xcarchive \
+                     CODE_SIGNING_ALLOWED=NO \
+                     CODE_SIGNING_REQUIRED=NO \
+                     clean archive
+
+      - name: Export IPA (Ad-Hoc/Unsigned)
+        run: |
+          # Pack the .xcarchive into a standard unsigned ad-hoc .ipa file
+          cd ios/App/build/App.xcarchive/Products/Applications
+          mkdir Payload
+          cp -r App.app Payload/
+          zip -vr App.ipa Payload/
+          mv App.ipa ../../../../../App.ipa
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VssID-Premium-iOS-Unsigned
+          path: App.ipa
