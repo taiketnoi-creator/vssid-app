@@ -123,12 +123,12 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
             )}
           </div>
 
-          {/* Name Text x=82, y=128, w=143, h=18 */}
+          {/* Name Text x=0, y=128, w=100% */}
           <div style={{
             position: 'absolute',
-            left: `${(82 / 311) * 100}%`,
+            left: 0,
             top: `${(128 / 183) * 100}%`,
-            width: `${(143 / 311) * 100}%`,
+            width: '100%',
             height: `${(18 / 183) * 100}%`,
             display: 'flex',
             alignItems: 'center',
@@ -138,6 +138,8 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
             fontSize: '15px',
             fontWeight: 700,
             textAlign: 'center',
+            padding: '0 20px',
+            boxSizing: 'border-box',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis'
@@ -145,12 +147,12 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
             {currentAccount?.fullName}
           </div>
 
-          {/* Code Text x=106, y=153, w=95, h=18 */}
+          {/* Code Text x=0, y=153, w=100% */}
           <div style={{
             position: 'absolute',
-            left: `${(106 / 311) * 100}%`,
+            left: 0,
             top: `${(153 / 183) * 100}%`,
-            width: `${(95 / 311) * 100}%`,
+            width: '100%',
             height: `${(18 / 183) * 100}%`,
             display: 'flex',
             alignItems: 'center',
@@ -160,6 +162,8 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
             fontSize: '15px',
             fontWeight: 700,
             textAlign: 'center',
+            padding: '0 20px',
+            boxSizing: 'border-box',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis'
