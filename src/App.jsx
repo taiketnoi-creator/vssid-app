@@ -23,7 +23,7 @@ const SEED_ACCOUNTS = [
         from: "09/2025",
         to: "09/2026",
         company: "Công ty Cổ phần Masscom Việt Nam",
-        position: "Nhân viên kỹ thuật",
+        position: "Kỹ sử điện",
         salary: "14.500.000",
         workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
       },
@@ -31,7 +31,7 @@ const SEED_ACCOUNTS = [
         from: "01/2026",
         to: "09/2026",
         company: "Công ty Cổ phần Masscom Việt Nam",
-        position: "Nhân viên kỹ thuật",
+        position: "Kỹ sử điện",
         salary: "14.500.000",
         workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
       },
@@ -39,7 +39,7 @@ const SEED_ACCOUNTS = [
         from: "01/2026",
         to: "09/2026",
         company: "Công ty Cổ phần Masscom Việt Nam",
-        position: "Nhân viên kỹ thuật",
+        position: "Kỹ sử điện",
         salary: "14.500.000",
         workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
       },
@@ -47,8 +47,8 @@ const SEED_ACCOUNTS = [
         from: "01/2026",
         to: "09/2026",
         company: "Công ty Cổ phần Masscom Việt Nam",
-        position: "Nhân viên kỹ thuật",
-        salary: "14.500.000",
+        position: "Kỹ sư toán học",
+        salary: "21.500.000",
         workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
       }
     ]
