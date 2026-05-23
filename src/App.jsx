@@ -9,31 +9,31 @@ import './App.css';
 
 const SEED_ACCOUNTS = [
   {
-    username: "4217247030",
+    username: "123456789",
     password: "123",
-    fullName: "Cao thanh tai",
+    fullName: "Cao Thành Tai",
     bhxhCode: "4217247030",
-    birthday: "24/05/1999",
+    birthday: "24/05/1994",
     cccd: "040299010346",
     phone: "0896511373",
-    address: "xóm Đông Lam, Xã Trường Lưu, Huyện Lộc Hà, Tỉnh Hà Tĩnh",
+    address: "Thôn 7, Ngọc Đường, Hồng Châu, Yên Lạc, Vĩnh Phúc",
     avatar: "",
     insuranceHistory: [
       {
-        from: "04/2025",
-        to: "03/2026",
-        company: "Công ty TNHH EO TECHNICS Việt Nam",
+        from: "09/2025",
+        to: "09/2026",
+        company: "Công ty Cổ phần Masscom Việt Nam",
         position: "Nhân viên kỹ thuật",
         salary: "14.500.000",
-        workAddress: "BT22, khu đô thị hud võ cường-Tp Bắc Ninh-Bắc Ninh"
+        workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
       },
       {
-        from: "09/2020",
-        to: "03/2025",
-        company: "Công ty TNHH EO TECHNICS Việt Nam",
+        from: "01/2026",
+        to: "09/2026",
+        company: "Công ty Cổ phần Masscom Việt Nam",
         position: "Nhân viên kỹ thuật",
         salary: "14.500.000",
-        workAddress: "BT22, khu đô thị hud võ cường-Tp Bắc Ninh-Bắc Ninh"
+        workAddress: "48 Tố Hữu, Phường Tố Hữu, Thanh xuân, Hà Nội"
       }
     ]
   }
