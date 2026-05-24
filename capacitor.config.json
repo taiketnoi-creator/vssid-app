@@ -1,6 +1,6 @@
 {
   "appId": "com.taiq.vssidapp",
-  "appName": "VssID Premium",
+  "appName": "VssID",
   "webDir": "dist",
   "bundledWebRuntime": false,
   "server": {
