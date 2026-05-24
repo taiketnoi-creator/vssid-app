@@ -348,17 +348,20 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                         <td style={{ 
                           textAlign: 'center', 
                           fontWeight: 500, 
+                          fontSize: '12px',
                           border: '0.5px solid #d9d9d9',
                           padding: 0 
                         }}>{row.from}</td>
                         <td style={{ 
                           textAlign: 'center', 
                           fontWeight: 500, 
+                          fontSize: '12px',
                           border: '0.5px solid #d9d9d9',
                           padding: 0 
                         }}>{row.to}</td>
                         <td style={{ 
-                          fontWeight: 600, 
+                          fontWeight: 500, 
+                          fontSize: '12px',
                           border: '0.5px solid #d9d9d9', 
                           padding: '0 6px', 
                           textAlign: 'center', 
@@ -368,6 +371,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                         <td style={{ 
                           textAlign: 'center', 
                           fontWeight: 500, 
+                          fontSize: '12px',
                           border: '0.5px solid #d9d9d9', 
                           padding: '0 4px', 
                           lineHeight: '1.3',
