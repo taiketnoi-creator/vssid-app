@@ -42,11 +42,10 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
       {/* 2. Interactive Overlay Layer */}
       <div style={{
         position: 'absolute',
-        top: 'var(--safe-area-top)',
-        left: 'var(--safe-area-left)',
-        right: 'var(--safe-area-right)',
-        width: 'calc(100% - var(--safe-area-left) - var(--safe-area-right))',
-        height: 'calc(100% - var(--safe-area-top) - var(--safe-area-bottom))',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 10
       }}>
         {/* Hamburger Menu Hotspot: x=18, y=34, w=25, h=18 */}
@@ -86,23 +85,23 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
         {/* Dynamic Profile Card Box: x=19, y=87, 364x276 */}
         <div style={{
           position: 'absolute',
-          left: '19px',
-          top: '87px',
-          width: '364px',
-          height: '276px',
+          left: `${(19 / W) * 100}%`,
+          top: `${(87 / H) * 100}%`,
+          width: `${(364 / W) * 100}%`,
+          height: `${(276 / H) * 100}%`,
           background: '#eaeff3', // Matches Figma card background perfectly
           borderRadius: '12px',
           boxSizing: 'border-box',
           boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)',
           overflow: 'hidden'
         }}>
-          {/* Avatar Circle: x=43, y=108, w=62, h=62 (relative x=24, y=21) */}
+          {/* Avatar Circle: x=43, y=108, w=62, h=62 (relative left=24, top=21) */}
           <div style={{
             position: 'absolute',
-            left: '24px',
-            top: '21px',
-            width: '62px',
-            height: '62px',
+            left: `${(24 / 364) * 100}%`,
+            top: `${(21 / 276) * 100}%`,
+            width: `${(62 / 364) * 100}%`,
+            aspectRatio: '1 / 1',
             borderRadius: '50%',
             background: '#ffffff',
             boxShadow: '0px 2px 4px rgba(0,0,0,0.25)',
@@ -130,13 +129,13 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             )}
           </div>
 
-          {/* Full Name: x=120, y=118, w=224, h=17 (relative x=101, y=31) */}
+          {/* Full Name: x=120, y=118, w=224, h=17 (relative left=101, top=31) */}
           <div style={{
             position: 'absolute',
-            left: '101px',
-            top: '31px',
-            width: '224px',
-            height: '17px',
+            left: `${(101 / 364) * 100}%`,
+            top: `${(31 / 276) * 100}%`,
+            width: `${(224 / 364) * 100}%`,
+            height: `${(17 / 276) * 100}%`,
             fontSize: '14px',
             fontWeight: 700,
             color: '#000000',
@@ -150,13 +149,13 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             {currentAccount?.fullName || 'Nguyễn Hữu Hoàng'}
           </div>
 
-          {/* BHXH Code: x=120, y=144, w=224, h=17 (relative x=101, y=57) */}
+          {/* BHXH Code: x=120, y=144, w=224, h=17 (relative left=101, top=57) */}
           <div style={{
             position: 'absolute',
-            left: '101px',
-            top: '57px',
-            width: '224px',
-            height: '17px',
+            left: `${(101 / 364) * 100}%`,
+            top: `${(57 / 276) * 100}%`,
+            width: `${(224 / 364) * 100}%`,
+            height: `${(17 / 276) * 100}%`,
             fontSize: '14px',
             fontWeight: 400,
             color: '#4d4d4d',
@@ -167,22 +166,22 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             Mã BHXH: {currentAccount?.bhxhCode || '4217247030'}
           </div>
 
-          {/* Line 1 (Divider under Avatar): absolute y=182 (relative y=95) */}
+          {/* Line 1 (Divider under Avatar): absolute y=182 (relative top=95) */}
           <div style={{
             position: 'absolute',
-            left: '20px',
-            right: '20px',
-            top: '95px',
+            left: `${(20 / 364) * 100}%`,
+            right: `${(20 / 364) * 100}%`,
+            top: `${(95 / 276) * 100}%`,
             height: '1px',
             background: '#948c8c',
             opacity: 0.35
           }} />
 
-          {/* ──── Field 1: Ngày sinh (y=197, relative y=110) ──── */}
+          {/* ──── Field 1: Ngày sinh (y=197, relative top=110) ──── */}
           <div style={{
             position: 'absolute',
-            left: '23px',
-            top: '110px',
+            left: `${(23 / 364) * 100}%`,
+            top: `${(110 / 276) * 100}%`,
             fontSize: '14px',
             fontWeight: 400,
             color: '#616161',
@@ -192,8 +191,8 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           </div>
           <div style={{
             position: 'absolute',
-            right: '22px',
-            top: '110px',
+            right: `${(22 / 364) * 100}%`,
+            top: `${(110 / 276) * 100}%`,
             fontSize: '14px',
             fontWeight: 400,
             color: '#616161',
@@ -203,22 +202,22 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             {currentAccount?.birthday || '24/05/1999'}
           </div>
 
-          {/* Line 3 (Divider 2): absolute y=224 (relative y=137) */}
+          {/* Line 3 (Divider 2): absolute y=224 (relative top=137) */}
           <div style={{
             position: 'absolute',
-            left: '20px',
-            right: '20px',
-            top: '137px',
+            left: `${(20 / 364) * 100}%`,
+            right: `${(20 / 364) * 100}%`,
+            top: `${(137 / 276) * 100}%`,
             height: '1px',
             background: '#948c8c',
             opacity: 0.35
           }} />
 
-          {/* ──── Field 2: ĐDCN/CCCD/Hộ chiếu (y=235, relative y=148) ──── */}
+          {/* ──── Field 2: ĐDCN/CCCD/Hộ chiếu (y=235, relative top=148) ──── */}
           <div style={{
             position: 'absolute',
-            left: '23px',
-            top: '148px',
+            left: `${(23 / 364) * 100}%`,
+            top: `${(148 / 276) * 100}%`,
             fontSize: '14px',
             fontWeight: 400,
             color: '#616161',
@@ -228,8 +227,8 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           </div>
           <div style={{
             position: 'absolute',
-            right: '22px',
-            top: '148px',
+            right: `${(22 / 364) * 100}%`,
+            top: `${(148 / 276) * 100}%`,
             fontSize: '14px',
             fontWeight: 400,
             color: '#616161',
@@ -239,22 +238,22 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             {currentAccount?.cccd || '040299010346'}
           </div>
 
-          {/* Line 4 (Divider 3): absolute y=262 (relative y=175) */}
+          {/* Line 4 (Divider 3): absolute y=262 (relative top=175) */}
           <div style={{
             position: 'absolute',
-            left: '20px',
-            right: '20px',
-            top: '175px',
+            left: `${(20 / 364) * 100}%`,
+            right: `${(20 / 364) * 100}%`,
+            top: `${(175 / 276) * 100}%`,
             height: '1px',
             background: '#948c8c',
             opacity: 0.35
           }} />
 
-          {/* ──── Field 3: Số điện thoại (y=273, relative y=186) ──── */}
+          {/* ──── Field 3: Số điện thoại (y=273, relative top=186) ──── */}
           <div style={{
             position: 'absolute',
-            left: '23px',
-            top: '186px',
+            left: `${(23 / 364) * 100}%`,
+            top: `${(186 / 276) * 100}%`,
             fontSize: '14px',
             fontWeight: 400,
             color: '#616161',
@@ -264,8 +263,8 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           </div>
           <div style={{
             position: 'absolute',
-            right: '22px',
-            top: '186px',
+            right: `${(22 / 364) * 100}%`,
+            top: `${(186 / 276) * 100}%`,
             fontSize: '14px',
             fontWeight: 400,
             color: '#616161',
@@ -275,22 +274,22 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             {currentAccount?.phone || '0896511373'}
           </div>
 
-          {/* Line 5 (Divider 4): absolute y=300 (relative y=213) */}
+          {/* Line 5 (Divider 4): absolute y=300 (relative top=213) */}
           <div style={{
             position: 'absolute',
-            left: '20px',
-            right: '20px',
-            top: '213px',
+            left: `${(20 / 364) * 100}%`,
+            right: `${(20 / 364) * 100}%`,
+            top: `${(213 / 276) * 100}%`,
             height: '1px',
             background: '#948c8c',
             opacity: 0.35
           }} />
 
-          {/* ──── Field 4: Địa chỉ (y=308, relative y=221) ──── */}
+          {/* ──── Field 4: Địa chỉ (y=308, relative top=221) ──── */}
           <div style={{
             position: 'absolute',
-            left: '23px',
-            top: '221px',
+            left: `${(23 / 364) * 100}%`,
+            top: `${(221 / 276) * 100}%`,
             fontSize: '14px',
             fontWeight: 400,
             color: '#616161',
@@ -300,9 +299,9 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           </div>
           <div style={{
             position: 'absolute',
-            right: '22px',
-            top: '221px',
-            width: '208px',
+            right: `${(22 / 364) * 100}%`,
+            top: `${(221 / 276) * 100}%`,
+            width: `${(208 / 364) * 100}%`,
             fontSize: '14px',
             fontWeight: 400,
             color: '#616161',

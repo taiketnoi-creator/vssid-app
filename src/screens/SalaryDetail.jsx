@@ -121,11 +121,10 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
       {/* Interactive safe area container */}
       <div style={{
         position: 'absolute',
-        top: 'var(--safe-area-top)',
-        left: 'var(--safe-area-left)',
-        right: 'var(--safe-area-right)',
-        width: 'calc(100% - var(--safe-area-left) - var(--safe-area-right))',
-        height: 'calc(100% - var(--safe-area-top) - var(--safe-area-bottom))',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 10
       }}>
 
