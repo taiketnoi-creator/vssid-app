@@ -202,21 +202,30 @@
 /* Fullscreen on smaller viewports & Native Mobile App mode */
 @media (max-width: 450px), (display-mode: standalone) {
   .app-viewport {
-    background: #ffffff;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    padding: 0;
+    background: #0c101b !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
   }
   .phone-chassis {
+    width: 100% !important;
+    height: 100% !important;
     max-width: 100% !important;
-    height: 100vh !important;
-    height: -webkit-fill-available !important;
     border-radius: 0 !important;
     padding: 0 !important;
     box-shadow: none !important;
+    margin: 0 !important;
   }
   .phone-screen {
+    width: 100% !important;
+    height: 100% !important;
     border-radius: 0 !important;
+    background: #0c101b !important;
   }
   .phone-notch {
     display: none !important;
