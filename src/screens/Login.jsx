@@ -34,6 +34,8 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
     }
 
     setLoading(true);
+    // Add a simulated network authentication delay of 1.5s for authentic VssID premium experience
+    await new Promise(resolve => setTimeout(resolve, 1500));
     const result = await onLogin(username, password);
     setLoading(false);
 
@@ -46,6 +48,8 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
   const handleQuickLogin = async () => {
     if (loading) return;
     setLoading(true);
+    // Add a simulated biometric connection delay of 1.5s for authentic experience
+    await new Promise(resolve => setTimeout(resolve, 1500));
     // Try to login online with the default seed account
     const result = await onLogin('123456789', '123');
     setLoading(false);
@@ -191,6 +195,13 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             color: #1e293b !important;
             font-weight: 600 !important;
             font-size: 14.5px !important;
+          }
+          @keyframes spin-loader {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .vssid-spinner-ring {
+            animation: spin-loader 1s linear infinite;
           }
         `}</style>
 
@@ -467,6 +478,57 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           }} 
           draggable={false} 
         />
+
+        {/* Loading Spinner matching Figma exact spec: x=178, y=418, w=48, h=48 */}
+        {loading && (
+          <div style={{
+            position: 'absolute',
+            left: `${(178 / W) * 100}%`,
+            top: `${(418 / H) * 100}%`,
+            width: `${(48 / W) * 100}%`,
+            aspectRatio: '1 / 1',
+            zIndex: 100,
+            pointerEvents: 'none'
+          }}>
+            {/* Outer rotating ring (Ellipse 5) */}
+            <div 
+              className="vssid-spinner-ring"
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                borderRadius: '50%',
+                background: 'conic-gradient(from 0deg, #01aef2 0%, rgba(1, 174, 242, 0.15) 80%, transparent 100%)'
+              }}
+            />
+            {/* Inner static white circle with shadow & logo (Ellipse 1 + BHXH Logo) */}
+            <div style={{
+              position: 'absolute',
+              left: '8.33%',
+              top: '8.33%',
+              width: '83.33%',
+              height: '83.33%',
+              borderRadius: '50%',
+              background: '#ffffff',
+              boxShadow: '0px 1.5px 3px rgba(0, 0, 0, 0.25)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 2
+            }}>
+              <img 
+                src={logoBhxh} 
+                alt="BHXH" 
+                style={{
+                  width: '95%',
+                  height: '95%',
+                  objectFit: 'contain',
+                  borderRadius: '50%'
+                }} 
+              />
+            </div>
+          </div>
+        )}
 
       </div>
     </div>
