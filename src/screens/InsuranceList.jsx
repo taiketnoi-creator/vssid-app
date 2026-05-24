@@ -203,56 +203,72 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         {activeTab === 'BHXH' ? (
           <>
             {/* --- Summary Box Overlay --- */}
-            {/* Cover and overlay "Tổng thời gian tham gia" */}
+            {/* Draw a solid clean covering card to erase all static background text completely */}
             <div style={{
               position: 'absolute',
-              left: `${(20 / W) * 100}%`,
-              top: `${(221 / H) * 100}%`,
-              width: `${(260 / W) * 100}%`,
-              height: `${(17 / H) * 100}%`,
+              left: `${(15 / W) * 100}%`,
+              top: `${(178 / H) * 100}%`,
+              width: `${(372 / W) * 100}%`,
+              height: `${(83 / H) * 100}%`,
               background: '#f0f7fc',
-              pointerEvents: 'none'
+              borderRadius: '8px',
+              pointerEvents: 'none',
+              zIndex: 4
             }} />
+
+            {/* Title: Quá trình tham gia Bảo hiểm xã hội */}
             <div style={{
               position: 'absolute',
               left: `${(20 / W) * 100}%`,
-              top: `${(221 / H) * 100}%`,
-              width: `${(260 / W) * 100}%`,
-              height: `${(17 / H) * 100}%`,
+              top: `${(184 / H) * 100}%`,
+              width: `${(362 / W) * 100}%`,
+              height: `${(20 / H) * 100}%`,
+              color: '#0069ad',
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '14.5px',
+              fontWeight: 700,
+              display: 'flex',
+              alignItems: 'center',
+              pointerEvents: 'none',
+              zIndex: 5
+            }}>
+              Quá trình tham gia Bảo hiểm xã hội
+            </div>
+
+            {/* Line 2: Tổng thời gian tham gia */}
+            <div style={{
+              position: 'absolute',
+              left: `${(20 / W) * 100}%`,
+              top: `${(206 / H) * 100}%`,
+              width: `${(362 / W) * 100}%`,
+              height: `${(18 / H) * 100}%`,
               color: '#2a2b2b',
               fontFamily: 'Inter, sans-serif',
               fontSize: '13.5px',
-              fontWeight: 500,
+              fontWeight: 600,
               display: 'flex',
               alignItems: 'center',
-              pointerEvents: 'none'
+              pointerEvents: 'none',
+              zIndex: 5
             }}>
               Tổng thời gian tham gia: {years > 0 ? `${years} năm ` : ''}{months} tháng
             </div>
 
-            {/* Cover and overlay "Tổng thời gian chậm đóng" */}
+            {/* Line 3: Tổng thời gian chậm đóng */}
             <div style={{
               position: 'absolute',
               left: `${(20 / W) * 100}%`,
-              top: `${(239 / H) * 100}%`,
-              width: `${(240 / W) * 100}%`,
-              height: `${(17 / H) * 100}%`,
-              background: '#f0f7fc',
-              pointerEvents: 'none'
-            }} />
-            <div style={{
-              position: 'absolute',
-              left: `${(20 / W) * 100}%`,
-              top: `${(239 / H) * 100}%`,
-              width: `${(240 / W) * 100}%`,
-              height: `${(17 / H) * 100}%`,
+              top: `${(226 / H) * 100}%`,
+              width: `${(362 / W) * 100}%`,
+              height: `${(18 / H) * 100}%`,
               color: '#c1191a',
               fontFamily: 'Inter, sans-serif',
               fontSize: '13.5px',
-              fontWeight: 500,
+              fontWeight: 700,
               display: 'flex',
               alignItems: 'center',
-              pointerEvents: 'none'
+              pointerEvents: 'none',
+              zIndex: 5
             }}>
               Tổng thời gian chậm đóng: 0 tháng
             </div>
