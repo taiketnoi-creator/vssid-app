@@ -210,7 +210,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
               top: `${(221 / H) * 100}%`,
               width: `${(260 / W) * 100}%`,
               height: `${(17 / H) * 100}%`,
-              background: '#ffffff',
+              background: '#f6f5f3',
               pointerEvents: 'none'
             }} />
             <div style={{
@@ -237,7 +237,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
               top: `${(239 / H) * 100}%`,
               width: `${(240 / W) * 100}%`,
               height: `${(17 / H) * 100}%`,
-              background: '#ffffff',
+              background: '#f6f5f3',
               pointerEvents: 'none'
             }} />
             <div style={{
