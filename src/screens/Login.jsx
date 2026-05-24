@@ -367,7 +367,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.6)'}
           onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.45)'}
         >
-          {loading ? 'Đang kết nối...' : 'Đăng nhập'}
+          Đăng nhập
         </div>
 
         {/* Fingerprint/FaceID button: x309,y372 80x80 */}
