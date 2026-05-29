@@ -322,9 +322,9 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           style={{
             position: 'absolute',
             left: 0,
-            top: '378px',
+            top: `${(378 / H) * 100}%`,
             width: '100%',
-            height: '65px',
+            height: `${(65 / H) * 100}%`,
             cursor: 'pointer'
           }}
         />
@@ -335,9 +335,9 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           style={{
             position: 'absolute',
             left: 0,
-            top: '443px',
+            top: `${(443 / H) * 100}%`,
             width: '100%',
-            height: '65px',
+            height: `${(65 / H) * 100}%`,
             cursor: 'pointer'
           }}
         />
@@ -348,9 +348,9 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           style={{
             position: 'absolute',
             left: 0,
-            top: '508px',
+            top: `${(508 / H) * 100}%`,
             width: '100%',
-            height: '65px',
+            height: `${(65 / H) * 100}%`,
             cursor: 'pointer'
           }}
         />
@@ -361,9 +361,9 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           style={{
             position: 'absolute',
             left: 0,
-            top: '573px',
+            top: `${(573 / H) * 100}%`,
             width: '100%',
-            height: '65px',
+            height: `${(65 / H) * 100}%`,
             cursor: 'pointer'
           }}
         />
@@ -374,7 +374,7 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           left: 0,
           bottom: 0,
           width: '100%',
-          height: '65px',
+          height: `${(65 / H) * 100}%`,
           display: 'flex'
         }}>
           {/* Column 1: Trang chủ */}

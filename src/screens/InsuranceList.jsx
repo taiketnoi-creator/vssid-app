@@ -90,9 +90,9 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
       <div style={{
         position: 'absolute',
         left: 0,
-        top: '67px',
+        top: `${(67 / H) * 100}%`,
         width: '100%',
-        height: '78px',
+        height: `${(78 / H) * 100}%`,
         zIndex: 25,
         display: 'flex',
         background: 'transparent'
@@ -118,9 +118,9 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         <div style={{
           position: 'absolute',
           left: 0,
-          top: '67px',
+          top: `${(67 / H) * 100}%`,
           width: '100%',
-          height: '78px',
+          height: `${(78 / H) * 100}%`,
           background: '#ffffff',
           zIndex: 20,
           display: 'flex',
@@ -285,11 +285,12 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                 left: `${(9 / W) * 100}%`,
                 top: `${(266 / H) * 100}%`,
                 width: `${(382 / W) * 100}%`,
-                height: `${(534 / H) * 100}%`,
+                minHeight: `${(534 / H) * 100}%`,
                 background: '#ffffff',
                 zIndex: 5,
                 boxSizing: 'border-box',
-                pointerEvents: 'auto'
+                pointerEvents: 'auto',
+                overflowY: 'auto'
               }}>
                 <table style={{
                   width: '100%',
@@ -304,7 +305,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                       <th style={{ 
                         width: `${(68 / 382) * 100}%`, 
                         fontWeight: 400, 
-                        border: '0.5px solid #d9d9d9',
+                        border: '1px solid #aaa9ae',
                         fontSize: '12px',
                         textAlign: 'center',
                         padding: 0
@@ -312,7 +313,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                       <th style={{ 
                         width: `${(67 / 382) * 100}%`, 
                         fontWeight: 400, 
-                        border: '0.5px solid #d9d9d9',
+                        border: '1px solid #aaa9ae',
                         fontSize: '12px',
                         lineHeight: '1.2',
                         textAlign: 'center',
@@ -321,7 +322,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                       <th style={{ 
                         width: `${(123 / 382) * 100}%`, 
                         fontWeight: 400, 
-                        border: '0.5px solid #d9d9d9',
+                        border: '1px solid #aaa9ae',
                         fontSize: '12px',
                         textAlign: 'center',
                         padding: 0
@@ -329,7 +330,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                       <th style={{ 
                         width: `${(92 / 382) * 100}%`, 
                         fontWeight: 400, 
-                        border: '0.5px solid #d9d9d9',
+                        border: '1px solid #aaa9ae',
                         fontSize: '12px',
                         lineHeight: '1.2',
                         textAlign: 'center',
@@ -337,32 +338,32 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                       }}>Nghề nghiệp<br/>Chức vụ</th>
                       <th style={{ 
                         width: `${(32 / 382) * 100}%`, 
-                        border: '0.5px solid #d9d9d9',
+                        border: '1px solid #aaa9ae',
                         padding: 0
                       }}></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {history.slice(0, 2).map((row, idx) => (
+                    {history.map((row, idx) => (
                       <tr key={idx} style={{ height: '66px', backgroundColor: '#ffffff' }}>
                         <td style={{ 
                           textAlign: 'center', 
                           fontWeight: 500, 
                           fontSize: '12px',
-                          border: '0.5px solid #d9d9d9',
+                          border: '1px solid #aaa9ae',
                           padding: 0 
                         }}>{row.from}</td>
                         <td style={{ 
                           textAlign: 'center', 
                           fontWeight: 500, 
                           fontSize: '12px',
-                          border: '0.5px solid #d9d9d9',
+                          border: '1px solid #aaa9ae',
                           padding: 0 
                         }}>{row.to}</td>
                         <td style={{ 
                           fontWeight: 500, 
                           fontSize: '12px',
-                          border: '0.5px solid #d9d9d9', 
+                          border: '1px solid #aaa9ae', 
                           padding: '0 6px', 
                           textAlign: 'center', 
                           lineHeight: '1.3',
@@ -372,14 +373,14 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                           textAlign: 'center', 
                           fontWeight: 500, 
                           fontSize: '12px',
-                          border: '0.5px solid #d9d9d9', 
+                          border: '1px solid #aaa9ae', 
                           padding: '0 4px', 
                           lineHeight: '1.3',
                           wordBreak: 'break-word'
                         }}>{row.position}</td>
                         <td style={{ 
                           textAlign: 'center', 
-                          border: '0.5px solid #d9d9d9', 
+                          border: '1px solid #aaa9ae', 
                           position: 'relative',
                           padding: 0 
                         }}>
@@ -415,9 +416,9 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
           <div style={{
             position: 'absolute',
             left: 0,
-            top: '145px',
+            top: `${(145 / H) * 100}%`,
             width: '100%',
-            height: 'calc(100% - 145px - 65px)',
+            height: `calc(100% - ${(145 / H) * 100}% - ${(65 / H) * 100}%)`,
             background: '#ffffff',
             display: 'flex',
             alignItems: 'center',
@@ -438,7 +439,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         left: 0,
         bottom: 0,
         width: '100%',
-        height: '65px',
+        height: `${(65 / H) * 100}%`,
         zIndex: 30,
         display: 'flex'
       }}>

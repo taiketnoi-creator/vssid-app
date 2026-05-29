@@ -1,0 +1,5 @@
+package com.taiq.vssidapp;
+
+import com.getcapacitor.BridgeActivity;
+
+public class MainActivity extends BridgeActivity {}

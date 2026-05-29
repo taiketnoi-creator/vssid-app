@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
+
+# Exclude massive installers and local archives
+*.exe
+*.rar
+scratch/
+*debug.apk

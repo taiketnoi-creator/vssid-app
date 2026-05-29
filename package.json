@@ -11,9 +11,12 @@
     "get-figma": "node get-figma.js",
     "cap:init": "npx cap init",
     "cap:sync": "npx cap sync ios",
-    "ios:build": "npm run build && npx cap sync ios"
+    "ios:build": "npm run build && npx cap sync ios",
+    "android:sync": "npm run build && npx cap sync android",
+    "android:open": "npx cap open android"
   },
   "dependencies": {
+    "@capacitor/android": "^8.3.4",
     "@capacitor/core": "^8.3.4",
     "@capacitor/ios": "^8.3.4",
     "@supabase/supabase-js": "^2.106.1",

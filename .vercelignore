@@ -1,0 +1,21 @@
+# Ignore large binary files
+*.exe
+*.rar
+*.zip
+*.7z
+
+# Ignore native folders
+android/
+ios/
+
+# Ignore local dependencies and builds
+node_modules/
+.svelte-kit/
+.next/
+.nuxt/
+out/
+.cache/
+
+# Ignore local git
+.git/
+.github/

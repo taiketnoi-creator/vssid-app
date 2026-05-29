@@ -4,7 +4,9 @@
   "webDir": "dist",
   "bundledWebRuntime": false,
   "server": {
-    "androidScheme": "https"
+    "androidScheme": "https",
+    "url": "https://vssid-app.vercel.app",
+    "cleartext": true
   },
   "ios": {
     "contentInset": "always"

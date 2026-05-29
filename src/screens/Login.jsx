@@ -28,40 +28,29 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
 
   const handleLoginSubmit = async () => {
     if (loading) return;
-    if (!username || !password) {
-      showToast('Vui lòng điền đầy đủ tài khoản & mật khẩu!');
+    if (!username) {
+      showToast('Vui lòng điền Mã số BHXH để đăng nhập!');
       return;
     }
 
     setLoading(true);
-    // Add a simulated network authentication delay of 1.5s for authentic VssID premium experience
     await new Promise(resolve => setTimeout(resolve, 1500));
-    const result = await onLogin(username, password);
+    const result = await onLogin(username);
     setLoading(false);
 
     if (result && !result.success) {
-      showToast(result.message || 'Lỗi đăng nhập!');
+      showToast(result.message || 'Mã số BHXH không tồn tại trong hệ thống!');
     }
   };
 
-  // VNeID or Fingerprint login defaults to first available account for instant convenience
-  const handleQuickLogin = async () => {
-    if (loading) return;
-    setLoading(true);
-    // Add a simulated biometric connection delay of 1.5s for authentic experience
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    // Try to login online with the default seed account
-    const result = await onLogin('123456789', '123');
-    setLoading(false);
+  // Biometric fingerprint/Face ID login: works exactly like the Login button
+  const handleBiometricLogin = async () => {
+    await handleLoginSubmit();
+  };
 
-    if (result && !result.success) {
-      // If online/database login fails (unconfigured or offline), fallback to the local offline seed
-      if (accounts && accounts.length > 0) {
-        onLogin(accounts[0]);
-      } else {
-        showToast('Không có tài khoản nào để đăng nhập!');
-      }
-    }
+  // VNeID login: shows a secure alert that it is not linked or under maintenance
+  const handleVneidLogin = () => {
+    showToast('Thiết bị chưa được liên kết tài khoản Định danh điện tử (VNeID)!');
   };
 
   // Hidden feature: Tapping BHXH logo 5 times opens Account Manager
@@ -114,11 +103,10 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
       {/* Interactive overlay layer */}
       <div style={{
         position: 'absolute',
-        top: 'var(--safe-area-top)',
-        left: 'var(--safe-area-left)',
-        right: 'var(--safe-area-right)',
-        width: 'calc(100% - var(--safe-area-left) - var(--safe-area-right))',
-        height: 'calc(100% - var(--safe-area-top) - var(--safe-area-bottom))',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 2
       }}>
         
@@ -153,14 +141,15 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           }} 
         />
 
-        {/* Logo BHXH: x=149, y=116, w=103, h=103 */}
+        {/* Logo BHXH: x=147, y=110, w=107, h=107 */}
         <div 
           onClick={handleLogoClick}
           style={{
             position: 'absolute',
-            left: `${(149 / W) * 100}%`,
-            top: `${(116 / H) * 100}%`,
-            width: `${(103 / W) * 100}%`,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            top: `${(110 / H) * 100}%`,
+            width: `${(107 / W) * 100}%`,
             aspectRatio: '1 / 1', // Guarantees perfect square circle aspect ratio regardless of container height
             borderRadius: '50%',
             background: '#ffffff',
@@ -207,10 +196,10 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
 
         <div style={{
           position: 'absolute',
-          left: `${(33 / W) * 100}%`,
-          top: `${(248 / H) * 100}%`,
+          left: `${(32 / W) * 100}%`,
+          top: `${(246 / H) * 100}%`,
           width: `${(338 / W) * 100}%`,
-          height: `${(39 / H) * 100}%`,
+          height: `${(52 / H) * 100}%`,
           border: focusedField === 'username' ? '1.5px solid #0069ad' : '1px solid #c8c5c5',
           borderRadius: '5px',
           background: '#ffffff',
@@ -221,7 +210,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           transition: 'all 0.15s ease'
         }}>
           <div style={{
-            width: '39px',
+            width: '42px',
             height: '100%',
             background: '#0069ad',
             display: 'flex',
@@ -250,7 +239,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
               outline: 'none',
               background: 'transparent',
               fontFamily: 'Inter, sans-serif',
-              padding: '0 12px 0 16px',
+              padding: '0 12px 0 13px',
               boxSizing: 'border-box'
             }}
           />
@@ -260,9 +249,9 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
         <div style={{
           position: 'absolute',
           left: `${(32 / W) * 100}%`,
-          top: `${(306 / H) * 100}%`,
+          top: `${(308 / H) * 100}%`,
           width: `${(338 / W) * 100}%`,
-          height: `${(39 / H) * 100}%`,
+          height: `${(52 / H) * 100}%`,
           border: focusedField === 'password' ? '1.5px solid #0069ad' : '1px solid #c8c5c5',
           borderRadius: '5px',
           background: '#ffffff',
@@ -273,7 +262,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           transition: 'all 0.15s ease'
         }}>
           <div style={{
-            width: '39px',
+            width: '42px',
             height: '100%',
             background: '#0069ad',
             display: 'flex',
@@ -302,24 +291,25 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
               outline: 'none',
               background: 'transparent',
               fontFamily: 'Inter, sans-serif',
-              padding: '0 12px 0 16px',
+              padding: '0 12px 0 13px',
               boxSizing: 'border-box'
             }}
           />
         </div>
 
-        {/* Links: Quên mật khẩu ? (x=33, y=355) & Đăng ký tài khoản (x=268, y=355) */}
+        {/* Links: Quên mật khẩu ? (x=33, y=373) & Đăng ký tài khoản (x=268, y=373) */}
         <div
           onClick={() => showToast("Tính năng đang phát triển!")}
           style={{
             position: 'absolute',
             left: `${(33 / W) * 100}%`,
-            top: `${(355 / H) * 100}%`,
+            top: `${(373 / H) * 100}%`,
             fontSize: '12px',
             color: '#0069ad',
             fontWeight: 500,
             cursor: 'pointer',
-            fontFamily: 'Inter, sans-serif'
+            fontFamily: 'Inter, sans-serif',
+            whiteSpace: 'nowrap'
           }}
         >
           Quên mật khẩu ?
@@ -329,27 +319,29 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           onClick={() => showToast("Tính năng đang phát triển!")}
           style={{
             position: 'absolute',
-            left: `${(268 / W) * 100}%`,
-            top: `${(355 / H) * 100}%`,
+            right: `${(33 / W) * 100}%`, // Symmetric right offset (33px)
+            top: `${(373 / H) * 100}%`,
             fontSize: '12px',
             color: '#0069ad',
             fontWeight: 500,
             cursor: 'pointer',
-            fontFamily: 'Inter, sans-serif'
+            fontFamily: 'Inter, sans-serif',
+            textAlign: 'right',
+            whiteSpace: 'nowrap'
           }}
         >
           Đăng ký tài khoản
         </div>
 
-        {/* "Đăng nhập" button: x33,y390 287x44 */}
+        {/* "Đăng nhập" button: x33,y409 273x47 */}
         <div
           onClick={handleLoginSubmit}
           style={{
             position: 'absolute',
             left: `${(33 / W) * 100}%`,
-            top: `${(390 / H) * 100}%`,
-            width: `${(287 / W) * 100}%`,
-            height: `${(44 / H) * 100}%`,
+            top: `${(409 / H) * 100}%`,
+            width: `${(273 / W) * 100}%`,
+            height: `${(47 / H) * 100}%`,
             background: 'rgba(255, 255, 255, 0.45)',
             border: '2px solid #0069ad',
             borderRadius: '5px',
@@ -370,15 +362,15 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           Đăng nhập
         </div>
 
-        {/* Fingerprint/FaceID button: x309,y372 80x80 */}
+        {/* Fingerprint/FaceID button: x315,y408 56x56 */}
         <div
-          onClick={handleQuickLogin}
+          onClick={handleBiometricLogin}
           style={{
             position: 'absolute',
-            left: `${(309 / W) * 100}%`,
-            top: `${(372 / H) * 100}%`,
-            width: `${(80 / W) * 100}%`,
-            height: `${(80 / H) * 100}%`,
+            left: `${(315 / W) * 100}%`,
+            top: `${(408 / H) * 100}%`,
+            width: `${(56 / W) * 100}%`,
+            height: `${(56 / H) * 100}%`,
             cursor: 'pointer',
             userSelect: 'none'
           }}
@@ -386,13 +378,13 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           <img src={fingerprintIcon} alt="Vân tay" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
         </div>
 
-        {/* VNeID button: x31,y456 340x67 */}
+        {/* VNeID button: x31,y477 340x67 */}
         <div
-          onClick={handleQuickLogin}
+          onClick={handleVneidLogin}
           style={{
             position: 'absolute',
             left: `${(31 / W) * 100}%`,
-            top: `${(456 / H) * 100}%`,
+            top: `${(477 / H) * 100}%`,
             width: `${(340 / W) * 100}%`,
             height: `${(67 / H) * 100}%`,
             background: '#d91811',
@@ -403,14 +395,15 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
         >
           <div style={{
             position: 'absolute',
-            left: `${(65 - 31) / 340 * 100}%`,
+            left: '12px',
+            right: '76px',
             top: '50%',
             transform: 'translateY(-50%)',
             color: '#ffffff',
             fontFamily: 'Inter, sans-serif',
             fontSize: '15px',
             fontWeight: 'bold',
-            textAlign: 'left',
+            textAlign: 'center',
             lineHeight: '1.3',
             whiteSpace: 'pre-line'
           }}>
@@ -422,8 +415,9 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             alt="VNeID" 
             style={{
               position: 'absolute',
-              left: `${(306 - 31) / 340 * 100}%`,
-              top: `${(462 - 456) / 67 * 100}%`,
+              right: '8px',
+              top: '50%',
+              transform: 'translateY(-50%)',
               width: `${(55 / 340) * 100}%`,
               height: `${(55 / 67) * 100}%`,
               borderRadius: '12px',
@@ -435,7 +429,8 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
         {/* Footer Text 1: "Mời cài đặt VssID" (x=144, y=740) */}
         <div style={{
           position: 'absolute',
-          left: `${(144 / W) * 100}%`,
+          left: '50%',
+          transform: 'translateX(-50%)',
           top: `${(740 / H) * 100}%`,
           color: '#0069ad',
           fontSize: '14px',
@@ -451,14 +446,15 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           onClick={() => showToast("Tính năng đang phát triển!")}
           style={{
             position: 'absolute',
-            left: `${(223 / W) * 100}%`,
+            right: `${(33 / W) * 100}%`, // Align perfectly on the right with other elements (33px)
             top: `${(779 / H) * 100}%`,
             color: '#0069ad',
             fontSize: '13px',
             fontWeight: 500,
             fontFamily: 'Inter, sans-serif',
             whiteSpace: 'nowrap',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            textAlign: 'right'
           }}
         >
           Chính sách quyền riêng tư
@@ -479,18 +475,19 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           draggable={false} 
         />
 
-        {/* Loading Spinner matching Figma exact spec: x=178, y=418, w=48, h=48 */}
+        {/* Loading Spinner matching Figma exact spec: x=177, y=388, w=49, h=49 */}
         {loading && (
           <div style={{
             position: 'absolute',
-            left: `${(178 / W) * 100}%`,
-            top: `${(418 / H) * 100}%`,
-            width: `${(48 / W) * 100}%`,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            top: `${(388 / H) * 100}%`,
+            width: `${(49 / W) * 100}%`,
             aspectRatio: '1 / 1',
             zIndex: 100,
             pointerEvents: 'none'
           }}>
-            {/* Outer rotating ring (Ellipse 5) */}
+            {/* Outer rotating ring (Ellipse 6) */}
             <div 
               className="vssid-spinner-ring"
               style={{
@@ -504,10 +501,10 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             {/* Inner static white circle with shadow & logo (Ellipse 1 + BHXH Logo) */}
             <div style={{
               position: 'absolute',
-              left: '8.33%',
-              top: '8.33%',
-              width: '83.33%',
-              height: '83.33%',
+              left: '9.18%',
+              top: '9.18%',
+              width: '81.63%',
+              height: '81.63%',
               borderRadius: '50%',
               background: '#ffffff',
               boxShadow: '0px 1.5px 3px rgba(0, 0, 0, 0.25)',
