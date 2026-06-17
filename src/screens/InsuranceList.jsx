@@ -285,7 +285,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                 left: `${(9 / W) * 100}%`,
                 top: `${(266 / H) * 100}%`,
                 width: `${(382 / W) * 100}%`,
-                minHeight: `${(534 / H) * 100}%`,
+                height: `${(543 / H) * 100}%`,
                 background: '#ffffff',
                 zIndex: 5,
                 boxSizing: 'border-box',
