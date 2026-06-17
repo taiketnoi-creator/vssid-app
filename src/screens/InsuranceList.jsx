@@ -301,14 +301,18 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                   backgroundColor: '#ffffff'
                 }}>
                   <thead>
-                    <tr style={{ backgroundColor: '#38679f', height: '42px', color: '#ffffff' }}>
+                    <tr style={{ height: '42px', color: '#ffffff' }}>
                       <th style={{ 
                         width: `${(68 / 382) * 100}%`, 
                         fontWeight: 400, 
                         border: '1px solid #aaa9ae',
                         fontSize: '12px',
                         textAlign: 'center',
-                        padding: 0
+                        padding: 0,
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 10,
+                        backgroundColor: '#38679f'
                       }}>Từ tháng</th>
                       <th style={{ 
                         width: `${(67 / 382) * 100}%`, 
@@ -317,7 +321,11 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                         fontSize: '12px',
                         lineHeight: '1.2',
                         textAlign: 'center',
-                        padding: 0
+                        padding: 0,
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 10,
+                        backgroundColor: '#38679f'
                       }}>Đến<br/>tháng</th>
                       <th style={{ 
                         width: `${(123 / 382) * 100}%`, 
@@ -325,7 +333,11 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                         border: '1px solid #aaa9ae',
                         fontSize: '12px',
                         textAlign: 'center',
-                        padding: 0
+                        padding: 0,
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 10,
+                        backgroundColor: '#38679f'
                       }}>Đơn vị</th>
                       <th style={{ 
                         width: `${(92 / 382) * 100}%`, 
@@ -334,12 +346,20 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                         fontSize: '12px',
                         lineHeight: '1.2',
                         textAlign: 'center',
-                        padding: 0
+                        padding: 0,
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 10,
+                        backgroundColor: '#38679f'
                       }}>Nghề nghiệp<br/>Chức vụ</th>
                       <th style={{ 
                         width: `${(32 / 382) * 100}%`, 
                         border: '1px solid #aaa9ae',
-                        padding: 0
+                        padding: 0,
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 10,
+                        backgroundColor: '#38679f'
                       }}></th>
                     </tr>
                   </thead>
