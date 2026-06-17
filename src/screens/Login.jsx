@@ -8,6 +8,7 @@ import loginIconLock from '../assets/login_icon_lock.png';
 import fingerprintIcon from '../assets/fingerprint.png';
 import logoVneid from '../assets/logo_vneid.png';
 import bgFooter from '../assets/bg_footer.png';
+import fingerprintFailedDialog from '../assets/fingerprint_failed_dialog.png';
 
 const W = 402;
 const H = 874;
@@ -19,6 +20,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
   const [logoClicks, setLogoClicks] = useState(0);
   const [focusedField, setFocusedField] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showFingerprintDialog, setShowFingerprintDialog] = useState(false);
 
   const showToast = (msg) => {
     setToastMsg(msg);
@@ -43,9 +45,9 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
     }
   };
 
-  // Biometric fingerprint/Face ID login: works exactly like the Login button
-  const handleBiometricLogin = async () => {
-    await handleLoginSubmit();
+  // Biometric fingerprint/Face ID login: shows the custom failed dialog
+  const handleBiometricLogin = () => {
+    setShowFingerprintDialog(true);
   };
 
   // VNeID login: shows a secure alert that it is not linked or under maintenance
@@ -522,6 +524,58 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
                   objectFit: 'contain',
                   borderRadius: '50%'
                 }} 
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Custom Fingerprint Dialog Overlay */}
+        {showFingerprintDialog && (
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'rgba(0, 0, 0, 0.65)',
+            zIndex: 100,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px',
+            boxSizing: 'border-box',
+            backdropFilter: 'blur(3px)'
+          }}>
+            <div style={{
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '1 / 1',
+              background: '#ffffff',
+              borderRadius: '24px',
+              overflow: 'hidden',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
+              display: 'flex',
+              flexDirection: 'column'
+            }}>
+              <img 
+                src={fingerprintFailedDialog} 
+                alt="Xác nhận vân tay" 
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  display: 'block'
+                }}
+              />
+              {/* Invisible clickable overlay over CANCEL button (bottom-right area) */}
+              <div 
+                onClick={() => setShowFingerprintDialog(false)}
+                style={{
+                  position: 'absolute',
+                  bottom: '4%',
+                  right: '8%',
+                  width: '28%',
+                  height: '10%',
+                  cursor: 'pointer',
+                  borderRadius: '6px'
+                }}
               />
             </div>
           </div>
