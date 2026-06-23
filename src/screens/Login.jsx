@@ -8,7 +8,10 @@ import loginIconLock from '../assets/login_icon_lock.png';
 import fingerprintIcon from '../assets/fingerprint.png';
 import logoVneid from '../assets/logo_vneid.png';
 import bgFooter from '../assets/bg_footer.png';
-import fingerprintFailedDialog from '../assets/fingerprint_failed_dialog.png';
+import artboard1 from '../assets/artboard_1.png';
+import artboard2 from '../assets/artboard_2.png';
+import artboard3 from '../assets/artboard_3.png';
+import artboard4 from '../assets/artboard_4.png';
 
 const W = 402;
 const H = 874;
@@ -606,7 +609,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           </div>
         )}
 
-        {/* Custom Fingerprint Dialog Overlay */}
+        {/* Custom Fingerprint Dialog Overlay (Artboard 1) */}
         {showFingerprintDialog && (
           <div style={{
             position: 'absolute',
@@ -624,16 +627,14 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
               position: 'relative',
               width: '100%',
               aspectRatio: '1 / 1',
-              background: '#ffffff',
-              borderRadius: '24px',
+              background: 'transparent',
               overflow: 'hidden',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
               display: 'flex',
               flexDirection: 'column'
             }}>
               <img 
-                src={fingerprintFailedDialog} 
-                alt="Xác nhận vân tay" 
+                src={artboard1} 
+                alt="Xác nhận vân tay thất bại" 
                 style={{
                   width: '100%',
                   height: '100%',
@@ -641,14 +642,14 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
                   display: 'block'
                 }}
               />
-              {/* Invisible clickable overlay over CANCEL button (bottom-right area) */}
+              {/* Clickable overlay for CANCEL button (bottom-right area of Artboard 1) */}
               <div 
                 onClick={() => setShowFingerprintDialog(false)}
                 style={{
                   position: 'absolute',
-                  bottom: '4%',
-                  right: '8%',
-                  width: '28%',
+                  bottom: '10%',
+                  right: '10%',
+                  width: '25%',
                   height: '10%',
                   cursor: 'pointer',
                   borderRadius: '6px'
@@ -658,202 +659,76 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           </div>
         )}
 
-        {/* Samsung Biometric Prompt Overlay (Dialog 1) */}
+        {/* Samsung Biometric Prompt Overlay (Dialog 1 - Artboards 2/3/4) */}
         {showBiometricPrompt && (
           <div style={{
             position: 'absolute',
             inset: 0,
-            background: 'rgba(0, 0, 0, 0.75)',
+            background: 'rgba(0, 0, 0, 0.65)',
             zIndex: 90,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             padding: '16px',
             boxSizing: 'border-box',
-            backdropFilter: 'blur(4px)'
+            backdropFilter: 'blur(3px)'
           }}>
             <div style={{
               position: 'relative',
-              width: '380px',
-              background: '#202124',
-              borderRadius: '24px',
-              padding: '20px 16px',
-              boxSizing: 'border-box',
-              color: '#e3e3e3',
-              fontFamily: 'Roboto, Inter, sans-serif',
-              boxShadow: '0 16px 32px rgba(0,0,0,0.5)',
+              width: '100%',
+              aspectRatio: '1 / 1',
+              background: 'transparent',
+              overflow: 'hidden',
               display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'stretch',
-              overflow: 'hidden'
+              flexDirection: 'column'
             }}>
-              {/* Left Column */}
-              <div style={{
-                width: '45%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                textAlign: 'left'
-              }}>
-                {/* App Brand Header */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '14px' }}>
-                  <img 
-                    src={logoBhxh} 
-                    alt="" 
-                    style={{ width: '16px', height: '16px', borderRadius: '50%', background: '#ffffff', objectFit: 'contain' }} 
-                  />
-                  <span style={{ fontSize: '11px', fontWeight: 600, color: '#e3e3e3', opacity: 0.9 }}>VssID</span>
-                </div>
-                
-                {/* Titles */}
-                <h3 style={{ fontSize: '14px', fontWeight: 700, margin: '0 0 2px 0', color: '#ffffff', letterSpacing: '-0.3px' }}>Xác nhận vân tay</h3>
-                <p style={{ fontSize: '10.5px', color: '#9aa0a6', margin: '0 0 16px 0' }}>Đăng nhập ứng dụng</p>
-                
-                {/* Fingerprint Ripple Area */}
-                <div 
-                  onClick={handleBiometricClick}
-                  style={{
-                    position: 'relative',
-                    width: '68px',
-                    height: '68px',
-                    borderRadius: '50%',
-                    background: 'rgba(138, 180, 248, 0.08)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    alignSelf: 'center',
-                    marginTop: 'auto',
-                    marginBottom: '4px'
-                  }}
-                >
-                  {/* Animation Ripple Rings */}
-                  {biometricPromptState === 'idle' && (
-                    <>
-                      <div className="vssid-ripple-ring" style={{ animationDelay: '0s' }} />
-                      <div className="vssid-ripple-ring" style={{ animationDelay: '1s' }} />
-                    </>
-                  )}
-                  
-                  {/* Fingerprint SVG */}
-                  <FingerprintSVG 
-                    color={
-                      biometricPromptState === 'failed' 
-                        ? '#ea4335' 
-                        : biometricPromptState === 'success' 
-                          ? '#34a853' 
-                          : '#8ab4f8'
-                    } 
-                    size={34} 
-                  />
-                </div>
-                <div style={{ fontSize: '8px', color: '#9aa0a6', opacity: 0.6, alignSelf: 'center', textAlign: 'center', pointerEvents: 'none' }}>
-                  (Chạm để quét vân tay)
-                </div>
-              </div>
+              <img 
+                src={
+                  biometricPromptState === 'failed' 
+                    ? artboard3 
+                    : biometricPromptState === 'success' 
+                      ? artboard4 
+                      : artboard2
+                } 
+                alt="Xác thực danh tính" 
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  display: 'block'
+                }}
+              />
               
-              {/* Right Column */}
-              <div style={{
-                width: '52%',
-                borderLeft: '1px solid rgba(255, 255, 255, 0.08)',
-                paddingLeft: '14px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'space-between',
-                textAlign: 'left',
-                boxSizing: 'border-box'
-              }}>
-                <div>
-                  <h4 style={{ fontSize: '12px', fontWeight: 600, margin: '0 0 4px 0', color: '#ffffff', letterSpacing: '-0.2px' }}>
-                    Xác thực danh tính của bạn
-                  </h4>
-                  <p style={{ fontSize: '10px', color: '#9aa0a6', lineHeight: '1.3', margin: 0 }}>
-                    Sử dụng vân tay để xác thực danh tính của bạn.
-                  </p>
-                </div>
-                
-                {/* Status Scanner Area */}
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  width: '100%',
-                  margin: '8px 0',
-                  gap: '4px',
-                  justifyContent: 'center',
-                  flex: 1
-                }}>
-                  <div style={{
-                    padding: '6px',
-                    borderRadius: '50%',
-                    background: biometricPromptState === 'failed' ? 'rgba(234, 67, 53, 0.1)' : 'transparent',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <FingerprintSVG 
-                      color={
-                        biometricPromptState === 'failed' 
-                          ? '#ea4335' 
-                          : biometricPromptState === 'success' 
-                            ? '#34a853' 
-                            : '#5f6368'
-                      } 
-                      size={32} 
-                    />
-                  </div>
-                  {/* Status text */}
-                  <span style={{ 
-                    fontSize: '10px', 
-                    fontWeight: 600, 
-                    color: biometricPromptState === 'failed' ? '#ea4335' : (biometricPromptState === 'success' ? '#34a853' : '#9aa0a6'),
-                    minHeight: '14px',
-                    textAlign: 'center'
-                  }}>
-                    {biometricPromptState === 'failed' && 'Vân tay không khớp.'}
-                    {biometricPromptState === 'success' && 'Xác thực thành công.'}
-                  </span>
-                </div>
-                
-                {/* Footer buttons row */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  marginTop: 'auto'
-                }}>
-                  {/* Knox Seal */}
-                  <KnoxSVG />
-                  
-                  {/* Cancel/Thoát Button */}
-                  <button
-                    onClick={() => {
-                      setShowBiometricPrompt(false);
-                      setShowFingerprintDialog(true);
-                    }}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      outline: 'none',
-                      color: '#8ab4f8',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      padding: '6px 10px',
-                      marginRight: '-6px',
-                      borderRadius: '12px',
-                      transition: 'background 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(138, 180, 248, 0.08)'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    Thoát
-                  </button>
-                </div>
-              </div>
+              {/* Clickable overlay for "Thoát" button (center of the card) */}
+              <div 
+                onClick={() => {
+                  setShowBiometricPrompt(false);
+                  setShowFingerprintDialog(true);
+                }}
+                style={{
+                  position: 'absolute',
+                  top: '47%',
+                  left: '35%',
+                  width: '30%',
+                  height: '10%',
+                  cursor: 'pointer',
+                  borderRadius: '12px'
+                }}
+              />
+              
+              {/* Clickable overlay for fingerprint sensor icon (bottom center) */}
+              <div 
+                onClick={handleBiometricClick}
+                style={{
+                  position: 'absolute',
+                  top: '64%',
+                  left: '38%',
+                  width: '24%',
+                  height: '22%',
+                  cursor: 'pointer',
+                  borderRadius: '50%'
+                }}
+              />
             </div>
           </div>
         )}
