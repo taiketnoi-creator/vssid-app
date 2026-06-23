@@ -21,6 +21,9 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
   const [focusedField, setFocusedField] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showFingerprintDialog, setShowFingerprintDialog] = useState(false);
+  const [showBiometricPrompt, setShowBiometricPrompt] = useState(false);
+  const [biometricPromptState, setBiometricPromptState] = useState('idle'); // 'idle' | 'failed' | 'success'
+  const [fingerprintAttempts, setFingerprintAttempts] = useState(0);
 
   const showToast = (msg) => {
     setToastMsg(msg);
@@ -45,9 +48,69 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
     }
   };
 
-  // Biometric fingerprint/Face ID login: shows the custom failed dialog
+  // Fingerprint SVGs for UI
+  const FingerprintSVG = ({ color = '#0072c8', size = 48 }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'stroke 0.2s' }}>
+      <path d="M12 2a10 10 0 0 0-7.38 16.75" />
+      <path d="M10.43 5.4a6 6 0 0 1 7.14 7.14" />
+      <path d="M6.3 10.5a8.5 8.5 0 0 1 12.3 0" />
+      <path d="M9.5 15.5a3.5 3.5 0 0 0 5 0" />
+      <path d="M12 8a4 4 0 0 1 3.92 3.26" />
+      <path d="M12 12v.01" />
+      <path d="M12 18.01v.01" />
+      <path d="M19.07 19.07a10 10 0 0 1-14.14 0" />
+    </svg>
+  );
+
+  const KnoxSVG = () => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '3px', opacity: 0.45 }}>
+      <svg width="10" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+      <span style={{ fontSize: '8px', fontWeight: 600, color: '#ffffff', letterSpacing: '0.3px', textTransform: 'uppercase' }}>Secured by Knox</span>
+    </div>
+  );
+
+  const handleBiometricSuccess = async () => {
+    let targetUser = username;
+    if (!targetUser && accounts && accounts.length > 0) {
+      targetUser = accounts[0].username;
+      setUsername(targetUser);
+    }
+    
+    setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    const result = await onLogin(targetUser);
+    setLoading(false);
+
+    if (result && !result.success) {
+      showToast(result.message || 'Mã số BHXH không tồn tại trong hệ thống!');
+    }
+  };
+
+  const handleBiometricClick = () => {
+    if (biometricPromptState === 'success' || biometricPromptState === 'failed') return;
+
+    if (fingerprintAttempts === 0) {
+      setBiometricPromptState('failed');
+      setFingerprintAttempts(1);
+      setTimeout(() => {
+        setBiometricPromptState('idle');
+      }, 1500);
+    } else {
+      setBiometricPromptState('success');
+      setTimeout(() => {
+        setShowBiometricPrompt(false);
+        handleBiometricSuccess();
+      }, 800);
+    }
+  };
+
+  // Biometric fingerprint/Face ID login: shows the custom simulated prompt (Dialog 1)
   const handleBiometricLogin = () => {
-    setShowFingerprintDialog(true);
+    setShowBiometricPrompt(true);
+    setBiometricPromptState('idle');
+    setFingerprintAttempts(0);
   };
 
   // VNeID login: shows a secure alert that it is not linked or under maintenance
@@ -193,6 +256,20 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           }
           .vssid-spinner-ring {
             animation: spin-loader 1s linear infinite;
+          }
+          @keyframes ripple-effect {
+            0% { transform: scale(0.6); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+          }
+          .vssid-ripple-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #8ab4f8;
+            box-sizing: border-box;
+            animation: ripple-effect 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            pointer-events: none;
           }
         `}</style>
 
@@ -577,6 +654,202 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
                   borderRadius: '6px'
                 }}
               />
+            </div>
+          </div>
+        )}
+
+        {/* Samsung Biometric Prompt Overlay (Dialog 1) */}
+        {showBiometricPrompt && (
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'rgba(0, 0, 0, 0.75)',
+            zIndex: 90,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px',
+            boxSizing: 'border-box',
+            backdropFilter: 'blur(4px)'
+          }}>
+            <div style={{
+              position: 'relative',
+              width: '94%',
+              background: '#202124',
+              borderRadius: '28px',
+              padding: '24px',
+              boxSizing: 'border-box',
+              color: '#e3e3e3',
+              fontFamily: 'Inter, sans-serif',
+              boxShadow: '0 24px 48px rgba(0,0,0,0.5)',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              gap: '16px',
+              overflow: 'hidden'
+            }}>
+              {/* Left Column */}
+              <div style={{
+                width: '46%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                textAlign: 'left'
+              }}>
+                {/* App Brand Header */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+                  <img 
+                    src={logoBhxh} 
+                    alt="" 
+                    style={{ width: '18px', height: '18px', borderRadius: '50%', background: '#ffffff', objectFit: 'contain' }} 
+                  />
+                  <span style={{ fontSize: '12px', fontWeight: 600, color: '#e3e3e3', opacity: 0.9 }}>VssID</span>
+                </div>
+                
+                {/* Titles */}
+                <h3 style={{ fontSize: '15px', fontWeight: 700, margin: '0 0 4px 0', color: '#ffffff' }}>Xác nhận vân tay</h3>
+                <p style={{ fontSize: '11px', color: '#c4c7c5', margin: '0 0 24px 0' }}>Đăng nhập ứng dụng</p>
+                
+                {/* Fingerprint Ripple Area */}
+                <div 
+                  onClick={handleBiometricClick}
+                  style={{
+                    position: 'relative',
+                    width: '74px',
+                    height: '74px',
+                    borderRadius: '50%',
+                    background: 'rgba(138, 180, 248, 0.08)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    alignSelf: 'center',
+                    marginTop: 'auto',
+                    marginBottom: '8px'
+                  }}
+                >
+                  {/* Animation Ripple Rings */}
+                  {biometricPromptState === 'idle' && (
+                    <>
+                      <div className="vssid-ripple-ring" style={{ animationDelay: '0s' }} />
+                      <div className="vssid-ripple-ring" style={{ animationDelay: '1s' }} />
+                    </>
+                  )}
+                  
+                  {/* Fingerprint SVG */}
+                  <FingerprintSVG 
+                    color={
+                      biometricPromptState === 'failed' 
+                        ? '#ea4335' 
+                        : biometricPromptState === 'success' 
+                          ? '#34a853' 
+                          : '#8ab4f8'
+                    } 
+                    size={38} 
+                  />
+                </div>
+                <div style={{ fontSize: '9px', color: '#c4c7c5', opacity: 0.6, alignSelf: 'center', textAlign: 'center', pointerEvents: 'none' }}>
+                  (Nhấn vào vân tay để quét)
+                </div>
+              </div>
+              
+              {/* Divider Line */}
+              <div style={{ width: '1px', background: 'rgba(255,255,255,0.08)', height: '170px', alignSelf: 'center' }} />
+              
+              {/* Right Column */}
+              <div style={{
+                width: '46%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between',
+                textAlign: 'left'
+              }}>
+                <div>
+                  <h4 style={{ fontSize: '12px', fontWeight: 600, margin: '0 0 6px 0', color: '#ffffff' }}>
+                    Xác thực danh tính của bạn
+                  </h4>
+                  <p style={{ fontSize: '10.5px', color: '#c4c7c5', lineHeight: '1.4', margin: 0 }}>
+                    Sử dụng vân tay để xác thực danh tính của bạn.
+                  </p>
+                </div>
+                
+                {/* Status Scanner Area */}
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  width: '100%',
+                  margin: '12px 0',
+                  gap: '6px'
+                }}>
+                  {/* Fingerprint Icon representing scanner */}
+                  <div style={{
+                    padding: '8px',
+                    borderRadius: '50%',
+                    background: biometricPromptState === 'failed' ? 'rgba(234, 67, 53, 0.1)' : 'transparent'
+                  }}>
+                    <FingerprintSVG 
+                      color={
+                        biometricPromptState === 'failed' 
+                          ? '#ea4335' 
+                          : biometricPromptState === 'success' 
+                            ? '#34a853' 
+                            : '#8e918f'
+                      } 
+                      size={28} 
+                    />
+                  </div>
+                  {/* Status text */}
+                  <span style={{ 
+                    fontSize: '11px', 
+                    fontWeight: 600, 
+                    color: biometricPromptState === 'failed' ? '#ea4335' : (biometricPromptState === 'success' ? '#34a853' : '#c4c7c5'),
+                    minHeight: '16px',
+                    textAlign: 'center'
+                  }}>
+                    {biometricPromptState === 'failed' && 'Vân tay không khớp.'}
+                    {biometricPromptState === 'success' && 'Xác thực thành công.'}
+                  </span>
+                </div>
+                
+                {/* Footer buttons row */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  marginTop: 'auto'
+                }}>
+                  {/* Knox Seal */}
+                  <KnoxSVG />
+                  
+                  {/* Cancel/Thoát Button */}
+                  <button
+                    onClick={() => {
+                      setShowBiometricPrompt(false);
+                      setShowFingerprintDialog(true);
+                    }}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      outline: 'none',
+                      color: '#8ab4f8',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      padding: '8px 12px',
+                      marginRight: '-10px',
+                      borderRadius: '16px',
+                      transition: 'background 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(138, 180, 248, 0.08)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    Thoát
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}
