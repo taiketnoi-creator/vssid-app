@@ -3,6 +3,9 @@
 *.rar
 *.zip
 *.7z
+*debug.apk
+*Debug.apk
+
 
 # Ignore native folders
 android/

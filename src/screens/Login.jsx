@@ -92,18 +92,17 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
   };
 
   const handleBiometricClick = () => {
-    if (biometricPromptState === 'success' || biometricPromptState === 'failed') return;
+    if (biometricPromptState === 'success') return;
 
-    if (fingerprintAttempts === 0) {
+    if (biometricPromptState === 'idle') {
       setBiometricPromptState('failed');
       setFingerprintAttempts(1);
-      setTimeout(() => {
-        setBiometricPromptState('idle');
-      }, 1500);
-    } else {
+    } else if (biometricPromptState === 'failed') {
       setBiometricPromptState('success');
+      setFingerprintAttempts(2);
       setTimeout(() => {
         setShowBiometricPrompt(false);
+        setShowFingerprintDialog(false); // Dismiss Artboard 1 underneath
         handleBiometricSuccess();
       }, 800);
     }
@@ -111,7 +110,8 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
 
   // Biometric fingerprint/Face ID login: shows the custom simulated prompt (Dialog 1)
   const handleBiometricLogin = () => {
-    setShowBiometricPrompt(true);
+    setShowFingerprintDialog(true); // Open Artboard 1 underneath (zIndex 90)
+    setShowBiometricPrompt(true); // Open Artboard 2/3/4 on top (zIndex 100)
     setBiometricPromptState('idle');
     setFingerprintAttempts(0);
   };
@@ -273,6 +273,14 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             box-sizing: border-box;
             animation: ripple-effect 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
             pointer-events: none;
+          }
+          @keyframes vssid-text-shake {
+            0%, 100% { transform: translateX(0); }
+            15%, 45%, 75% { transform: translateX(-6px); }
+            30%, 60%, 90% { transform: translateX(6px); }
+          }
+          .vssid-biometric-text-failed {
+            animation: vssid-text-shake 0.4s ease-in-out;
           }
         `}</style>
 
@@ -615,7 +623,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             position: 'absolute',
             inset: 0,
             background: 'rgba(0, 0, 0, 0.65)',
-            zIndex: 100,
+            zIndex: 90, // Underneath Biometric Prompt overlay
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -655,6 +663,23 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
                   borderRadius: '6px'
                 }}
               />
+              {/* Clickable overlay for Blue Fingerprint icon in Artboard 1 to retry/reopen scanning */}
+              <div 
+                onClick={() => {
+                  setShowBiometricPrompt(true);
+                  setBiometricPromptState('idle');
+                  setFingerprintAttempts(0);
+                }}
+                style={{
+                  position: 'absolute',
+                  top: '38%',
+                  left: '24%',
+                  width: '13%',
+                  height: '14%',
+                  cursor: 'pointer',
+                  borderRadius: '50%'
+                }}
+              />
             </div>
           </div>
         )}
@@ -664,14 +689,14 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           <div style={{
             position: 'absolute',
             inset: 0,
-            background: 'rgba(0, 0, 0, 0.65)',
-            zIndex: 90,
+            background: showFingerprintDialog ? 'transparent' : 'rgba(0, 0, 0, 0.65)',
+            zIndex: 100, // On top of Artboard 1 overlay
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             padding: '16px',
             boxSizing: 'border-box',
-            backdropFilter: 'blur(3px)'
+            backdropFilter: showFingerprintDialog ? 'none' : 'blur(3px)'
           }}>
             <div style={{
               position: 'relative',
@@ -699,18 +724,46 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
                 }}
               />
               
-              {/* Clickable overlay for "Thoát" button (center of the card) */}
+              {/* Dynamic text cover & animation for Artboard 3 (failed state) */}
+              {biometricPromptState === 'failed' && (
+                <div style={{
+                  position: 'absolute',
+                  top: '46.1%',
+                  left: '30%',
+                  width: '40%',
+                  height: '3.5%',
+                  background: '#2a2d31', // Solid background matching card exactly
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 5,
+                  pointerEvents: 'none'
+                }}>
+                  <span 
+                    className="vssid-biometric-text-failed"
+                    style={{
+                      color: '#ffffff', // White to match image
+                      fontSize: '13.5px',
+                      fontWeight: '500',
+                      fontFamily: 'Inter, sans-serif'
+                    }}
+                  >
+                    Vân tay không khớp
+                  </span>
+                </div>
+              )}
+
+              {/* Clickable overlay for "Thoát" button */}
               <div 
                 onClick={() => {
-                  setShowBiometricPrompt(false);
-                  setShowFingerprintDialog(true);
+                  setShowBiometricPrompt(false); // Hide Artboard 2/3/4, revealing Artboard 1 underneath
                 }}
                 style={{
                   position: 'absolute',
-                  top: '47%',
+                  top: biometricPromptState === 'failed' ? '54%' : '45%',
                   left: '35%',
                   width: '30%',
-                  height: '10%',
+                  height: '8%',
                   cursor: 'pointer',
                   borderRadius: '12px'
                 }}
