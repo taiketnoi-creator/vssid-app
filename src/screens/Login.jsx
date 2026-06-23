@@ -674,49 +674,49 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
           }}>
             <div style={{
               position: 'relative',
-              width: '94%',
+              width: '380px',
               background: '#202124',
-              borderRadius: '28px',
-              padding: '24px',
+              borderRadius: '24px',
+              padding: '20px 16px',
               boxSizing: 'border-box',
               color: '#e3e3e3',
-              fontFamily: 'Inter, sans-serif',
-              boxShadow: '0 24px 48px rgba(0,0,0,0.5)',
+              fontFamily: 'Roboto, Inter, sans-serif',
+              boxShadow: '0 16px 32px rgba(0,0,0,0.5)',
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
-              gap: '16px',
+              alignItems: 'stretch',
               overflow: 'hidden'
             }}>
               {/* Left Column */}
               <div style={{
-                width: '46%',
+                width: '45%',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
                 textAlign: 'left'
               }}>
                 {/* App Brand Header */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '14px' }}>
                   <img 
                     src={logoBhxh} 
                     alt="" 
-                    style={{ width: '18px', height: '18px', borderRadius: '50%', background: '#ffffff', objectFit: 'contain' }} 
+                    style={{ width: '16px', height: '16px', borderRadius: '50%', background: '#ffffff', objectFit: 'contain' }} 
                   />
-                  <span style={{ fontSize: '12px', fontWeight: 600, color: '#e3e3e3', opacity: 0.9 }}>VssID</span>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: '#e3e3e3', opacity: 0.9 }}>VssID</span>
                 </div>
                 
                 {/* Titles */}
-                <h3 style={{ fontSize: '15px', fontWeight: 700, margin: '0 0 4px 0', color: '#ffffff' }}>Xác nhận vân tay</h3>
-                <p style={{ fontSize: '11px', color: '#c4c7c5', margin: '0 0 24px 0' }}>Đăng nhập ứng dụng</p>
+                <h3 style={{ fontSize: '14px', fontWeight: 700, margin: '0 0 2px 0', color: '#ffffff', letterSpacing: '-0.3px' }}>Xác nhận vân tay</h3>
+                <p style={{ fontSize: '10.5px', color: '#9aa0a6', margin: '0 0 16px 0' }}>Đăng nhập ứng dụng</p>
                 
                 {/* Fingerprint Ripple Area */}
                 <div 
                   onClick={handleBiometricClick}
                   style={{
                     position: 'relative',
-                    width: '74px',
-                    height: '74px',
+                    width: '68px',
+                    height: '68px',
                     borderRadius: '50%',
                     background: 'rgba(138, 180, 248, 0.08)',
                     display: 'flex',
@@ -725,7 +725,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
                     cursor: 'pointer',
                     alignSelf: 'center',
                     marginTop: 'auto',
-                    marginBottom: '8px'
+                    marginBottom: '4px'
                   }}
                 >
                   {/* Animation Ripple Rings */}
@@ -745,31 +745,31 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
                           ? '#34a853' 
                           : '#8ab4f8'
                     } 
-                    size={38} 
+                    size={34} 
                   />
                 </div>
-                <div style={{ fontSize: '9px', color: '#c4c7c5', opacity: 0.6, alignSelf: 'center', textAlign: 'center', pointerEvents: 'none' }}>
-                  (Nhấn vào vân tay để quét)
+                <div style={{ fontSize: '8px', color: '#9aa0a6', opacity: 0.6, alignSelf: 'center', textAlign: 'center', pointerEvents: 'none' }}>
+                  (Chạm để quét vân tay)
                 </div>
               </div>
               
-              {/* Divider Line */}
-              <div style={{ width: '1px', background: 'rgba(255,255,255,0.08)', height: '170px', alignSelf: 'center' }} />
-              
               {/* Right Column */}
               <div style={{
-                width: '46%',
+                width: '52%',
+                borderLeft: '1px solid rgba(255, 255, 255, 0.08)',
+                paddingLeft: '14px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
                 justifyContent: 'space-between',
-                textAlign: 'left'
+                textAlign: 'left',
+                boxSizing: 'border-box'
               }}>
                 <div>
-                  <h4 style={{ fontSize: '12px', fontWeight: 600, margin: '0 0 6px 0', color: '#ffffff' }}>
+                  <h4 style={{ fontSize: '12px', fontWeight: 600, margin: '0 0 4px 0', color: '#ffffff', letterSpacing: '-0.2px' }}>
                     Xác thực danh tính của bạn
                   </h4>
-                  <p style={{ fontSize: '10.5px', color: '#c4c7c5', lineHeight: '1.4', margin: 0 }}>
+                  <p style={{ fontSize: '10px', color: '#9aa0a6', lineHeight: '1.3', margin: 0 }}>
                     Sử dụng vân tay để xác thực danh tính của bạn.
                   </p>
                 </div>
@@ -780,14 +780,18 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
                   flexDirection: 'column',
                   alignItems: 'center',
                   width: '100%',
-                  margin: '12px 0',
-                  gap: '6px'
+                  margin: '8px 0',
+                  gap: '4px',
+                  justifyContent: 'center',
+                  flex: 1
                 }}>
-                  {/* Fingerprint Icon representing scanner */}
                   <div style={{
-                    padding: '8px',
+                    padding: '6px',
                     borderRadius: '50%',
-                    background: biometricPromptState === 'failed' ? 'rgba(234, 67, 53, 0.1)' : 'transparent'
+                    background: biometricPromptState === 'failed' ? 'rgba(234, 67, 53, 0.1)' : 'transparent',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                   }}>
                     <FingerprintSVG 
                       color={
@@ -795,17 +799,17 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
                           ? '#ea4335' 
                           : biometricPromptState === 'success' 
                             ? '#34a853' 
-                            : '#8e918f'
+                            : '#5f6368'
                       } 
-                      size={28} 
+                      size={32} 
                     />
                   </div>
                   {/* Status text */}
                   <span style={{ 
-                    fontSize: '11px', 
+                    fontSize: '10px', 
                     fontWeight: 600, 
-                    color: biometricPromptState === 'failed' ? '#ea4335' : (biometricPromptState === 'success' ? '#34a853' : '#c4c7c5'),
-                    minHeight: '16px',
+                    color: biometricPromptState === 'failed' ? '#ea4335' : (biometricPromptState === 'success' ? '#34a853' : '#9aa0a6'),
+                    minHeight: '14px',
                     textAlign: 'center'
                   }}>
                     {biometricPromptState === 'failed' && 'Vân tay không khớp.'}
@@ -838,9 +842,9 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
                       fontSize: '12px',
                       fontWeight: 700,
                       cursor: 'pointer',
-                      padding: '8px 12px',
-                      marginRight: '-10px',
-                      borderRadius: '16px',
+                      padding: '6px 10px',
+                      marginRight: '-6px',
+                      borderRadius: '12px',
                       transition: 'background 0.2s'
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(138, 180, 248, 0.08)'}
