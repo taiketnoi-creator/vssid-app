@@ -75,15 +75,14 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
   );
 
   const handleBiometricSuccess = async () => {
-    let targetUser = username;
-    if (!targetUser && accounts && accounts.length > 0) {
-      targetUser = accounts[0].username;
-      setUsername(targetUser);
+    if (!username) {
+      showToast('Vui lòng điền Mã số BHXH để đăng nhập bằng vân tay!');
+      return;
     }
     
     setLoading(true);
     await new Promise(resolve => setTimeout(resolve, 1500));
-    const result = await onLogin(targetUser);
+    const result = await onLogin(username);
     setLoading(false);
 
     if (result && !result.success) {
@@ -110,6 +109,10 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
 
   // Biometric fingerprint/Face ID login: shows the custom simulated prompt (Dialog 1)
   const handleBiometricLogin = () => {
+    if (!username) {
+      showToast('Vui lòng điền Mã số BHXH để đăng nhập bằng vân tay!');
+      return;
+    }
     setShowFingerprintDialog(true); // Open Artboard 1 underneath (zIndex 90)
     setShowBiometricPrompt(true); // Open Artboard 2/3/4 on top (zIndex 100)
     setBiometricPromptState('idle');
