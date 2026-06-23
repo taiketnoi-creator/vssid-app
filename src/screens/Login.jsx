@@ -694,7 +694,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             display: 'flex',
             alignItems: 'flex-end',
             justifyContent: 'center',
-            padding: '16px',
+            padding: '16px 16px 100px 16px',
             boxSizing: 'border-box',
             backdropFilter: showFingerprintDialog ? 'none' : 'blur(3px)'
           }}>
