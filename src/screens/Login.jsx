@@ -692,7 +692,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             background: showFingerprintDialog ? 'transparent' : 'rgba(0, 0, 0, 0.65)',
             zIndex: 100, // On top of Artboard 1 overlay
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-end',
             justifyContent: 'center',
             padding: '16px',
             boxSizing: 'border-box',
