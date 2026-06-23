@@ -275,12 +275,18 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             pointer-events: none;
           }
           @keyframes vssid-text-shake {
-            0%, 100% { transform: translateX(0); }
-            15%, 45%, 75% { transform: translateX(-6px); }
-            30%, 60%, 90% { transform: translateX(6px); }
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            15% { transform: translate3d(-6px, 0, 0); }
+            30% { transform: translate3d(5px, 0, 0); }
+            45% { transform: translate3d(-4px, 0, 0); }
+            60% { transform: translate3d(3px, 0, 0); }
+            75% { transform: translate3d(-1.5px, 0, 0); }
+            90% { transform: translate3d(0.5px, 0, 0); }
           }
           .vssid-biometric-text-failed {
-            animation: vssid-text-shake 0.4s ease-in-out;
+            animation: vssid-text-shake 0.45s cubic-bezier(.36,.07,.19,.97) both;
+            backface-visibility: hidden;
+            transform: translate3d(0, 0, 0);
           }
         `}</style>
 
@@ -728,10 +734,10 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
               {biometricPromptState === 'failed' && (
                 <div style={{
                   position: 'absolute',
-                  top: '46.1%',
-                  left: '30%',
-                  width: '40%',
-                  height: '3.5%',
+                  top: '44.5%',
+                  left: '20%',
+                  width: '60%',
+                  height: '6.0%',
                   background: '#2a2d31', // Solid background matching card exactly
                   display: 'flex',
                   alignItems: 'center',
