@@ -44,7 +44,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
     }
 
     setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 600));
     const result = await onLogin(username);
     setLoading(false);
 
@@ -83,7 +83,7 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
     }
     
     setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 400));
     const result = await onLogin(username);
     setLoading(false);
 
