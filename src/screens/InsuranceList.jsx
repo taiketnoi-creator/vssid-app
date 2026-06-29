@@ -309,9 +309,6 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                         fontSize: '12px',
                         textAlign: 'center',
                         padding: 0,
-                        position: 'sticky',
-                        top: 0,
-                        zIndex: 10,
                         backgroundColor: '#38679f'
                       }}>Từ tháng</th>
                       <th style={{ 
@@ -322,9 +319,6 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                         lineHeight: '1.2',
                         textAlign: 'center',
                         padding: 0,
-                        position: 'sticky',
-                        top: 0,
-                        zIndex: 10,
                         backgroundColor: '#38679f'
                       }}>Đến<br/>tháng</th>
                       <th style={{ 
@@ -334,9 +328,6 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                         fontSize: '12px',
                         textAlign: 'center',
                         padding: 0,
-                        position: 'sticky',
-                        top: 0,
-                        zIndex: 10,
                         backgroundColor: '#38679f'
                       }}>Đơn vị</th>
                       <th style={{ 
@@ -347,18 +338,12 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                         lineHeight: '1.2',
                         textAlign: 'center',
                         padding: 0,
-                        position: 'sticky',
-                        top: 0,
-                        zIndex: 10,
                         backgroundColor: '#38679f'
                       }}>Nghề nghiệp<br/>Chức vụ</th>
                       <th style={{ 
                         width: `${(32 / 382) * 100}%`, 
                         border: '1px solid #aaa9ae',
                         padding: 0,
-                        position: 'sticky',
-                        top: 0,
-                        zIndex: 10,
                         backgroundColor: '#38679f'
                       }}></th>
                     </tr>
