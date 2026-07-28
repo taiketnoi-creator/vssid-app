@@ -375,8 +375,9 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                           border: '0.5px solid #d9d9d9', 
                           padding: '0 4px', 
                           lineHeight: '1.3',
-                          wordBreak: 'break-word'
-                        }}>{row.position}</td>
+                          wordBreak: 'break-word',
+                          whiteSpace: 'pre-line'
+                        }}>{row.position ? row.position.replace('Kỹ sư cơ khí', 'Kỹ sư\ncơ khí') : ''}</td>
                         <td style={{ 
                           textAlign: 'center', 
                           border: '0.5px solid #d9d9d9', 

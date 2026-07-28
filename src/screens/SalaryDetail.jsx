@@ -221,7 +221,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
                fill:#ffffff  textAlign:LEFT
                ⬆ Dynamic ── */}
       <div style={txt(96, 174, 276, 17, 14, 'Bold', '#ffffff', 'left', { zIndex: 5 })}>
-        {rowData?.position || 'Nhân viên kỹ thuật'}
+        {rowData?.position ? rowData.position.replace(/\n/g, ' ') : 'Kỹ sư cơ khí'}
       </div>
 
       {/* ── 13:15  TEXT  "Đơn vị công tác:"
