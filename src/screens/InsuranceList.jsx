@@ -32,6 +32,29 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
   const { years, months } = calculateTotalParticipation(history);
   const tabs = ['BHXH', 'BHTN', 'BHTNLĐ-BNN', 'BHYT', 'C14-TS'];
 
+  const renderPositionCell = (pos) => {
+    if (!pos) return null;
+    const raw = String(pos)
+      .replace(/\{cleanPosition\}|\{`\$\{data\.position\}`\}/g, '')
+      .replace(/<br\s*\/?>/gi, '\n')
+      .trim();
+
+    let parts = raw.split('\n').map(s => s.trim()).filter(Boolean);
+
+    if (parts.length === 1) {
+      const match = raw.match(/^(kỹ\s+sư)\s+(.+)$/i);
+      if (match) {
+        parts = [match[1], match[2]];
+      }
+    }
+
+    return parts.map((part, i) => (
+      <span key={i} style={{ display: 'block', lineHeight: '1.2' }}>
+        {part}
+      </span>
+    ));
+  };
+
   return (
     <div style={{
       position: 'relative',
@@ -382,7 +405,7 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                           padding: '0 4px', 
                           lineHeight: '1.3',
                           wordBreak: 'break-word'
-                        }}>{row.position}</td>
+                        }}>{renderPositionCell(row.position)}</td>
                         <td style={{ 
                           textAlign: 'center', 
                           border: '1px solid #aaa9ae', 

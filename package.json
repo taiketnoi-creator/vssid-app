@@ -11,8 +11,10 @@
     "get-figma": "node get-figma.js",
     "cap:init": "npx cap init",
     "cap:sync": "npx cap sync ios",
+    "cap:sync:android": "npx cap sync android",
     "ios:build": "npm run build && powershell -Command \"Remove-Item -Path dist/*.apk -ErrorAction SilentlyContinue\" && npx cap sync ios",
     "android:sync": "npm run build && powershell -Command \"Remove-Item -Path dist/*.apk -ErrorAction SilentlyContinue\" && npx cap sync android",
+    "android:build": "npm run build && powershell -Command \"Remove-Item -Path dist/*.apk -ErrorAction SilentlyContinue\" && npx cap sync android",
     "android:open": "npx cap open android"
   },
   "dependencies": {
