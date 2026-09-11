@@ -110,7 +110,7 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           width: `${(364 / W) * 100}%`,
           height: `${cardHeight}px`,
           background: '#eaeff3', // Matches Figma card background perfectly
-          borderRadius: '12px',
+          borderRadius: '12px 12px 0 0',
           boxSizing: 'border-box',
           boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)',
           overflow: 'hidden',
