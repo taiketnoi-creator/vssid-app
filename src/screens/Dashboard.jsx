@@ -82,13 +82,13 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           aria-label="Notifications"
         />
 
-        {/* Dynamic Profile Card Box: x=19, y=87, 364x276 */}
+        {/* Dynamic Profile Card Box: x=19, y=87, 364x284 */}
         <div style={{
           position: 'absolute',
           left: `${(19 / W) * 100}%`,
           top: `${(87 / H) * 100}%`,
           width: `${(364 / W) * 100}%`,
-          height: `${(276 / H) * 100}%`,
+          height: `${(284 / H) * 100}%`,
           background: '#eaeff3', // Matches Figma card background perfectly
           borderRadius: '12px',
           boxSizing: 'border-box',
@@ -99,7 +99,7 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           <div style={{
             position: 'absolute',
             left: `${(24 / 364) * 100}%`,
-            top: `${(21 / 276) * 100}%`,
+            top: `${(21 / 284) * 100}%`,
             width: `${(62 / 364) * 100}%`,
             aspectRatio: '1 / 1',
             borderRadius: '50%',
@@ -133,9 +133,9 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           <div style={{
             position: 'absolute',
             left: `${(101 / 364) * 100}%`,
-            top: `${(31 / 276) * 100}%`,
+            top: `${(31 / 284) * 100}%`,
             width: `${(224 / 364) * 100}%`,
-            height: `${(17 / 276) * 100}%`,
+            height: `${(17 / 284) * 100}%`,
             fontSize: '14px',
             fontWeight: 700,
             color: '#000000',
@@ -153,9 +153,9 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           <div style={{
             position: 'absolute',
             left: `${(101 / 364) * 100}%`,
-            top: `${(57 / 276) * 100}%`,
+            top: `${(57 / 284) * 100}%`,
             width: `${(224 / 364) * 100}%`,
-            height: `${(17 / 276) * 100}%`,
+            height: `${(17 / 284) * 100}%`,
             fontSize: '14px',
             fontWeight: 400,
             color: '#4d4d4d',
@@ -166,23 +166,23 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             Mã BHXH: {currentAccount?.bhxhCode || '4217247030'}
           </div>
 
-          {/* Line 1 (Divider under Avatar): absolute y=182 (relative top=95) */}
+          {/* Line 1 (Divider under Avatar): relative top=94 */}
           <div style={{
             position: 'absolute',
             left: `${(20 / 364) * 100}%`,
             right: `${(20 / 364) * 100}%`,
-            top: `${(95 / 276) * 100}%`,
+            top: `${(94 / 284) * 100}%`,
             height: '1px',
             background: '#948c8c',
             opacity: 0.35
           }} />
 
-          {/* ──── Field 1: Ngày sinh (y=197, relative top=110) ──── */}
+          {/* ──── Field 1: Ngày sinh (relative top=105) ──── */}
           <div style={{
             position: 'absolute',
             left: `${(23 / 364) * 100}%`,
-            top: `${(110 / 276) * 100}%`,
-            fontSize: '14px',
+            top: `${(105 / 284) * 100}%`,
+            fontSize: '13.5px',
             fontWeight: 400,
             color: '#616161',
             fontFamily: 'Inter, sans-serif'
@@ -192,8 +192,8 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           <div style={{
             position: 'absolute',
             right: `${(22 / 364) * 100}%`,
-            top: `${(110 / 276) * 100}%`,
-            fontSize: '14px',
+            top: `${(105 / 284) * 100}%`,
+            fontSize: '13.5px',
             fontWeight: 400,
             color: '#616161',
             fontFamily: 'Inter, sans-serif',
@@ -202,23 +202,23 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             {currentAccount?.birthday || '24/05/1999'}
           </div>
 
-          {/* Line 3 (Divider 2): absolute y=224 (relative top=137) */}
+          {/* Line 2 (Divider 2): relative top=128 */}
           <div style={{
             position: 'absolute',
             left: `${(20 / 364) * 100}%`,
             right: `${(20 / 364) * 100}%`,
-            top: `${(137 / 276) * 100}%`,
+            top: `${(128 / 284) * 100}%`,
             height: '1px',
             background: '#948c8c',
             opacity: 0.35
           }} />
 
-          {/* ──── Field 2: ĐDCN/CCCD/Hộ chiếu (y=235, relative top=148) ──── */}
+          {/* ──── Field 2: ĐDCN/CCCD/Hộ chiếu (relative top=139) ──── */}
           <div style={{
             position: 'absolute',
             left: `${(23 / 364) * 100}%`,
-            top: `${(148 / 276) * 100}%`,
-            fontSize: '14px',
+            top: `${(139 / 284) * 100}%`,
+            fontSize: '13.5px',
             fontWeight: 400,
             color: '#616161',
             fontFamily: 'Inter, sans-serif'
@@ -228,8 +228,8 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           <div style={{
             position: 'absolute',
             right: `${(22 / 364) * 100}%`,
-            top: `${(148 / 276) * 100}%`,
-            fontSize: '14px',
+            top: `${(139 / 284) * 100}%`,
+            fontSize: '13.5px',
             fontWeight: 400,
             color: '#616161',
             fontFamily: 'Inter, sans-serif',
@@ -238,23 +238,23 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             {currentAccount?.cccd || '040299010346'}
           </div>
 
-          {/* Line 4 (Divider 3): absolute y=262 (relative top=175) */}
+          {/* Line 3 (Divider 3): relative top=162 */}
           <div style={{
             position: 'absolute',
             left: `${(20 / 364) * 100}%`,
             right: `${(20 / 364) * 100}%`,
-            top: `${(175 / 276) * 100}%`,
+            top: `${(162 / 284) * 100}%`,
             height: '1px',
             background: '#948c8c',
             opacity: 0.35
           }} />
 
-          {/* ──── Field 3: Số điện thoại (y=273, relative top=186) ──── */}
+          {/* ──── Field 3: Số điện thoại (relative top=173) ──── */}
           <div style={{
             position: 'absolute',
             left: `${(23 / 364) * 100}%`,
-            top: `${(186 / 276) * 100}%`,
-            fontSize: '14px',
+            top: `${(173 / 284) * 100}%`,
+            fontSize: '13.5px',
             fontWeight: 400,
             color: '#616161',
             fontFamily: 'Inter, sans-serif'
@@ -264,8 +264,8 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           <div style={{
             position: 'absolute',
             right: `${(22 / 364) * 100}%`,
-            top: `${(186 / 276) * 100}%`,
-            fontSize: '14px',
+            top: `${(173 / 284) * 100}%`,
+            fontSize: '13.5px',
             fontWeight: 400,
             color: '#616161',
             fontFamily: 'Inter, sans-serif',
@@ -274,23 +274,23 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
             {currentAccount?.phone || '0896511373'}
           </div>
 
-          {/* Line 5 (Divider 4): absolute y=300 (relative top=213) */}
+          {/* Line 4 (Divider 4): relative top=196 */}
           <div style={{
             position: 'absolute',
             left: `${(20 / 364) * 100}%`,
             right: `${(20 / 364) * 100}%`,
-            top: `${(213 / 276) * 100}%`,
+            top: `${(196 / 284) * 100}%`,
             height: '1px',
             background: '#948c8c',
             opacity: 0.35
           }} />
 
-          {/* ──── Field 4: Địa chỉ (y=308, relative top=221) ──── */}
+          {/* ──── Field 4: Địa chỉ (relative top=205) ──── */}
           <div style={{
             position: 'absolute',
             left: `${(23 / 364) * 100}%`,
-            top: `${(221 / 276) * 100}%`,
-            fontSize: '14px',
+            top: `${(205 / 284) * 100}%`,
+            fontSize: '13.5px',
             fontWeight: 400,
             color: '#616161',
             fontFamily: 'Inter, sans-serif'
@@ -299,15 +299,17 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           </div>
           <div style={{
             position: 'absolute',
-            right: `${(22 / 364) * 100}%`,
-            top: `${(221 / 276) * 100}%`,
-            width: `${(208 / 364) * 100}%`,
-            fontSize: '14px',
+            right: `${(20 / 364) * 100}%`,
+            top: `${(205 / 284) * 100}%`,
+            width: `${(262 / 364) * 100}%`,
+            maxHeight: `${(72 / 284) * 100}%`,
+            overflowY: 'auto',
+            fontSize: (currentAccount?.address?.length || 0) > 55 ? '12.5px' : '13.5px',
             fontWeight: 400,
             color: '#616161',
             fontFamily: 'Inter, sans-serif',
             textAlign: 'right',
-            lineHeight: '1.2',
+            lineHeight: '1.25',
             whiteSpace: 'pre-line',
             wordBreak: 'break-word'
           }}>
