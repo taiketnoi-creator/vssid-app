@@ -112,6 +112,9 @@ npx vercel --prod --yes
     4. `Thành phố Hà Nội`
 * **Góc dưới hộp thẻ nhọn vuông vắn (`borderRadius: '12px 12px 0 0'`):**
   * Phần hộp thẻ thông tin cá nhân có 2 góc trên bo tròn nhẹ `12px`, 2 góc dưới là **góc nhọn / vuông 90° phẳng** (`0px`), không bo tròn dưới đáy theo chuẩn thiết kế VssID.
+* **Tối ưu cỡ chữ tên công ty mục "Đơn vị" (`src/screens/InsuranceList.jsx`):**
+  * Tinh chỉnh cỡ chữ cột "Đơn vị" từ `12px` xuống `10.5px`, `lineHeight: 1.25`, `padding: 0 4px`.
+  * Giúp các tên công ty dài (đặc biệt là tên viết hoa in hoa như `CÔNG TY TNHH PANASONIC ELECTRIC WORKS VIỆT NAM`) hiển thị vừa vặn, thanh thoát, hài hòa và không bị quá to hay lấn chiếm diện tích ô bảng.
 * **Cập nhật & đồng bộ hệ thống:**
   * **Vercel Production:** Triển khai trực tiếp lên **https://vssid-app.vercel.app** (dùng cho Web & nhúng vào LadiPage).
   * **GitHub Repository:** Đã đồng bộ mã nguồn lên nhánh `main` của **taiketnoi-creator/vssid-app**.

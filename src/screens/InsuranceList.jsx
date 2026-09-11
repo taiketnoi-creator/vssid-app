@@ -390,11 +390,11 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
                         }}>{row.to}</td>
                         <td style={{ 
                           fontWeight: 500, 
-                          fontSize: '12px',
+                          fontSize: '10.5px',
                           border: '1px solid #aaa9ae', 
-                          padding: '0 6px', 
+                          padding: '0 4px', 
                           textAlign: 'center', 
-                          lineHeight: '1.3',
+                          lineHeight: '1.25',
                           wordBreak: 'break-word'
                         }}>{row.company}</td>
                         <td style={{ 
