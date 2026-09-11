@@ -96,9 +96,37 @@ npx vercel --prod --yes
 
 ---
 
+## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
+
+### 🚀 Phiên bản ngày 11/09/2026:
+* **Tự động co giãn hộp thẻ cá nhân (`src/screens/Dashboard.jsx`):**
+  * **Vấn đề trước đó:** Phần "Địa chỉ" dài bị tràn ra ngoài hộp thẻ hoặc bị che khuất dòng cuối ("Thành phố Hà Nội").
+  * **Giải pháp:** Sử dụng React hook (`useLayoutEffect` + `ResizeObserver` gắn vào `addressRef`) để đo đạc chính xác chiều cao thực tế theo độ dài text.
+  * **Công thức kích thước động:** `cardHeight = Math.max(276, 203 + addressHeight + 18)` cùng hiệu ứng mượt mà `transition: 'height 0.2s ease-out'`. Bất kể địa chỉ ngắn hay dài, hộp thẻ đều tự fix kích thước và luôn giữ khoảng đệm đáy `18px`.
+* **Căn chỉnh độ rộng & ngắt dòng địa chỉ chuẩn:**
+  * Khối địa chỉ cố định `width: 215px`, `right: 20px`, `top: 203px`, `fontSize: 13px`, `lineHeight: 1.35`, căn phải (`textAlign: 'right'`).
+  * Văn bản địa chỉ ngắt đều đặn, đẹp mắt thành đúng 4 dòng theo mẫu giao diện:
+    1. `Ngõ 332/ số nhà 7 Lĩnh Nam`
+    2. `Hoàng Mai Hà Nội , Phường`
+    3. `Lĩnh Nam, Quận Hoàng Mai,`
+    4. `Thành phố Hà Nội`
+* **Góc dưới hộp thẻ nhọn vuông vắn (`borderRadius: '12px 12px 0 0'`):**
+  * Phần hộp thẻ thông tin cá nhân có 2 góc trên bo tròn nhẹ `12px`, 2 góc dưới là **góc nhọn / vuông 90° phẳng** (`0px`), không bo tròn dưới đáy theo chuẩn thiết kế VssID.
+* **Cập nhật & đồng bộ hệ thống:**
+  * **Vercel Production:** Triển khai trực tiếp lên **https://vssid-app.vercel.app** (dùng cho Web & nhúng vào LadiPage).
+  * **GitHub Repository:** Đã đồng bộ mã nguồn lên nhánh `main` của **taiketnoi-creator/vssid-app**.
+
+---
+
 ## 🚨 Guidelines for Future AI Agents
 
-1. **Do Not Rename `VssID 12.2.apk` inside `public/`:** The client has external landing pages (LadiPage) configured to download the application directly from `https://vssid-app.vercel.app/VssID%2012.2.apk`. Overwrite this exact file when compiling new builds.
-2. **Preserve Tactile Animation Delays:** The 200ms timeout in `handleBiometricClick` corresponds to the CSS exit transition durations. Do not change it without updating the CSS animations, or components will unmount abruptly before completing their exit transitions.
-3. **Database Fallback:** The application checks credentials against local `SEED_ACCOUNTS` (cached in localStorage `vssid_accounts`) before communicating with Supabase. Ensure offline-first functionality is preserved.
-4. **Gradle Path Checks:** Never run `./gradlew.bat` in directories containing Vietnamese Unicode letters or spaces, as the compilation toolchain will throw silent asset-bundling errors. Use the directory junction workflow outlined above.
+1. **Always Update `README.md` Changelog:** Sau mỗi lần thực hiện thay đổi, chỉnh sửa code hoặc thêm tính năng, BẮT BUỘC phải ghi chú rõ ràng vào mục `Recent Updates & Changelog` trong file `README.md` này để người dùng và các AI Agent sau nắm bắt ngay lịch sử và cấu trúc dự án.
+2. **Do Not Rename `VssID 12.2.apk` inside `public/`:** The client has external landing pages (LadiPage) configured to download the application directly from `https://vssid-app.vercel.app/VssID%2012.2.apk`. Overwrite this exact file when compiling new builds.
+3. **Preserve Tactile Animation Delays:** The 200ms timeout in `handleBiometricClick` corresponds to the CSS exit transition durations. Do not change it without updating the CSS animations, or components will unmount abruptly before completing their exit transitions.
+4. **Database Fallback:** The application checks credentials against local `SEED_ACCOUNTS` (cached in localStorage `vssid_accounts`) before communicating with Supabase. Ensure offline-first functionality is preserved.
+5. **Gradle Path Checks:** Never run `./gradlew.bat` in directories containing Vietnamese Unicode letters or spaces, as the compilation toolchain will throw silent asset-bundling errors. Use the directory junction workflow outlined above.
+6. **Environment Paths on Windows Host:**
+   * **Node.js:** `C:\Users\guicci\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe` (thêm vào `$env:PATH` khi chạy terminal).
+   * **Vercel CLI:** `C:\Users\guicci\AppData\Roaming\npm\vercel.cmd`
+   * **Git:** Nếu môi trường PowerShell của Windows thiếu `git`, hãy gọi qua WSL Ubuntu (`wsl.exe -d Ubuntu -e sh -c "cd '/mnt/d/Phiên bản Ai agent/Vssid Vip/vssid-app' && git ..."`).
+
