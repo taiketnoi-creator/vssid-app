@@ -98,6 +98,16 @@ npx vercel --prod --yes
 
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
+### 🚀 Phiên bản ngày 07/10/2026:
+* **Nâng cấp danh sách chức năng màn hình Quản lý cá nhân từ 4 hàng lên 5 hàng (`src/screens/Dashboard.jsx`, `src/assets/frame_dashboard.png`, `src/assets/ic_dash_sobhxh.png`):**
+  * **Cấu trúc 5 hàng chức năng mới bên dưới thẻ thông tin cá nhân (`y = 378px` đến `703px`, mỗi hàng cao `65px`):**
+    1. **Hàng 1 (`y: 378–443`):** `THẺ BHYT BẢN ĐIỆN TỬ` (cập nhật tên đầy đủ từ *"THẺ BHYT"*).
+    2. **Hàng 2 (`y: 443–508`):** `SỔ BHXH BẢN ĐIỆN TỬ` (hàng mới thêm kèm icon tròn hai bàn tay đan hình trái tim `src/assets/ic_dash_sobhxh.png` đồng bộ kích thước và màu sắc `#0672c3`).
+    3. **Hàng 3 (`y: 508–573`):** `QUÁ TRÌNH THAM GIA` (đẩy từ hàng 2 xuống hàng 3 — bấm vào điều hướng sang màn hình `InsuranceList.jsx`).
+    4. **Hàng 4 (`y: 573–638`):** `THÔNG TIN HƯỞNG` (đẩy từ hàng 3 xuống hàng 4).
+    5. **Hàng 5 (`y: 638–703`):** `SỔ KHÁM CHỮA BỆNH` (đẩy từ hàng 4 xuống hàng 5).
+  * Đồng bộ chính xác font chữ (`Inter Regular 17px`, màu `#3f3f3f`), đường kẻ phân cách (`#948c8c`) và mũi tên điều hướng bên phải (`>`) cho cả 5 hàng.
+
 ### 🚀 Phiên bản ngày 11/09/2026:
 * **Tự động co giãn hộp thẻ cá nhân (`src/screens/Dashboard.jsx`):**
   * **Vấn đề trước đó:** Phần "Địa chỉ" dài bị tràn ra ngoài hộp thẻ hoặc bị che khuất dòng cuối ("Thành phố Hà Nội").

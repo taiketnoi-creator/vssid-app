@@ -338,10 +338,10 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           </div>
         </div>
 
-        {/* 3. Transparent Menu Row Hotspots (y=378 to y=642) */}
-        {/* THẺ BHYT Row Hotspot (y=378 to 443) */}
+        {/* 3. Transparent Menu Row Hotspots (5 rows: y=378 to y=703) */}
+        {/* Row 1: THẺ BHYT BẢN ĐIỆN TỬ Hotspot (y=378 to 443) */}
         <div
-          onClick={() => alert('Tính năng Thẻ BHYT đang phát triển!')}
+          onClick={() => alert('Tính năng Thẻ BHYT bản điện tử đang phát triển!')}
           style={{
             position: 'absolute',
             left: 0,
@@ -352,9 +352,9 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           }}
         />
 
-        {/* QUÁ TRÌNH THAM GIA Row Hotspot (y=443 to 508) */}
+        {/* Row 2: SỔ BHXH BẢN ĐIỆN TỬ Hotspot (y=443 to 508) */}
         <div
-          onClick={() => onNavigate('insurance-list', { transition: 'slide', direction: 'left' })}
+          onClick={() => alert('Tính năng Sổ BHXH bản điện tử đang phát triển!')}
           style={{
             position: 'absolute',
             left: 0,
@@ -365,9 +365,9 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           }}
         />
 
-        {/* THÔNG TIN HƯỞNG Row Hotspot (y=508 to 573) */}
+        {/* Row 3: QUÁ TRÌNH THAM GIA Hotspot (y=508 to 573) */}
         <div
-          onClick={() => alert('Tính năng Thông tin hưởng đang phát triển!')}
+          onClick={() => onNavigate('insurance-list', { transition: 'slide', direction: 'left' })}
           style={{
             position: 'absolute',
             left: 0,
@@ -378,13 +378,26 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           }}
         />
 
-        {/* SỔ KHÁM CHỮA BỆNH Row Hotspot (y=573 to 638) */}
+        {/* Row 4: THÔNG TIN HƯỞNG Hotspot (y=573 to 638) */}
+        <div
+          onClick={() => alert('Tính năng Thông tin hưởng đang phát triển!')}
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: `${(573 / H) * 100}%`,
+            width: '100%',
+            height: `${(65 / H) * 100}%`,
+            cursor: 'pointer'
+          }}
+        />
+
+        {/* Row 5: SỔ KHÁM CHỮA BỆNH Hotspot (y=638 to 703) */}
         <div
           onClick={() => alert('Tính năng Sổ khám chữa bệnh đang phát triển!')}
           style={{
             position: 'absolute',
             left: 0,
-            top: `${(573 / H) * 100}%`,
+            top: `${(638 / H) * 100}%`,
             width: '100%',
             height: `${(65 / H) * 100}%`,
             cursor: 'pointer'
