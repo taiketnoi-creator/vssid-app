@@ -103,7 +103,7 @@ npx vercel --prod --yes
   * Thay thế biểu tượng hai bàn tay đan trái tim bị mờ trước đó bằng bản chuẩn sắc nét (`180x180`, đồng bộ màu xanh `#0074be` và nền trắng tinh khiết), căn chỉnh kích thước và vị trí (`x = 24.75, y = 463.25, 32x32px` bên trong vòng tròn `41x41px`) bằng khít với 4 icon còn lại cùng cột.
 * **Cập nhật 2 khối nền xanh hình vuông & thay thế icon Người dùng bản chuẩn tại trang Đăng nhập (`src/screens/Login.jsx`, `src/assets/login_icon_cccd.png`):**
   * **Khối nền xanh (`#0069ad`):** Chuyển từ hình chữ nhật đứng (`width: 42px, height: 100%`) sang **hình vuông chuẩn 1:1** (`height: '100%', aspectRatio: '1 / 1'`), khớp đều chiều cao với ô nhập liệu (`52x52`).
-  * **Icon Người dùng (`src/assets/login_icon_cccd.png`):** Thay thế bằng file ảnh PNG bản chuẩn (`102x127` RGBA trong suốt) do người dùng cung cấp, hiển thị ở tỷ lệ `42%` diện tích ô vuông để khớp chính xác chiều cao thực tế (`~21.7px`, nhỏ hơn 20% so với bản cũ) và cân xứng hoàn toàn với icon ổ khóa hàng mật khẩu phía dưới.
+  * **Icon Người dùng (`src/assets/login_icon_cccd.png`) & Khóa mật khẩu:** Thay thế icon người dùng bằng file PNG bản chuẩn (`102x127` RGBA trong suốt) hiển thị ở tỷ lệ `50%` ô vuông (`~26px`), đồng thời đặt icon ổ khóa ở `78%` (`41x41`, chiều cao thực tế `~26px`) để cả 2 icon lớn rõ, cân xứng hoàn toàn bên trong khối vuông nền xanh.
 
 ### 🚀 Phiên bản ngày 07/10/2026:
 * **Nâng cấp danh sách chức năng màn hình Quản lý cá nhân từ 4 hàng lên 5 hàng (`src/screens/Dashboard.jsx`, `src/assets/frame_dashboard.png`, `src/assets/ic_dash_sobhxh.png`):**

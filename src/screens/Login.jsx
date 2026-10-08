@@ -361,13 +361,13 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             flexShrink: 0,
             overflow: 'hidden'
           }}>
-            {/* Uploaded User Avatar icon sized to match the padlock icon inside 1:1 square box */}
+            {/* Uploaded User Avatar icon sized to match the padlock icon inside 1:1 square box (+20%) */}
             <img
               src={loginIconCccd}
               alt="User"
               style={{
-                width: '42%',
-                height: '42%',
+                width: '50%',
+                height: '50%',
                 objectFit: 'contain',
                 display: 'block'
               }}
@@ -421,8 +421,8 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             flexShrink: 0,
             overflow: 'hidden'
           }}>
-            {/* Pure white Padlock lock icon (~20% smaller inside 1:1 square box) */}
-            <svg width="34" height="34" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '65%', height: '65%' }}>
+            {/* Pure white Padlock lock icon (+20% inside 1:1 square box) */}
+            <svg width="41" height="41" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '78%', height: '78%' }}>
               <path
                 d="M 71 96 V 69 A 29 29 0 0 1 129 69 V 96"
                 stroke="#ffffff"
