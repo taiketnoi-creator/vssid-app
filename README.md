@@ -101,9 +101,9 @@ npx vercel --prod --yes
 ### 🚀 Phiên bản ngày 08/10/2026:
 * **Thay thế icon độ phân giải cao sắc nét cho hàng "SỔ BHXH BẢN ĐIỆN TỬ" (`src/assets/ic_dash_sobhxh.png`, `src/assets/frame_dashboard.png`, `src/screens/Dashboard.jsx`):**
   * Thay thế biểu tượng hai bàn tay đan trái tim bị mờ trước đó bằng bản chuẩn sắc nét (`180x180`, đồng bộ màu xanh `#0074be` và nền trắng tinh khiết), căn chỉnh kích thước và vị trí (`x = 24.75, y = 463.25, 32x32px` bên trong vòng tròn `41x41px`) bằng khít với 4 icon còn lại cùng cột.
-* **Cập nhật 2 khối nền xanh hình vuông & tinh chỉnh kích thước icon Người dùng / Khóa mật khẩu tại trang Đăng nhập (`src/screens/Login.jsx`):**
+* **Cập nhật 2 khối nền xanh hình vuông & thay thế icon Người dùng bản chuẩn tại trang Đăng nhập (`src/screens/Login.jsx`, `src/assets/login_icon_cccd.png`):**
   * **Khối nền xanh (`#0069ad`):** Chuyển từ hình chữ nhật đứng (`width: 42px, height: 100%`) sang **hình vuông chuẩn 1:1** (`height: '100%', aspectRatio: '1 / 1'`), khớp đều chiều cao với ô nhập liệu (`52x52`).
-  * **Kích thước 2 icon bên trong:** Thu nhỏ 2 icon màu trắng (User Avatar hàng tài khoản & Padlock hàng mật khẩu) khoảng **20%** (`42x42` ➔ `34x34` / `65%` diện tích ô vuông) để tạo khoảng đệm xanh cân đối, hài hòa bên trong khối vuông.
+  * **Icon Người dùng (`src/assets/login_icon_cccd.png`):** Thay thế bằng file ảnh PNG bản chuẩn (`102x127` RGBA trong suốt) do người dùng cung cấp, hiển thị ở tỷ lệ `42%` diện tích ô vuông để khớp chính xác chiều cao thực tế (`~21.7px`, nhỏ hơn 20% so với bản cũ) và cân xứng hoàn toàn với icon ổ khóa hàng mật khẩu phía dưới.
 
 ### 🚀 Phiên bản ngày 07/10/2026:
 * **Nâng cấp danh sách chức năng màn hình Quản lý cá nhân từ 4 hàng lên 5 hàng (`src/screens/Dashboard.jsx`, `src/assets/frame_dashboard.png`, `src/assets/ic_dash_sobhxh.png`):**

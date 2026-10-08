@@ -361,14 +361,18 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             flexShrink: 0,
             overflow: 'hidden'
           }}>
-            {/* User Avatar silhouette icon (~20% smaller inside 1:1 square box) */}
-            <svg width="34" height="34" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '65%', height: '65%' }}>
-              <circle cx="100" cy="66" r="35" fill="#ffffff" />
-              <path
-                d="M 75.7 97.1 A 39.5 39.5 0 0 0 124.3 97.1 C 146 104 159 122 159 146 C 159 154 154 159 146 159 L 54 159 C 46 159 41 154 41 146 C 41 122 54 104 75.7 97.1 Z"
-                fill="#ffffff"
-              />
-            </svg>
+            {/* Uploaded User Avatar icon sized to match the padlock icon inside 1:1 square box */}
+            <img
+              src={loginIconCccd}
+              alt="User"
+              style={{
+                width: '42%',
+                height: '42%',
+                objectFit: 'contain',
+                display: 'block'
+              }}
+              draggable={false}
+            />
           </div>
           <input
             type="text"
