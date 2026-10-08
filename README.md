@@ -98,6 +98,11 @@ npx vercel --prod --yes
 
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
+### 🚀 Phiên bản ngày 08/10/2026:
+* **Cập nhật 2 icon Người dùng & Khóa mật khẩu tại trang Đăng nhập (`src/screens/Login.jsx`):**
+  * **Hàng điền tài khoản (Mã số BHXH/Số ĐDCN/CCCD):** Thay thế icon cũ bằng icon người dùng mới lớn hơn (`42x42`, `viewBox="0 0 200 200"`), có đường cắt cổ cong ôm sát phần đầu tròn và bờ vai bo tròn đầy đặn theo mẫu thiết kế mới.
+  * **Hàng mật khẩu:** Phóng to đồng bộ icon ổ khóa (`18x22` ➔ `42x42`, `viewBox="0 0 200 200"`) để cân xứng kích thước với icon người dùng phía trên; giữ nguyên toàn bộ các màn hình khác.
+
 ### 🚀 Phiên bản ngày 07/10/2026:
 * **Nâng cấp danh sách chức năng màn hình Quản lý cá nhân từ 4 hàng lên 5 hàng (`src/screens/Dashboard.jsx`, `src/assets/frame_dashboard.png`, `src/assets/ic_dash_sobhxh.png`):**
   * **Cấu trúc 5 hàng chức năng mới bên dưới thẻ thông tin cá nhân (`y = 378px` đến `703px`, mỗi hàng cao `65px`):**

@@ -358,12 +358,16 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexShrink: 0
+            flexShrink: 0,
+            overflow: 'hidden'
           }}>
-            {/* Pure white Silhouette User Avatar silhouette icon */}
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="7.5" r="4.5" fill="white" />
-              <path d="M12 13.5C8 13.5 4.5 16.5 4.5 21C4.5 21.6 4.9 22 5.5 22H18.5C19.1 22 19.5 21.6 19.5 21C19.5 16.5 16 13.5 12 13.5Z" fill="white" />
+            {/* New larger User Avatar silhouette icon matching uploaded icon */}
+            <svg width="42" height="42" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="100" cy="66" r="35" fill="#ffffff" />
+              <path
+                d="M 75.7 97.1 A 39.5 39.5 0 0 0 124.3 97.1 C 146 104 159 122 159 146 C 159 154 154 159 146 159 L 54 159 C 46 159 41 154 41 146 C 41 122 54 104 75.7 97.1 Z"
+                fill="#ffffff"
+              />
             </svg>
           </div>
           <input
@@ -410,12 +414,18 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexShrink: 0
+            flexShrink: 0,
+            overflow: 'hidden'
           }}>
-            {/* Pure white Padlock lock icon */}
-            <svg width="18" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7 10V6.5C7 3.8 9.2 1.5 12 1.5C14.8 1.5 17 3.8 17 6.5V10" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-              <rect x="4" y="10" width="16" height="12.5" rx="2.5" fill="white" />
+            {/* Pure white Padlock lock icon scaled to match user icon */}
+            <svg width="42" height="42" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M 71 96 V 69 A 29 29 0 0 1 129 69 V 96"
+                stroke="#ffffff"
+                strokeWidth="16"
+                strokeLinecap="round"
+              />
+              <rect x="48" y="90" width="104" height="70" rx="15" fill="#ffffff" />
             </svg>
           </div>
           <input
