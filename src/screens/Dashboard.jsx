@@ -1,5 +1,6 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import frameDashboard from '../assets/frame_dashboard.png';
+import icDashSobhxh from '../assets/ic_dash_sobhxh.png';
 
 const W = 402;
 const H = 874;
@@ -352,7 +353,22 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
           }}
         />
 
-        {/* Row 2: SỔ BHXH BẢN ĐIỆN TỬ Hotspot (y=443 to 508) */}
+        {/* Row 2: SỔ BHXH BẢN ĐIỆN TỬ High-Res Icon & Hotspot (y=443 to 508) */}
+        <img
+          src={icDashSobhxh}
+          alt=""
+          draggable={false}
+          style={{
+            position: 'absolute',
+            left: `${(24.75 / W) * 100}%`,
+            top: `${(463.25 / H) * 100}%`,
+            width: `${(32 / W) * 100}%`,
+            aspectRatio: '1 / 1',
+            borderRadius: '50%',
+            objectFit: 'contain',
+            pointerEvents: 'none'
+          }}
+        />
         <div
           onClick={() => alert('Tính năng Sổ BHXH bản điện tử đang phát triển!')}
           style={{

@@ -99,6 +99,8 @@ npx vercel --prod --yes
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
 ### 🚀 Phiên bản ngày 08/10/2026:
+* **Thay thế icon độ phân giải cao sắc nét cho hàng "SỔ BHXH BẢN ĐIỆN TỬ" (`src/assets/ic_dash_sobhxh.png`, `src/assets/frame_dashboard.png`, `src/screens/Dashboard.jsx`):**
+  * Thay thế biểu tượng hai bàn tay đan trái tim bị mờ trước đó bằng bản chuẩn sắc nét (`180x180`, đồng bộ màu xanh `#0074be` và nền trắng tinh khiết), căn chỉnh kích thước và vị trí (`x = 24.75, y = 463.25, 32x32px` bên trong vòng tròn `41x41px`) bằng khít với 4 icon còn lại cùng cột.
 * **Cập nhật 2 icon Người dùng & Khóa mật khẩu tại trang Đăng nhập (`src/screens/Login.jsx`):**
   * **Hàng điền tài khoản (Mã số BHXH/Số ĐDCN/CCCD):** Thay thế icon cũ bằng icon người dùng mới lớn hơn (`42x42`, `viewBox="0 0 200 200"`), có đường cắt cổ cong ôm sát phần đầu tròn và bờ vai bo tròn đầy đặn theo mẫu thiết kế mới.
   * **Hàng mật khẩu:** Phóng to đồng bộ icon ổ khóa (`18x22` ➔ `42x42`, `viewBox="0 0 200 200"`) để cân xứng kích thước với icon người dùng phía trên; giữ nguyên toàn bộ các màn hình khác.
