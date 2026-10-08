@@ -140,12 +140,18 @@ npx vercel --prod --yes
 
 ## 🚨 Guidelines for Future AI Agents
 
-1. **Always Update `README.md` Changelog:** Sau mỗi lần thực hiện thay đổi, chỉnh sửa code hoặc thêm tính năng, BẮT BUỘC phải ghi chú rõ ràng vào mục `Recent Updates & Changelog` trong file `README.md` này để người dùng và các AI Agent sau nắm bắt ngay lịch sử và cấu trúc dự án.
-2. **Do Not Rename `VssID 12.2.apk` inside `public/`:** The client has external landing pages (LadiPage) configured to download the application directly from `https://vssid-app.vercel.app/VssID%2012.2.apk`. Overwrite this exact file when compiling new builds.
-3. **Preserve Tactile Animation Delays:** The 200ms timeout in `handleBiometricClick` corresponds to the CSS exit transition durations. Do not change it without updating the CSS animations, or components will unmount abruptly before completing their exit transitions.
-4. **Database Fallback:** The application checks credentials against local `SEED_ACCOUNTS` (cached in localStorage `vssid_accounts`) before communicating with Supabase. Ensure offline-first functionality is preserved.
-5. **Gradle Path Checks:** Never run `./gradlew.bat` in directories containing Vietnamese Unicode letters or spaces, as the compilation toolchain will throw silent asset-bundling errors. Use the directory junction workflow outlined above.
-6. **Environment Paths on Windows Host:**
+1. **Always Sync & Push Every Change to GitHub (`taiketnoi-creator/vssid-app`) & Vercel:**
+   * **Trước khi sửa code:** Luôn kiểm tra và `git pull origin main` từ GitHub về để đảm bảo không ghi đè các thay đổi từ phiên làm việc trước.
+   * **Sau mỗi lần sửa đổi:** BẮT BUỘC phải thực hiện đủ 3 bước:
+     1. Ghi chú nội dung thay đổi vào mục `Recent Updates & Changelog` trong `README.md`.
+     2. Build & Deploy lên **Vercel Production** (`https://vssid-app.vercel.app`).
+     3. Commit & Push toàn bộ thay đổi lên nhánh `main` của GitHub (`https://github.com/taiketnoi-creator/vssid-app`) để mã nguồn trên GitHub luôn là bản mới nhất.
+2. **Always Update `README.md` Changelog:** Sau mỗi lần thực hiện thay đổi, chỉnh sửa code hoặc thêm tính năng, BẮT BUỘC phải ghi chú rõ ràng vào mục `Recent Updates & Changelog` trong file `README.md` này để người dùng và các AI Agent sau nắm bắt ngay lịch sử và cấu trúc dự án.
+3. **Do Not Rename `VssID 12.2.apk` inside `public/`:** The client has external landing pages (LadiPage) configured to download the application directly from `https://vssid-app.vercel.app/VssID%2012.2.apk`. Overwrite this exact file when compiling new builds.
+4. **Preserve Tactile Animation Delays:** The 200ms timeout in `handleBiometricClick` corresponds to the CSS exit transition durations. Do not change it without updating the CSS animations, or components will unmount abruptly before completing their exit transitions.
+5. **Database Fallback:** The application checks credentials against local `SEED_ACCOUNTS` (cached in localStorage `vssid_accounts`) before communicating with Supabase. Ensure offline-first functionality is preserved.
+6. **Gradle Path Checks:** Never run `./gradlew.bat` in directories containing Vietnamese Unicode letters or spaces, as the compilation toolchain will throw silent asset-bundling errors. Use the directory junction workflow outlined above.
+7. **Environment Paths on Windows Host:**
    * **Node.js:** `C:\Users\guicci\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe` (thêm vào `$env:PATH` khi chạy terminal).
    * **Vercel CLI:** `C:\Users\guicci\AppData\Roaming\npm\vercel.cmd`
    * **Git:** Nếu môi trường PowerShell của Windows thiếu `git`, hãy gọi qua WSL Ubuntu (`wsl.exe -d Ubuntu -e sh -c "cd '/mnt/d/Phiên bản Ai agent/Vssid Vip/vssid-app' && git ..."`).
