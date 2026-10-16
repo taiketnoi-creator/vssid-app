@@ -23,14 +23,26 @@ const fw = (figmaWeight) => ({
 
 const SalaryDetail = ({ onNavigate, rowData }) => {
 
-  const formatSalary = (val) => {
-    if (!val) return '0';
-    if (typeof val === 'string' && val.includes('.')) return val;
-    const num = parseInt(String(val).replace(/\D/g, ''), 10);
-    return isNaN(num) ? String(val) : new Intl.NumberFormat('vi-VN').format(num);
+  const parseMoney = (val) => {
+    if (val === undefined || val === null || val === '') return 0;
+    const digits = String(val).replace(/\D/g, '');
+    if (!digits) return 0;
+    const num = parseInt(digits, 10);
+    return isNaN(num) ? 0 : num;
   };
 
-  const salary = formatSalary(rowData?.salary || '14.500.000');
+  const formatMoney = (num) => {
+    if (!num || isNaN(num)) return '0';
+    return new Intl.NumberFormat('vi-VN').format(num);
+  };
+
+  const baseSalaryNum = parseMoney(rowData?.baseSalary ?? rowData?.salary ?? '6.400.000');
+  const allowanceNum = parseMoney(rowData?.allowance ?? 0);
+  const totalSalaryNum = baseSalaryNum + allowanceNum;
+
+  const totalSalary = formatMoney(totalSalaryNum);
+  const baseSalary = formatMoney(baseSalaryNum);
+  const allowance = formatMoney(allowanceNum);
 
   return (
     <div style={{
@@ -195,7 +207,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
                 fontWeight: fw('Medium'),
                 padding: '0 6px',
               }}>
-                {salary}
+                {totalSalary}
               </td>
             </tr>
 
@@ -217,7 +229,29 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
                 fontWeight: fw('Medium'),
                 padding: '0 6px',
               }}>
-                {salary}
+                {baseSalary}
+              </td>
+            </tr>
+
+            {/* Row 3: Phụ cấp lương */}
+            <tr style={{ height: '28px' }}>
+              <td style={{
+                width: '50%',
+                border: '1px solid #aaa9ae',
+                textAlign: 'center',
+                fontWeight: fw('Medium'),
+                padding: '0 6px',
+              }}>
+                Phụ cấp lương
+              </td>
+              <td style={{
+                width: '50%',
+                border: '1px solid #aaa9ae',
+                textAlign: 'right',
+                fontWeight: fw('Medium'),
+                padding: '0 6px',
+              }}>
+                {allowance}
               </td>
             </tr>
           </tbody>

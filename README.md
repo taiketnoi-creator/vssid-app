@@ -98,6 +98,13 @@ npx vercel --prod --yes
 
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
+### 🚀 Phiên bản ngày 16/10/2026:
+* **Bổ sung hàng `Phụ cấp lương` và tự động cộng tổng `Tiền lương đóng BHXH` (`src/screens/SalaryDetail.jsx`, `src/components/AccountManager.jsx`):**
+  * Thêm hàng thứ 3 **`Phụ cấp lương`** vào bảng chi tiết lương trên màn hình `Chi tiết` (`SalaryDetail.jsx`), đồng bộ chiều cao (`28px`), viền (`1px solid #aaa9ae`) và định dạng chữ (`Inter Medium 14px`).
+  * Tự động tính **`Tiền lương đóng BHXH = Mức lương + Phụ cấp lương`** và định dạng phân cách hàng nghìn chuẩn Việt Nam (`vi-VN`).
+  * Bổ sung ô nhập **Phụ cấp lương** (`allowance`) và dòng xem trước tổng **Tiền lương đóng BHXH** trực tiếp trong bảng quản trị `AccountManager.jsx`.
+  * Cập nhật dữ liệu tài khoản **Dương Quốc Khánh (`4217077995`)** trên Supabase với `Mức lương: 6.400.000`, `Phụ cấp lương: 3.800.000`, tự động hiển thị `Tiền lương đóng BHXH: 10.200.000`.
+
 ### 🚀 Phiên bản ngày 08/10/2026:
 * **Thay thế icon độ phân giải cao sắc nét cho hàng "SỔ BHXH BẢN ĐIỆN TỬ" (`src/assets/ic_dash_sobhxh.png`, `src/assets/frame_dashboard.png`, `src/screens/Dashboard.jsx`):**
   * Thay thế biểu tượng hai bàn tay đan trái tim bị mờ trước đó bằng bản chuẩn sắc nét (`180x180`, đồng bộ màu xanh `#0074be` và nền trắng tinh khiết), căn chỉnh kích thước và vị trí (`x = 24.75, y = 463.25, 32x32px` bên trong vòng tròn `41x41px`) bằng khít với 4 icon còn lại cùng cột.

@@ -63,7 +63,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
       setAddress('');
       setAvatar('');
       setHistory([
-        { from: '01/2026', to: '12/2026', company: 'Công ty TNHH Mới', position: 'Nhân viên', salary: '10.000.000', workAddress: 'Hà Nội' }
+        { from: '01/2026', to: '12/2026', company: 'Công ty TNHH Mới', position: 'Nhân viên', salary: '6.400.000', allowance: '3.800.000', workAddress: 'Hà Nội' }
       ]);
     }
     setActiveView('form');
@@ -72,7 +72,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
   const handleAddHistoryRow = () => {
     setHistory([
       ...history,
-      { from: '', to: '', company: '', position: '', salary: '', workAddress: '' }
+      { from: '', to: '', company: '', position: '', salary: '', allowance: '', workAddress: '' }
     ]);
   };
 
@@ -535,27 +535,47 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
                             />
                           </div>
 
+                          <div>
+                            <label style={{ display: 'block', fontSize: '10px', fontWeight: 600, color: '#64748b', marginBottom: '2px' }}>Chức vụ</label>
+                            <input 
+                              type="text" 
+                              value={row.position}
+                              onChange={e => handleHistoryChange(idx, 'position', e.target.value)}
+                              placeholder="Nhân viên kỹ thuật"
+                              style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '12px', boxSizing: 'border-box' }}
+                            />
+                          </div>
+
                           <div style={{ display: 'flex', gap: '10px' }}>
                             <div style={{ flex: 1 }}>
-                              <label style={{ display: 'block', fontSize: '10px', fontWeight: 600, color: '#64748b', marginBottom: '2px' }}>Chức vụ</label>
+                              <label style={{ display: 'block', fontSize: '10px', fontWeight: 600, color: '#64748b', marginBottom: '2px' }}>Mức lương</label>
                               <input 
                                 type="text" 
-                                value={row.position}
-                                onChange={e => handleHistoryChange(idx, 'position', e.target.value)}
-                                placeholder="Nhân viên kỹ thuật"
+                                value={row.salary || ''}
+                                onChange={e => handleHistoryChange(idx, 'salary', e.target.value)}
+                                placeholder="6.400.000"
                                 style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '12px', boxSizing: 'border-box' }}
                               />
                             </div>
                             <div style={{ flex: 1 }}>
-                              <label style={{ display: 'block', fontSize: '10px', fontWeight: 600, color: '#64748b', marginBottom: '2px' }}>Mức lương đóng</label>
+                              <label style={{ display: 'block', fontSize: '10px', fontWeight: 600, color: '#64748b', marginBottom: '2px' }}>Phụ cấp lương</label>
                               <input 
                                 type="text" 
-                                value={row.salary}
-                                onChange={e => handleHistoryChange(idx, 'salary', e.target.value)}
-                                placeholder="14.500.000"
+                                value={row.allowance || ''}
+                                onChange={e => handleHistoryChange(idx, 'allowance', e.target.value)}
+                                placeholder="3.800.000"
                                 style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '12px', boxSizing: 'border-box' }}
                               />
                             </div>
+                          </div>
+
+                          <div style={{ fontSize: '11px', color: '#0369a1', fontWeight: 600, background: '#f0f9ff', padding: '6px 10px', borderRadius: '6px', border: '1px solid #bae6fd' }}>
+                            Tiền lương đóng BHXH (Tổng):{' '}
+                            {(() => {
+                              const s = parseInt(String(row.salary || '0').replace(/\D/g, ''), 10) || 0;
+                              const a = parseInt(String(row.allowance || '0').replace(/\D/g, ''), 10) || 0;
+                              return new Intl.NumberFormat('vi-VN').format(s + a);
+                            })()}
                           </div>
 
                           <div>
