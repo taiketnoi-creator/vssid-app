@@ -38,7 +38,8 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
 
   const baseSalaryNum = parseMoney(rowData?.baseSalary ?? rowData?.salary ?? '6.400.000');
   const allowanceNum = parseMoney(rowData?.allowance ?? 0);
-  const totalSalaryNum = baseSalaryNum + allowanceNum;
+  const hasAllowance = allowanceNum > 0 && rowData?.showAllowance !== false;
+  const totalSalaryNum = hasAllowance ? baseSalaryNum + allowanceNum : baseSalaryNum;
 
   const totalSalary = formatMoney(totalSalaryNum);
   const baseSalary = formatMoney(baseSalaryNum);
@@ -233,27 +234,29 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
               </td>
             </tr>
 
-            {/* Row 3: Phụ cấp lương */}
-            <tr style={{ height: '28px' }}>
-              <td style={{
-                width: '50%',
-                border: '1px solid #aaa9ae',
-                textAlign: 'center',
-                fontWeight: fw('Medium'),
-                padding: '0 6px',
-              }}>
-                Phụ cấp lương
-              </td>
-              <td style={{
-                width: '50%',
-                border: '1px solid #aaa9ae',
-                textAlign: 'right',
-                fontWeight: fw('Medium'),
-                padding: '0 6px',
-              }}>
-                {allowance}
-              </td>
-            </tr>
+            {/* Row 3: Phụ cấp lương (chỉ hiện khi có phụ cấp > 0) */}
+            {hasAllowance && (
+              <tr style={{ height: '28px' }}>
+                <td style={{
+                  width: '50%',
+                  border: '1px solid #aaa9ae',
+                  textAlign: 'center',
+                  fontWeight: fw('Medium'),
+                  padding: '0 6px',
+                }}>
+                  Phụ cấp lương
+                </td>
+                <td style={{
+                  width: '50%',
+                  border: '1px solid #aaa9ae',
+                  textAlign: 'right',
+                  fontWeight: fw('Medium'),
+                  padding: '0 6px',
+                }}>
+                  {allowance}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

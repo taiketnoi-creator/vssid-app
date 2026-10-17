@@ -63,7 +63,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
       setAddress('');
       setAvatar('');
       setHistory([
-        { from: '01/2026', to: '12/2026', company: 'Công ty TNHH Mới', position: 'Nhân viên', salary: '6.400.000', allowance: '3.800.000', workAddress: 'Hà Nội' }
+        { from: '01/2026', to: '12/2026', company: 'Công ty TNHH Mới', position: 'Nhân viên', salary: '10.000.000', allowance: '', showAllowance: false, workAddress: 'Hà Nội' }
       ]);
     }
     setActiveView('form');
@@ -72,7 +72,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
   const handleAddHistoryRow = () => {
     setHistory([
       ...history,
-      { from: '', to: '', company: '', position: '', salary: '', allowance: '', workAddress: '' }
+      { from: '', to: '', company: '', position: '', salary: '', allowance: '', showAllowance: false, workAddress: '' }
     ]);
   };
 
@@ -88,6 +88,20 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
     setHistory(updated);
   };
 
+  const handleToggleRowAllowance = (index) => {
+    const updated = [...history];
+    const row = updated[index];
+    const currentlyOn = row.showAllowance !== undefined
+      ? row.showAllowance
+      : Boolean(row.allowance && parseInt(String(row.allowance).replace(/\D/g, ''), 10) > 0);
+    if (currentlyOn) {
+      updated[index] = { ...row, showAllowance: false, allowance: '' };
+    } else {
+      updated[index] = { ...row, showAllowance: true, allowance: row.allowance || '3.800.000' };
+    }
+    setHistory(updated);
+  };
+
   const handleSave = () => {
     if (!username || !password || !fullName) {
       alert('Vui lòng điền đầy đủ Tài khoản, Mật khẩu và Họ tên!');
@@ -95,6 +109,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
     }
 
     const newAccount = {
+      ...(editingIndex !== null && accounts[editingIndex]?.id ? { id: accounts[editingIndex].id } : {}),
       username,
       password,
       fullName,
@@ -119,7 +134,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
       updatedAccounts.push(newAccount);
     }
 
-    onUpdateAccounts(updatedAccounts);
+    onUpdateAccounts(updatedAccounts, newAccount);
     setActiveView('list');
   };
 
@@ -130,9 +145,10 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
       return;
     }
     if (confirm(`Bạn có chắc chắn muốn xóa tài khoản "${accounts[index].fullName}"?`)) {
+      const deletedAcc = accounts[index];
       const updated = [...accounts];
       updated.splice(index, 1);
-      onUpdateAccounts(updated);
+      onUpdateAccounts(updated, null, deletedAcc?.username);
     }
   };
 
@@ -546,37 +562,84 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
                             />
                           </div>
 
-                          <div style={{ display: 'flex', gap: '10px' }}>
-                            <div style={{ flex: 1 }}>
-                              <label style={{ display: 'block', fontSize: '10px', fontWeight: 600, color: '#64748b', marginBottom: '2px' }}>Mức lương</label>
-                              <input 
-                                type="text" 
-                                value={row.salary || ''}
-                                onChange={e => handleHistoryChange(idx, 'salary', e.target.value)}
-                                placeholder="6.400.000"
-                                style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '12px', boxSizing: 'border-box' }}
-                              />
-                            </div>
-                            <div style={{ flex: 1 }}>
-                              <label style={{ display: 'block', fontSize: '10px', fontWeight: 600, color: '#64748b', marginBottom: '2px' }}>Phụ cấp lương</label>
-                              <input 
-                                type="text" 
-                                value={row.allowance || ''}
-                                onChange={e => handleHistoryChange(idx, 'allowance', e.target.value)}
-                                placeholder="3.800.000"
-                                style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '12px', boxSizing: 'border-box' }}
-                              />
-                            </div>
-                          </div>
+                          {/* Toggle switch for Phụ cấp lương */}
+                          {(() => {
+                            const hasAllow = row.showAllowance !== undefined
+                              ? row.showAllowance
+                              : Boolean(row.allowance && parseInt(String(row.allowance).replace(/\D/g, ''), 10) > 0);
+                            return (
+                              <>
+                                <div style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
+                                  background: hasAllow ? '#f0fdf4' : '#f1f5f9',
+                                  border: `1px solid ${hasAllow ? '#bbf7d0' : '#e2e8f0'}`,
+                                  padding: '6px 10px',
+                                  borderRadius: '8px'
+                                }}>
+                                  <span style={{ fontSize: '11px', fontWeight: 600, color: hasAllow ? '#15803d' : '#475569' }}>
+                                    Hàng "Phụ cấp lương": {hasAllow ? 'ĐANG BẬT' : 'ĐANG TẮT (Ẩn)'}
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleToggleRowAllowance(idx)}
+                                    style={{
+                                      border: 'none',
+                                      borderRadius: '20px',
+                                      padding: '4px 12px',
+                                      fontSize: '11px',
+                                      fontWeight: 700,
+                                      cursor: 'pointer',
+                                      background: hasAllow ? '#16a34a' : '#94a3b8',
+                                      color: '#ffffff',
+                                      transition: 'all 0.2s'
+                                    }}
+                                  >
+                                    {hasAllow ? 'Tắt phụ cấp' : '+ Bật phụ cấp'}
+                                  </button>
+                                </div>
 
-                          <div style={{ fontSize: '11px', color: '#0369a1', fontWeight: 600, background: '#f0f9ff', padding: '6px 10px', borderRadius: '6px', border: '1px solid #bae6fd' }}>
-                            Tiền lương đóng BHXH (Tổng):{' '}
-                            {(() => {
-                              const s = parseInt(String(row.salary || '0').replace(/\D/g, ''), 10) || 0;
-                              const a = parseInt(String(row.allowance || '0').replace(/\D/g, ''), 10) || 0;
-                              return new Intl.NumberFormat('vi-VN').format(s + a);
-                            })()}
-                          </div>
+                                <div style={{ display: 'flex', gap: '10px' }}>
+                                  <div style={{ flex: 1 }}>
+                                    <label style={{ display: 'block', fontSize: '10px', fontWeight: 600, color: '#64748b', marginBottom: '2px' }}>
+                                      {hasAllow ? 'Mức lương' : 'Mức lương đóng BHXH'}
+                                    </label>
+                                    <input 
+                                      type="text" 
+                                      value={row.salary || ''}
+                                      onChange={e => handleHistoryChange(idx, 'salary', e.target.value)}
+                                      placeholder={hasAllow ? '6.400.000' : '15.240.000'}
+                                      style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '12px', boxSizing: 'border-box' }}
+                                    />
+                                  </div>
+                                  {hasAllow && (
+                                    <div style={{ flex: 1 }}>
+                                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 600, color: '#64748b', marginBottom: '2px' }}>Phụ cấp lương</label>
+                                      <input 
+                                        type="text" 
+                                        value={row.allowance || ''}
+                                        onChange={e => handleHistoryChange(idx, 'allowance', e.target.value)}
+                                        placeholder="3.800.000"
+                                        style={{ width: '100%', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '12px', boxSizing: 'border-box' }}
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+
+                                {hasAllow && (
+                                  <div style={{ fontSize: '11px', color: '#0369a1', fontWeight: 600, background: '#f0f9ff', padding: '6px 10px', borderRadius: '6px', border: '1px solid #bae6fd' }}>
+                                    Tiền lương đóng BHXH (Tổng):{' '}
+                                    {(() => {
+                                      const s = parseInt(String(row.salary || '0').replace(/\D/g, ''), 10) || 0;
+                                      const a = parseInt(String(row.allowance || '0').replace(/\D/g, ''), 10) || 0;
+                                      return new Intl.NumberFormat('vi-VN').format(s + a);
+                                    })()}
+                                  </div>
+                                )}
+                              </>
+                            );
+                          })()}
 
                           <div>
                             <label style={{ display: 'block', fontSize: '10px', fontWeight: 600, color: '#64748b', marginBottom: '2px' }}>Địa chỉ nơi làm việc</label>

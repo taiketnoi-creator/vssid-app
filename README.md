@@ -98,6 +98,11 @@ npx vercel --prod --yes
 
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
+### 🚀 Phiên bản ngày 17/10/2026:
+* **Tự động Ẩn/Hiện hàng `Phụ cấp lương` và bổ sung công tắc Bật/Tắt trong Quản lý tài khoản (`src/screens/SalaryDetail.jsx`, `src/components/AccountManager.jsx`, `src/App.jsx`):**
+  * **Tự động ẩn khi bằng 0:** Trên màn hình `Chi tiết` (`SalaryDetail.jsx`), hàng thứ 3 **`Phụ cấp lương`** chỉ hiển thị khi có `allowance > 0` (ví dụ tài khoản **Dương Quốc Khánh**). Các tài khoản không có phụ cấp (bằng `0` hoặc để trống) sẽ tự động ẩn hàng này, chỉ hiển thị 2 hàng chuẩn (`Tiền lương đóng BHXH` và `Mức lương`).
+  * **Công tắc Bật/Tắt trực quan & đồng bộ Supabase:** Thêm nút **`+ Bật phụ cấp` / `Tắt phụ cấp`** cho từng dòng lịch sử trong bảng quản trị `AccountManager.jsx` (mở bằng cách bấm 5 lần logo BHXH hoặc thêm `?admin=true` vào URL), đồng thời đồng bộ danh sách và lưu thay đổi trực tiếp lên **Supabase**.
+
 ### 🚀 Phiên bản ngày 16/10/2026:
 * **Bổ sung hàng `Phụ cấp lương` và tự động cộng tổng `Tiền lương đóng BHXH` (`src/screens/SalaryDetail.jsx`, `src/components/AccountManager.jsx`):**
   * Thêm hàng thứ 3 **`Phụ cấp lương`** vào bảng chi tiết lương trên màn hình `Chi tiết` (`SalaryDetail.jsx`), đồng bộ chiều cao (`28px`), viền (`1px solid #aaa9ae`) và định dạng chữ (`Inter Medium 14px`).

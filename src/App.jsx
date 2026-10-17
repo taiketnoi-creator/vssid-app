@@ -176,7 +176,62 @@ function App() {
 
   const screenOrder = ['login', 'dashboard', 'insurance-list', 'salary-detail'];
 
-  const saveAccounts = (newAccounts) => {
+  // Sync accounts from Supabase when AccountManager opens or on initial load
+  useEffect(() => {
+    const isSupabaseConfigured =
+      supabase && supabase.supabaseUrl && !supabase.supabaseUrl.includes('YOUR_SUPABASE_URL');
+    if (!isSupabaseConfigured) return;
+
+    const fetchSupabaseAccounts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('accounts')
+          .select('*')
+          .order('id', { ascending: false });
+        if (error || !data) return;
+
+        const remoteAccounts = data.map(item => ({
+          id: item.id,
+          username: item.username,
+          password: item.password,
+          fullName: item.full_name,
+          bhxhCode: item.bhxh_code,
+          birthday: item.birthday,
+          cccd: item.cccd,
+          phone: item.phone,
+          address: item.address,
+          avatar: item.avatar,
+          insuranceHistory: item.insurance_history || []
+        }));
+
+        // Keep local seed accounts that aren't in remote
+        const remoteUsernames = new Set(remoteAccounts.map(a => a.username));
+        const merged = [
+          ...remoteAccounts,
+          ...SEED_ACCOUNTS.filter(s => !remoteUsernames.has(s.username))
+        ];
+
+        setAccounts(merged);
+        localStorage.setItem('vssid_accounts', JSON.stringify(merged));
+
+        setCurrentAccount(prev => {
+          if (!prev) return prev;
+          const fresh = merged.find(a => a.username === prev.username);
+          if (fresh) {
+            localStorage.setItem('vssid_current_account', JSON.stringify(fresh));
+            return fresh;
+          }
+          return prev;
+        });
+      } catch (err) {
+        console.error('Supabase sync error:', err);
+      }
+    };
+
+    fetchSupabaseAccounts();
+  }, [accountManagerOpen]);
+
+  const saveAccounts = async (newAccounts, savedAccount = null, deletedUsername = null) => {
     setAccounts(newAccounts);
     localStorage.setItem('vssid_accounts', JSON.stringify(newAccounts));
     // Also update currentAccount if it was modified
@@ -192,6 +247,44 @@ function App() {
         navigateTo('login', { transition: 'fade' });
       }
     }
+
+    // Sync to Supabase if configured
+    const isSupabaseConfigured =
+      supabase && supabase.supabaseUrl && !supabase.supabaseUrl.includes('YOUR_SUPABASE_URL');
+    if (!isSupabaseConfigured) return;
+
+    try {
+      if (deletedUsername) {
+        await supabase.from('accounts').delete().eq('username', deletedUsername);
+      } else if (savedAccount) {
+        const payload = {
+          username: savedAccount.username,
+          password: savedAccount.password,
+          full_name: savedAccount.fullName,
+          bhxh_code: savedAccount.bhxhCode,
+          birthday: savedAccount.birthday,
+          cccd: savedAccount.cccd,
+          phone: savedAccount.phone,
+          address: savedAccount.address,
+          avatar: savedAccount.avatar,
+          insurance_history: savedAccount.insuranceHistory || []
+        };
+
+        const { data: existing } = await supabase
+          .from('accounts')
+          .select('id')
+          .eq('username', savedAccount.username)
+          .maybeSingle();
+
+        if (existing?.id) {
+          await supabase.from('accounts').update(payload).eq('id', existing.id);
+        } else {
+          await supabase.from('accounts').insert([payload]);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to sync account to Supabase:', err);
+    }
   };
 
   const handleLogin = async (username, password) => {
@@ -204,7 +297,44 @@ function App() {
       return { success: true };
     }
 
-    // 1. ALWAYS check local accounts first for instant offline/seed login!
+    const isSupabaseConfigured = 
+      supabase && supabase.supabaseUrl && !supabase.supabaseUrl.includes('YOUR_SUPABASE_URL');
+
+    // Check Supabase first for freshest remote data, fallback to local accounts
+    if (isSupabaseConfigured) {
+      try {
+        const { data, error } = await supabase
+          .from('accounts')
+          .select('*')
+          .eq('username', username)
+          .maybeSingle();
+
+        if (!error && data) {
+          const formattedAcc = {
+            id: data.id,
+            username: data.username,
+            password: data.password,
+            fullName: data.full_name,
+            bhxhCode: data.bhxh_code,
+            birthday: data.birthday,
+            cccd: data.cccd,
+            phone: data.phone,
+            address: data.address,
+            avatar: data.avatar,
+            insuranceHistory: data.insurance_history || []
+          };
+
+          setCurrentAccount(formattedAcc);
+          localStorage.setItem('vssid_current_account', JSON.stringify(formattedAcc));
+          navigateTo('dashboard');
+          return { success: true };
+        }
+      } catch (err) {
+        console.error('Supabase login error, falling back to local:', err);
+      }
+    }
+
+    // Fallback to local accounts (offline / SEED_ACCOUNTS)
     const matched = accounts.find(a => a.username === username);
     if (matched) {
       setCurrentAccount(matched);
@@ -213,46 +343,7 @@ function App() {
       return { success: true };
     }
 
-    const isSupabaseConfigured = 
-      supabase && supabase.supabaseUrl && !supabase.supabaseUrl.includes('YOUR_SUPABASE_URL');
-
-    if (!isSupabaseConfigured) {
-      return { success: false, message: 'Mã số BHXH không tồn tại trong hệ thống!' };
-    }
-
-    try {
-      const { data, error } = await supabase
-        .from('accounts')
-        .select('*')
-        .eq('username', username)
-        .single();
-
-      if (error || !data) {
-        return { success: false, message: 'Mã số BHXH không tồn tại trong hệ thống!' };
-      }
-
-      // Convert snake_case fields from database to camelCase for full compatibility with React UI
-      const formattedAcc = {
-        username: data.username,
-        password: data.password,
-        fullName: data.full_name,
-        bhxhCode: data.bhxh_code,
-        birthday: data.birthday,
-        cccd: data.cccd,
-        phone: data.phone,
-        address: data.address,
-        avatar: data.avatar,
-        insuranceHistory: data.insurance_history || []
-      };
-
-      setCurrentAccount(formattedAcc);
-      localStorage.setItem('vssid_current_account', JSON.stringify(formattedAcc));
-      navigateTo('dashboard');
-      return { success: true };
-    } catch (err) {
-      console.error('Supabase login error:', err);
-      return { success: false, message: 'Lỗi kết nối mạng đến máy chủ database!' };
-    }
+    return { success: false, message: 'Mã số BHXH không tồn tại trong hệ thống!' };
   };
 
   const handleLogout = () => {
