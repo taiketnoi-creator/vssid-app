@@ -50,10 +50,31 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
       position: 'relative',
       width: '100%',
       height: '100%',
-      overflow: 'hidden',
+      clipPath: 'inset(-300px 0px -300px 0px)',
       backgroundColor: '#ffffff',
       fontFamily: 'Inter, sans-serif',
     }}>
+      {/* Top & Bottom Bleed Extensions for Tall Android Screens */}
+      <div style={{
+        position: 'absolute',
+        top: '-250px',
+        left: 0,
+        width: '100%',
+        height: '252px',
+        background: '#ffffff',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        bottom: '-250px',
+        left: 0,
+        width: '100%',
+        height: '252px',
+        background: '#ffffff',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
 
       {/* ── Back button: x=27, y=76, w=9, h=18 ── */}
       <button

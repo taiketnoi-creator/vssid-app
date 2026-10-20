@@ -98,7 +98,13 @@ npx vercel --prod --yes
 
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
-### 🚀 Phiên bản ngày 20/10/2026:
+### 🚀 Phiên bản ngày 21/10/2026:
+* **Bù nền tràn viền trên & dưới (Top/Bottom Edge Bleed) cho các dòng máy Android màn hình dài (`src/App.jsx`, `src/App.css`, `src/components/Sidebar.jsx`, `src/screens/*.jsx`, `src/assets/frame_sidebar.png`):**
+  * Khắc phục triệt để hiện tượng hở vệt trắng ở mép trên (khu vực camera đục lỗ / thanh trạng thái) và mép dưới (thanh điều hướng cử chỉ) trên các thiết bị Android có tỷ lệ màn hình dài hơn khung chuẩn `402x874`.
+  * Bù chính xác dải màu/hình ảnh khớp 100% với mép trên và mép dưới của từng màn hình:
+    * **Quản lý cá nhân (`Dashboard.jsx`) & Quá trình tham gia (`InsuranceList.jsx`):** Bù dải gradient xanh dương chuẩn header (`linear-gradient(90deg, #01aef2 0%, #0191dc 50%, #0073c6 100%)`) ở phía trên và nền trắng (`#ffffff`) của thanh điều hướng ở phía dưới.
+    * **Menu trượt (`Sidebar.jsx` & `frame_sidebar.png`):** Xóa vệt viền xám 4px dưới đáy `frame_sidebar.png`, đồng thời bù màu xanh đậm (`#0072c8`) ở đỉnh, màu xanh sáng (`#01aef2`) ở đáy menu trượt và mở rộng lớp phủ mờ (`rgba(55,55,55,0.5)`) phủ kín toàn màn hình.
+    * **Đăng nhập (`Login.jsx`) & Chi tiết lương (`SalaryDetail.jsx`):** Bù họa tiết nền xanh phản chiếu liền mạch ở đỉnh và nền trắng ở đáy trang đăng nhập, cùng lớp phủ tối tràn viền cho hộp thoại vân tay.
 * **Đồng bộ màu chữ `"BHXH"` theo màu icon đang chọn trên màn hình Quản lý cá nhân (`src/assets/frame_insurance.png`, `src/assets/insurance_full.png`):**
   * Chuyển màu text `"BHXH"` bên dưới biểu tượng BHXH từ xám nhạt (`#aaa9ae`) sang màu xanh dương đậm (`#1377be`) đồng bộ hoàn toàn với phần icon BHXH phía trên, giữ nguyên độ sắc nét khử răng cưa (anti-aliasing) và vị trí chuẩn theo thiết kế.
 

@@ -906,7 +906,7 @@ function App() {
           width: `${402 * scale}px`,
           height: `${containerHeight}px`,
           position: 'relative',
-          overflow: 'hidden',
+          clipPath: 'inset(-1000px 0px -1000px 0px)',
           margin: fitsVertically ? '0' : '0 auto',
           background: screen === 'login' ? 'transparent' : '#ffffff',
           zIndex: 1,
@@ -921,7 +921,7 @@ function App() {
             height: '874px',
             transform: `scale(${scale})`,
             transformOrigin: 'top left',
-            overflow: 'hidden',
+            clipPath: 'inset(-1000px 0px -1000px 0px)',
             background: 'transparent'
           }}>
             {/* Previous screen sliding out */}
@@ -943,7 +943,10 @@ function App() {
                 {transitionType === 'slide' && slideDirection === 'left' && (
                   <div style={{
                     position: 'absolute',
-                    inset: 0,
+                    top: '-250px',
+                    bottom: '-250px',
+                    left: 0,
+                    right: 0,
                     background: 'black',
                     animation: 'dimmerFadeIn 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards',
                     pointerEvents: 'none',
@@ -974,7 +977,10 @@ function App() {
               {transitioning && transitionType === 'slide' && slideDirection === 'right' && (
                 <div style={{
                   position: 'absolute',
-                  inset: 0,
+                  top: '-250px',
+                  bottom: '-250px',
+                  left: 0,
+                  right: 0,
                   background: 'black',
                   animation: 'dimmerFadeOut 0.3s cubic-bezier(0.1, 0.76, 0.55, 0.94) forwards',
                   pointerEvents: 'none',

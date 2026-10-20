@@ -38,11 +38,33 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
       position: 'relative',
       width: '100%',
       height: '100%',
-      overflow: 'hidden',
+      clipPath: 'inset(-300px 0px -300px 0px)',
       background: '#ffffff',
       fontFamily: 'Inter, sans-serif',
       boxSizing: 'border-box'
     }}>
+      {/* Top & Bottom Bleed Extensions for Tall Android Screens */}
+      <div style={{
+        position: 'absolute',
+        top: '-250px',
+        left: 0,
+        width: '100%',
+        height: '252px',
+        background: 'linear-gradient(90deg, #01aef2 0%, #0191dc 50%, #0073c6 100%)',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        bottom: '-250px',
+        left: 0,
+        width: '100%',
+        height: '252px',
+        background: '#ffffff',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
+
       {/* 1. Flawless 100% Figma Frame Background */}
       <img
         src={frameDashboard}

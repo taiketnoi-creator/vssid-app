@@ -139,7 +139,35 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
   };
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', fontFamily: 'Inter, sans-serif' }}>
+    <div style={{ position: 'relative', width: '100%', height: '100%', clipPath: 'inset(-300px 0px -300px 0px)', fontFamily: 'Inter, sans-serif' }}>
+      {/* Top & Bottom Bleed Extensions for Tall Android Screens */}
+      <img 
+        src={bgLogin} 
+        alt="" 
+        style={{
+          position: 'absolute',
+          bottom: 'calc(100% - 1px)',
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          transform: 'scaleY(-1)',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }} 
+        draggable={false} 
+      />
+      <div style={{
+        position: 'absolute',
+        bottom: '-250px',
+        left: 0,
+        width: '100%',
+        height: '252px',
+        background: '#ffffff',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }} />
+
       {/* 1. Clean Background Gradient (without any printed static text) */}
       <img 
         src={bgLogin} 
@@ -689,13 +717,16 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             className={isClosingDialog ? 'vssid-animate-fade-out' : 'vssid-animate-fade-in'}
             style={{
               position: 'absolute',
-              inset: 0,
+              top: '-250px',
+              bottom: '-250px',
+              left: 0,
+              right: 0,
               background: 'rgba(0, 0, 0, 0.65)',
               zIndex: 90, // Underneath Biometric Prompt overlay
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '24px',
+              padding: '274px 24px',
               boxSizing: 'border-box',
               backdropFilter: 'blur(3px)'
             }}
@@ -770,13 +801,16 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             className={isClosingPrompt ? 'vssid-animate-fade-out' : 'vssid-animate-fade-in'}
             style={{
               position: 'absolute',
-              inset: 0,
+              top: '-250px',
+              bottom: '-250px',
+              left: 0,
+              right: 0,
               background: showFingerprintDialog ? 'transparent' : 'rgba(0, 0, 0, 0.65)',
               zIndex: 100, // On top of Artboard 1 overlay
               display: 'flex',
               alignItems: 'flex-end',
               justifyContent: 'center',
-              padding: '16px 16px 100px 16px',
+              padding: '266px 16px 350px 16px',
               boxSizing: 'border-box',
               backdropFilter: showFingerprintDialog ? 'none' : 'blur(3px)'
             }}

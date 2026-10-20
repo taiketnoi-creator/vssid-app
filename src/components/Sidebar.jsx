@@ -32,12 +32,16 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
   const sidebarWidthPct = 311 / W * 100;
 
   return (
-    <div style={{ position: 'absolute', inset: 0, zIndex: 50 }}>
+    <div style={{ position: 'absolute', inset: 0, zIndex: 50, clipPath: 'inset(-300px 0px -300px 0px)' }}>
       {/* Dark overlay - click to close */}
       <div
         onClick={onClose}
         style={{
-          position: 'absolute', inset: 0,
+          position: 'absolute',
+          top: '-250px',
+          bottom: '-250px',
+          left: 0,
+          right: 0,
           background: 'rgba(55,55,55,0.5)',
           opacity: animClass ? 1 : 0,
           transition: 'opacity 0.3s ease'
@@ -48,10 +52,32 @@ const Sidebar = ({ isOpen, onClose, onNavigate, currentAccount, onOpenAccountMan
       <div style={{
         position: 'absolute', top: 0, left: 0, bottom: 0,
         width: `${sidebarWidthPct}%`,
-        overflow: 'hidden',
+        clipPath: 'inset(-300px 0px -300px 0px)',
         transform: animClass ? 'translateX(0)' : 'translateX(-100%)',
         transition: 'transform 0.3s ease'
       }}>
+        {/* Top & Bottom Bleed Extensions for Sidebar Drawer on Tall Android Screens */}
+        <div style={{
+          position: 'absolute',
+          top: '-250px',
+          left: 0,
+          width: '100%',
+          height: '252px',
+          background: '#0072c8',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }} />
+        <div style={{
+          position: 'absolute',
+          bottom: '-250px',
+          left: 0,
+          width: '100%',
+          height: '252px',
+          background: '#01aef2',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }} />
+
         <img
           src={frameSidebar}
           alt=""

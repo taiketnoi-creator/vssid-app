@@ -139,13 +139,13 @@
 
 /* Screen slide-up transition animations (Modal Sheet style) */
 @keyframes slideUpEnter {
-  from { transform: translateY(100%); }
+  from { transform: translateY(calc(100% + 260px)); }
   to { transform: translateY(0); }
 }
 
 @keyframes slideDownLeave {
   from { transform: translateY(0); }
-  to { transform: translateY(100%); }
+  to { transform: translateY(calc(100% + 260px)); }
 }
 
 .screen-slideup-enter {
