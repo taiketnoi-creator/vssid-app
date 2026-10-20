@@ -98,6 +98,10 @@ npx vercel --prod --yes
 
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
+### 🚀 Phiên bản ngày 20/10/2026:
+* **Đồng bộ màu chữ `"BHXH"` theo màu icon đang chọn trên màn hình Quản lý cá nhân (`src/assets/frame_insurance.png`, `src/assets/insurance_full.png`):**
+  * Chuyển màu text `"BHXH"` bên dưới biểu tượng BHXH từ xám nhạt (`#aaa9ae`) sang màu xanh dương đậm (`#1377be`) đồng bộ hoàn toàn với phần icon BHXH phía trên, giữ nguyên độ sắc nét khử răng cưa (anti-aliasing) và vị trí chuẩn theo thiết kế.
+
 ### 🚀 Phiên bản ngày 17/10/2026:
 * **Tự động Ẩn/Hiện hàng `Phụ cấp lương` và bổ sung công tắc Bật/Tắt trong Quản lý tài khoản (`src/screens/SalaryDetail.jsx`, `src/components/AccountManager.jsx`, `src/App.jsx`):**
   * **Tự động ẩn khi bằng 0:** Trên màn hình `Chi tiết` (`SalaryDetail.jsx`), hàng thứ 3 **`Phụ cấp lương`** chỉ hiển thị khi có `allowance > 0` (ví dụ tài khoản **Dương Quốc Khánh**). Các tài khoản không có phụ cấp (bằng `0` hoặc để trống) sẽ tự động ẩn hàng này, chỉ hiển thị 2 hàng chuẩn (`Tiền lương đóng BHXH` và `Mức lương`).
