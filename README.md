@@ -99,6 +99,9 @@ npx vercel --prod --yes
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
 ### 🚀 Phiên bản ngày 21/10/2026:
+* **Cuộn đồng nhất cả cụm thông tin tổng hợp & bảng quá trình tham gia tại màn hình `QUẢN LÝ CÁ NHÂN` (`src/screens/InsuranceList.jsx`):**
+  * Gộp khối tóm tắt ở đầu bảng (`Quá trình tham gia Bảo hiểm xã hội`, `Tổng thời gian tham gia: ...`, `Tổng thời gian chậm đóng: 0 tháng`, `y = 189..266px`) và bảng danh sách quá trình tham gia (`y = 266..822px`) vào chung một vùng cuộn đồng nhất (`top: 189px, height: 633px`, ẩn thanh cuộn `scrollbar-none`).
+  * Khi danh sách có nhiều dòng và người dùng vuốt/cuộn lên trên, toàn bộ cụm tiêu đề tổng hợp và bảng dữ liệu sẽ cùng di chuyển mượt mà lên trên để mở rộng không gian hiển thị các dòng bên dưới (giữ cố định thanh tiêu đề 5 tab icon ở trên và thanh điều hướng ở dưới).
 * **Khắc phục lỗi màn hình Đăng nhập bị đẩy lên cao khi bật bàn phím ảo trên điện thoại (`src/App.jsx`, `src/index.css`, `src/screens/*.jsx`, `src/components/Sidebar.jsx`):**
   * **Nguyên nhân:** Khi nhấn vào ô nhập tài khoản/mật khẩu trên điện thoại, bàn phím ảo bật lên làm thu hẹp chiều cao viewport (`inset: 0` / `window.innerHeight` giảm xuống còn vùng phía trên bàn phím), khiến Flexbox `alignItems: 'center'` tự động căn giữa lại khung `874px` vào vùng hẹp và đẩy toàn bộ màn hình đăng nhập trượt lên cao `~160px` (cắt ngang logo BHXH ở vùng camera trước), đồng thời phần tử bù viền dưới (`bottom: -250px`) làm phát sinh `scrollHeight` dư thừa.
   * **Giải pháp:** Khóa cố định chiều cao `viewportHeight` theo kích thước màn hình đầy đủ khi bàn phím bật (`height: ${effectiveViewportHeight}px`, `top: 0, left: 0`), khóa cuộn dọc (`overflow: hidden`, `scrollTop = 0`) và chuyển phần bù nền đáy sang `boxShadow: '0 250px 0 0 ...'` không chiếm chiều cao bố cục (`scrollHeight`), giúp giao diện Đăng nhập giữ nguyên vị trí 100% cố định khi gõ phím.
