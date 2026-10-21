@@ -146,17 +146,31 @@ function App() {
   }, []);
 
   const [scale, setScale] = useState(1);
+  const [viewportHeight, setViewportHeight] = useState(() => (typeof window !== 'undefined' ? window.innerHeight : 874));
   const [isDesktop, setIsDesktop] = useState(typeof window !== 'undefined' && window.innerWidth > 1024);
 
   useEffect(() => {
+    let lastWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+
     const handleResize = () => {
-      const isNowDesktop = window.innerWidth > 1024;
+      const currentWidth = window.innerWidth;
+      const currentHeight = window.innerHeight;
+      const isNowDesktop = currentWidth > 1024;
       setIsDesktop(isNowDesktop);
       
       if (!isNowDesktop) {
-        setScale(window.innerWidth / 402);
+        setScale(currentWidth / 402);
+        // Only update viewportHeight on orientation/width change or when height expands (keyboard closes).
+        // Never shrink viewportHeight when the mobile on-screen keyboard opens!
+        if (currentWidth !== lastWidth) {
+          lastWidth = currentWidth;
+          setViewportHeight(currentHeight);
+        } else {
+          setViewportHeight(prev => Math.max(prev, currentHeight));
+        }
       } else {
         setScale(1);
+        setViewportHeight(currentHeight);
       }
     };
 
@@ -842,21 +856,32 @@ function App() {
       );
     }
 
+    const effectiveViewportHeight = viewportHeight || (typeof window !== 'undefined' ? window.innerHeight : 874);
     const containerHeight = 874 * scale;
-    const fitsVertically = typeof window !== 'undefined' && containerHeight <= window.innerHeight;
+    const fitsVertically = containerHeight <= effectiveViewportHeight;
 
     return (
-      <div style={{
-        position: 'fixed',
-        inset: 0,
-        overflowY: fitsVertically ? 'hidden' : 'auto',
-        overflowX: 'hidden',
-        background: screen === 'login' ? '#072b61' : '#ffffff',
-        display: fitsVertically ? 'flex' : 'block',
-        alignItems: 'center',
-        justifyContent: 'center',
-        WebkitOverflowScrolling: 'touch'
-      }}>
+      <div
+        onScroll={(e) => {
+          if (fitsVertically || screen === 'login') {
+            e.currentTarget.scrollTop = 0;
+          }
+        }}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: `${effectiveViewportHeight}px`,
+          overflowY: (fitsVertically || screen === 'login') ? 'hidden' : 'auto',
+          overflowX: 'hidden',
+          background: screen === 'login' ? '#072b61' : '#ffffff',
+          display: fitsVertically ? 'flex' : 'block',
+          alignItems: 'center',
+          justifyContent: 'center',
+          WebkitOverflowScrolling: 'touch'
+        }}
+      >
         {/* Floating Download Button on mobile browser only (to go back to Landing Page) */}
         {!isNative && (
           <button 
@@ -890,9 +915,10 @@ function App() {
             alt="" 
             style={{
               position: 'fixed',
-              inset: 0,
+              top: 0,
+              left: 0,
               width: '100%',
-              height: '100%',
+              height: `${effectiveViewportHeight}px`,
               objectFit: 'cover',
               zIndex: 0,
               pointerEvents: 'none'

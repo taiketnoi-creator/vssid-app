@@ -99,6 +99,9 @@ npx vercel --prod --yes
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
 ### 🚀 Phiên bản ngày 21/10/2026:
+* **Khắc phục lỗi màn hình Đăng nhập bị đẩy lên cao khi bật bàn phím ảo trên điện thoại (`src/App.jsx`, `src/index.css`, `src/screens/*.jsx`, `src/components/Sidebar.jsx`):**
+  * **Nguyên nhân:** Khi nhấn vào ô nhập tài khoản/mật khẩu trên điện thoại, bàn phím ảo bật lên làm thu hẹp chiều cao viewport (`inset: 0` / `window.innerHeight` giảm xuống còn vùng phía trên bàn phím), khiến Flexbox `alignItems: 'center'` tự động căn giữa lại khung `874px` vào vùng hẹp và đẩy toàn bộ màn hình đăng nhập trượt lên cao `~160px` (cắt ngang logo BHXH ở vùng camera trước), đồng thời phần tử bù viền dưới (`bottom: -250px`) làm phát sinh `scrollHeight` dư thừa.
+  * **Giải pháp:** Khóa cố định chiều cao `viewportHeight` theo kích thước màn hình đầy đủ khi bàn phím bật (`height: ${effectiveViewportHeight}px`, `top: 0, left: 0`), khóa cuộn dọc (`overflow: hidden`, `scrollTop = 0`) và chuyển phần bù nền đáy sang `boxShadow: '0 250px 0 0 ...'` không chiếm chiều cao bố cục (`scrollHeight`), giúp giao diện Đăng nhập giữ nguyên vị trí 100% cố định khi gõ phím.
 * **Bù nền tràn viền trên & dưới (Top/Bottom Edge Bleed) cho các dòng máy Android màn hình dài (`src/App.jsx`, `src/App.css`, `src/components/Sidebar.jsx`, `src/screens/*.jsx`, `src/assets/frame_sidebar.png`):**
   * Khắc phục triệt để hiện tượng hở vệt trắng ở mép trên (khu vực camera đục lỗ / thanh trạng thái) và mép dưới (thanh điều hướng cử chỉ) trên các thiết bị Android có tỷ lệ màn hình dài hơn khung chuẩn `402x874`.
   * Bù chính xác dải màu/hình ảnh khớp 100% với mép trên và mép dưới của từng màn hình:

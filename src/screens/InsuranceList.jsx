@@ -78,11 +78,12 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
       }} />
       <div style={{
         position: 'absolute',
-        bottom: '-250px',
+        bottom: 0,
         left: 0,
         width: '100%',
-        height: '252px',
-        background: '#ffffff',
+        height: '250px',
+        background: 'transparent',
+        boxShadow: '0 250px 0 0 #ffffff',
         zIndex: 1,
         pointerEvents: 'none'
       }} />

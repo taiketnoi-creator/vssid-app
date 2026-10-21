@@ -159,11 +159,12 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
       />
       <div style={{
         position: 'absolute',
-        bottom: '-250px',
+        bottom: 0,
         left: 0,
         width: '100%',
-        height: '252px',
-        background: '#ffffff',
+        height: '250px',
+        background: 'transparent',
+        boxShadow: '0 250px 0 0 #ffffff',
         zIndex: 1,
         pointerEvents: 'none'
       }} />
@@ -407,8 +408,15 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             className="vssid-input"
             value={username}
             onChange={e => setUsername(e.target.value)}
-            onFocus={() => setFocusedField('username')}
-            onBlur={() => setFocusedField(null)}
+            onFocus={() => {
+              setFocusedField('username');
+              window.scrollTo(0, 0);
+              setTimeout(() => window.scrollTo(0, 0), 50);
+            }}
+            onBlur={() => {
+              setFocusedField(null);
+              window.scrollTo(0, 0);
+            }}
             placeholder="Mã số BHXH/Số ĐDCN/CCCD"
             style={{
               flex: 1,
@@ -465,8 +473,15 @@ const Login = ({ accounts, onLogin, onOpenAccountManager }) => {
             className="vssid-input"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            onFocus={() => setFocusedField('password')}
-            onBlur={() => setFocusedField(null)}
+            onFocus={() => {
+              setFocusedField('password');
+              window.scrollTo(0, 0);
+              setTimeout(() => window.scrollTo(0, 0), 50);
+            }}
+            onBlur={() => {
+              setFocusedField(null);
+              window.scrollTo(0, 0);
+            }}
             placeholder="Mật khẩu"
             style={{
               flex: 1,
