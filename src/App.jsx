@@ -425,7 +425,7 @@ function App() {
     }
   };
 
-  const getScreen = (screenName) => {
+  const getScreen = (screenName, isPrevScreen = false) => {
     const defaultAcc = currentAccount || accounts[0] || SEED_ACCOUNTS[0];
     switch (screenName) {
       case 'login':
@@ -447,6 +447,7 @@ function App() {
       case 'insurance-list':
         return (
           <InsuranceList 
+            showInitialLoading={!isPrevScreen && !!navigationData?.showLoading}
             currentAccount={defaultAcc}
             onNavigate={navigateTo} 
             onOpenSidebar={() => setSidebarOpen(true)} 
@@ -965,7 +966,7 @@ function App() {
                   inset: 0
                 }}
               >
-                {getScreen(prevScreen)}
+                {getScreen(prevScreen, true)}
                 {transitionType === 'slide' && slideDirection === 'left' && (
                   <div style={{
                     position: 'absolute',
@@ -1350,7 +1351,7 @@ function App() {
                   inset: 0
                 }}
               >
-                {getScreen(prevScreen)}
+                {getScreen(prevScreen, true)}
                 {/* Dimming overlay when leaving forward (it goes underneath) */}
                 {transitionType === 'slide' && slideDirection === 'left' && (
                   <div style={{

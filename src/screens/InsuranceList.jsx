@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import logoBhxh from '../assets/logo_bhxh.png';
 import frameInsurance from '../assets/frame_insurance.png';
 
 const W = 402;
 const H = 874;
 
-const InsuranceList = ({ currentAccount, onNavigate }) => {
+const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false }) => {
+  const [loading, setLoading] = useState(() => Boolean(showInitialLoading));
+
+  useEffect(() => {
+    if (!showInitialLoading) return;
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, [showInitialLoading]);
   const [activeTab, setActiveTab] = useState('BHXH');
   const history = currentAccount?.insuranceHistory || [];
 
@@ -246,7 +257,80 @@ const InsuranceList = ({ currentAccount, onNavigate }) => {
         pointerEvents: 'none'
       }}>
 
-        {activeTab === 'BHXH' ? (
+        <style>{`
+          @keyframes spin-loader {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .vssid-spinner-ring {
+            animation: spin-loader 1s linear infinite;
+          }
+        `}</style>
+        {loading ? (
+          <>
+            {/* White mask covering static background table during 1.2s loading */}
+            <div style={{
+              position: 'absolute',
+              left: 0,
+              top: `${(189 / H) * 100}%`,
+              width: '100%',
+              height: `${(633 / H) * 100}%`,
+              background: '#ffffff',
+              zIndex: 5,
+              pointerEvents: 'auto'
+            }} />
+
+            {/* Loading Spinner matching Login.jsx exact spec: x=177, y=388, w=49, h=49 */}
+            <div style={{
+              position: 'absolute',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              top: `${(388 / H) * 100}%`,
+              width: `${(49 / W) * 100}%`,
+              aspectRatio: '1 / 1',
+              zIndex: 100,
+              pointerEvents: 'none'
+            }}>
+              {/* Outer rotating ring (Ellipse 6) */}
+              <div
+                className="vssid-spinner-ring"
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '50%',
+                  background: 'conic-gradient(from 0deg, #01aef2 0%, rgba(1, 174, 242, 0.15) 80%, transparent 100%)'
+                }}
+              />
+              {/* Inner static white circle with shadow & logo (Ellipse 1 + BHXH Logo) */}
+              <div style={{
+                position: 'absolute',
+                left: '9.18%',
+                top: '9.18%',
+                width: '81.63%',
+                height: '81.63%',
+                borderRadius: '50%',
+                background: '#ffffff',
+                boxShadow: '0px 1.5px 3px rgba(0, 0, 0, 0.25)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 2
+              }}>
+                <img
+                  src={logoBhxh}
+                  alt="BHXH"
+                  style={{
+                    width: '95%',
+                    height: '95%',
+                    objectFit: 'contain',
+                    borderRadius: '50%'
+                  }}
+                />
+              </div>
+            </div>
+          </>
+        ) : activeTab === 'BHXH' ? (
           /* Unified Scrollable Container: Summary Box + Table scroll up together */
           <div
             className="scrollbar-none"

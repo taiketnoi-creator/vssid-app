@@ -406,7 +406,7 @@ const Dashboard = ({ currentAccount, onOpenSidebar, onNavigate }) => {
 
         {/* Row 3: QUÁ TRÌNH THAM GIA Hotspot (y=508 to 573) */}
         <div
-          onClick={() => onNavigate('insurance-list', { transition: 'slide', direction: 'left' })}
+          onClick={() => onNavigate('insurance-list', { transition: 'slide', direction: 'left', data: { showLoading: true } })}
           style={{
             position: 'absolute',
             left: 0,

@@ -99,6 +99,9 @@ npx vercel --prod --yes
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
 ### 🚀 Phiên bản ngày 30/10/2026:
+* **Bổ sung hiệu ứng vòng tròn loading BHXH 1,2 giây khi vào mục `QUÁ TRÌNH THAM GIA` (`src/screens/Dashboard.jsx`, `src/screens/InsuranceList.jsx`, `src/App.jsx`):**
+  * Khi bấm vào hàng **"QUÁ TRÌNH THAM GIA"** trên màn hình `QUẢN LÝ CÁ NHÂN`, ứng dụng chuyển sang màn hình `InsuranceList.jsx` (hiển thị thanh tiêu đề, 5 tab BHXH/BHTN... và thanh điều hướng dưới), đồng thời hiển thị vòng tròn loading BHXH quay mượt mà ở giữa vùng nội dung trong `1,2 giây` (giống hệt hiệu ứng loading ngoài màn hình Đăng nhập) trước khi hiển thị bảng dữ liệu quá trình tham gia.
+  * Giữ nguyên trạng thái hiển thị bảng tức thì khi mở hoặc quay lại từ màn hình `Chi tiết` (`SalaryDetail.jsx`).
 * **Triệt tiêu hoàn toàn độ trễ và hiện tượng nháy màn hình đen khi mở ứng dụng lần đầu (`index.html`, `vite.config.js`, `src/main.jsx`, `src/index.css`, `src/App.css`, `src/App.jsx`, `android/app/src/main/java/com/taiq/vssidapp/MainActivity.java`, `android/app/src/main/res/values/styles.xml`, `android/app/src/main/res/drawable*/splash.png`):**
   * **Giữ nguyên 100% giao diện màn hình Đăng nhập (`Login.jsx` & `bg_login.png`):** Không thay đổi bất kỳ chi tiết bố cục, hình ảnh hay hiệu ứng nào của màn hình đăng nhập.
   * **Xóa bỏ nền đen mặc định trên Mobile:** Thay thế màu nền tối `#0c101b` (trong `index.css`, `App.css`) và `#072b61` (trong `App.jsx`) trên khung nhìn di động (`max-width: 1024px`) bằng dải màu gradient xanh–trắng trùng khớp tuyệt đối với nền `bg_login.png` (`linear-gradient(180deg, #0eb3f7 0%, #01b5f7 12%, #43dffd 22%, #d9f7fd 32%, #ffffff 42%, #ffffff 100%)`), chỉ áp dụng nền tối `#0c101b` cho giao diện Desktop (`min-width: 1025px`).
