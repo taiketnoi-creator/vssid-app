@@ -1,12 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 html, body, #root {
   height: 100% !important;
   width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow: hidden !important;
-  background-color: #0c101b !important;
+  background-color: #ffffff;
+}
+
+@media (min-width: 1025px) {
+  html, body, #root {
+    background-color: #0c101b !important;
+  }
 }
 
 @import "tailwindcss";
@@ -28,9 +32,16 @@ body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #0c101b; /* Dark sleek premium background */
+  background-color: #ffffff;
   color: #f8fafc;
   overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+@media (min-width: 1025px) {
+  body {
+    background-color: #0c101b; /* Dark sleek premium background */
+  }
 }
 
 /* Base custom styles to replicate VssID phone frame */
@@ -77,4 +88,3 @@ body {
 input::placeholder {
   color: #948c8c !important;
 }
-

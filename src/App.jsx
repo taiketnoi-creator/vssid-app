@@ -875,7 +875,7 @@ function App() {
           height: `${effectiveViewportHeight}px`,
           overflowY: (fitsVertically || screen === 'login') ? 'hidden' : 'auto',
           overflowX: 'hidden',
-          background: screen === 'login' ? '#072b61' : '#ffffff',
+          background: screen === 'login' ? 'linear-gradient(180deg, #0eb3f7 0%, #01b5f7 12%, #43dffd 22%, #d9f7fd 32%, #ffffff 42%, #ffffff 100%)' : '#ffffff',
           display: fitsVertically ? 'flex' : 'block',
           alignItems: 'center',
           justifyContent: 'center',

@@ -1,10 +1,33 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
-    <title>vssid-app</title>
+    <title>VssID</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <style>
+      html, body, #root {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: linear-gradient(180deg, #0eb3f7 0%, #01b5f7 12%, #43dffd 22%, #d9f7fd 32%, #ffffff 42%, #ffffff 100%);
+      }
+      @media (min-width: 1025px) {
+        html, body, #root {
+          background: #0c101b;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

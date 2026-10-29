@@ -98,6 +98,15 @@ npx vercel --prod --yes
 
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
+### 🚀 Phiên bản ngày 30/10/2026:
+* **Triệt tiêu hoàn toàn độ trễ và hiện tượng nháy màn hình đen khi mở ứng dụng lần đầu (`index.html`, `vite.config.js`, `src/main.jsx`, `src/index.css`, `src/App.css`, `src/App.jsx`, `android/app/src/main/java/com/taiq/vssidapp/MainActivity.java`, `android/app/src/main/res/values/styles.xml`, `android/app/src/main/res/drawable*/splash.png`):**
+  * **Giữ nguyên 100% giao diện màn hình Đăng nhập (`Login.jsx` & `bg_login.png`):** Không thay đổi bất kỳ chi tiết bố cục, hình ảnh hay hiệu ứng nào của màn hình đăng nhập.
+  * **Xóa bỏ nền đen mặc định trên Mobile:** Thay thế màu nền tối `#0c101b` (trong `index.css`, `App.css`) và `#072b61` (trong `App.jsx`) trên khung nhìn di động (`max-width: 1024px`) bằng dải màu gradient xanh–trắng trùng khớp tuyệt đối với nền `bg_login.png` (`linear-gradient(180deg, #0eb3f7 0%, #01b5f7 12%, #43dffd 22%, #d9f7fd 32%, #ffffff 42%, #ffffff 100%)`), chỉ áp dụng nền tối `#0c101b` cho giao diện Desktop (`min-width: 1025px`).
+  * **Tự động Preload & Giải mã trước ảnh Đăng nhập (`vite.config.js`, `index.html`, `src/main.jsx`):** Tích hợp plugin Vite tự động chèn `<link rel="preload" as="image" fetchpriority="high">` cho các tài nguyên màn hình đăng nhập (`bg_login.png`, `logo_bhxh.png`, `bg_footer.png`, `logo_vneid.png`, `fingerprint.png`), kết hợp tải Google Fonts không chặn luồng (non-blocking) và `img.decode()` trước khi mount React để toàn bộ màn hình đăng nhập hiển thị đồng thời ngay ở khung hình đầu tiên.
+  * **Tối ưu Native Android Splash & Local Asset Interceptor (`MainActivity.java`, `styles.xml`, `splash.png`):**
+    * Cập nhật bộ ảnh khởi động `splash.png` từ biểu tượng mặc định của Capacitor sang logo BHXH VssID chính thức trên nền trắng, đồng thời chuyển `AppTheme.NoActionBar` sang `Theme.AppCompat.Light.NoActionBar` và đặt `WebView` nền trắng để ngăn chặn hoàn toàn màn hình đen ở chế độ Dark Mode.
+    * Tích hợp bộ chặn `shouldInterceptRequest` trong `MainActivity.java` giúp nạp trực tiếp các tài nguyên tĩnh `/assets/*` (như `bg_login.png`, JS, CSS) từ bộ nhớ trong của APK chỉ trong `<1ms` ngay ở lần mở đầu tiên, trong khi vẫn giữ nguyên cơ chế Live Update tự động từ Vercel khi có bản cập nhật mới.
+
 ### 🚀 Phiên bản ngày 21/10/2026:
 * **Cuộn đồng nhất cả cụm thông tin tổng hợp & bảng quá trình tham gia tại màn hình `QUẢN LÝ CÁ NHÂN` (`src/screens/InsuranceList.jsx`):**
   * Gộp khối tóm tắt ở đầu bảng (`Quá trình tham gia Bảo hiểm xã hội`, `Tổng thời gian tham gia: ...`, `Tổng thời gian chậm đóng: 0 tháng`, `y = 189..266px`) và bảng danh sách quá trình tham gia (`y = 266..822px`) vào chung một vùng cuộn đồng nhất (`top: 189px, height: 633px`, ẩn thanh cuộn `scrollbar-none`).

@@ -19,7 +19,7 @@
 /* Smartphone frame simulator for desktop screens */
 /* Default: Fullscreen Native Mobile App mode for all mobile devices (iOS, Android, PWA) */
 .app-viewport {
-  background: #0c101b;
+  background: #ffffff;
   width: 100vw;
   height: 100vh;
   position: absolute;
@@ -54,7 +54,7 @@
   width: 100% !important;
   height: 100% !important;
   border-radius: 0 !important;
-  background: #0c101b !important;
+  background: #ffffff !important;
   overflow: hidden;
 }
 
