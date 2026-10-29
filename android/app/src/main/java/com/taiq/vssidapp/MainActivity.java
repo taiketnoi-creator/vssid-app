@@ -3,17 +3,12 @@ package com.taiq.vssidapp;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import androidx.core.splashscreen.SplashScreen;
 import com.getcapacitor.Bridge;
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.BridgeWebViewClient;
@@ -24,53 +19,11 @@ import java.util.Map;
 
 public class MainActivity extends BridgeActivity {
 
-    private ImageView splashOverlay;
-    private boolean splashDismissed = false;
-    private final Handler mainHandler = new Handler(Looper.getMainLooper());
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
-
-        setupSplashOverlay();
         configureFastWebView();
-
-        // Fallback safety dismissal in case network is slow on first cold start
-        mainHandler.postDelayed(this::dismissSplashOverlay, 2000);
-    }
-
-    private void setupSplashOverlay() {
-        ViewGroup content = findViewById(android.R.id.content);
-        if (content == null) return;
-
-        splashOverlay = new ImageView(this);
-        splashOverlay.setImageResource(R.drawable.splash);
-        splashOverlay.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        splashOverlay.setBackgroundColor(Color.WHITE);
-        splashOverlay.setLayoutParams(
-            new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-        );
-        content.addView(splashOverlay);
-    }
-
-    private void dismissSplashOverlay() {
-        if (splashDismissed || splashOverlay == null) return;
-        splashDismissed = true;
-
-        splashOverlay
-            .animate()
-            .alpha(0f)
-            .setDuration(150)
-            .withEndAction(() -> {
-                if (splashOverlay != null && splashOverlay.getParent() instanceof ViewGroup) {
-                    ((ViewGroup) splashOverlay.getParent()).removeView(splashOverlay);
-                }
-                splashOverlay = null;
-            })
-            .start();
     }
 
     private void configureFastWebView() {
@@ -115,12 +68,6 @@ public class MainActivity extends BridgeActivity {
                 }
 
                 @Override
-                public void onPageFinished(WebView view, String url) {
-                    super.onPageFinished(view, url);
-                    mainHandler.postDelayed(MainActivity.this::dismissSplashOverlay, 60);
-                }
-
-                @Override
                 public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                     super.onReceivedError(view, request, error);
                     if (request != null && request.isForMainFrame()) {
@@ -128,7 +75,6 @@ public class MainActivity extends BridgeActivity {
                         if (localUrl != null && !localUrl.equals(request.getUrl().toString())) {
                             view.loadUrl(localUrl);
                         }
-                        mainHandler.post(MainActivity.this::dismissSplashOverlay);
                     }
                 }
             }
