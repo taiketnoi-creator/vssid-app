@@ -598,6 +598,31 @@ export default function CHPlay({ onOpenVssID }) {
   const searchInputRef = useRef(null);
   const timersRef = useRef([]);
 
+  // Sync Android SystemBars safe-area insets (3-button touch nav ||| O <, gesture bar, camera notch)
+  useEffect(() => {
+    const syncSystemBars = () => {
+      try {
+        window.CapacitorSystemBarsAndroidInterface?.onDOMReady?.();
+        window.Capacitor?.Plugins?.SystemBars?.setStyle?.({ style: 'LIGHT' });
+      } catch (err) {
+        // Ignore on standard web browsers
+      }
+    };
+
+    syncSystemBars();
+    const t1 = setTimeout(syncSystemBars, 150);
+    const t2 = setTimeout(syncSystemBars, 500);
+    window.addEventListener('resize', syncSystemBars);
+    document.addEventListener('visibilitychange', syncSystemBars);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      window.removeEventListener('resize', syncSystemBars);
+      document.removeEventListener('visibilitychange', syncSystemBars);
+    };
+  }, []);
+
   useEffect(() => {
     return () => {
       timersRef.current.forEach(clearTimeout);
@@ -885,7 +910,7 @@ export default function CHPlay({ onOpenVssID }) {
 
   // TAB 2: ỨNG DỤNG (Default view matching frame_03.5.png & frame_07.0.png)
   const renderAppsTab = () => (
-    <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '82px', background: '#ffffff' }}>
+    <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 'calc(84px + var(--chplay-safe-bottom, 0px))', background: '#ffffff' }}>
       {renderPlayTopHeader()}
       {renderFilterChips('apps')}
 
@@ -1128,7 +1153,7 @@ export default function CHPlay({ onOpenVssID }) {
 
   // TAB 1: TRÒ CHƠI (Matching screenshot 09 in d:\vss — no date-bound banner)
   const renderGamesTab = () => (
-    <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '82px', background: '#ffffff' }}>
+    <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 'calc(84px + var(--chplay-safe-bottom, 0px))', background: '#ffffff' }}>
       {renderPlayTopHeader()}
       {renderFilterChips('games')}
 
@@ -1229,7 +1254,7 @@ export default function CHPlay({ onOpenVssID }) {
 
   // TAB 3: TÌM KIẾM (Matching frame_12.5.png & frame_15.0.png)
   const renderSearchTabMain = () => (
-    <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '82px', background: '#ffffff' }}>
+    <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 'calc(84px + var(--chplay-safe-bottom, 0px))', background: '#ffffff' }}>
       {/* Search Pill Top Bar + Avatar J */}
       <div style={{
         display: 'flex',
@@ -1427,7 +1452,7 @@ export default function CHPlay({ onOpenVssID }) {
 
   // TAB 4: SÁCH (Exact pixel match to screenshot 10 in d:\vss)
   const renderBooksTab = () => (
-    <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '82px', background: '#ffffff' }}>
+    <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 'calc(84px + var(--chplay-safe-bottom, 0px))', background: '#ffffff' }}>
       {/* Top Search Pill Header ("Tìm kiếm sách") + Avatar J */}
       <div style={{
         display: 'flex',
@@ -1667,7 +1692,7 @@ export default function CHPlay({ onOpenVssID }) {
 
   // TAB 5: BẠN (Matching frame_49.2.png & frame_56.0.png)
   const renderYouTab = () => (
-    <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '82px', background: '#ffffff' }}>
+    <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 'calc(84px + var(--chplay-safe-bottom, 0px))', background: '#ffffff' }}>
       {renderPlayTopHeader()}
 
       {/* Greeting + Google Play Games Profile Pill */}
@@ -1864,7 +1889,7 @@ export default function CHPlay({ onOpenVssID }) {
         </div>
 
         {/* Body: When empty -> Sponsored suggestions only (NO browser/search history saved!). When typing -> Autocomplete rows */}
-        <div style={{ flex: 1, overflowY: 'auto' }}>
+        <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 'calc(16px + var(--chplay-safe-bottom, 0px))' }}>
           {!searchQuery.trim() ? (
             <div style={{ padding: '14px 16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
@@ -1962,7 +1987,7 @@ export default function CHPlay({ onOpenVssID }) {
     const strokeDashoffset = circumference - (progress / 100) * circumference;
 
     return (
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#ffffff', overflowY: 'auto', paddingBottom: '82px' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#ffffff', overflowY: 'auto', paddingBottom: 'calc(84px + var(--chplay-safe-bottom, 0px))' }}>
         {/* Top Search Result Header */}
         <div style={{
           display: 'flex',
@@ -2375,7 +2400,7 @@ export default function CHPlay({ onOpenVssID }) {
     const strokeDashoffset = circumference - (progress / 100) * circumference;
 
     return (
-      <div style={{ flex: 1, overflowY: 'auto', background: '#ffffff', paddingBottom: '32px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', background: '#ffffff', paddingBottom: 'calc(32px + var(--chplay-safe-bottom, 0px))' }}>
         {/* Top bar */}
         <div style={{
           display: 'flex',
@@ -2722,6 +2747,8 @@ export default function CHPlay({ onOpenVssID }) {
         alignItems: 'center',
         justifyContent: 'space-around',
         borderTop: '1px solid #e7ecf4',
+        paddingBottom: 'var(--chplay-safe-bottom, 0px)',
+        boxSizing: 'content-box',
         zIndex: 25,
       }}>
         {navItems.map((item) => {
@@ -2776,6 +2803,10 @@ export default function CHPlay({ onOpenVssID }) {
       flexDirection: 'column',
       background: '#ffffff',
       fontFamily: 'Roboto, Inter, -apple-system, sans-serif',
+      '--chplay-safe-top': 'max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px))',
+      '--chplay-safe-bottom': 'max(var(--safe-area-inset-bottom, 0px), env(safe-area-inset-bottom, 0px))',
+      paddingTop: 'var(--chplay-safe-top, 0px)',
+      boxSizing: 'border-box',
       overflow: 'hidden',
       userSelect: 'none',
     }}>
@@ -2862,7 +2893,7 @@ export default function CHPlay({ onOpenVssID }) {
             onClick={() => setPreviewShot(null)}
             style={{
               position: 'absolute',
-              top: '14px',
+              top: 'calc(14px + var(--chplay-safe-top, 0px))',
               left: '14px',
               width: '40px',
               height: '40px',
@@ -2915,7 +2946,7 @@ export default function CHPlay({ onOpenVssID }) {
               background: '#ffffff',
               borderTopLeftRadius: '26px',
               borderTopRightRadius: '26px',
-              padding: '10px 20px 22px',
+              padding: '10px 20px calc(22px + var(--chplay-safe-bottom, 0px))',
             }}
           >
             {/* Top drag handle */}
@@ -3033,7 +3064,7 @@ export default function CHPlay({ onOpenVssID }) {
             display: 'flex',
             alignItems: 'flex-start',
             justifyContent: 'center',
-            padding: '18px 12px',
+            padding: 'calc(18px + var(--chplay-safe-top, 0px)) 12px calc(18px + var(--chplay-safe-bottom, 0px))',
           }}
         >
           <div

@@ -927,6 +927,52 @@ function App() {
       );
     }
 
+    if (screen === 'chplay') {
+      return (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100%',
+            height: '100%',
+            overflow: 'hidden',
+            background: '#ffffff',
+            zIndex: 1,
+          }}
+        >
+          {!isNative && !isChPlayEntry && (
+            <button
+              onClick={() => setTryWebMode(false)}
+              style={{
+                position: 'fixed',
+                right: '16px',
+                top: 'calc(16px + max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px)))',
+                zIndex: 9999,
+                background: 'linear-gradient(135deg, #0072c8 0%, #01aef2 100%)',
+                color: '#ffffff',
+                border: 'none',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                fontWeight: 700,
+                boxShadow: '0 4px 12px rgba(0, 105, 173, 0.4)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+            >
+              📥 Tải APK
+            </button>
+          )}
+          <CHPlay onOpenVssID={() => navigateTo('login', { transition: 'fade' })} />
+        </div>
+      );
+    }
+
     const effectiveViewportHeight = viewportHeight || (typeof window !== 'undefined' ? window.innerHeight : 874);
     const containerHeight = 874 * scale;
     const fitsVertically = containerHeight <= effectiveViewportHeight;
