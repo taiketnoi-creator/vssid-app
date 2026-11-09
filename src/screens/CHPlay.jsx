@@ -2,10 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 
 // Cropped authentic Google Play assets from video
 import bannerTiktok from '../assets/chplay/banner_tiktok.jpg';
-import bannerTocChien from '../assets/chplay/banner_tocchien.jpg';
 import icTiktok from '../assets/chplay/ic_tiktok.jpg';
 import icDola from '../assets/chplay/ic_dola.jpg';
-import icShopee from '../assets/chplay/ic_shopee.jpg';
 import icBlockBlast from '../assets/chplay/ic_blockblast.jpg';
 import icTiktokLite from '../assets/chplay/ic_tiktoklite.jpg';
 import icMessenger from '../assets/chplay/ic_messenger.jpg';
@@ -16,7 +14,6 @@ import icRednote from '../assets/chplay/ic_rednote.jpg';
 import icCandyCrush from '../assets/chplay/ic_candycrush.jpg';
 import icCandySoda from '../assets/chplay/ic_candysoda.jpg';
 import icTravelTown from '../assets/chplay/ic_traveltown.jpg';
-import icTocChien from '../assets/chplay/ic_tocchien.jpg';
 import icSwordStaff from '../assets/chplay/ic_swordstaff.jpg';
 import icShopeePay from '../assets/chplay/ic_shopeepay.jpg';
 import icBigoLive from '../assets/chplay/ic_bigolive.jpg';
@@ -89,16 +86,6 @@ const SPONSORED_APPS_POOL = [
     icon: icDola,
   },
   {
-    id: 'shopee',
-    name: 'Shopee 11.11 Đại Tiệc Ưu Đãi',
-    developer: 'Shopee VN',
-    categories: 'Mua sắm • Chợ trực tuyến',
-    rating: '4,2',
-    size: '105 MB',
-    downloads: 'Hơn 100 Tr',
-    icon: icShopee,
-  },
-  {
     id: 'blockblast',
     name: 'Block Blast!',
     developer: 'Hungry Studio',
@@ -158,6 +145,46 @@ const SPONSORED_APPS_POOL = [
     downloads: 'Hơn 500 Tr',
     icon: icBigoLive,
   },
+  {
+    id: 'iqiyi_sp',
+    name: 'iQIYI - Phim & Anime',
+    developer: 'iQIYI',
+    categories: 'Giải trí • Xem phim trực tuyến',
+    rating: '4,6',
+    size: '58 MB',
+    downloads: 'Hơn 100 Tr',
+    icon: icIqiyi,
+  },
+  {
+    id: 'messenger_sp',
+    name: 'Messenger',
+    developer: 'Meta Platforms, Inc.',
+    categories: 'Liên lạc • Nhắn tin & Gọi điện',
+    rating: '4,5',
+    size: '54 MB',
+    downloads: 'Hơn 5 Tỷ',
+    icon: icMessenger,
+  },
+  {
+    id: 'instalite_sp',
+    name: 'Instagram Lite',
+    developer: 'Meta Platforms, Inc.',
+    categories: 'Xã hội • Chia sẻ ảnh & Video',
+    rating: '4,2',
+    size: '3,8 MB',
+    downloads: 'Hơn 500 Tr',
+    icon: icInstaLite,
+  },
+  {
+    id: 'rednote_sp',
+    name: 'rednote',
+    developer: 'Xingin',
+    categories: 'Xã hội • Xây dựng mối quan hệ',
+    rating: '4,4',
+    size: '192 MB',
+    downloads: 'Hơn 100 Tr',
+    icon: icRednote,
+  },
 ];
 
 const POPULAR_SQUARE_POOL = [
@@ -167,6 +194,8 @@ const POPULAR_SQUARE_POOL = [
   { id: 'shopeepay2', name: 'ShopeePay - Tài Chính', rating: '4,5', icon: icShopeePay },
   { id: 'bigolive2', name: 'Bigo Live – Live Stream', rating: '4,1', icon: icBigoLive },
   { id: 'duolingo2', name: 'Duolingo: Ngoại ngữ', rating: '4,7', icon: icDuolingo },
+  { id: 'instalite2', name: 'Instagram Lite', rating: '4,2', icon: icInstaLite },
+  { id: 'rednote2', name: 'rednote', rating: '4,4', icon: icRednote },
 ];
 
 const SOCIAL_APPS_POOL = [
@@ -202,6 +231,14 @@ const SOCIAL_APPS_POOL = [
     size: '54 MB',
     icon: icMessenger,
   },
+  {
+    id: 'tiktoklite_soc',
+    name: 'TikTok Lite - Tiết kiệm bộ nhớ',
+    desc: 'Cộng đồng video ngắn toàn cầu, tải nhanh và tiết kiệm dung lượng bộ nhớ.',
+    rating: '4,1',
+    size: '18 MB',
+    icon: icTiktokLite,
+  },
 ];
 
 const GAMES_LIST_POOL = [
@@ -222,20 +259,36 @@ const GAMES_LIST_POOL = [
     icon: icBlockBlast,
   },
   {
-    id: 'shopee_g',
-    name: 'Shopee 11.11 Đại Tiệc Ưu Đãi',
-    categories: 'Mua sắm • Chợ trực tuyến',
-    rating: '4,2',
-    size: '105 MB',
-    icon: icShopee,
-  },
-  {
     id: 'swordstaff',
     name: 'Sword x Staff',
     categories: 'Phiêu lưu',
     rating: '4,8',
     size: '681 MB',
     icon: icSwordStaff,
+  },
+  {
+    id: 'candycrush_g',
+    name: 'Candy Crush Saga',
+    categories: 'Giải đố • Xếp kẹo • Phổ thông',
+    rating: '4,6',
+    size: '98 MB',
+    icon: icCandyCrush,
+  },
+  {
+    id: 'candysoda_g',
+    name: 'Candy Crush Soda Saga',
+    categories: 'Giải đố • Ghép 3 • Vui nhộn',
+    rating: '4,5',
+    size: '104 MB',
+    icon: icCandySoda,
+  },
+  {
+    id: 'traveltown_g',
+    name: 'Travel Town - VTC Game',
+    categories: 'Phổ thông • Hợp nhất • Phiêu lưu',
+    rating: '4,2',
+    size: '142 MB',
+    icon: icTravelTown,
   },
 ];
 
@@ -394,24 +447,30 @@ export default function CHPlay({ onOpenVssID }) {
   });
   const [progress, setProgress] = useState(0);
 
-  // Randomized app lists generated once per mount so every visit shows fresh non-repetitive order
-  const [randomAppsSponsored] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 3));
-  const [randomPopularSquares] = useState(() => shuffleArray(POPULAR_SQUARE_POOL).slice(0, 4));
-  const [randomSocialApps] = useState(() => shuffleArray(SOCIAL_APPS_POOL).slice(0, 3));
-  const [randomGamesList] = useState(() => shuffleArray(GAMES_LIST_POOL).slice(0, 3));
-  const [randomHandyGames] = useState(() => shuffleArray(HANDY_GAMES_POOL).slice(0, 3));
-  const [randomSearchStrip] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 5));
-  const [randomSearchInputAds] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 2));
-  const [randomLimitedEvents] = useState(() =>
-    shuffleArray([
-      SPONSORED_APPS_POOL[3], // Duolingo
-      SPONSORED_APPS_POOL[4], // AliExpress
-      SPONSORED_APPS_POOL[5], // Crunchyroll
-      SPONSORED_APPS_POOL[1], // Shopee
-    ]).slice(0, 3)
-  );
-  const [randomBestsellerBooks] = useState(() => shuffleArray(BOOKS_BESTSELLERS_POOL));
-  const [randomDiscountBooks] = useState(() => shuffleArray(BOOKS_DISCOUNT_POOL));
+  // Randomized app lists — re-shuffled dynamically on every tab change and search!
+  const [randomAppsSponsored, setRandomAppsSponsored] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 3));
+  const [randomPopularSquares, setRandomPopularSquares] = useState(() => shuffleArray(POPULAR_SQUARE_POOL).slice(0, 4));
+  const [randomSocialApps, setRandomSocialApps] = useState(() => shuffleArray(SOCIAL_APPS_POOL).slice(0, 3));
+  const [randomGamesList, setRandomGamesList] = useState(() => shuffleArray(GAMES_LIST_POOL).slice(0, 3));
+  const [randomHandyGames, setRandomHandyGames] = useState(() => shuffleArray(HANDY_GAMES_POOL).slice(0, 3));
+  const [randomSearchStrip, setRandomSearchStrip] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 5));
+  const [randomSearchInputAds, setRandomSearchInputAds] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 2));
+  const [randomLimitedEvents, setRandomLimitedEvents] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 3));
+  const [randomBestsellerBooks, setRandomBestsellerBooks] = useState(() => shuffleArray(BOOKS_BESTSELLERS_POOL));
+  const [randomDiscountBooks, setRandomDiscountBooks] = useState(() => shuffleArray(BOOKS_DISCOUNT_POOL));
+
+  const reshuffleAllLists = () => {
+    setRandomAppsSponsored(shuffleArray(SPONSORED_APPS_POOL).slice(0, 3));
+    setRandomPopularSquares(shuffleArray(POPULAR_SQUARE_POOL).slice(0, 4));
+    setRandomSocialApps(shuffleArray(SOCIAL_APPS_POOL).slice(0, 3));
+    setRandomGamesList(shuffleArray(GAMES_LIST_POOL).slice(0, 3));
+    setRandomHandyGames(shuffleArray(HANDY_GAMES_POOL).slice(0, 3));
+    setRandomSearchStrip(shuffleArray(SPONSORED_APPS_POOL).slice(0, 5));
+    setRandomSearchInputAds(shuffleArray(SPONSORED_APPS_POOL).slice(0, 2));
+    setRandomLimitedEvents(shuffleArray(SPONSORED_APPS_POOL).slice(0, 3));
+    setRandomBestsellerBooks(shuffleArray(BOOKS_BESTSELLERS_POOL));
+    setRandomDiscountBooks(shuffleArray(BOOKS_DISCOUNT_POOL));
+  };
 
   const searchInputRef = useRef(null);
   const timersRef = useRef([]);
@@ -490,6 +549,7 @@ export default function CHPlay({ onOpenVssID }) {
   // Trigger search with 0.4s blue 12-scallop spinner just like frame_27.2.png
   const executeSearch = (qText) => {
     const finalQuery = (qText || searchQuery || 'vssid').trim();
+    reshuffleAllLists();
     setSearchQuery(finalQuery);
     setSubmittedQuery(finalQuery);
     setBottomTab('search');
@@ -500,8 +560,9 @@ export default function CHPlay({ onOpenVssID }) {
     timersRef.current.push(t);
   };
 
-  // Switch bottom tab
+  // Switch bottom tab — reshuffles app lists on every tab switch!
   const handleSelectBottomTab = (tabId) => {
+    reshuffleAllLists();
     setBottomTab(tabId);
     setView('main');
     if (tabId === 'you') {
@@ -939,84 +1000,11 @@ export default function CHPlay({ onOpenVssID }) {
     </div>
   );
 
-  // TAB 1: TRÒ CHƠI (Matching frame_10.5.png)
+  // TAB 1: TRÒ CHƠI (Matching screenshot 09 in d:\vss — no date-bound banner)
   const renderGamesTab = () => (
     <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '82px', background: '#ffffff' }}>
       {renderPlayTopHeader()}
       {renderFilterChips('games')}
-
-      {/* Featured Game Card: LMHT: Tốc Chiến (frame_10.5.png) */}
-      <div style={{ padding: '4px 16px 14px' }}>
-        <div style={{ background: '#f8fafd', borderRadius: '16px', overflow: 'hidden' }}>
-          <img
-            src={bannerTocChien}
-            alt="LMHT Tốc Chiến"
-            style={{ width: '100%', height: '190px', objectFit: 'cover', display: 'block', borderRadius: '16px' }}
-          />
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '12px 12px 14px',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
-              <img
-                src={icTocChien}
-                alt="LMHT: Tốc Chiến"
-                style={{ width: '46px', height: '46px', borderRadius: '11px', objectFit: 'cover', flexShrink: 0 }}
-              />
-              <div style={{ minWidth: 0 }}>
-                <div style={{ fontSize: '15px', fontWeight: 500, color: '#1f1f1f' }}>LMHT: Tốc Chiến</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '3px', fontSize: '12px', color: '#444746' }}>
-                  <span>VNG G...</span>
-                  <span>•</span>
-                  <span style={{ border: '1px solid #444746', fontSize: '9.5px', fontWeight: 700, padding: '0 2px', lineHeight: '12px' }}>16+</span>
-                  <RatingPill rating="2,5" />
-                </div>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                <button style={{
-                  background: '#0b57d0',
-                  color: '#ffffff',
-                  border: 'none',
-                  borderTopLeftRadius: '18px',
-                  borderBottomLeftRadius: '18px',
-                  borderTopRightRadius: '4px',
-                  borderBottomRightRadius: '4px',
-                  height: '34px',
-                  padding: '0 14px',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                }}>
-                  Cài đặt
-                </button>
-                <button style={{
-                  background: '#0b57d0',
-                  color: '#ffffff',
-                  border: 'none',
-                  borderTopLeftRadius: '4px',
-                  borderBottomLeftRadius: '4px',
-                  borderTopRightRadius: '18px',
-                  borderBottomRightRadius: '18px',
-                  height: '34px',
-                  width: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.4">
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
-              </div>
-              <span style={{ fontSize: '9.5px', color: '#444746', marginTop: '3px' }}>Mua hàng trong ứng dụng</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Section: Được tài trợ • Được đề xuất cho bạn */}
       <div style={{ padding: '4px 16px 16px' }}>
@@ -2229,17 +2217,20 @@ export default function CHPlay({ onOpenVssID }) {
           </div>
 
           {/* Xem thêm v (frame_30.3.png) */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '6px',
-            marginTop: '18px',
-            color: '#0b57d0',
-            fontSize: '13.5px',
-            fontWeight: 500,
-            cursor: 'pointer',
-          }}>
+          <div
+            onClick={reshuffleAllLists}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              marginTop: '18px',
+              color: '#0b57d0',
+              fontSize: '13.5px',
+              fontWeight: 500,
+              cursor: 'pointer',
+            }}
+          >
             <span>Xem thêm</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0b57d0" strokeWidth="2.2">
               <polyline points="6 9 12 15 18 9" />
