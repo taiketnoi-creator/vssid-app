@@ -23,8 +23,18 @@
         background: linear-gradient(180deg, #0eb3f7 0%, #01b5f7 12%, #43dffd 22%, #d9f7fd 32%, #ffffff 42%, #ffffff 100%);
       }
       @media (min-width: 1025px) {
-        html, body, #root {
-          background: #0c101b;
+        html {
+          background: #090d16;
+          height: auto;
+          min-height: 100%;
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+        body, #root {
+          background: #090d16;
+          height: auto;
+          min-height: 100vh;
+          overflow: visible;
         }
       }
     </style>

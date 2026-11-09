@@ -171,7 +171,7 @@
 /* Show smartphone simulator frame ONLY on desktop screens (Chrome, Safari, Edge on PC/Mac) */
 @media (min-width: 1025px) {
   .app-viewport {
-    background: #0f172a !important;
+    background: #090d16 !important;
     min-height: 100vh !important;
     width: 100% !important;
     height: auto !important;
@@ -179,6 +179,8 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
   }
 
   /* Show glowing neon background elements */

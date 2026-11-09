@@ -655,17 +655,24 @@ function App() {
           position: 'fixed',
           inset: 0,
           overflowY: 'auto',
+          overflowX: 'hidden',
           background: '#090d16',
           color: '#ffffff',
           fontFamily: 'Inter, sans-serif',
-          padding: '30px 24px',
-          boxSizing: 'border-box',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '24px',
           WebkitOverflowScrolling: 'touch',
+          overscrollBehaviorY: 'contain',
           zIndex: 1000
         }}>
+          <div style={{
+            position: 'relative',
+            minHeight: '100%',
+            padding: '30px 24px 48px',
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '24px',
+            overflowX: 'hidden'
+          }}>
           {/* Decorative glowing backdrops */}
           <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '200px', height: '200px', borderRadius: '50%', background: 'rgba(2, 132, 199, 0.22)', filter: 'blur(60px)', zIndex: 0, pointerEvents: 'none' }} />
           <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: '200px', height: '200px', borderRadius: '50%', background: 'rgba(6, 182, 212, 0.22)', filter: 'blur(60px)', zIndex: 0, pointerEvents: 'none' }} />
@@ -914,6 +921,7 @@ function App() {
               </div>
             </div>
           </div>
+          </div>
         </div>
       );
     }
@@ -1124,7 +1132,7 @@ function App() {
       gap: '80px',
       padding: '40px',
       boxSizing: 'border-box',
-      overflowY: 'auto',
+      overflowX: 'hidden',
       flexWrap: 'wrap'
     }}>
       {/* Decorative neon backdrop glowing elements positioned absolutely so they don't break flex layout */}
