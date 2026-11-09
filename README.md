@@ -100,6 +100,9 @@ npx vercel --prod --yes
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
 ### 🚀 Phiên bản ngày 09/11/2026:
+* **Khắc phục triệt để lỗi không cuộn dọc được trang Web Landing Page trên Desktop & Mobile (`index.html`, `src/index.css`, `src/App.css`, `src/App.jsx`) & đồng bộ lại Vercel Production (`https://vssid-app.vercel.app`):**
+  * **Nguyên nhân:** Bản Production trên Vercel đang trỏ về bản build cũ (`d6cc7f6` chứa `html, body, #root { height: 100% !important; overflow: hidden !important; }`). Ngoài ra, thuộc tính `overflow-x: hidden` kết hợp `overflow-y: visible` trên `.app-viewport` (Desktop) và khung con của Mobile Landing Page khiến trình duyệt tự động ép `overflow-y` thành `auto` theo chuẩn CSS Overflow Level 3, tạo vùng cuộn lồng nhau gây kẹt thao tác cuộn chuột/cảm ứng.
+  * **Giải pháp:** Mở khóa cuộn dọc cho `html` trên Desktop (`height: auto; overflow-y: auto`), chuyển `.app-viewport` sang `overflow-x: clip; overflow-y: visible` để không tạo thanh cuộn phụ, loại bỏ vùng cuộn lồng nhau trên Mobile Landing Page (`overflow: visible`, `touch-action: pan-y`) và đẩy bản cập nhật mới nhất lên GitHub `main` & Vercel Production.
 * **Bổ sung tab `BHTN` (Bảo hiểm thất nghiệp) trong mục `QUÁ TRÌNH THAM GIA` (`src/screens/InsuranceList.jsx`, `src/assets/tab_bar_bhxh.png`, `src/assets/tab_bar_bhtn.png`, `src/assets/tab_bar_inactive.png`):**
   * Thêm trang dữ liệu **BHTN** hiển thị tiêu đề `"Quá trình tham gia Bảo hiểm thất nghiệp"`, tổng thời gian tham gia và bảng quá trình đóng BHTN tương ứng với tài khoản đang đăng nhập.
   * Tích hợp hiệu ứng chuyển cảnh mượt mà đúng chuẩn bản gốc: độ trễ `0,05s` khi bấm chuyển tab kèm hiệu ứng trượt ngang (`translateX(0%)` <-> `translateX(-50%)` trong `0,28s cubic-bezier(0.22, 1, 0.36, 1)`) và tự động đổi sang icon xanh cho tab đang chọn (`tab_bar_bhxh.png` / `tab_bar_bhtn.png`).
