@@ -74,6 +74,119 @@ function shuffleArray(arr) {
   return copy;
 }
 
+const GOOGLE_AVATAR_COLORS = [
+  '#1a73e8', '#e8710a', '#0b8043', '#8e24aa', '#d93025', '#00897b',
+  '#c2185b', '#5c6bc0', '#f4511e', '#039be5', '#689f38', '#5d4037',
+];
+
+const RANDOM_LAST_NAMES = [
+  'Nguyễn', 'Trần', 'Lê', 'Phạm', 'Hoàng', 'Huỳnh', 'Phan', 'Vũ',
+  'Võ', 'Đặng', 'Bùi', 'Đỗ', 'Hồ', 'Ngô', 'Dương', 'Lý',
+  'Đinh', 'Đoàn', 'Lương', 'Trịnh', 'Mai', 'Tạ', 'Cao', 'Hà',
+];
+
+const RANDOM_GIVEN_NAMES = [
+  'Minh Tuấn', 'Hoàng Nam', 'Quốc Huy', 'Đức Anh', 'Gia Bảo', 'Tuấn Kiệt', 'Thanh Tùng', 'Quang Hải',
+  'Minh Khôi', 'Đình Phong', 'Hữu Đạt', 'Anh Dũng', 'Trung Hiếu', 'Thành Đạt', 'Tuấn Anh', 'Xuân Trường',
+  'Bảo Long', 'Nhật Minh', 'Khánh Duy', 'Trọng Nghĩa', 'Hoàng Quân', 'Đức Mạnh', 'Hải Đăng', 'Việt Hoàng',
+  'Mạnh Cường', 'Thế Anh', 'Phúc Hưng', 'Đăng Khoa', 'Quang Vinh', 'Thanh Bình', 'Minh Đức', 'Hoài Nam',
+  'Chí Thành', 'Đức Thịnh', 'Hồng Sơn', 'Ngọc Hải', 'Tiến Dũng', 'Quốc Khánh', 'Gia Huy', 'Hoàng Long',
+  'Minh Quân', 'Sơn Tùng', 'Khắc Việt', 'Lâm Bảo', 'Thu Hà', 'Khánh Linh', 'Phương Thảo', 'Thanh Trúc',
+  'Ngọc Ánh', 'Minh Châu', 'Thùy Dung', 'Bảo Ngọc', 'Thanh Huyền', 'Hồng Nhung', 'Mai Phương', 'Lan Anh',
+  'Kim Ngân', 'Bích Phương', 'Yến Nhi', 'Quỳnh Anh', 'Thảo Vy', 'Ngọc Hân', 'Minh Thư', 'Hải Yến',
+  'Diệu Linh', 'Thu Trang', 'Thanh Hà', 'Tuyết Nhi', 'Phương Anh', 'Thùy Tiên', 'Ánh Tuyết', 'Bảo Trâm',
+  'Cẩm Tú', 'Hà My', 'Hương Giang', 'Khánh Vân', 'Minh Hằng', 'Nhã Phương', 'Thanh Hằng', 'Thảo Nhi',
+];
+
+function stripVietnameseAccents(str) {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D');
+}
+
+function secureRandomInt(max) {
+  if (typeof window !== 'undefined' && window.crypto && window.crypto.getRandomValues) {
+    const arr = new Uint32Array(1);
+    window.crypto.getRandomValues(arr);
+    return arr[0] % max;
+  }
+  return Math.floor(Math.random() * max);
+}
+
+function createRandomGoogleProfile() {
+  let prevName = '';
+  let prevColor = '';
+  let prevInitial = '';
+  try {
+    const saved = JSON.parse(localStorage.getItem('chplay_last_random_profile') || '{}');
+    prevName = saved.name || '';
+    prevColor = saved.color || '';
+    prevInitial = saved.initial || '';
+  } catch (e) {}
+
+  let displayName = '';
+  let fullName = '';
+  let initial = '';
+  let emailSlug = '';
+
+  for (let attempt = 0; attempt < 25; attempt++) {
+    const last = RANDOM_LAST_NAMES[secureRandomInt(RANDOM_LAST_NAMES.length)];
+    const given = RANDOM_GIVEN_NAMES[secureRandomInt(RANDOM_GIVEN_NAMES.length)];
+    const style = secureRandomInt(3);
+    if (style === 0) {
+      // e.g. "Minh Tuấn" (popup: "Nguyễn Minh Tuấn")
+      displayName = given;
+      fullName = `${last} ${given}`;
+    } else if (style === 1) {
+      // e.g. "Tuấn Nguyễn"
+      const firstWord = given.split(' ').pop();
+      displayName = `${firstWord} ${last}`;
+      fullName = `${last} ${given}`;
+    } else {
+      // e.g. "Nguyễn Minh Tuấn"
+      displayName = `${last} ${given}`;
+      fullName = `${last} ${given}`;
+    }
+
+    initial = stripVietnameseAccents(displayName.trim()).charAt(0).toUpperCase() || 'A';
+    if (displayName !== prevName && initial !== prevInitial) {
+      const cleanGiven = stripVietnameseAccents(given).toLowerCase().replace(/\s+/g, '');
+      const cleanLast = stripVietnameseAccents(last).toLowerCase().replace(/\s+/g, '');
+      const numSuffix = 10 + secureRandomInt(890);
+      emailSlug = `${cleanGiven}.${cleanLast}${numSuffix}@gmail.com`;
+      break;
+    }
+  }
+
+  let color = GOOGLE_AVATAR_COLORS[secureRandomInt(GOOGLE_AVATAR_COLORS.length)];
+  if (color === prevColor) {
+    const filtered = GOOGLE_AVATAR_COLORS.filter((c) => c !== prevColor);
+    color = filtered[secureRandomInt(filtered.length)];
+  }
+
+  const profile = {
+    name: displayName,
+    fullName,
+    initial,
+    color,
+    email: emailSlug || 'nguoidung.vn@gmail.com',
+  };
+
+  try {
+    localStorage.setItem('chplay_last_random_profile', JSON.stringify({
+      name: profile.name,
+      color: profile.color,
+      initial: profile.initial,
+    }));
+  } catch (e) {}
+
+  return profile;
+}
+
+const SESSION_GOOGLE_PROFILE = createRandomGoogleProfile();
+
 const SPONSORED_APPS_POOL = [
   {
     id: 'dola',
@@ -436,8 +549,10 @@ export default function CHPlay({ onOpenVssID }) {
 
   // Google Play Account Popup state ("phần tài khoản gg play")
   const [accountModalOpen, setAccountModalOpen] = useState(false);
-  const [accountName] = useState('Joystar');
-  const [accountEmail] = useState('joystar.vn@gmail.com');
+  const [accountName] = useState(() => SESSION_GOOGLE_PROFILE.name);
+  const [accountEmail] = useState(() => SESSION_GOOGLE_PROFILE.email);
+  const [accountInitial] = useState(() => SESSION_GOOGLE_PROFILE.initial);
+  const [accountColor] = useState(() => SESSION_GOOGLE_PROFILE.color);
 
   // Install state for VssID: 'not_installed' | 'pending' | 'downloading' | 'installing' | 'installed'
   const [installState, setInstallState] = useState(() => {
@@ -650,7 +765,7 @@ export default function CHPlay({ onOpenVssID }) {
             width: '32px',
             height: '32px',
             borderRadius: '50%',
-            background: '#e8710a',
+            background: accountColor,
             color: '#ffffff',
             fontSize: '16px',
             fontWeight: 500,
@@ -661,7 +776,7 @@ export default function CHPlay({ onOpenVssID }) {
             userSelect: 'none',
           }}
         >
-          J
+          {accountInitial}
         </div>
       </div>
     </div>
@@ -1158,7 +1273,7 @@ export default function CHPlay({ onOpenVssID }) {
             width: '33px',
             height: '33px',
             borderRadius: '50%',
-            background: '#e8710a',
+            background: accountColor,
             color: '#ffffff',
             fontSize: '16px',
             fontWeight: 500,
@@ -1169,7 +1284,7 @@ export default function CHPlay({ onOpenVssID }) {
             flexShrink: 0,
           }}
         >
-          J
+          {accountInitial}
         </div>
       </div>
 
@@ -1349,7 +1464,7 @@ export default function CHPlay({ onOpenVssID }) {
             width: '33px',
             height: '33px',
             borderRadius: '50%',
-            background: '#e8710a',
+            background: accountColor,
             color: '#ffffff',
             fontSize: '16px',
             fontWeight: 500,
@@ -1360,7 +1475,7 @@ export default function CHPlay({ onOpenVssID }) {
             flexShrink: 0,
           }}
         >
-          J
+          {accountInitial}
         </div>
       </div>
 
@@ -2964,7 +3079,7 @@ export default function CHPlay({ onOpenVssID }) {
                     width: '40px',
                     height: '40px',
                     borderRadius: '50%',
-                    background: '#e8710a',
+                    background: accountColor,
                     color: '#ffffff',
                     fontSize: '18px',
                     fontWeight: 500,
@@ -2972,7 +3087,7 @@ export default function CHPlay({ onOpenVssID }) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                    J
+                    {accountInitial}
                   </div>
                   <div>
                     <div style={{ fontSize: '15px', fontWeight: 600, color: '#1f1f1f' }}>{accountName}</div>
