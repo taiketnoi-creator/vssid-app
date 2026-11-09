@@ -1,7 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
 
-// Cropped authentic Google Play assets from video
+// Cropped authentic Google Play assets & multi-banner pool
 import bannerTiktok from '../assets/chplay/banner_tiktok.jpg';
+import bannerWsj from '../assets/chplay/banner_wsj.jpg';
+import bannerWego from '../assets/chplay/banner_wego.jpg';
+import bannerElk from '../assets/chplay/banner_elk.jpg';
+import bannerJourni from '../assets/chplay/banner_journi.jpg';
+import bannerTeams from '../assets/chplay/banner_teams.jpg';
+import bannerBox from '../assets/chplay/banner_box.jpg';
+import bannerSlack from '../assets/chplay/banner_slack.jpg';
+import bannerDaylio from '../assets/chplay/banner_daylio.jpg';
+import bannerYarnbuddy from '../assets/chplay/banner_yarnbuddy.jpg';
+import bannerRelaxsound from '../assets/chplay/banner_relaxsound.jpg';
+import bannerSmartgym from '../assets/chplay/banner_smartgym.jpg';
+import bannerCalm from '../assets/chplay/banner_calm.jpg';
+import bannerKiddopia from '../assets/chplay/banner_kiddopia.jpg';
+import bannerHypic from '../assets/chplay/banner_hypic.jpg';
+
 import icTiktok from '../assets/chplay/ic_tiktok.jpg';
 import icDola from '../assets/chplay/ic_dola.jpg';
 import icBlockBlast from '../assets/chplay/ic_blockblast.jpg';
@@ -15,6 +30,7 @@ import icCandyCrush from '../assets/chplay/ic_candycrush.jpg';
 import icCandySoda from '../assets/chplay/ic_candysoda.jpg';
 import icTravelTown from '../assets/chplay/ic_traveltown.jpg';
 import icSwordStaff from '../assets/chplay/ic_swordstaff.jpg';
+import icTocChien from '../assets/chplay/ic_tocchien.jpg';
 import icShopeePay from '../assets/chplay/ic_shopeepay.jpg';
 import icBigoLive from '../assets/chplay/ic_bigolive.jpg';
 import icDuolingo from '../assets/chplay/ic_duolingo.jpg';
@@ -22,6 +38,35 @@ import icAliExpress from '../assets/chplay/ic_aliexpress.jpg';
 import icCrunchyroll from '../assets/chplay/ic_crunchyroll.jpg';
 import icVssidStore from '../assets/chplay/ic_vssid_store.jpg';
 import icChPlayLogo from '../assets/chplay/ic_chplay_logo.png';
+
+// Additional real app icons for deep non-repetitive randomization
+import icWsj from '../assets/chplay/ic_wsj.jpg';
+import icWego from '../assets/chplay/ic_wego.jpg';
+import icElk from '../assets/chplay/ic_elk.jpg';
+import icJourni from '../assets/chplay/ic_journi.jpg';
+import icTeams from '../assets/chplay/ic_teams.jpg';
+import icBox from '../assets/chplay/ic_box.jpg';
+import icSlack from '../assets/chplay/ic_slack.jpg';
+import icDaylio from '../assets/chplay/ic_daylio.jpg';
+import icYarnbuddy from '../assets/chplay/ic_yarnbuddy.jpg';
+import icRelaxsound from '../assets/chplay/ic_relaxsound.jpg';
+import icSmartgym from '../assets/chplay/ic_smartgym.jpg';
+import icCalm from '../assets/chplay/ic_calm.jpg';
+import icKiddopia from '../assets/chplay/ic_kiddopia.jpg';
+import icTv360 from '../assets/chplay/ic_tv360.jpg';
+import icVtvgo from '../assets/chplay/ic_vtvgo.jpg';
+import icHypic from '../assets/chplay/ic_hypic.jpg';
+import icTammi from '../assets/chplay/ic_tammi.jpg';
+import icVnetraffic from '../assets/chplay/ic_vnetraffic.jpg';
+import icGoodnotes from '../assets/chplay/ic_goodnotes.jpg';
+import icNotboringcam from '../assets/chplay/ic_notboringcam.jpg';
+import icYoutube from '../assets/chplay/ic_youtube.jpg';
+import icMangoplus from '../assets/chplay/ic_mangoplus.jpg';
+import icYouku from '../assets/chplay/ic_youku.jpg';
+import icWetv from '../assets/chplay/ic_wetv.jpg';
+import icPremierleague from '../assets/chplay/ic_premierleague.jpg';
+import icLivescore from '../assets/chplay/ic_livescore.jpg';
+import icOnefootball from '../assets/chplay/ic_onefootball.jpg';
 
 import vssidShot1 from '../assets/chplay/vssid_shot1.jpg';
 import vssidShot2 from '../assets/chplay/vssid_shot2.jpg';
@@ -65,11 +110,11 @@ import catAPers from '../assets/chplay/cat_a_pers.jpg';
 import catAWeather from '../assets/chplay/cat_a_weather.jpg';
 import catABeauty from '../assets/chplay/cat_a_beauty.jpg';
 
-// Fisher-Yates shuffle so each session shows apps in random non-repetitive order
+// Cryptographic Fisher-Yates shuffle so each session shows apps in random non-repetitive order
 function shuffleArray(arr) {
   const copy = [...arr];
   for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = secureRandomInt(i + 1);
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
   return copy;
@@ -195,29 +240,245 @@ function createRandomGoogleProfile() {
 
 const SESSION_GOOGLE_PROFILE = createRandomGoogleProfile();
 
+// 15 distinct featured banners for the Apps tab top carousel (zero duplicate guarantee)
+const FEATURED_BANNERS_POOL = [
+  {
+    id: 'bn_wsj',
+    appKey: 'wsj',
+    name: 'The Wall Street Journal',
+    subtitle: 'Tin tức & Tạp chí',
+    rating: '4,6',
+    banner: bannerWsj,
+    icon: icWsj,
+  },
+  {
+    id: 'bn_wego',
+    appKey: 'wego',
+    name: 'Wego Chuyến Bay & Khách sạn',
+    subtitle: 'Du lịch • Ưu đãi giá tốt',
+    rating: '4,7',
+    banner: bannerWego,
+    icon: icWego,
+  },
+  {
+    id: 'bn_elk',
+    appKey: 'elk',
+    name: 'Elk Currency Converter',
+    subtitle: 'Du lịch • Tỷ giá nhanh',
+    rating: '4,8',
+    banner: bannerElk,
+    icon: icElk,
+  },
+  {
+    id: 'bn_journi',
+    appKey: 'journi',
+    name: 'Journi Blog - Travel Tracker',
+    subtitle: 'Nhiếp ảnh • Album du lịch',
+    rating: '4,7',
+    banner: bannerJourni,
+    icon: icJourni,
+  },
+  {
+    id: 'bn_teams',
+    appKey: 'teams',
+    name: 'Microsoft Teams',
+    subtitle: 'Gọi. Trò chuyện. Cộng tác',
+    rating: '4,6',
+    banner: bannerTeams,
+    icon: icTeams,
+  },
+  {
+    id: 'bn_box',
+    appKey: 'box',
+    name: 'Box: The Power of Content',
+    subtitle: 'Năng suất • Đám mây',
+    rating: '4,5',
+    banner: bannerBox,
+    icon: icBox,
+  },
+  {
+    id: 'bn_slack',
+    appKey: 'slack',
+    name: 'Slack',
+    subtitle: 'Kinh doanh • Làm việc nhóm',
+    rating: '4,6',
+    banner: bannerSlack,
+    icon: icSlack,
+  },
+  {
+    id: 'bn_daylio',
+    appKey: 'daylio',
+    name: 'Daylio Nhật ký tâm trạng',
+    subtitle: 'Nhật ký riêng tư, sức khỏe',
+    rating: '4,8',
+    banner: bannerDaylio,
+    icon: icDaylio,
+  },
+  {
+    id: 'bn_yarnbuddy',
+    appKey: 'yarnbuddy',
+    name: 'YarnBuddy – Knit & Crochet',
+    subtitle: 'Lối sống • Đan móc sáng tạo',
+    rating: '4,7',
+    banner: bannerYarnbuddy,
+    icon: icYarnbuddy,
+  },
+  {
+    id: 'bn_relaxsound',
+    appKey: 'relaxsound',
+    name: 'Relaxing Sounds & Meditation',
+    subtitle: 'Sức khỏe • Giảm căng thẳng',
+    rating: '4,7',
+    banner: bannerRelaxsound,
+    icon: icRelaxsound,
+  },
+  {
+    id: 'bn_smartgym',
+    appKey: 'smartgym',
+    name: 'SmartGym: Gym & Home',
+    subtitle: 'Sức khỏe & Thể hình',
+    rating: '4,8',
+    banner: bannerSmartgym,
+    icon: icSmartgym,
+  },
+  {
+    id: 'bn_calm',
+    appKey: 'calm',
+    name: 'Calm - Thiền & Giấc ngủ',
+    subtitle: 'Sức khỏe & Thể hình',
+    rating: '4,6',
+    banner: bannerCalm,
+    icon: icCalm,
+  },
+  {
+    id: 'bn_kiddopia',
+    appKey: 'kiddopia',
+    name: 'Kiddopia: Trò chơi giáo dục',
+    subtitle: 'Giáo dục • Tư duy cho bé',
+    rating: '4,5',
+    banner: bannerKiddopia,
+    icon: icKiddopia,
+  },
+  {
+    id: 'bn_hypic',
+    appKey: 'hypic',
+    name: 'Hypic - Chỉnh ảnh & Thiết kế AI',
+    subtitle: 'Nhiếp ảnh • Hiệu ứng AI',
+    rating: '4,6',
+    banner: bannerHypic,
+    icon: icHypic,
+  },
+  {
+    id: 'bn_tiktok',
+    appKey: 'tiktok',
+    name: 'TikTok',
+    subtitle: 'Đã cài đặt',
+    rating: '4,4',
+    installed: true,
+    banner: bannerTiktok,
+    icon: icTiktok,
+  },
+];
+
+const BANNER_DECK_STORAGE_KEY = 'chplay_banner_deck_v2';
+let memoryBannerDeckState = { deck: [], lastShown: [] };
+
+// Non-repeating deck queue: guarantees 5 distinct banners per view AND zero overlap with the previous draw
+function drawUniqueBanners(count = 5) {
+  const byKey = new Map(FEATURED_BANNERS_POOL.map((b) => [b.appKey, b]));
+  const allKeys = FEATURED_BANNERS_POOL.map((b) => b.appKey);
+
+  let deck = [];
+  let lastShown = [];
+  try {
+    const raw = localStorage.getItem(BANNER_DECK_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed.deck)) deck = parsed.deck.filter((k) => byKey.has(k));
+      if (Array.isArray(parsed.lastShown)) lastShown = parsed.lastShown.filter((k) => byKey.has(k));
+    } else {
+      deck = memoryBannerDeckState.deck;
+      lastShown = memoryBannerDeckState.lastShown;
+    }
+  } catch (e) {
+    deck = memoryBannerDeckState.deck;
+    lastShown = memoryBannerDeckState.lastShown;
+  }
+
+  // Deduplicate existing deck just in case
+  deck = [...new Set(deck)];
+
+  let pickedKeys = [];
+  let nextDeck = [];
+
+  if (deck.length >= count) {
+    pickedKeys = deck.slice(0, count);
+    nextDeck = deck.slice(count);
+  } else {
+    // Take remaining unseen cards first, then fill needed slots from cards NOT in lastShown
+    const carry = [...deck];
+    const needed = count - carry.length;
+    const freshCandidates = shuffleArray(
+      allKeys.filter((k) => !carry.includes(k) && !lastShown.includes(k))
+    );
+    const extra = freshCandidates.slice(0, needed);
+    pickedKeys = shuffleArray([...carry, ...extra]);
+
+    // Refill deck with all remaining banners not currently on screen
+    nextDeck = shuffleArray(allKeys.filter((k) => !pickedKeys.includes(k)));
+  }
+
+  memoryBannerDeckState = { deck: nextDeck, lastShown: pickedKeys };
+  try {
+    localStorage.setItem(BANNER_DECK_STORAGE_KEY, JSON.stringify(memoryBannerDeckState));
+  } catch (e) {}
+
+  return pickedKeys.map((k) => byKey.get(k)).filter(Boolean);
+}
+
+// Pick N unique apps from a pool while avoiding any appKey already placed on the same screen
+function pickUniqueApps(pool, count, usedKeysSet) {
+  const shuffled = shuffleArray(pool);
+  const selected = [];
+  const localSeen = new Set();
+
+  for (const item of shuffled) {
+    const key = item.appKey || item.id;
+    if (!usedKeysSet.has(key) && !localSeen.has(key)) {
+      selected.push(item);
+      localSeen.add(key);
+      usedKeysSet.add(key);
+      if (selected.length === count) return selected;
+    }
+  }
+
+  // Fallback if pool is smaller than requested after exclusions
+  for (const item of shuffled) {
+    const key = item.appKey || item.id;
+    if (!localSeen.has(key)) {
+      selected.push(item);
+      localSeen.add(key);
+      if (selected.length === count) break;
+    }
+  }
+  return selected;
+}
+
 const SPONSORED_APPS_POOL = [
   {
     id: 'dola',
+    appKey: 'dola',
     name: 'Dola: Smart AI Assistant',
     developer: 'SPRING (SG) PTE. LTD.',
-    categories: 'Công cụ • Năng suất • Trợ lý cá nhân',
+    categories: 'Công cụ • Năng suất • Trợ lý AI',
     rating: '4,6',
     size: '203 MB',
     downloads: 'Hơn 10 Tr',
     icon: icDola,
   },
   {
-    id: 'blockblast',
-    name: 'Block Blast!',
-    developer: 'Hungry Studio',
-    categories: 'Giải đố • Xếp hình • Vui tươi',
-    rating: '4,7',
-    size: '105 MB',
-    downloads: 'Hơn 100 Tr',
-    icon: icBlockBlast,
-  },
-  {
     id: 'duolingo',
+    appKey: 'duolingo',
     name: 'Duolingo: Ngoại ngữ & Cờ vua',
     developer: 'Duolingo',
     categories: 'Duolingo • Giáo dục',
@@ -227,7 +488,294 @@ const SPONSORED_APPS_POOL = [
     icon: icDuolingo,
   },
   {
+    id: 'tv360',
+    appKey: 'tv360',
+    name: 'TV360: Phim, Thể Thao, TV',
+    developer: 'Viettel Telecom',
+    categories: 'Giải trí • Truyền hình trực tuyến',
+    rating: '4,6',
+    size: '68 MB',
+    downloads: 'Hơn 10 Tr',
+    icon: icTv360,
+  },
+  {
+    id: 'vtvgo',
+    appKey: 'vtvgo',
+    name: 'VTVgo - Truyền hình số Quốc gia',
+    developer: 'VTV Digital',
+    categories: 'Giải trí • Xem truyền hình VTV',
+    rating: '4,4',
+    size: '45 MB',
+    downloads: 'Hơn 10 Tr',
+    icon: icVtvgo,
+  },
+  {
+    id: 'hypic',
+    appKey: 'hypic',
+    name: 'Hypic: Retouch & Design AI',
+    developer: 'Bytedance Pte. Ltd.',
+    categories: 'Nhiếp ảnh • Filter & Makeup',
+    rating: '4,6',
+    size: '138 MB',
+    downloads: 'Hơn 50 Tr',
+    icon: icHypic,
+  },
+  {
+    id: 'tammi',
+    appKey: 'tammi',
+    name: 'Viettel Tammi',
+    developer: 'Viettel Group',
+    categories: 'Lối sống • Nền tảng cuộc sống số',
+    rating: '4,7',
+    size: '74 MB',
+    downloads: 'Hơn 1 Tr',
+    icon: icTammi,
+  },
+  {
+    id: 'vnetraffic',
+    appKey: 'vnetraffic',
+    name: 'VNeTraffic',
+    developer: 'Bộ Công an',
+    categories: 'Bản đồ & Dẫn đường • Giao thông thông minh',
+    rating: '4,5',
+    size: '52 MB',
+    downloads: 'Hơn 5 Tr',
+    icon: icVnetraffic,
+  },
+  {
+    id: 'goodnotes',
+    appKey: 'goodnotes',
+    name: 'Goodnotes: Ghi chú AI, PDF',
+    developer: 'Goodnotes Limited',
+    categories: 'Năng suất • Ghi chú & Bảng trắng',
+    rating: '4,6',
+    size: '164 MB',
+    downloads: 'Hơn 10 Tr',
+    icon: icGoodnotes,
+  },
+  {
+    id: 'notboringcam',
+    appKey: 'notboringcam',
+    name: '(Not Boring) Camera',
+    developer: 'Not Boring Software',
+    categories: 'Nhiếp ảnh • Ảnh & Video chuyên nghiệp',
+    rating: '4,7',
+    size: '89 MB',
+    downloads: 'Hơn 1 Tr',
+    icon: icNotboringcam,
+  },
+  {
+    id: 'youtube',
+    appKey: 'youtube',
+    name: 'YouTube',
+    developer: 'Google LLC',
+    categories: 'Xem và sửa video • Phát trực tuyến',
+    rating: '4,4',
+    size: '48 MB',
+    downloads: 'Hơn 10 Tỷ',
+    icon: icYoutube,
+  },
+  {
+    id: 'mangoplus',
+    appKey: 'mangoplus',
+    name: 'MangoPlus - Show, Phim HD',
+    developer: 'YeaH1',
+    categories: 'Giải trí • Ứng dụng giải trí YeaH1',
+    rating: '4,5',
+    size: '62 MB',
+    downloads: 'Hơn 1 Tr',
+    icon: icMangoplus,
+  },
+  {
+    id: 'youku',
+    appKey: 'youku',
+    name: 'YOUKU - Phim, Giải trí Châu Á',
+    developer: 'Youku',
+    categories: 'Giải trí • Phim HD phụ đề tiếng Việt',
+    rating: '4,5',
+    size: '84 MB',
+    downloads: 'Hơn 50 Tr',
+    icon: icYouku,
+  },
+  {
+    id: 'wetv',
+    appKey: 'wetv',
+    name: 'WeTV - Asian Contents',
+    developer: 'Image Future',
+    categories: 'Giải trí • Ứng dụng giải trí Châu Á',
+    rating: '4,6',
+    size: '79 MB',
+    downloads: 'Hơn 100 Tr',
+    icon: icWetv,
+  },
+  {
+    id: 'premierleague',
+    appKey: 'premierleague',
+    name: 'Premier League - Official App',
+    developer: 'Premier League',
+    categories: 'Thể thao • Ngoại hạng Anh',
+    rating: '4,7',
+    size: '56 MB',
+    downloads: 'Hơn 50 Tr',
+    icon: icPremierleague,
+  },
+  {
+    id: 'livescore',
+    appKey: 'livescore',
+    name: 'LiveScore: Tỷ số trực tiếp',
+    developer: 'LiveScore',
+    categories: 'Thể thao • Tin bóng đá & Thống kê',
+    rating: '4,6',
+    size: '49 MB',
+    downloads: 'Hơn 50 Tr',
+    icon: icLivescore,
+  },
+  {
+    id: 'onefootball',
+    appKey: 'onefootball',
+    name: 'OneFootball - Football Scores',
+    developer: 'OneFootball GmbH',
+    categories: 'Thể thao • Tin tức & Lịch thi đấu',
+    rating: '4,7',
+    size: '64 MB',
+    downloads: 'Hơn 50 Tr',
+    icon: icOnefootball,
+  },
+  {
+    id: 'wsj',
+    appKey: 'wsj',
+    name: 'The Wall Street Journal',
+    developer: 'Dow Jones & Company',
+    categories: 'Tin tức & Tạp chí • Tài chính',
+    rating: '4,6',
+    size: '42 MB',
+    downloads: 'Hơn 5 Tr',
+    icon: icWsj,
+  },
+  {
+    id: 'wego',
+    appKey: 'wego',
+    name: 'Wego Chuyến Bay & Khách sạn',
+    developer: 'Wego Pte Ltd',
+    categories: 'Du lịch & Địa phương • Đặt vé',
+    rating: '4,7',
+    size: '59 MB',
+    downloads: 'Hơn 10 Tr',
+    icon: icWego,
+  },
+  {
+    id: 'elk',
+    appKey: 'elk',
+    name: 'Elk Currency Converter',
+    developer: 'Clean Shaven Apps',
+    categories: 'Du lịch & Địa phương • Đổi ngoại tệ',
+    rating: '4,8',
+    size: '24 MB',
+    downloads: 'Hơn 1 Tr',
+    icon: icElk,
+  },
+  {
+    id: 'journi',
+    appKey: 'journi',
+    name: 'Journi Blog - Travel Tracker',
+    developer: 'Journi GmbH',
+    categories: 'Nhiếp ảnh • Nhật ký hành trình',
+    rating: '4,7',
+    size: '95 MB',
+    downloads: 'Hơn 5 Tr',
+    icon: icJourni,
+  },
+  {
+    id: 'teams',
+    appKey: 'teams',
+    name: 'Microsoft Teams',
+    developer: 'Microsoft Corporation',
+    categories: 'Kinh doanh • Gọi & Cộng tác',
+    rating: '4,6',
+    size: '118 MB',
+    downloads: 'Hơn 500 Tr',
+    icon: icTeams,
+  },
+  {
+    id: 'box',
+    appKey: 'box',
+    name: 'Box: Lưu trữ đám mây',
+    developer: 'Box, Inc.',
+    categories: 'Năng suất • Quản lý dữ liệu',
+    rating: '4,5',
+    size: '76 MB',
+    downloads: 'Hơn 50 Tr',
+    icon: icBox,
+  },
+  {
+    id: 'slack',
+    appKey: 'slack',
+    name: 'Slack',
+    developer: 'Salesforce',
+    categories: 'Kinh doanh • Tin nhắn công việc',
+    rating: '4,6',
+    size: '92 MB',
+    downloads: 'Hơn 100 Tr',
+    icon: icSlack,
+  },
+  {
+    id: 'daylio',
+    appKey: 'daylio',
+    name: 'Daylio Nhật ký tâm trạng',
+    developer: 'Habitics',
+    categories: 'Lối sống • Sức khỏe tinh thần',
+    rating: '4,8',
+    size: '38 MB',
+    downloads: 'Hơn 10 Tr',
+    icon: icDaylio,
+  },
+  {
+    id: 'yarnbuddy',
+    appKey: 'yarnbuddy',
+    name: 'YarnBuddy – Knit and Crochet',
+    developer: 'YarnBuddy',
+    categories: 'Lối sống • Đan móc thủ công',
+    rating: '4,7',
+    size: '31 MB',
+    downloads: 'Hơn 500 N',
+    icon: icYarnbuddy,
+  },
+  {
+    id: 'relaxsound',
+    appKey: 'relaxsound',
+    name: 'Relaxing Sounds & Thiền',
+    developer: 'Wellness Studio',
+    categories: 'Sức khỏe • Ngủ ngon & Giảm lo âu',
+    rating: '4,7',
+    size: '54 MB',
+    downloads: 'Hơn 5 Tr',
+    icon: icRelaxsound,
+  },
+  {
+    id: 'smartgym',
+    appKey: 'smartgym',
+    name: 'SmartGym: Gym & Home Workouts',
+    developer: 'Mateus Abras',
+    categories: 'Sức khỏe & Thể hình • Huấn luyện AI',
+    rating: '4,8',
+    size: '86 MB',
+    downloads: 'Hơn 5 Tr',
+    icon: icSmartgym,
+  },
+  {
+    id: 'calm',
+    appKey: 'calm',
+    name: 'Calm - Thiền & Giấc ngủ',
+    developer: 'Calm.com, Inc.',
+    categories: 'Sức khỏe & Thể hình • Thiền định',
+    rating: '4,6',
+    size: '112 MB',
+    downloads: 'Hơn 50 Tr',
+    icon: icCalm,
+  },
+  {
     id: 'aliexpress',
+    appKey: 'aliexpress',
     name: 'AliExpress - Shopping App',
     developer: 'Alibaba Mobile',
     categories: 'Alibaba Mobile • Mua sắm',
@@ -238,6 +786,7 @@ const SPONSORED_APPS_POOL = [
   },
   {
     id: 'crunchyroll',
+    appKey: 'crunchyroll',
     name: 'Crunchyroll: Anime Streaming',
     developer: 'Crunchyroll, LLC',
     categories: 'Crunchyroll, LLC • Giải trí',
@@ -248,9 +797,10 @@ const SPONSORED_APPS_POOL = [
   },
   {
     id: 'shopeepay',
-    name: 'ShopeePay - Tài Chính...',
+    appKey: 'shopeepay',
+    name: 'ShopeePay - Ví điện tử',
     developer: 'ShopeePay VN',
-    categories: 'Tài chính • Ví điện tử',
+    categories: 'Tài chính • Thanh toán nhanh',
     rating: '4,5',
     size: '64 MB',
     downloads: 'Hơn 10 Tr',
@@ -258,7 +808,8 @@ const SPONSORED_APPS_POOL = [
   },
   {
     id: 'bigolive',
-    name: 'Bigo Live – Live Strea...',
+    appKey: 'bigolive',
+    name: 'Bigo Live – Live Stream',
     developer: 'BIGO TECHNOLOGY',
     categories: 'Giải trí • Phát trực tiếp',
     rating: '4,1',
@@ -268,6 +819,7 @@ const SPONSORED_APPS_POOL = [
   },
   {
     id: 'iqiyi_sp',
+    appKey: 'iqiyi',
     name: 'iQIYI - Phim & Anime',
     developer: 'iQIYI',
     categories: 'Giải trí • Xem phim trực tuyến',
@@ -278,6 +830,7 @@ const SPONSORED_APPS_POOL = [
   },
   {
     id: 'messenger_sp',
+    appKey: 'messenger',
     name: 'Messenger',
     developer: 'Meta Platforms, Inc.',
     categories: 'Liên lạc • Nhắn tin & Gọi điện',
@@ -288,6 +841,7 @@ const SPONSORED_APPS_POOL = [
   },
   {
     id: 'instalite_sp',
+    appKey: 'instalite',
     name: 'Instagram Lite',
     developer: 'Meta Platforms, Inc.',
     categories: 'Xã hội • Chia sẻ ảnh & Video',
@@ -298,30 +852,62 @@ const SPONSORED_APPS_POOL = [
   },
   {
     id: 'rednote_sp',
+    appKey: 'rednote',
     name: 'rednote',
     developer: 'Xingin',
-    categories: 'Xã hội • Xây dựng mối quan hệ',
+    categories: 'Xã hội • Cộng đồng sáng tạo',
     rating: '4,4',
     size: '192 MB',
     downloads: 'Hơn 100 Tr',
     icon: icRednote,
   },
+  {
+    id: 'blockblast',
+    appKey: 'blockblast',
+    name: 'Block Blast!',
+    developer: 'Hungry Studio',
+    categories: 'Giải đố • Xếp hình • Vui tươi',
+    rating: '4,7',
+    size: '105 MB',
+    downloads: 'Hơn 100 Tr',
+    icon: icBlockBlast,
+  },
 ];
 
 const POPULAR_SQUARE_POOL = [
-  { id: 'tiktoklite', name: 'TikTok Lite - Tiết kiệm bộ nhớ', rating: '4,1', icon: icTiktokLite },
-  { id: 'messenger', name: 'Messenger', rating: '4,5', icon: icMessenger },
-  { id: 'iqiyi', name: 'iQIYI - Phim & Anime', rating: '4,6', icon: icIqiyi },
-  { id: 'shopeepay2', name: 'ShopeePay - Tài Chính', rating: '4,5', icon: icShopeePay },
-  { id: 'bigolive2', name: 'Bigo Live – Live Stream', rating: '4,1', icon: icBigoLive },
-  { id: 'duolingo2', name: 'Duolingo: Ngoại ngữ', rating: '4,7', icon: icDuolingo },
-  { id: 'instalite2', name: 'Instagram Lite', rating: '4,2', icon: icInstaLite },
-  { id: 'rednote2', name: 'rednote', rating: '4,4', icon: icRednote },
+  { id: 'pop_tv360', appKey: 'tv360', name: 'TV360: Phim, Thể Thao, TV', rating: '4,6', icon: icTv360 },
+  { id: 'pop_vtvgo', appKey: 'vtvgo', name: 'VTVgo Truyền hình số', rating: '4,4', icon: icVtvgo },
+  { id: 'pop_hypic', appKey: 'hypic', name: 'Hypic: Chỉnh ảnh AI', rating: '4,6', icon: icHypic },
+  { id: 'pop_tammi', appKey: 'tammi', name: 'Viettel Tammi', rating: '4,7', icon: icTammi },
+  { id: 'pop_vnetraffic', appKey: 'vnetraffic', name: 'VNeTraffic', rating: '4,5', icon: icVnetraffic },
+  { id: 'pop_goodnotes', appKey: 'goodnotes', name: 'Goodnotes: Ghi chú AI', rating: '4,6', icon: icGoodnotes },
+  { id: 'pop_youtube', appKey: 'youtube', name: 'YouTube', rating: '4,4', icon: icYoutube },
+  { id: 'pop_mangoplus', appKey: 'mangoplus', name: 'MangoPlus - Show, Phim', rating: '4,5', icon: icMangoplus },
+  { id: 'pop_youku', appKey: 'youku', name: 'YOUKU - Phim Châu Á', rating: '4,5', icon: icYouku },
+  { id: 'pop_wetv', appKey: 'wetv', name: 'WeTV - Asian Contents', rating: '4,6', icon: icWetv },
+  { id: 'pop_epl', appKey: 'premierleague', name: 'Premier League', rating: '4,7', icon: icPremierleague },
+  { id: 'pop_livescore', appKey: 'livescore', name: 'LiveScore: Tỷ số trực tiếp', rating: '4,6', icon: icLivescore },
+  { id: 'pop_onefootball', appKey: 'onefootball', name: 'OneFootball - Bóng đá', rating: '4,7', icon: icOnefootball },
+  { id: 'pop_notboring', appKey: 'notboringcam', name: '(Not Boring) Camera', rating: '4,7', icon: icNotboringcam },
+  { id: 'pop_teams', appKey: 'teams', name: 'Microsoft Teams', rating: '4,6', icon: icTeams },
+  { id: 'pop_slack', appKey: 'slack', name: 'Slack', rating: '4,6', icon: icSlack },
+  { id: 'pop_wego', appKey: 'wego', name: 'Wego Chuyến Bay', rating: '4,7', icon: icWego },
+  { id: 'pop_calm', appKey: 'calm', name: 'Calm - Thiền & Ngủ', rating: '4,6', icon: icCalm },
+  { id: 'pop_daylio', appKey: 'daylio', name: 'Daylio Nhật ký', rating: '4,8', icon: icDaylio },
+  { id: 'tiktoklite', appKey: 'tiktoklite', name: 'TikTok Lite - Tiết kiệm bộ nhớ', rating: '4,1', icon: icTiktokLite },
+  { id: 'messenger', appKey: 'messenger', name: 'Messenger', rating: '4,5', icon: icMessenger },
+  { id: 'iqiyi', appKey: 'iqiyi', name: 'iQIYI - Phim & Anime', rating: '4,6', icon: icIqiyi },
+  { id: 'shopeepay2', appKey: 'shopeepay', name: 'ShopeePay - Tài Chính', rating: '4,5', icon: icShopeePay },
+  { id: 'bigolive2', appKey: 'bigolive', name: 'Bigo Live – Live Stream', rating: '4,1', icon: icBigoLive },
+  { id: 'duolingo2', appKey: 'duolingo', name: 'Duolingo: Ngoại ngữ', rating: '4,7', icon: icDuolingo },
+  { id: 'instalite2', appKey: 'instalite', name: 'Instagram Lite', rating: '4,2', icon: icInstaLite },
+  { id: 'rednote2', appKey: 'rednote', name: 'rednote', rating: '4,4', icon: icRednote },
 ];
 
 const SOCIAL_APPS_POOL = [
   {
     id: 'fblite',
+    appKey: 'fblite',
     name: 'Facebook Lite',
     desc: 'Phiên bản này sử dụng ít dữ liệu hơn và hoạt động với tất cả các điều kiện mạng.',
     rating: '4,4',
@@ -330,22 +916,25 @@ const SOCIAL_APPS_POOL = [
   },
   {
     id: 'instalite',
+    appKey: 'instalite',
     name: 'Instagram Lite',
-    desc: 'Xem và chia sẻ ảnh, tin, video ngắn, thước phim với ít dữ liệu hơn',
+    desc: 'Xem và chia sẻ ảnh, tin, video ngắn, thước phim với ít dữ liệu hơn.',
     rating: '4,2',
     size: '3,8 MB',
     icon: icInstaLite,
   },
   {
     id: 'rednote',
+    appKey: 'rednote',
     name: 'rednote',
-    desc: 'Xã hội • Xây dựng mối quan hệ',
+    desc: 'Khám phá phong cách sống, mẹo hay và kết nối cộng đồng sáng tạo trẻ.',
     rating: '4,4',
     size: '192 MB',
     icon: icRednote,
   },
   {
     id: 'messenger_soc',
+    appKey: 'messenger',
     name: 'Messenger',
     desc: 'Nhắn tin, gọi thoại và gọi video miễn phí tới bạn bè và gia đình mọi lúc.',
     rating: '4,5',
@@ -354,25 +943,64 @@ const SOCIAL_APPS_POOL = [
   },
   {
     id: 'tiktoklite_soc',
+    appKey: 'tiktoklite',
     name: 'TikTok Lite - Tiết kiệm bộ nhớ',
     desc: 'Cộng đồng video ngắn toàn cầu, tải nhanh và tiết kiệm dung lượng bộ nhớ.',
     rating: '4,1',
     size: '18 MB',
     icon: icTiktokLite,
   },
+  {
+    id: 'teams_soc',
+    appKey: 'teams',
+    name: 'Microsoft Teams',
+    desc: 'Trò chuyện nhóm, họp video HD và cộng tác tài liệu mọi lúc mọi nơi.',
+    rating: '4,6',
+    size: '118 MB',
+    icon: icTeams,
+  },
+  {
+    id: 'slack_soc',
+    appKey: 'slack',
+    name: 'Slack',
+    desc: 'Kết nối đội ngũ, kênh trao đổi công việc và chia sẻ tệp tức thì.',
+    rating: '4,6',
+    size: '92 MB',
+    icon: icSlack,
+  },
+  {
+    id: 'bigolive_soc',
+    appKey: 'bigolive',
+    name: 'Bigo Live – Live Stream',
+    desc: 'Phát trực tiếp, trò chuyện video và giao lưu cùng bạn bè bốn phương.',
+    rating: '4,1',
+    size: '92 MB',
+    icon: icBigoLive,
+  },
+  {
+    id: 'journi_soc',
+    appKey: 'journi',
+    name: 'Journi Blog - Nhật ký du lịch',
+    desc: 'Lưu giữ và chia sẻ hành trình khám phá qua bản đồ và album ảnh đẹp mắt.',
+    rating: '4,7',
+    size: '95 MB',
+    icon: icJourni,
+  },
+  {
+    id: 'youtube_soc',
+    appKey: 'youtube',
+    name: 'YouTube',
+    desc: 'Thưởng thức video, Shorts, âm nhạc và theo dõi các nhà sáng tạo yêu thích.',
+    rating: '4,4',
+    size: '48 MB',
+    icon: icYoutube,
+  },
 ];
 
 const GAMES_LIST_POOL = [
   {
-    id: 'dola_g',
-    name: 'Dola: Smart AI Assistant',
-    categories: 'Công cụ • Năng suất • Trợ lý cá nhân',
-    rating: '4,6',
-    size: '203 MB',
-    icon: icDola,
-  },
-  {
     id: 'blockblast_g',
+    appKey: 'blockblast',
     name: 'Block Blast!',
     categories: 'Giải đố • Xếp hình • Vui tươi',
     rating: '4,7',
@@ -381,14 +1009,25 @@ const GAMES_LIST_POOL = [
   },
   {
     id: 'swordstaff',
+    appKey: 'swordstaff',
     name: 'Sword x Staff',
-    categories: 'Phiêu lưu',
+    categories: 'Nhập vai • Phiêu lưu',
     rating: '4,8',
     size: '681 MB',
     icon: icSwordStaff,
   },
   {
+    id: 'tocchien_g',
+    appKey: 'tocchien',
+    name: 'Liên Minh: Tốc Chiến',
+    categories: 'Hành động • Đấu trường MOBA 5v5',
+    rating: '4,3',
+    size: '1,4 GB',
+    icon: icTocChien,
+  },
+  {
     id: 'candycrush_g',
+    appKey: 'candycrush',
     name: 'Candy Crush Saga',
     categories: 'Giải đố • Xếp kẹo • Phổ thông',
     rating: '4,6',
@@ -397,6 +1036,7 @@ const GAMES_LIST_POOL = [
   },
   {
     id: 'candysoda_g',
+    appKey: 'candysoda',
     name: 'Candy Crush Soda Saga',
     categories: 'Giải đố • Ghép 3 • Vui nhộn',
     rating: '4,5',
@@ -405,20 +1045,78 @@ const GAMES_LIST_POOL = [
   },
   {
     id: 'traveltown_g',
+    appKey: 'traveltown',
     name: 'Travel Town - VTC Game',
     categories: 'Phổ thông • Hợp nhất • Phiêu lưu',
     rating: '4,2',
     size: '142 MB',
     icon: icTravelTown,
   },
+  {
+    id: 'kiddopia_g',
+    appKey: 'kiddopia',
+    name: 'Kiddopia: Trò chơi sáng tạo',
+    categories: 'Giáo dục • Trò chơi tư duy',
+    rating: '4,5',
+    size: '185 MB',
+    icon: icKiddopia,
+  },
+  {
+    id: 'duolingo_g',
+    appKey: 'duolingo',
+    name: 'Duolingo: Ngoại ngữ & Cờ vua',
+    categories: 'Cờ bàn • Trí tuệ • Giáo dục',
+    rating: '4,7',
+    size: '110 MB',
+    icon: icDuolingo,
+  },
 ];
 
 const HANDY_GAMES_POOL = [
-  { id: 'candycrush', name: 'Candy Crush Saga', rating: '4,6', icon: icCandyCrush },
-  { id: 'candysoda', name: 'Candy Crush Soda Saga', rating: '4,5', icon: icCandySoda },
-  { id: 'traveltown', name: 'Travel Town - VTC Game', rating: '4,2', icon: icTravelTown },
-  { id: 'blockblast_sq', name: 'Block Blast!', rating: '4,7', icon: icBlockBlast },
+  { id: 'candycrush', appKey: 'candycrush', name: 'Candy Crush Saga', rating: '4,6', icon: icCandyCrush },
+  { id: 'candysoda', appKey: 'candysoda', name: 'Candy Crush Soda Saga', rating: '4,5', icon: icCandySoda },
+  { id: 'traveltown', appKey: 'traveltown', name: 'Travel Town - VTC Game', rating: '4,2', icon: icTravelTown },
+  { id: 'blockblast_sq', appKey: 'blockblast', name: 'Block Blast!', rating: '4,7', icon: icBlockBlast },
+  { id: 'swordstaff_sq', appKey: 'swordstaff', name: 'Sword x Staff', rating: '4,8', icon: icSwordStaff },
+  { id: 'tocchien_sq', appKey: 'tocchien', name: 'Liên Minh: Tốc Chiến', rating: '4,3', icon: icTocChien },
+  { id: 'kiddopia_sq', appKey: 'kiddopia', name: 'Kiddopia Toddler Games', rating: '4,5', icon: icKiddopia },
 ];
+
+// Build synchronized, cross-deduplicated store layout so NO two banners or visible apps collide on the same screen
+function buildFreshStoreLayout(existingBanners = null) {
+  const featuredBanners = existingBanners || drawUniqueBanners(5);
+
+  // Deduplicate across the entire Apps tab (5 banners + 3 sponsored + 6 popular + 3 social = 17 completely distinct apps!)
+  const usedOnAppsTab = new Set(featuredBanners.map((b) => b.appKey));
+  const randomAppsSponsored = pickUniqueApps(SPONSORED_APPS_POOL, 3, usedOnAppsTab);
+  const randomPopularSquares = pickUniqueApps(POPULAR_SQUARE_POOL, 6, usedOnAppsTab);
+  const randomSocialApps = pickUniqueApps(SOCIAL_APPS_POOL, 3, usedOnAppsTab);
+
+  // Deduplicate across the Games tab
+  const usedOnGamesTab = new Set();
+  const randomGamesList = pickUniqueApps(GAMES_LIST_POOL, 3, usedOnGamesTab);
+  const randomHandyGames = pickUniqueApps(HANDY_GAMES_POOL, 5, usedOnGamesTab);
+
+  // Deduplicate across Search & Search Results
+  const usedOnSearch = new Set();
+  const randomSearchStrip = pickUniqueApps(SPONSORED_APPS_POOL, 6, usedOnSearch);
+  const randomSearchInputAds = pickUniqueApps(SPONSORED_APPS_POOL, 3, usedOnSearch);
+  const randomLimitedEvents = pickUniqueApps(SPONSORED_APPS_POOL, 4, new Set());
+
+  return {
+    featuredBanners,
+    randomAppsSponsored,
+    randomPopularSquares,
+    randomSocialApps,
+    randomGamesList,
+    randomHandyGames,
+    randomSearchStrip,
+    randomSearchInputAds,
+    randomLimitedEvents,
+    randomBestsellerBooks: shuffleArray(BOOKS_BESTSELLERS_POOL),
+    randomDiscountBooks: shuffleArray(BOOKS_DISCOUNT_POOL),
+  };
+}
 
 const BOOKS_BESTSELLERS_POOL = [
   { id: 'b1', title: 'Tư Duy Nhanh Và Chậm - Thi...', sub: '', price: '110.962', cover: book1 },
@@ -571,29 +1269,33 @@ export default function CHPlay({ onOpenVssID }) {
   });
   const [progress, setProgress] = useState(0);
 
-  // Randomized app lists — re-shuffled dynamically on every tab change and search!
-  const [randomAppsSponsored, setRandomAppsSponsored] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 3));
-  const [randomPopularSquares, setRandomPopularSquares] = useState(() => shuffleArray(POPULAR_SQUARE_POOL).slice(0, 4));
-  const [randomSocialApps, setRandomSocialApps] = useState(() => shuffleArray(SOCIAL_APPS_POOL).slice(0, 3));
-  const [randomGamesList, setRandomGamesList] = useState(() => shuffleArray(GAMES_LIST_POOL).slice(0, 3));
-  const [randomHandyGames, setRandomHandyGames] = useState(() => shuffleArray(HANDY_GAMES_POOL).slice(0, 3));
-  const [randomSearchStrip, setRandomSearchStrip] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 5));
-  const [randomSearchInputAds, setRandomSearchInputAds] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 2));
-  const [randomLimitedEvents, setRandomLimitedEvents] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 3));
-  const [randomBestsellerBooks, setRandomBestsellerBooks] = useState(() => shuffleArray(BOOKS_BESTSELLERS_POOL));
-  const [randomDiscountBooks, setRandomDiscountBooks] = useState(() => shuffleArray(BOOKS_DISCOUNT_POOL));
+  // Synchronized, non-repeating randomized banners & app lists
+  const [storeLayout, setStoreLayout] = useState(() => buildFreshStoreLayout());
+  const [activeBannerIdx, setActiveBannerIdx] = useState(0);
+  const bannerCarouselRef = useRef(null);
 
-  const reshuffleAllLists = () => {
-    setRandomAppsSponsored(shuffleArray(SPONSORED_APPS_POOL).slice(0, 3));
-    setRandomPopularSquares(shuffleArray(POPULAR_SQUARE_POOL).slice(0, 4));
-    setRandomSocialApps(shuffleArray(SOCIAL_APPS_POOL).slice(0, 3));
-    setRandomGamesList(shuffleArray(GAMES_LIST_POOL).slice(0, 3));
-    setRandomHandyGames(shuffleArray(HANDY_GAMES_POOL).slice(0, 3));
-    setRandomSearchStrip(shuffleArray(SPONSORED_APPS_POOL).slice(0, 5));
-    setRandomSearchInputAds(shuffleArray(SPONSORED_APPS_POOL).slice(0, 2));
-    setRandomLimitedEvents(shuffleArray(SPONSORED_APPS_POOL).slice(0, 3));
-    setRandomBestsellerBooks(shuffleArray(BOOKS_BESTSELLERS_POOL));
-    setRandomDiscountBooks(shuffleArray(BOOKS_DISCOUNT_POOL));
+  const {
+    featuredBanners,
+    randomAppsSponsored,
+    randomPopularSquares,
+    randomSocialApps,
+    randomGamesList,
+    randomHandyGames,
+    randomSearchStrip,
+    randomSearchInputAds,
+    randomLimitedEvents,
+    randomBestsellerBooks,
+    randomDiscountBooks,
+  } = storeLayout;
+
+  const reshuffleAllLists = (rotateBanners = false) => {
+    setStoreLayout((prev) => buildFreshStoreLayout(rotateBanners ? null : prev.featuredBanners));
+    if (rotateBanners) {
+      setActiveBannerIdx(0);
+      if (bannerCarouselRef.current) {
+        bannerCarouselRef.current.scrollLeft = 0;
+      }
+    }
   };
 
   const searchInputRef = useRef(null);
@@ -651,15 +1353,36 @@ export default function CHPlay({ onOpenVssID }) {
     setInstallState('pending');
     setProgress(0);
 
-    const steps = [
-      { delay: 450, state: 'downloading', pct: 12 },
-      { delay: 900, state: 'downloading', pct: 31 },
-      { delay: 1350, state: 'downloading', pct: 56 },
-      { delay: 1800, state: 'downloading', pct: 82 },
-      { delay: 2200, state: 'downloading', pct: 100 },
-      { delay: 2500, state: 'installing', pct: 100 },
-      { delay: 3300, state: 'installed', pct: 100 },
-    ];
+    // Randomize total download + install duration between 3.3s (3300ms) and 7.7s (7700ms) each install
+    const totalDurationMs = Math.floor(3300 + Math.random() * (7700 - 3300 + 1));
+    const pendingEndMs = Math.min(700, Math.max(380, Math.round(totalDurationMs * (0.11 + Math.random() * 0.03))));
+    const installDurationMs = Math.min(1400, Math.max(750, Math.round(totalDurationMs * (0.21 + Math.random() * 0.04))));
+    const hold100Ms = 260;
+    const downloadCompleteMs = totalDurationMs - installDurationMs - hold100Ms;
+    const downloadSpanMs = Math.max(1200, downloadCompleteMs - pendingEndMs);
+
+    const tickCount = Math.max(5, Math.min(13, Math.round(downloadSpanMs / 380)));
+    const weights = Array.from({ length: tickCount }, () => 0.45 + Math.random() * 1.1);
+    const totalWeight = weights.reduce((sum, w) => sum + w, 0);
+
+    const steps = [];
+    let accWeight = 0;
+    let prevPct = 0;
+    for (let i = 0; i < tickCount; i++) {
+      accWeight += weights[i];
+      const isLast = i === tickCount - 1;
+      const delay = isLast
+        ? downloadCompleteMs
+        : Math.round(pendingEndMs + (downloadSpanMs * i) / (tickCount - 1));
+      const rawPct = isLast ? 100 : Math.round((accWeight / totalWeight) * 100);
+      const pct = isLast
+        ? 100
+        : Math.min(99 - (tickCount - 1 - i), Math.max(prevPct + 1, rawPct));
+      prevPct = pct;
+      steps.push({ delay, state: 'downloading', pct });
+    }
+    steps.push({ delay: totalDurationMs - installDurationMs, state: 'installing', pct: 100 });
+    steps.push({ delay: totalDurationMs, state: 'installed', pct: 100 });
 
     steps.forEach((step) => {
       const t = setTimeout(() => {
@@ -709,9 +1432,9 @@ export default function CHPlay({ onOpenVssID }) {
     timersRef.current.push(t);
   };
 
-  // Switch bottom tab — reshuffles app lists on every tab switch!
+  // Switch bottom tab — reshuffles app lists and rotates non-repeating banners when visiting Apps!
   const handleSelectBottomTab = (tabId) => {
-    reshuffleAllLists();
+    reshuffleAllLists(tabId === 'apps');
     setBottomTab(tabId);
     setView('main');
     if (tabId === 'you') {
@@ -915,65 +1638,183 @@ export default function CHPlay({ onOpenVssID }) {
       {renderPlayTopHeader()}
       {renderFilterChips('apps')}
 
-      {/* Featured Banner Card (TikTok Fantopia from frame_03.5.png) */}
-      <div style={{ padding: '4px 16px 14px' }}>
-        <div style={{
-          background: '#f8fafd',
-          borderRadius: '16px',
-          overflow: 'hidden',
-        }}>
-          <img
-            src={bannerTiktok}
-            alt="TikTok Featured"
-            style={{ width: '100%', height: '190px', objectFit: 'cover', display: 'block', borderRadius: '16px' }}
-          />
-          <div style={{
+      {/* Multi-Banner Non-Repeating Horizontal Snap Carousel */}
+      <div style={{ paddingBottom: '12px' }}>
+        <div
+          ref={bannerCarouselRef}
+          className="chplay-hide-scroll"
+          onScroll={(e) => {
+            const el = e.currentTarget;
+            if (!el.firstElementChild) return;
+            const cardW = el.firstElementChild.getBoundingClientRect().width + 12;
+            if (cardW > 0) {
+              const idx = Math.max(0, Math.min(featuredBanners.length - 1, Math.round(el.scrollLeft / cardW)));
+              if (idx !== activeBannerIdx) setActiveBannerIdx(idx);
+            }
+          }}
+          style={{
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '12px 12px 14px',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <img
-                src={icTiktok}
-                alt="TikTok"
-                style={{ width: '46px', height: '46px', borderRadius: '11px', objectFit: 'cover' }}
-              />
-              <div>
-                <div style={{ fontSize: '15px', fontWeight: 500, color: '#1f1f1f' }}>TikTok</div>
-                <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  background: '#f0f4f9',
-                  padding: '2px 7px',
-                  borderRadius: '6px',
-                  marginTop: '3px',
-                  fontSize: '11.5px',
-                  color: '#444746',
-                }}>
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0b57d0" strokeWidth="2.4">
-                    <polygon points="5 3 19 12 5 21 5 3" />
-                  </svg>
-                  Đã cài đặt
-                </div>
-              </div>
-            </div>
-            <button
+            gap: '12px',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            scrollPaddingLeft: '16px',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'none',
+            padding: '4px 16px 8px',
+          }}
+        >
+          {featuredBanners.map((bn) => (
+            <div
+              key={bn.id}
               style={{
-                background: '#0b57d0',
-                color: '#ffffff',
-                border: 'none',
-                borderRadius: '999px',
-                padding: '8px 20px',
-                fontSize: '13.5px',
-                fontWeight: 500,
-                cursor: 'pointer',
+                flex: '0 0 88%',
+                maxWidth: '364px',
+                scrollSnapAlign: 'start',
+                background: '#f8fafd',
+                borderRadius: '16px',
+                border: '1px solid #edf2f9',
+                overflow: 'hidden',
+                boxSizing: 'border-box',
               }}
             >
-              Mở
-            </button>
-          </div>
+              <img
+                src={bn.banner}
+                alt={bn.name}
+                style={{
+                  width: '100%',
+                  height: '184px',
+                  objectFit: 'cover',
+                  display: 'block',
+                  borderRadius: '15px',
+                }}
+                draggable={false}
+              />
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '10px',
+                padding: '11px 12px 13px',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '11px', minWidth: 0, flex: 1 }}>
+                  <img
+                    src={bn.icon}
+                    alt={bn.name}
+                    style={{
+                      width: '46px',
+                      height: '46px',
+                      borderRadius: '11px',
+                      objectFit: 'cover',
+                      flexShrink: 0,
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+                    }}
+                    draggable={false}
+                  />
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <div style={{
+                      fontSize: '14.5px',
+                      fontWeight: 500,
+                      color: '#1f1f1f',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {bn.name}
+                    </div>
+                    {bn.installed ? (
+                      <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        background: '#f0f4f9',
+                        padding: '2px 7px',
+                        borderRadius: '6px',
+                        marginTop: '3px',
+                        fontSize: '11.5px',
+                        color: '#444746',
+                      }}>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0b57d0" strokeWidth="2.4">
+                          <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                        Đã cài đặt
+                      </div>
+                    ) : (
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        marginTop: '3px',
+                        minWidth: 0,
+                      }}>
+                        <RatingPill rating={bn.rating} />
+                        <span style={{
+                          fontSize: '12px',
+                          color: '#444746',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}>
+                          {bn.subtitle}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <button
+                  style={{
+                    background: '#0b57d0',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '999px',
+                    padding: '8px 18px',
+                    fontSize: '13.5px',
+                    fontWeight: 500,
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                  }}
+                >
+                  {bn.installed ? 'Mở' : 'Cài đặt'}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Material 3 Carousel Page Indicators */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '6px',
+          marginTop: '4px',
+        }}>
+          {featuredBanners.map((bn, idx) => {
+            const isActive = idx === activeBannerIdx;
+            return (
+              <button
+                key={bn.id}
+                type="button"
+                aria-label={`Banner ${idx + 1}`}
+                onClick={() => {
+                  const el = bannerCarouselRef.current;
+                  if (el && el.children[idx]) {
+                    el.scrollTo({ left: el.children[idx].offsetLeft - 16, behavior: 'smooth' });
+                    setActiveBannerIdx(idx);
+                  }
+                }}
+                style={{
+                  width: isActive ? '18px' : '6px',
+                  height: '6px',
+                  borderRadius: '999px',
+                  background: isActive ? '#0b57d0' : '#d3dbe5',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                  transition: 'all 0.22s ease',
+                }}
+              />
+            );
+          })}
         </div>
       </div>
 
@@ -2104,7 +2945,7 @@ export default function CHPlay({ onOpenVssID }) {
                   {installState === 'pending'
                     ? 'Đang chờ...'
                     : installState === 'downloading'
-                    ? `${progress}% của 18,30 MB`
+                    ? `${progress}% của 25 MB`
                     : installState === 'installing'
                     ? 'Đang cài đặt...'
                     : 'Bảo hiểm xã hội Việt N...'}
@@ -2370,7 +3211,7 @@ export default function CHPlay({ onOpenVssID }) {
 
           {/* Xem thêm v (frame_30.3.png) */}
           <div
-            onClick={reshuffleAllLists}
+            onClick={() => reshuffleAllLists(false)}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -2493,7 +3334,7 @@ export default function CHPlay({ onOpenVssID }) {
                   {installState === 'pending'
                     ? 'Đang chờ...'
                     : installState === 'downloading'
-                    ? `${progress}% của 18,30 MB`
+                    ? `${progress}% của 25 MB`
                     : 'Đang cài đặt...'}
                 </div>
               )}
@@ -2815,6 +3656,9 @@ export default function CHPlay({ onOpenVssID }) {
         @keyframes chplaySpin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
+        }
+        .chplay-hide-scroll::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
 
