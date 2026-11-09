@@ -2807,9 +2807,9 @@ export default function CHPlay({ onOpenVssID }) {
 
             {[
               { key: 'thisPhone', name: 'Thiết bị này', type: 'Điện thoại', icon: 'phone' },
-              { key: 'tablet1', name: 'Joystar J16', type: 'Máy tính bảng', icon: 'tablet' },
-              { key: 'phone2', name: 'JoyStar JoyStar_S10', type: 'Điện thoại', icon: 'phone' },
-              { key: 'tablet2', name: 'Joystar J16', type: 'Máy tính bảng', icon: 'tablet' },
+
+
+
             ].map((dev) => {
               const checked = selectedDevices[dev.key];
               return (
