@@ -99,6 +99,14 @@ npx vercel --prod --yes
 
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
+### 🚀 Phiên bản ngày 10/11/2026:
+* **Nâng cấp dải Banner vuốt ngang không trùng lặp (Non-Repeating Carousel) & mở rộng kho ứng dụng Random trên `CH Play` (`src/screens/CHPlay.jsx`, `src/assets/chplay/banner_*.jpg`, `src/assets/chplay/ic_*.jpg`, `public/CH Play.apk`):**
+  * **Dải 5 Banner quảng cáo vuốt ngang chuẩn Google Play Material 3 (`FEATURED_BANNERS_POOL` gồm 15 banner độc bản):** Thay thế thẻ banner đơn lẻ cố định ở đầu tab **`Ứng dụng`** bằng dải 5 thẻ banner trượt ngang mượt mà (`scroll-snap-type: x mandatory`, hé lộ mép thẻ kế tiếp bên phải kèm thanh chấm chỉ báo Material 3), cắt lọc sạch phần artwork sắc nét không dính chữ/nút thừa và đồng bộ thanh thông tin đáy chuẩn Android (`Cài đặt` / `Mở`).
+  * **Thuật toán chống trùng lặp tuyệt đối (`drawUniqueBanners` & `buildFreshStoreLayout`):**
+    1. **Không trùng lặp trong cùng lần hiển thị & giữa các lần mở liên tiếp:** Quản lý hàng đợi bộ bài (`localStorage` `chplay_banner_deck_v2`) đảm bảo cả 5 banner trên dải trượt khác nhau 100% và không lặp lại bất kỳ banner nào của phiên liền trước.
+    2. **Chống trùng chéo toàn màn hình (`pickUniqueApps`):** Tự động loại trừ các ứng dụng đang xuất hiện trên 5 banner đầu trang khỏi các mục **`Được đề xuất cho bạn`**, **`Ứng dụng phổ biến`** và **`Mạng xã hội`** bên dưới (tổng cộng 17 ứng dụng hiển thị đồng thời trên tab `Ứng dụng` hoàn toàn khác biệt nhau).
+  * **Bổ sung 27 icon ứng dụng thực tế sắc nét mới vào kho Random (`src/assets/chplay/ic_*.jpg`):** Thêm loạt ứng dụng phổ biến tại Việt Nam & quốc tế (`TV360`, `VTVgo`, `Viettel Tammi`, `VNeTraffic`, `YouTube`, `Goodnotes`, `Hypic`, `MangoPlus`, `YOUKU`, `WeTV`, `Premier League`, `LiveScore`, `OneFootball`, `Microsoft Teams`, `Slack`, `Box`, `WSJ`, `Wego`, `Calm`, `SmartGym`, `Daylio`, `Journi`, `Kiddopia`...), nâng kho `SPONSORED_APPS_POOL` lên **37 ứng dụng** và `POPULAR_SQUARE_POOL` lên **27 ứng dụng**, đồng thời biên dịch lại `public/CH Play.apk`.
+
 ### 🚀 Phiên bản ngày 09/11/2026:
 * **Cập nhật icon ứng dụng `CH Play` bản chuẩn mới nhất từ màn hình chính Android đến toàn bộ giao diện Web (`public/CH Play.apk`, `src/assets/chplay/ic_chplay_logo.png`, `src/screens/CHPlay.jsx`, `src/App.jsx`):**
   * Thay thế icon CH Play tam giác góc nhọn cũ bên ngoài file cài đặt `public/CH Play.apk` (trọn bộ Adaptive Icon `108dp` & Legacy Icon `mdpi` -> `xxxhdpi` nền trắng `#FFFFFF`, căn tâm quang học chuẩn Google Play 2022+) và biên dịch lại `CH Play.apk` kèm màn hình khởi động trắng tinh khiết.
