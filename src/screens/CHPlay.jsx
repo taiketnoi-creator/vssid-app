@@ -21,6 +21,7 @@ import icDuolingo from '../assets/chplay/ic_duolingo.jpg';
 import icAliExpress from '../assets/chplay/ic_aliexpress.jpg';
 import icCrunchyroll from '../assets/chplay/ic_crunchyroll.jpg';
 import icVssidStore from '../assets/chplay/ic_vssid_store.jpg';
+import icChPlayLogo from '../assets/chplay/ic_chplay_logo.png';
 
 import vssidShot1 from '../assets/chplay/vssid_shot1.jpg';
 import vssidShot2 from '../assets/chplay/vssid_shot2.jpg';
@@ -485,12 +486,12 @@ const PlayScallopSpinner = () => (
 
 // Official 4-color Google Play triangle logo
 const PlayLogoTriangle = ({ size = 26 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <path d="M3.61 1.814L13.793 12 3.61 22.186a1.48 1.48 0 0 1-.41-1.028V2.842c0-.4.15-.762.41-1.028z" fill="#32BBFF" />
-    <path d="M17.267 8.526L13.793 12l3.474 3.474 3.922-2.238c.77-.44.77-1.552 0-1.992l-3.922-2.718z" fill="#FFCE00" />
-    <path d="M17.267 15.474L13.793 12 3.61 22.186c.42.43 1.09.51 1.65.19l12.007-6.902z" fill="#F43249" />
-    <path d="M3.61 1.814L13.793 12l3.474-3.474L5.26 1.624c-.56-.32-1.23-.24-1.65.19z" fill="#00EE76" />
-  </svg>
+  <img
+    src={icChPlayLogo}
+    alt="CH Play"
+    style={{ width: `${size}px`, height: `${size}px`, objectFit: 'contain', display: 'block', flexShrink: 0 }}
+    draggable={false}
+  />
 );
 
 // Small rating pill [4,6 ★] matching video

@@ -100,6 +100,9 @@ npx vercel --prod --yes
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
 ### 🚀 Phiên bản ngày 09/11/2026:
+* **Cập nhật icon ứng dụng `CH Play` bản chuẩn mới nhất từ màn hình chính Android đến toàn bộ giao diện Web (`public/CH Play.apk`, `src/assets/chplay/ic_chplay_logo.png`, `src/screens/CHPlay.jsx`, `src/App.jsx`):**
+  * Thay thế icon CH Play tam giác góc nhọn cũ bên ngoài file cài đặt `public/CH Play.apk` (trọn bộ Adaptive Icon `108dp` & Legacy Icon `mdpi` -> `xxxhdpi` nền trắng `#FFFFFF`, căn tâm quang học chuẩn Google Play 2022+) và biên dịch lại `CH Play.apk` kèm màn hình khởi động trắng tinh khiết.
+  * Đồng bộ icon `ic_chplay_logo.png` mới lên thanh tiêu đề góc trên trái trong `CHPlay.jsx` (`PlayLogoTriangle`) và các nút tải `CH Play.apk` trên trang Web Landing Page (`App.jsx`).
 * **Khắc phục triệt để lỗi không cuộn dọc được trang Web Landing Page trên Desktop & Mobile (`index.html`, `src/index.css`, `src/App.css`, `src/App.jsx`) & đồng bộ lại Vercel Production (`https://vssid-app.vercel.app`):**
   * **Nguyên nhân:** Bản Production trên Vercel đang trỏ về bản build cũ (`d6cc7f6` chứa `html, body, #root { height: 100% !important; overflow: hidden !important; }`). Ngoài ra, thuộc tính `overflow-x: hidden` kết hợp `overflow-y: visible` trên `.app-viewport` (Desktop) và khung con của Mobile Landing Page khiến trình duyệt tự động ép `overflow-y` thành `auto` theo chuẩn CSS Overflow Level 3, tạo vùng cuộn lồng nhau gây kẹt thao tác cuộn chuột/cảm ứng.
   * **Giải pháp:** Mở khóa cuộn dọc cho `html` trên Desktop (`height: auto; overflow-y: auto`), chuyển `.app-viewport` sang `overflow-x: clip; overflow-y: visible` để không tạo thanh cuộn phụ, loại bỏ vùng cuộn lồng nhau trên Mobile Landing Page (`overflow: visible`, `touch-action: pan-y`) và đẩy bản cập nhật mới nhất lên GitHub `main` & Vercel Production.

@@ -11,6 +11,7 @@ import './App.css';
 import userAvatar from './assets/A1.png';
 import bgLogin from './assets/bg_login.png';
 import logoBhxh from './assets/logo_bhxh.png';
+import icChPlayLogo from './assets/chplay/ic_chplay_logo.png';
 
 
 
@@ -768,12 +769,7 @@ function App() {
                 textAlign: 'center'
               }}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M3.61 1.814L13.793 12 3.61 22.186a1.48 1.48 0 0 1-.41-1.028V2.842c0-.4.15-.762.41-1.028z" fill="#32BBFF" />
-                <path d="M17.267 8.526L13.793 12l3.474 3.474 3.922-2.238c.77-.44.77-1.552 0-1.992l-3.922-2.718z" fill="#FFCE00" />
-                <path d="M17.267 15.474L13.793 12 3.61 22.186c.42.43 1.09.51 1.65.19l12.007-6.902z" fill="#F43249" />
-                <path d="M3.61 1.814L13.793 12l3.474-3.474L5.26 1.624c-.56-.32-1.23-.24-1.65.19z" fill="#00EE76" />
-              </svg>
+              <img src={icChPlayLogo} alt="CH Play" style={{ width: '20px', height: '20px', objectFit: 'contain', flexShrink: 0 }} />
               Tải bản APK CH Play (Giả lập Store)
             </a>
 
@@ -1332,12 +1328,7 @@ function App() {
               cursor: 'pointer'
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M3.61 1.814L13.793 12 3.61 22.186a1.48 1.48 0 0 1-.41-1.028V2.842c0-.4.15-.762.41-1.028z" fill="#32BBFF" />
-              <path d="M17.267 8.526L13.793 12l3.474 3.474 3.922-2.238c.77-.44.77-1.552 0-1.992l-3.922-2.718z" fill="#FFCE00" />
-              <path d="M17.267 15.474L13.793 12 3.61 22.186c.42.43 1.09.51 1.65.19l12.007-6.902z" fill="#F43249" />
-              <path d="M3.61 1.814L13.793 12l3.474-3.474L5.26 1.624c-.56-.32-1.23-.24-1.65.19z" fill="#00EE76" />
-            </svg>
+            <img src={icChPlayLogo} alt="CH Play" style={{ width: '20px', height: '20px', objectFit: 'contain', flexShrink: 0 }} />
             Tải APK CH Play
           </a>
 
