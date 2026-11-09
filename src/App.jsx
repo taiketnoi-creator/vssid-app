@@ -772,7 +772,7 @@ function App() {
             {/* Try Web Option Buttons */}
             <div style={{ display: 'flex', gap: '10px' }}>
               <button 
-                onClick={() => { setCurrentScreen('login'); setTryWebMode(true); }}
+                onClick={() => { setScreen('login'); setTryWebMode(true); }}
                 style={{
                   flex: 1,
                   background: 'rgba(255, 255, 255, 0.05)',
@@ -788,7 +788,7 @@ function App() {
                 🌐 Mở Web VssID
               </button>
               <button 
-                onClick={() => { setCurrentScreen('chplay'); setTryWebMode(true); }}
+                onClick={() => { setScreen('chplay'); setTryWebMode(true); }}
                 style={{
                   flex: 1,
                   background: 'rgba(1, 135, 95, 0.16)',
@@ -1288,7 +1288,7 @@ function App() {
 
           {/* Switch live emulator between CH Play & VssID */}
           <button
-            onClick={() => setCurrentScreen(currentScreen === 'chplay' ? 'login' : 'chplay')}
+            onClick={() => setScreen(screen === 'chplay' ? 'login' : 'chplay')}
             style={{
               background: 'rgba(1, 135, 95, 0.16)',
               border: '1px solid rgba(1, 135, 95, 0.45)',
@@ -1300,7 +1300,7 @@ function App() {
               cursor: 'pointer'
             }}
           >
-            {currentScreen === 'chplay' ? '🔄 Chuyển sang VssID' : '▶️ Thử ngay CH Play'}
+            {screen === 'chplay' ? '🔄 Chuyển sang VssID' : '▶️ Thử ngay CH Play'}
           </button>
 
           {/* QR Code and Quick Scan info */}
