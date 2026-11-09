@@ -115,7 +115,7 @@ npx vercel --prod --yes
     * **Tìm kiếm không lưu lịch sử:** Khi bấm vào thanh tìm kiếm sẽ mở trang nhập từ khóa trống (không lưu lịch sử tìm kiếm cũ).
   * **Luồng tìm kiếm & cài đặt ứng dụng `VssID` chuẩn xác:**
     * Hiển thị vòng xoay loading 12 cánh hoa xanh (`PlayScallopSpinner`) trong `420ms` trước khi trả kết quả.
-    * Thẻ kết quả **VssID** (`Bảo hiểm xã hội Việt Nam`) hiển thị cụm nút gộp `[ Cài đặt | ⌄ ]` (bấm `⌄` mở bảng chọn thiết bị `"Cài đặt trên thiết bị khác"`), 3 chỉ số (`3,0 ★`, `3+`, `Chính phủ`) và dải 3 ảnh chụp màn hình VssID.
+    * Thẻ kết quả **VssID** (`Bảo hiểm xã hội Việt Nam`) hiển thị cụm nút gộp `[ Cài đặt | ⌄ ]` (bấm `⌄` mở bảng chọn thiết bị `"Cài đặt trên thiết bị khác"` chỉ hiển thị duy nhất dòng `"Thiết bị này - Điện thoại"`), 3 chỉ số (`3,0 ★`, `3+`, `Chính phủ`) và dải 3 ảnh chụp màn hình VssID chuẩn Retina `720x1290`.
     * **Đã xử lý triệt để 3 ảnh chụp màn hình VssID (`vssid_shot1..3` & `_full.jpg`):** Cắt sát vùng hiển thị thực tế để loại bỏ hoàn toàn vệt đen thừa ở đáy/đỉnh ảnh và xóa sạch nút tròn mờ `←` ở góc trên trái của ảnh 2 (màn Đăng nhập) & ảnh 3 (màn Tin tức), hỗ trợ bấm vào ảnh để xem toàn màn hình sắc nét.
     * Khi bấm **`Cài đặt`**, hiển thị tiến trình tải xuống (`Đang chờ...` -> `% của 31 MB` -> `Đang cài đặt...`) và nút **`Mở`** màu xanh chuyển thẳng vào màn hình Đăng nhập VssID VIP.
   * **Loại bỏ app theo thời gian & Tự động Random danh sách ứng dụng mỗi khi chuyển tab (`reshuffleAllLists`):**
