@@ -737,26 +737,73 @@ function App() {
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
-              Tải ngay bản APK Android
+              Tải ngay bản APK VssID
             </a>
 
-            {/* Try Web Option Button */}
-            <button 
-              onClick={() => setTryWebMode(true)}
+            {/* CH Play APK Download Button */}
+            <a 
+               href="./CH Play.apk"
+               download="CH Play.apk"
               style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#cbd5e1',
-                padding: '14px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                background: 'linear-gradient(135deg, #01875f 0%, #00a876 100%)',
+                color: '#ffffff',
+                padding: '15px 20px',
                 borderRadius: '14px',
-                fontSize: '14px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.2s'
+                fontSize: '15px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: '0 6px 20px rgba(1, 135, 95, 0.35)',
+                textAlign: 'center'
               }}
             >
-              🌐 Dùng thử bản Web trực tuyến
-            </button>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M3.61 1.814L13.793 12 3.61 22.186a1.48 1.48 0 0 1-.41-1.028V2.842c0-.4.15-.762.41-1.028z" fill="#32BBFF" />
+                <path d="M17.267 8.526L13.793 12l3.474 3.474 3.922-2.238c.77-.44.77-1.552 0-1.992l-3.922-2.718z" fill="#FFCE00" />
+                <path d="M17.267 15.474L13.793 12 3.61 22.186c.42.43 1.09.51 1.65.19l12.007-6.902z" fill="#F43249" />
+                <path d="M3.61 1.814L13.793 12l3.474-3.474L5.26 1.624c-.56-.32-1.23-.24-1.65.19z" fill="#00EE76" />
+              </svg>
+              Tải bản APK CH Play (Giả lập Store)
+            </a>
+
+            {/* Try Web Option Buttons */}
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button 
+                onClick={() => { setCurrentScreen('login'); setTryWebMode(true); }}
+                style={{
+                  flex: 1,
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  color: '#cbd5e1',
+                  padding: '13px 12px',
+                  borderRadius: '14px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                🌐 Mở Web VssID
+              </button>
+              <button 
+                onClick={() => { setCurrentScreen('chplay'); setTryWebMode(true); }}
+                style={{
+                  flex: 1,
+                  background: 'rgba(1, 135, 95, 0.16)',
+                  border: '1px solid rgba(1, 135, 95, 0.4)',
+                  color: '#34d399',
+                  padding: '13px 12px',
+                  borderRadius: '14px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                ▶️ Mở Web CH Play
+              </button>
+            </div>
           </div>
 
           {/* Detailed Legal Disclaimer */}
@@ -1180,7 +1227,7 @@ function App() {
         </div>
 
         {/* Action Download Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '4px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '4px', flexWrap: 'wrap' }}>
           {/* Main pulsing download APK button */}
           <a 
             href="./VssID 12.2.apk"
@@ -1188,12 +1235,12 @@ function App() {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
+              gap: '10px',
               background: 'linear-gradient(135deg, #0072c8 0%, #01aef2 100%)',
               color: '#ffffff',
-              padding: '16px 28px',
+              padding: '15px 22px',
               borderRadius: '16px',
-              fontSize: '15px',
+              fontSize: '14px',
               fontWeight: 700,
               textDecoration: 'none',
               boxShadow: '0 8px 30px rgba(1, 174, 242, 0.4)',
@@ -1202,13 +1249,59 @@ function App() {
             }}
             className="pulse-button-hover"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-            Tải bản APK Android
+            Tải APK VssID
           </a>
+
+          {/* CH Play APK download button */}
+          <a 
+            href="./CH Play.apk"
+            download="CH Play.apk"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              background: 'linear-gradient(135deg, #01875f 0%, #00a876 100%)',
+              color: '#ffffff',
+              padding: '15px 22px',
+              borderRadius: '16px',
+              fontSize: '14px',
+              fontWeight: 700,
+              textDecoration: 'none',
+              boxShadow: '0 8px 26px rgba(1, 135, 95, 0.38)',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer'
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M3.61 1.814L13.793 12 3.61 22.186a1.48 1.48 0 0 1-.41-1.028V2.842c0-.4.15-.762.41-1.028z" fill="#32BBFF" />
+              <path d="M17.267 8.526L13.793 12l3.474 3.474 3.922-2.238c.77-.44.77-1.552 0-1.992l-3.922-2.718z" fill="#FFCE00" />
+              <path d="M17.267 15.474L13.793 12 3.61 22.186c.42.43 1.09.51 1.65.19l12.007-6.902z" fill="#F43249" />
+              <path d="M3.61 1.814L13.793 12l3.474-3.474L5.26 1.624c-.56-.32-1.23-.24-1.65.19z" fill="#00EE76" />
+            </svg>
+            Tải APK CH Play
+          </a>
+
+          {/* Switch live emulator between CH Play & VssID */}
+          <button
+            onClick={() => setCurrentScreen(currentScreen === 'chplay' ? 'login' : 'chplay')}
+            style={{
+              background: 'rgba(1, 135, 95, 0.16)',
+              border: '1px solid rgba(1, 135, 95, 0.45)',
+              color: '#34d399',
+              padding: '14px 18px',
+              borderRadius: '16px',
+              fontSize: '13.5px',
+              fontWeight: 700,
+              cursor: 'pointer'
+            }}
+          >
+            {currentScreen === 'chplay' ? '🔄 Chuyển sang VssID' : '▶️ Thử ngay CH Play'}
+          </button>
 
           {/* QR Code and Quick Scan info */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -1224,14 +1317,14 @@ function App() {
               boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
             }}>
               <img 
-                src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://vssid-app.vercel.app/VssID%2012.2.apk" 
+                src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://vssid-app.vercel.app/CH%20Play.apk" 
                 alt="QR Code" 
                 style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '6px' }} 
               />
             </div>
             <div style={{ fontSize: '13px', color: '#94a3b8', lineHeight: '1.4' }}>
               Quét mã QR<br />
-              <strong style={{ color: '#ffffff' }}>để tải trực tiếp</strong><br />
+              <strong style={{ color: '#ffffff' }}>tải CH Play.apk</strong><br />
               về điện thoại
             </div>
           </div>
