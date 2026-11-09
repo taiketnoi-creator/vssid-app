@@ -4,6 +4,7 @@ import Login from './screens/Login';
 import Dashboard from './screens/Dashboard';
 import InsuranceList from './screens/InsuranceList';
 import SalaryDetail from './screens/SalaryDetail';
+import CHPlay from './screens/CHPlay';
 import Sidebar from './components/Sidebar';
 import AccountManager from './components/AccountManager';
 import './App.css';
@@ -62,10 +63,15 @@ const SEED_ACCOUNTS = [
 ];
 
 function App() {
-  const [screen, setScreen] = useState('login');
+  const isChPlayEntry = typeof window !== 'undefined' && (
+    new URLSearchParams(window.location.search).get('mode') === 'chplay' ||
+    new URLSearchParams(window.location.search).get('app') === 'chplay' ||
+    window.__CHPLAY_DEFAULT__ === true
+  );
+  const [screen, setScreen] = useState(isChPlayEntry ? 'chplay' : 'login');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [navigationData, setNavigationData] = useState(null);
-  const [tryWebMode, setTryWebMode] = useState(false);
+  const [tryWebMode, setTryWebMode] = useState(isChPlayEntry);
 
   // 100% BULLETPROOF DEV SYNC:
   // If the developer makes ANY change to SEED_ACCOUNTS in the code (usernames, names, history, commas, etc.),
@@ -428,6 +434,12 @@ function App() {
   const getScreen = (screenName, isPrevScreen = false) => {
     const defaultAcc = currentAccount || accounts[0] || SEED_ACCOUNTS[0];
     switch (screenName) {
+      case 'chplay':
+        return (
+          <CHPlay
+            onOpenVssID={() => navigateTo('login', { transition: 'fade' })}
+          />
+        );
       case 'login':
         return (
           <Login 
