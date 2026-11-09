@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import logoBhxh from '../assets/logo_bhxh.png';
 import frameInsurance from '../assets/frame_insurance.png';
+import tabBarBhtn from '../assets/tab_bar_bhtn.png';
 
 const W = 402;
 const H = 874;
 
-const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false }) => {
+const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false, initialTab = 'BHXH' }) => {
   const [loading, setLoading] = useState(() => Boolean(showInitialLoading));
 
   useEffect(() => {
@@ -16,7 +17,7 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false 
     }, 1200);
     return () => clearTimeout(timer);
   }, [showInitialLoading]);
-  const [activeTab, setActiveTab] = useState('BHXH');
+  const [activeTab, setActiveTab] = useState(initialTab || 'BHXH');
   const history = currentAccount?.insuranceHistory || [];
 
   const calculateTotalParticipation = (list) => {
@@ -149,7 +150,7 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false 
         left: 0,
         top: `${(67 / H) * 100}%`,
         width: '100%',
-        height: `${(78 / H) * 100}%`,
+        height: `${(103 / H) * 100}%`,
         zIndex: 25,
         display: 'flex',
         background: 'transparent'
@@ -170,79 +171,23 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false 
         ))}
       </div>
 
-      {/* 4. Active Tab Mask Overlays (Only if another tab is clicked, to show indicator and hide BHXH selection) */}
-      {activeTab !== 'BHXH' && (
-        <div style={{
-          position: 'absolute',
-          left: 0,
-          top: `${(67 / H) * 100}%`,
-          width: '100%',
-          height: `${(78 / H) * 100}%`,
-          background: '#ffffff',
-          zIndex: 20,
-          display: 'flex',
-          borderBottom: '1px solid #e2e8f0',
-          boxSizing: 'border-box'
-        }}>
-          {tabs.map((tabId, idx) => {
-            const isActive = activeTab === tabId;
-            return (
-              <div
-                key={tabId}
-                style={{
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '4px',
-                  position: 'relative'
-                }}
-              >
-                {/* Fallback grey circular indicators only shown for non-BHXH inactive tabs */}
-                <div style={{
-                  width: '28px',
-                  height: '28px',
-                  borderRadius: '50%',
-                  background: isActive ? '#0069ad' : '#aaa9ae',
-                  opacity: isActive ? 1 : 0.4,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff',
-                  fontSize: '9px',
-                  fontWeight: 'bold'
-                }}>
-                  {tabId.slice(0, 2)}
-                </div>
-                <span style={{
-                  fontSize: '11px',
-                  fontWeight: isActive ? 700 : 400,
-                  color: isActive ? '#0069ad' : '#aaa9ae',
-                  textAlign: 'center',
-                  whiteSpace: 'nowrap'
-                }}>
-                  {tabId === 'BHTNLĐ-BNN' ? (
-                    <span style={{ display: 'block', lineHeight: '1.1', fontSize: '11px' }}>
-                      BHTNLĐ-<br />BNN
-                    </span>
-                  ) : tabId}
-                </span>
-                {isActive && (
-                  <div style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: '15%',
-                    right: '15%',
-                    height: '3px',
-                    background: '#0069ad',
-                    borderRadius: '2px'
-                  }} />
-                )}
-              </div>
-            );
-          })}
-        </div>
+      {/* 4. Active Tab Bar Overlay for BHTN (switches BHXH to grey and BHTN to blue at 2x Retina quality) */}
+      {activeTab === 'BHTN' && (
+        <img
+          src={tabBarBhtn}
+          alt="BHTN Active Tab Bar"
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: `${(67 / H) * 100}%`,
+            width: '100%',
+            height: `${(103 / H) * 100}%`,
+            objectFit: 'fill',
+            zIndex: 20,
+            pointerEvents: 'none'
+          }}
+          draggable={false}
+        />
       )}
 
       {/* 5. 100% FIGMA DYNAMIC TEXT OVERLAY LAYER (zIndex = 10) */}
@@ -330,7 +275,7 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false 
               </div>
             </div>
           </>
-        ) : activeTab === 'BHXH' ? (
+        ) : (activeTab === 'BHXH' || activeTab === 'BHTN') ? (
           /* Unified Scrollable Container: Summary Box + Table scroll up together */
           <div
             className="scrollbar-none"
@@ -374,6 +319,28 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false 
                 }}
                 draggable={false}
               />
+
+              {/* Cover and overlay title for BHXH / BHTN */}
+              <div style={{
+                position: 'absolute',
+                left: `${(11 / 382) * 100}%`,
+                top: `${(11 / 77) * 100}%`,
+                width: `${(360 / 382) * 100}%`,
+                height: `${(20 / 77) * 100}%`,
+                background: '#f6f5f3',
+                color: '#38679f',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '15.5px',
+                fontWeight: 500,
+                display: 'flex',
+                alignItems: 'center',
+                pointerEvents: 'none',
+                whiteSpace: 'nowrap'
+              }}>
+                {activeTab === 'BHTN'
+                  ? 'Quá trình tham gia Bảo hiểm thất nghiệp'
+                  : 'Quá trình tham gia Bảo hiểm xã hội'}
+              </div>
 
               {/* Cover and overlay "Tổng thời gian tham gia" */}
               <div style={{
@@ -427,7 +394,7 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false 
                 fontSize: '14px',
                 fontFamily: 'Inter, sans-serif'
               }}>
-                Chưa có dữ liệu đóng BHXH
+                Chưa có dữ liệu đóng {activeTab}
               </div>
             ) : (
               <table style={{
@@ -533,7 +500,7 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false 
                           </svg>
                         </div>
                         <button
-                          onClick={() => onNavigate('salary-detail', { rowData: row })}
+                          onClick={() => onNavigate('salary-detail', { rowData: row, activeTab })}
                           style={{
                             position: 'absolute',
                             inset: 0,
@@ -554,13 +521,13 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false 
             )}
           </div>
         ) : (
-          /* Non-BHXH empty tab states: cover entire content area below header */
+          /* Non-BHXH/BHTN empty tab states: cover content area below tab bar */
           <div style={{
             position: 'absolute',
             left: 0,
-            top: `${(145 / H) * 100}%`,
+            top: `${(170 / H) * 100}%`,
             width: '100%',
-            height: `calc(100% - ${(145 / H) * 100}% - ${(65 / H) * 100}%)`,
+            height: `calc(100% - ${(170 / H) * 100}% - ${(65 / H) * 100}%)`,
             background: '#ffffff',
             display: 'flex',
             alignItems: 'center',

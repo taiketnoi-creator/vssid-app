@@ -451,6 +451,7 @@ function App() {
             currentAccount={defaultAcc}
             onNavigate={navigateTo} 
             onOpenSidebar={() => setSidebarOpen(true)} 
+            initialTab={navigationData?.activeTab || 'BHXH'}
           />
         );
       case 'salary-detail':
@@ -458,6 +459,7 @@ function App() {
           <SalaryDetail 
             onNavigate={navigateTo} 
             rowData={navigationData?.rowData} 
+            activeTab={navigationData?.activeTab || 'BHXH'}
           />
         );
       default:

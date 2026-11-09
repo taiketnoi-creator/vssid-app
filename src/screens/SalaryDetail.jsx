@@ -21,7 +21,7 @@ const fw = (figmaWeight) => ({
   Bold: 700,
 }[figmaWeight] || 400);
 
-const SalaryDetail = ({ onNavigate, rowData }) => {
+const SalaryDetail = ({ onNavigate, rowData, activeTab = 'BHXH' }) => {
 
   const parseMoney = (val) => {
     if (val === undefined || val === null || val === '') return 0;
@@ -79,7 +79,7 @@ const SalaryDetail = ({ onNavigate, rowData }) => {
 
       {/* ── Back button: x=27, y=76, w=9, h=18 ── */}
       <button
-        onClick={() => onNavigate('insurance-list', { transition: 'slide-up', direction: 'right' })}
+        onClick={() => onNavigate('insurance-list', { transition: 'slide-up', direction: 'right', data: { activeTab } })}
         aria-label="Quay lại"
         style={{
           position: 'absolute',
