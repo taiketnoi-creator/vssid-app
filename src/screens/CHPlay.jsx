@@ -11,6 +11,11 @@ import icTiktokLite from '../assets/chplay/ic_tiktoklite.jpg';
 import icMessenger from '../assets/chplay/ic_messenger.jpg';
 import icIqiyi from '../assets/chplay/ic_iqiyi.jpg';
 import icFbLite from '../assets/chplay/ic_fblite.jpg';
+import icInstaLite from '../assets/chplay/ic_instalite.jpg';
+import icRednote from '../assets/chplay/ic_rednote.jpg';
+import icCandyCrush from '../assets/chplay/ic_candycrush.jpg';
+import icCandySoda from '../assets/chplay/ic_candysoda.jpg';
+import icTravelTown from '../assets/chplay/ic_traveltown.jpg';
 import icTocChien from '../assets/chplay/ic_tocchien.jpg';
 import icSwordStaff from '../assets/chplay/ic_swordstaff.jpg';
 import icShopeePay from '../assets/chplay/ic_shopeepay.jpg';
@@ -23,11 +28,20 @@ import icVssidStore from '../assets/chplay/ic_vssid_store.jpg';
 import vssidShot1 from '../assets/chplay/vssid_shot1.jpg';
 import vssidShot2 from '../assets/chplay/vssid_shot2.jpg';
 import vssidShot3 from '../assets/chplay/vssid_shot3.jpg';
+import vssidShot1Full from '../assets/chplay/vssid_shot1_full.jpg';
 import vssidShot2Full from '../assets/chplay/vssid_shot2_full.jpg';
+import vssidShot3Full from '../assets/chplay/vssid_shot3_full.jpg';
 
 import you3dRight from '../assets/chplay/you_3d_right.jpg';
 import youGame1 from '../assets/chplay/you_game1.jpg';
 import youGame2 from '../assets/chplay/you_game2.jpg';
+
+import book1 from '../assets/chplay/book_1.jpg';
+import book2 from '../assets/chplay/book_2.jpg';
+import book3 from '../assets/chplay/book_3.jpg';
+import book4 from '../assets/chplay/book_4.jpg';
+import book5 from '../assets/chplay/book_5.jpg';
+import book6 from '../assets/chplay/book_6.jpg';
 
 import catGAction from '../assets/chplay/cat_g_action.jpg';
 import catGSim from '../assets/chplay/cat_g_sim.jpg';
@@ -50,6 +64,8 @@ import catAShop from '../assets/chplay/cat_a_shop.jpg';
 import catAEdu from '../assets/chplay/cat_a_edu.jpg';
 import catAArt from '../assets/chplay/cat_a_art.jpg';
 import catAPers from '../assets/chplay/cat_a_pers.jpg';
+import catAWeather from '../assets/chplay/cat_a_weather.jpg';
+import catABeauty from '../assets/chplay/cat_a_beauty.jpg';
 
 // Fisher-Yates shuffle so each session shows apps in random non-repetitive order
 function shuffleArray(arr) {
@@ -163,20 +179,28 @@ const SOCIAL_APPS_POOL = [
     icon: icFbLite,
   },
   {
+    id: 'instalite',
+    name: 'Instagram Lite',
+    desc: 'Xem và chia sẻ ảnh, tin, video ngắn, thước phim với ít dữ liệu hơn',
+    rating: '4,2',
+    size: '3,8 MB',
+    icon: icInstaLite,
+  },
+  {
+    id: 'rednote',
+    name: 'rednote',
+    desc: 'Xã hội • Xây dựng mối quan hệ',
+    rating: '4,4',
+    size: '192 MB',
+    icon: icRednote,
+  },
+  {
     id: 'messenger_soc',
     name: 'Messenger',
     desc: 'Nhắn tin, gọi thoại và gọi video miễn phí tới bạn bè và gia đình mọi lúc.',
     rating: '4,5',
     size: '54 MB',
     icon: icMessenger,
-  },
-  {
-    id: 'tiktoklite_soc',
-    name: 'TikTok Lite - Tiết kiệm bộ nhớ',
-    desc: 'Cộng đồng video ngắn toàn cầu, tải nhanh và tiết kiệm dung lượng bộ nhớ.',
-    rating: '4,1',
-    size: '18 MB',
-    icon: icTiktokLite,
   },
 ];
 
@@ -190,12 +214,12 @@ const GAMES_LIST_POOL = [
     icon: icDola,
   },
   {
-    id: 'swordstaff',
-    name: 'Sword x Staff',
-    categories: 'Phiêu lưu',
-    rating: '4,8',
-    size: '681 MB',
-    icon: icSwordStaff,
+    id: 'blockblast_g',
+    name: 'Block Blast!',
+    categories: 'Giải đố • Xếp hình • Vui tươi',
+    rating: '4,7',
+    size: '105 MB',
+    icon: icBlockBlast,
   },
   {
     id: 'shopee_g',
@@ -206,21 +230,32 @@ const GAMES_LIST_POOL = [
     icon: icShopee,
   },
   {
-    id: 'blockblast_g',
-    name: 'Block Blast!',
-    categories: 'Giải đố • Xếp hình • Vui tươi',
-    rating: '4,7',
-    size: '105 MB',
-    icon: icBlockBlast,
+    id: 'swordstaff',
+    name: 'Sword x Staff',
+    categories: 'Phiêu lưu',
+    rating: '4,8',
+    size: '681 MB',
+    icon: icSwordStaff,
   },
 ];
 
-const BOOKS_POOL = [
-  { id: 'b1', title: 'Đắc Nhân Tâm', author: 'Dale Carnegie', rating: '4,8', price: '65.000 ₫', color: '#1e3a8a' },
-  { id: 'b2', title: 'Nhà Giả Kim', author: 'Paulo Coelho', rating: '4,9', price: '59.000 ₫', color: '#b45309' },
-  { id: 'b3', title: 'Tư Duy Nhanh Và Chậm', author: 'Daniel Kahneman', rating: '4,7', price: '95.000 ₫', color: '#0f766e' },
-  { id: 'b4', title: 'Muôn Kiếp Nhân Sinh', author: 'Nguyên Phong', rating: '4,9', price: '78.000 ₫', color: '#4c1d95' },
-  { id: 'b5', title: 'Cây Cam Ngọt Của Tôi', author: 'José Mauro', rating: '4,8', price: '62.000 ₫', color: '#be123c' },
+const HANDY_GAMES_POOL = [
+  { id: 'candycrush', name: 'Candy Crush Saga', rating: '4,6', icon: icCandyCrush },
+  { id: 'candysoda', name: 'Candy Crush Soda Saga', rating: '4,5', icon: icCandySoda },
+  { id: 'traveltown', name: 'Travel Town - VTC Game', rating: '4,2', icon: icTravelTown },
+  { id: 'blockblast_sq', name: 'Block Blast!', rating: '4,7', icon: icBlockBlast },
+];
+
+const BOOKS_BESTSELLERS_POOL = [
+  { id: 'b1', title: 'Tư Duy Nhanh Và Chậm - Thi...', sub: '', price: '110.962', cover: book1 },
+  { id: 'b2', title: 'Hell Mode ~ Triệ...', sub: 'Tập 9', price: '49.500', cover: book2 },
+  { id: 'b3', title: 'Đắc Nhân Tâm', sub: '', price: '49.500', cover: book3 },
+];
+
+const BOOKS_DISCOUNT_POOL = [
+  { id: 'b4', title: 'The Wolf King...', sub: 'Sách 1', price: '233.322', cover: book4 },
+  { id: 'b5', title: 'Starving Anony...', sub: 'Tập 6', price: '171.146', cover: book5 },
+  { id: 'b6', title: 'Ajin: Demi Hum...', sub: 'Tập 1', price: '28.286', cover: book6 },
 ];
 
 const GAME_CATEGORIES = [
@@ -247,6 +282,8 @@ const APP_CATEGORIES = [
   { name: 'Giáo dục', icon: catAEdu },
   { name: 'Nghệ thuật và\nthiết kế', icon: catAArt },
   { name: 'Cá nhân hóa', icon: catAPers },
+  { name: 'Thời tiết', icon: catAWeather },
+  { name: 'Làm đẹp', icon: catABeauty },
 ];
 
 // Material 3 Expressive 12-scallop badge spinner (exact match to frame_27.2.png & frame_49.2.png)
@@ -360,8 +397,9 @@ export default function CHPlay({ onOpenVssID }) {
   // Randomized app lists generated once per mount so every visit shows fresh non-repetitive order
   const [randomAppsSponsored] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 3));
   const [randomPopularSquares] = useState(() => shuffleArray(POPULAR_SQUARE_POOL).slice(0, 4));
-  const [randomSocialApps] = useState(() => shuffleArray(SOCIAL_APPS_POOL).slice(0, 2));
+  const [randomSocialApps] = useState(() => shuffleArray(SOCIAL_APPS_POOL).slice(0, 3));
   const [randomGamesList] = useState(() => shuffleArray(GAMES_LIST_POOL).slice(0, 3));
+  const [randomHandyGames] = useState(() => shuffleArray(HANDY_GAMES_POOL).slice(0, 3));
   const [randomSearchStrip] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 5));
   const [randomSearchInputAds] = useState(() => shuffleArray(SPONSORED_APPS_POOL).slice(0, 2));
   const [randomLimitedEvents] = useState(() =>
@@ -372,7 +410,8 @@ export default function CHPlay({ onOpenVssID }) {
       SPONSORED_APPS_POOL[1], // Shopee
     ]).slice(0, 3)
   );
-  const [randomBooks] = useState(() => shuffleArray(BOOKS_POOL).slice(0, 4));
+  const [randomBestsellerBooks] = useState(() => shuffleArray(BOOKS_BESTSELLERS_POOL));
+  const [randomDiscountBooks] = useState(() => shuffleArray(BOOKS_DISCOUNT_POOL));
 
   const searchInputRef = useRef(null);
   const timersRef = useRef([]);
@@ -1014,6 +1053,63 @@ export default function CHPlay({ onOpenVssID }) {
           ))}
         </div>
       </div>
+
+      {/* Section: Ngay trong tầm tay (Matching screenshot 09 in d:\vss) */}
+      <div style={{ padding: '10px 16px 18px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+          <div>
+            <div style={{ fontSize: '17px', fontWeight: 500, color: '#1f1f1f' }}>Ngay trong tầm tay</div>
+            <div style={{ fontSize: '12.5px', color: '#444746', marginTop: '1px' }}>Tải những trò chơi này xuống</div>
+          </div>
+          <div style={{
+            width: '30px',
+            height: '30px',
+            borderRadius: '50%',
+            background: '#f0f4f9',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
+              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: '4px' }}>
+          {randomHandyGames.map((item) => (
+            <div key={item.id} style={{ width: '102px', flexShrink: 0 }}>
+              <img
+                src={item.icon}
+                alt={item.name}
+                style={{
+                  width: '102px',
+                  height: '102px',
+                  borderRadius: '22px',
+                  objectFit: 'cover',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.08)',
+                }}
+              />
+              <div style={{
+                fontSize: '13px',
+                color: '#1f1f1f',
+                marginTop: '6px',
+                lineHeight: '1.3',
+                height: '34px',
+                overflow: 'hidden',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+              }}>
+                {item.name}
+              </div>
+              <div style={{ marginTop: '4px' }}>
+                <RatingPill rating={item.rating} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 
@@ -1215,43 +1311,238 @@ export default function CHPlay({ onOpenVssID }) {
     </div>
   );
 
-  // TAB 4: SÁCH (Basic clean Google Play Books tab)
+  // TAB 4: SÁCH (Exact pixel match to screenshot 10 in d:\vss)
   const renderBooksTab = () => (
     <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '82px', background: '#ffffff' }}>
-      {renderPlayTopHeader()}
-      {renderFilterChips('books')}
-
-      <div style={{ padding: '8px 16px' }}>
-        <div style={{ fontSize: '17px', fontWeight: 500, color: '#1f1f1f', marginBottom: '12px' }}>
-          Sách bán chạy nhất
+      {/* Top Search Pill Header ("Tìm kiếm sách") + Avatar J */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        padding: '10px 16px 8px',
+        position: 'sticky',
+        top: 0,
+        background: '#ffffff',
+        zIndex: 10,
+      }}>
+        <div
+          onClick={() => {
+            setSearchQuery('');
+            setView('search_input');
+          }}
+          style={{
+            flex: 1,
+            height: '46px',
+            background: '#edf2fc',
+            borderRadius: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0 15px',
+            gap: '12px',
+            cursor: 'pointer',
+          }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="2">
+            <circle cx="11" cy="11" r="7" />
+            <line x1="20" y1="20" x2="16.2" y2="16.2" strokeLinecap="round" />
+          </svg>
+          <span style={{ flex: 1, fontSize: '15px', color: '#444746' }}>
+            Tìm kiếm sách
+          </span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="2">
+            <rect x="9" y="2" width="6" height="12" rx="3" />
+            <path d="M5 10v1a7 7 0 0 0 14 0v-1M12 18v4" strokeLinecap="round" />
+          </svg>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          {randomBooks.map((b, idx) => (
-            <div key={b.id} style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-              <span style={{ width: '16px', fontSize: '14px', color: '#444746', fontWeight: 500 }}>{idx + 1}</span>
+
+        <div
+          onClick={() => setAccountModalOpen(true)}
+          style={{
+            width: '33px',
+            height: '33px',
+            borderRadius: '50%',
+            background: '#e8710a',
+            color: '#ffffff',
+            fontSize: '16px',
+            fontWeight: 500,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            flexShrink: 0,
+          }}
+        >
+          J
+        </div>
+      </div>
+
+      {/* Sub-tabs: Sách điện tử | Sách nói | Thể loại | Bán chạy */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        borderBottom: '1px solid #e0e3e7',
+        padding: '0 16px',
+        gap: '24px',
+        overflowX: 'auto',
+        scrollbarWidth: 'none',
+      }}>
+        {['Sách điện tử', 'Sách nói', 'Thể loại', 'Bán chạy'].map((tabName, idx) => (
+          <div
+            key={tabName}
+            style={{
+              position: 'relative',
+              padding: '12px 0 10px',
+              fontSize: '14px',
+              fontWeight: 500,
+              color: idx === 0 ? '#0b57d0' : '#444746',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {tabName}
+            {idx === 0 && (
               <div style={{
-                width: '48px',
-                height: '68px',
-                borderRadius: '6px',
-                background: b.color,
-                color: '#ffffff',
-                padding: '6px',
-                fontSize: '10px',
-                fontWeight: 700,
-                display: 'flex',
-                alignItems: 'flex-end',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.14)',
-                flexShrink: 0,
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '3px',
+                background: '#0b57d0',
+                borderTopLeftRadius: '3px',
+                borderTopRightRadius: '3px',
+              }} />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Section 1: Sách bán chạy nhất */}
+      <div style={{ padding: '16px 16px 10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+          <span style={{ fontSize: '17px', fontWeight: 500, color: '#1f1f1f' }}>Sách bán chạy nhất</span>
+          <div style={{
+            width: '30px',
+            height: '30px',
+            borderRadius: '50%',
+            background: '#f0f4f9',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
+              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', scrollbarWidth: 'none' }}>
+          {randomBestsellerBooks.map((b) => (
+            <div key={b.id} style={{ width: '104px', flexShrink: 0 }}>
+              <img
+                src={b.cover}
+                alt={b.title}
+                style={{
+                  width: '104px',
+                  height: '158px',
+                  borderRadius: '8px',
+                  objectFit: 'cover',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.12)',
+                }}
+              />
+              <div style={{
+                fontSize: '12.5px',
+                color: '#1f1f1f',
+                marginTop: '6px',
+                lineHeight: '1.3',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
               }}>
                 {b.title}
               </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: '15px', color: '#1f1f1f', fontWeight: 500 }}>{b.title}</div>
-                <div style={{ fontSize: '12.5px', color: '#444746', marginTop: '2px' }}>{b.author}</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '5px' }}>
-                  <RatingPill rating={b.rating} />
-                  <span style={{ fontSize: '12.5px', color: '#1f1f1f', fontWeight: 500 }}>{b.price}</span>
-                </div>
+              {b.sub && (
+                <div style={{ fontSize: '12px', color: '#444746', marginTop: '2px' }}>{b.sub}</div>
+              )}
+              <div style={{ marginTop: '4px' }}>
+                <span style={{
+                  display: 'inline-block',
+                  background: '#f0f4f9',
+                  borderRadius: '6px',
+                  padding: '2px 7px',
+                  fontSize: '11.5px',
+                  color: '#1f1f1f',
+                  fontWeight: 500,
+                }}>
+                  {b.price} <span style={{ textDecoration: 'underline' }}>đ</span>
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Section 2: Sách điện tử mới giảm giá */}
+      <div style={{ padding: '14px 16px 18px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+          <div>
+            <div style={{ fontSize: '17px', fontWeight: 500, color: '#1f1f1f' }}>Sách điện tử mới giảm giá</div>
+            <div style={{ fontSize: '12.5px', color: '#444746', marginTop: '2px' }}>Ưu đãi mới nhất</div>
+          </div>
+          <div style={{
+            width: '30px',
+            height: '30px',
+            borderRadius: '50%',
+            background: '#f0f4f9',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
+              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', scrollbarWidth: 'none' }}>
+          {randomDiscountBooks.map((b) => (
+            <div key={b.id} style={{ width: '104px', flexShrink: 0 }}>
+              <img
+                src={b.cover}
+                alt={b.title}
+                style={{
+                  width: '104px',
+                  height: '158px',
+                  borderRadius: '8px',
+                  objectFit: 'cover',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.12)',
+                }}
+              />
+              <div style={{
+                fontSize: '12.5px',
+                color: '#1f1f1f',
+                marginTop: '6px',
+                lineHeight: '1.3',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}>
+                {b.title}
+              </div>
+              {b.sub && (
+                <div style={{ fontSize: '12px', color: '#444746', marginTop: '2px' }}>{b.sub}</div>
+              )}
+              <div style={{ marginTop: '4px' }}>
+                <span style={{
+                  display: 'inline-block',
+                  background: '#f0f4f9',
+                  borderRadius: '6px',
+                  padding: '2px 7px',
+                  fontSize: '11.5px',
+                  color: '#1f1f1f',
+                  fontWeight: 500,
+                }}>
+                  {b.price} <span style={{ textDecoration: 'underline' }}>đ</span>
+                </span>
               </div>
             </div>
           ))}
@@ -1844,9 +2135,9 @@ export default function CHPlay({ onOpenVssID }) {
             paddingBottom: '4px',
           }}>
             {[
-              { thumb: vssidShot1, full: vssidShot1 },
+              { thumb: vssidShot1, full: vssidShot1Full },
               { thumb: vssidShot2, full: vssidShot2Full },
-              { thumb: vssidShot3, full: vssidShot3 },
+              { thumb: vssidShot3, full: vssidShot3Full },
             ].map((shot, i) => (
               <img
                 key={i}
@@ -2221,9 +2512,9 @@ export default function CHPlay({ onOpenVssID }) {
           {/* Screenshots */}
           <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', scrollbarWidth: 'none' }}>
             {[
-              { thumb: vssidShot1, full: vssidShot1 },
+              { thumb: vssidShot1, full: vssidShot1Full },
               { thumb: vssidShot2, full: vssidShot2Full },
-              { thumb: vssidShot3, full: vssidShot3 },
+              { thumb: vssidShot3, full: vssidShot3Full },
             ].map((s, idx) => (
               <img
                 key={idx}
