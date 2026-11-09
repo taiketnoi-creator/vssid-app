@@ -119,11 +119,13 @@ function createRandomGoogleProfile() {
   let prevName = '';
   let prevColor = '';
   let prevInitial = '';
+  let prevNotif = '1';
   try {
     const saved = JSON.parse(localStorage.getItem('chplay_last_random_profile') || '{}');
     prevName = saved.name || '';
     prevColor = saved.color || '';
     prevInitial = saved.initial || '';
+    prevNotif = saved.notifBadge || '1';
   } catch (e) {}
 
   let displayName = '';
@@ -166,12 +168,16 @@ function createRandomGoogleProfile() {
     color = filtered[secureRandomInt(filtered.length)];
   }
 
+  const notifOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '9+'].filter((n) => n !== prevNotif);
+  const notifBadge = notifOptions[secureRandomInt(notifOptions.length)] || '3';
+
   const profile = {
     name: displayName,
     fullName,
     initial,
     color,
     email: emailSlug || 'nguoidung.vn@gmail.com',
+    notifBadge,
   };
 
   try {
@@ -179,6 +185,7 @@ function createRandomGoogleProfile() {
       name: profile.name,
       color: profile.color,
       initial: profile.initial,
+      notifBadge: profile.notifBadge,
     }));
   } catch (e) {}
 
@@ -553,6 +560,7 @@ export default function CHPlay({ onOpenVssID }) {
   const [accountEmail] = useState(() => SESSION_GOOGLE_PROFILE.email);
   const [accountInitial] = useState(() => SESSION_GOOGLE_PROFILE.initial);
   const [accountColor] = useState(() => SESSION_GOOGLE_PROFILE.color);
+  const [notifBadge] = useState(() => SESSION_GOOGLE_PROFILE.notifBadge);
 
   // Install state for VssID: 'not_installed' | 'pending' | 'downloading' | 'installing' | 'installed'
   const [installState, setInstallState] = useState(() => {
@@ -746,15 +754,18 @@ export default function CHPlay({ onOpenVssID }) {
             color: '#ffffff',
             fontSize: '10px',
             fontWeight: 700,
-            width: '16px',
+            minWidth: '16px',
+            padding: '0 3px',
+            boxSizing: 'border-box',
             height: '16px',
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             border: '1.5px solid #ffffff',
+            borderRadius: '999px',
           }}>
-            1
+            {notifBadge}
           </span>
         </div>
 
@@ -3139,7 +3150,7 @@ export default function CHPlay({ onOpenVssID }) {
                     }
                   },
                 },
-                { title: 'Thông báo và ưu đãi', badge: '1' },
+                { title: 'Thông báo và ưu đãi', badge: notifBadge },
                 { title: 'Thanh toán và gói thuê bao' },
                 { title: 'Play Protect', sub: 'Đã quét lúc 14:29' },
                 { title: 'Thư viện' },
