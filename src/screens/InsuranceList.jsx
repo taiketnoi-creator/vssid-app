@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import logoBhxh from '../assets/logo_bhxh.png';
 import frameInsurance from '../assets/frame_insurance.png';
+import tabBarInactive from '../assets/tab_bar_inactive.png';
+import tabBarBhxh from '../assets/tab_bar_bhxh.png';
 import tabBarBhtn from '../assets/tab_bar_bhtn.png';
 
 const W = 402;
@@ -18,7 +20,14 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false,
     return () => clearTimeout(timer);
   }, [showInitialLoading]);
   const [activeTab, setActiveTab] = useState(initialTab || 'BHXH');
+  const [hasTabTransition, setHasTabTransition] = useState(false);
   const history = currentAccount?.insuranceHistory || [];
+
+  const handleTabSelect = (tabId) => {
+    if (tabId === activeTab) return;
+    setHasTabTransition(true);
+    setActiveTab(tabId);
+  };
 
   const calculateTotalParticipation = (list) => {
     if (!list || list.length === 0) return { years: 0, months: 0 };
@@ -158,7 +167,7 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false,
         {tabs.map((tabId) => (
           <button
             key={tabId}
-            onClick={() => setActiveTab(tabId)}
+            onClick={() => handleTabSelect(tabId)}
             style={{
               flex: 1,
               background: 'transparent',
@@ -171,24 +180,56 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false,
         ))}
       </div>
 
-      {/* 4. Active Tab Bar Overlay for BHTN (switches BHXH to grey and BHTN to blue at 2x Retina quality) */}
-      {activeTab === 'BHTN' && (
-        <img
-          src={tabBarBhtn}
-          alt="BHTN Active Tab Bar"
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: `${(67 / H) * 100}%`,
-            width: '100%',
-            height: `${(103 / H) * 100}%`,
-            objectFit: 'fill',
-            zIndex: 20,
-            pointerEvents: 'none'
-          }}
-          draggable={false}
-        />
-      )}
+      {/* 4. 2x Retina Tab Bar Overlays with 0.05s delayed smooth active crossfade */}
+      <img
+        src={tabBarInactive}
+        alt="Inactive Tab Bar"
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: `${(67 / H) * 100}%`,
+          width: '100%',
+          height: `${(103 / H) * 100}%`,
+          objectFit: 'fill',
+          zIndex: 18,
+          pointerEvents: 'none'
+        }}
+        draggable={false}
+      />
+      <img
+        src={tabBarBhxh}
+        alt="BHXH Active Tab Bar"
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: `${(67 / H) * 100}%`,
+          width: '100%',
+          height: `${(103 / H) * 100}%`,
+          objectFit: 'fill',
+          zIndex: 19,
+          opacity: activeTab === 'BHXH' ? 1 : 0,
+          transition: activeTab === 'BHXH' && hasTabTransition ? 'opacity 0.25s ease-out 0.05s' : 'none',
+          pointerEvents: 'none'
+        }}
+        draggable={false}
+      />
+      <img
+        src={tabBarBhtn}
+        alt="BHTN Active Tab Bar"
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: `${(67 / H) * 100}%`,
+          width: '100%',
+          height: `${(103 / H) * 100}%`,
+          objectFit: 'fill',
+          zIndex: 20,
+          opacity: activeTab === 'BHTN' ? 1 : 0,
+          transition: activeTab === 'BHTN' && hasTabTransition ? 'opacity 0.25s ease-out 0.05s' : 'none',
+          pointerEvents: 'none'
+        }}
+        draggable={false}
+      />
 
       {/* 5. 100% FIGMA DYNAMIC TEXT OVERLAY LAYER (zIndex = 10) */}
       {/* This layer has pointerEvents = 'none' so that it doesn't block transparent hotspot clicks */}
@@ -276,249 +317,274 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false,
             </div>
           </>
         ) : (activeTab === 'BHXH' || activeTab === 'BHTN') ? (
-          /* Unified Scrollable Container: Summary Box + Table scroll up together */
+          /* Horizontal Sliding Viewport for BHXH <-> BHTN (0.05s delay + 0.28s slide) */
           <div
-            className="scrollbar-none"
             style={{
               position: 'absolute',
-              left: `${(9 / W) * 100}%`,
+              left: 0,
               top: `${(189 / H) * 100}%`,
-              width: `${(382 / W) * 100}%`,
+              width: '100%',
               height: `${(633 / H) * 100}%`,
               background: '#ffffff',
               zIndex: 5,
-              boxSizing: 'border-box',
-              pointerEvents: 'auto',
-              overflowY: 'auto',
-              overflowX: 'hidden',
-              WebkitOverflowScrolling: 'touch'
+              overflow: 'hidden',
+              pointerEvents: 'auto'
             }}
           >
-            {/* --- Summary Box (scrolls together with the table) --- */}
-            <div style={{
-              position: 'relative',
-              width: '100%',
-              height: '77px',
-              background: '#f6f5f3',
-              overflow: 'hidden',
-              flexShrink: 0
-            }}>
-              {/* Exact slice of frameInsurance for pixel-perfect title & borders */}
-              <img
-                src={frameInsurance}
-                alt=""
-                style={{
-                  position: 'absolute',
-                  left: `${(-9 / 382) * 100}%`,
-                  top: `${(-189 / 77) * 100}%`,
-                  width: `${(W / 382) * 100}%`,
-                  height: `${(H / 77) * 100}%`,
-                  maxWidth: 'none',
-                  objectFit: 'fill',
-                  pointerEvents: 'none'
-                }}
-                draggable={false}
-              />
-
-              {/* Cover and overlay title for BHXH / BHTN */}
-              <div style={{
-                position: 'absolute',
-                left: `${(11 / 382) * 100}%`,
-                top: `${(11 / 77) * 100}%`,
-                width: `${(360 / 382) * 100}%`,
-                height: `${(20 / 77) * 100}%`,
-                background: '#f6f5f3',
-                color: '#38679f',
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '15.5px',
-                fontWeight: 500,
+            <div
+              style={{
                 display: 'flex',
-                alignItems: 'center',
-                pointerEvents: 'none',
-                whiteSpace: 'nowrap'
-              }}>
-                {activeTab === 'BHTN'
-                  ? 'Quá trình tham gia Bảo hiểm thất nghiệp'
-                  : 'Quá trình tham gia Bảo hiểm xã hội'}
-              </div>
+                width: '200%',
+                height: '100%',
+                transform: activeTab === 'BHTN' ? 'translateX(-50%)' : 'translateX(0%)',
+                transition: hasTabTransition ? 'transform 0.28s cubic-bezier(0.25, 0.8, 0.25, 1) 0.05s' : 'none',
+                willChange: 'transform'
+              }}
+            >
+              {['BHXH', 'BHTN'].map((paneTab) => (
+                <div
+                  key={paneTab}
+                  className="scrollbar-none"
+                  style={{
+                    width: '50%',
+                    height: '100%',
+                    paddingLeft: `${(9 / (W * 2)) * 100}%`,
+                    paddingRight: `${(11 / (W * 2)) * 100}%`,
+                    boxSizing: 'border-box',
+                    background: '#ffffff',
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    WebkitOverflowScrolling: 'touch'
+                  }}
+                >
+                  {/* --- Summary Box (scrolls together with the table) --- */}
+                  <div style={{
+                    position: 'relative',
+                    width: '100%',
+                    height: '77px',
+                    background: '#f6f5f3',
+                    overflow: 'hidden',
+                    flexShrink: 0
+                  }}>
+                    {/* Exact slice of frameInsurance for pixel-perfect title & borders */}
+                    <img
+                      src={frameInsurance}
+                      alt=""
+                      style={{
+                        position: 'absolute',
+                        left: `${(-9 / 382) * 100}%`,
+                        top: `${(-189 / 77) * 100}%`,
+                        width: `${(W / 382) * 100}%`,
+                        height: `${(H / 77) * 100}%`,
+                        maxWidth: 'none',
+                        objectFit: 'fill',
+                        pointerEvents: 'none'
+                      }}
+                      draggable={false}
+                    />
 
-              {/* Cover and overlay "Tổng thời gian tham gia" */}
-              <div style={{
-                position: 'absolute',
-                left: `${(11 / 382) * 100}%`,
-                top: `${(32 / 77) * 100}%`,
-                width: `${(350 / 382) * 100}%`,
-                height: `${(17 / 77) * 100}%`,
-                background: '#f6f5f3',
-                color: '#2a2b2b',
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '13.5px',
-                fontWeight: 500,
-                display: 'flex',
-                alignItems: 'center',
-                pointerEvents: 'none'
-              }}>
-                Tổng thời gian tham gia: {years > 0 ? `${years} năm ` : ''}{months} tháng
-              </div>
+                    {/* Cover and overlay title for BHXH / BHTN */}
+                    <div style={{
+                      position: 'absolute',
+                      left: `${(11 / 382) * 100}%`,
+                      top: `${(11 / 77) * 100}%`,
+                      width: `${(360 / 382) * 100}%`,
+                      height: `${(20 / 77) * 100}%`,
+                      background: '#f6f5f3',
+                      color: '#38679f',
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '15.5px',
+                      fontWeight: 500,
+                      display: 'flex',
+                      alignItems: 'center',
+                      pointerEvents: 'none',
+                      whiteSpace: 'nowrap'
+                    }}>
+                      {paneTab === 'BHTN'
+                        ? 'Quá trình tham gia Bảo hiểm thất nghiệp'
+                        : 'Quá trình tham gia Bảo hiểm xã hội'}
+                    </div>
 
-              {/* Cover and overlay "Tổng thời gian chậm đóng" */}
-              <div style={{
-                position: 'absolute',
-                left: `${(11 / 382) * 100}%`,
-                top: `${(50 / 77) * 100}%`,
-                width: `${(350 / 382) * 100}%`,
-                height: `${(17 / 77) * 100}%`,
-                background: '#f6f5f3',
-                color: '#c1191a',
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '13.5px',
-                fontWeight: 500,
-                display: 'flex',
-                alignItems: 'center',
-                pointerEvents: 'none'
-              }}>
-                Tổng thời gian chậm đóng: 0 tháng
-              </div>
+                    {/* Cover and overlay "Tổng thời gian tham gia" */}
+                    <div style={{
+                      position: 'absolute',
+                      left: `${(11 / 382) * 100}%`,
+                      top: `${(32 / 77) * 100}%`,
+                      width: `${(350 / 382) * 100}%`,
+                      height: `${(17 / 77) * 100}%`,
+                      background: '#f6f5f3',
+                      color: '#2a2b2b',
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '13.5px',
+                      fontWeight: 500,
+                      display: 'flex',
+                      alignItems: 'center',
+                      pointerEvents: 'none'
+                    }}>
+                      Tổng thời gian tham gia: {years > 0 ? `${years} năm ` : ''}{months} tháng
+                    </div>
+
+                    {/* Cover and overlay "Tổng thời gian chậm đóng" */}
+                    <div style={{
+                      position: 'absolute',
+                      left: `${(11 / 382) * 100}%`,
+                      top: `${(50 / 77) * 100}%`,
+                      width: `${(350 / 382) * 100}%`,
+                      height: `${(17 / 77) * 100}%`,
+                      background: '#f6f5f3',
+                      color: '#c1191a',
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '13.5px',
+                      fontWeight: 500,
+                      display: 'flex',
+                      alignItems: 'center',
+                      pointerEvents: 'none'
+                    }}>
+                      Tổng thời gian chậm đóng: 0 tháng
+                    </div>
+                  </div>
+
+                  {/* --- Table Rows (100% Vector HTML/CSS Figma Table) --- */}
+                  {history.length === 0 ? (
+                    <div style={{
+                      width: '100%',
+                      height: '534px',
+                      background: '#ffffff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#aaa9ae',
+                      fontSize: '14px',
+                      fontFamily: 'Inter, sans-serif'
+                    }}>
+                      Chưa có dữ liệu đóng {paneTab}
+                    </div>
+                  ) : (
+                    <table style={{
+                      width: '100%',
+                      borderCollapse: 'collapse',
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '11px',
+                      color: '#3f3f3f',
+                      backgroundColor: '#ffffff'
+                    }}>
+                      <thead>
+                        <tr style={{ height: '42px', color: '#ffffff' }}>
+                          <th style={{ 
+                            width: `${(68 / 382) * 100}%`, 
+                            fontWeight: 400, 
+                            border: '1px solid #aaa9ae',
+                            fontSize: '12px',
+                            textAlign: 'center',
+                            padding: 0,
+                            backgroundColor: '#38679f'
+                          }}>Từ tháng</th>
+                          <th style={{ 
+                            width: `${(67 / 382) * 100}%`, 
+                            fontWeight: 400, 
+                            border: '1px solid #aaa9ae',
+                            fontSize: '12px',
+                            lineHeight: '1.2',
+                            textAlign: 'center',
+                            padding: 0,
+                            backgroundColor: '#38679f'
+                          }}>Đến<br/>tháng</th>
+                          <th style={{ 
+                            width: `${(123 / 382) * 100}%`, 
+                            fontWeight: 400, 
+                            border: '1px solid #aaa9ae',
+                            fontSize: '12px',
+                            textAlign: 'center',
+                            padding: 0,
+                            backgroundColor: '#38679f'
+                          }}>Đơn vị</th>
+                          <th style={{ 
+                            width: `${(92 / 382) * 100}%`, 
+                            fontWeight: 400, 
+                            border: '1px solid #aaa9ae',
+                            fontSize: '12px',
+                            lineHeight: '1.2',
+                            textAlign: 'center',
+                            padding: 0,
+                            backgroundColor: '#38679f'
+                          }}>Nghề nghiệp<br/>Chức vụ</th>
+                          <th style={{ 
+                            width: `${(32 / 382) * 100}%`, 
+                            border: '1px solid #aaa9ae',
+                            padding: 0,
+                            backgroundColor: '#38679f'
+                          }}></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {history.map((row, idx) => (
+                          <tr key={idx} style={{ height: '66px', backgroundColor: '#ffffff' }}>
+                            <td style={{ 
+                              textAlign: 'center', 
+                              fontWeight: 500, 
+                              fontSize: '12px',
+                              border: '1px solid #aaa9ae',
+                              padding: 0 
+                            }}>{row.from}</td>
+                            <td style={{ 
+                              textAlign: 'center', 
+                              fontWeight: 500, 
+                              fontSize: '12px',
+                              border: '1px solid #aaa9ae',
+                              padding: 0 
+                            }}>{row.to}</td>
+                            <td style={{ 
+                              fontWeight: 500, 
+                              fontSize: '10.5px',
+                              border: '1px solid #aaa9ae', 
+                              padding: '0 4px', 
+                              textAlign: 'center', 
+                              lineHeight: '1.25',
+                              wordBreak: 'break-word'
+                            }}>{row.company}</td>
+                            <td style={{ 
+                              textAlign: 'center', 
+                              fontWeight: 500, 
+                              fontSize: '12px',
+                              border: '1px solid #aaa9ae', 
+                              padding: '0 4px', 
+                              lineHeight: '1.3',
+                              wordBreak: 'break-word'
+                            }}>{renderPositionCell(row.position)}</td>
+                            <td style={{ 
+                              textAlign: 'center', 
+                              border: '1px solid #aaa9ae', 
+                              position: 'relative',
+                              padding: 0 
+                            }}>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" fill="#38679f"/>
+                                </svg>
+                              </div>
+                              <button
+                                onClick={() => onNavigate('salary-detail', { rowData: row, activeTab: paneTab })}
+                                style={{
+                                  position: 'absolute',
+                                  inset: 0,
+                                  background: 'transparent',
+                                  border: 'none',
+                                  outline: 'none',
+                                  cursor: 'pointer',
+                                  pointerEvents: 'auto',
+                                  zIndex: 10
+                                }}
+                                aria-label={`Chi tiết dòng ${idx + 1}`}
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
+              ))}
             </div>
-
-            {/* --- Table Rows (100% Vector HTML/CSS Figma Table) --- */}
-            {history.length === 0 ? (
-              <div style={{
-                width: '100%',
-                height: '534px',
-                background: '#ffffff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#aaa9ae',
-                fontSize: '14px',
-                fontFamily: 'Inter, sans-serif'
-              }}>
-                Chưa có dữ liệu đóng {activeTab}
-              </div>
-            ) : (
-              <table style={{
-                width: '100%',
-                borderCollapse: 'collapse',
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '11px',
-                color: '#3f3f3f',
-                backgroundColor: '#ffffff'
-              }}>
-                <thead>
-                  <tr style={{ height: '42px', color: '#ffffff' }}>
-                    <th style={{ 
-                      width: `${(68 / 382) * 100}%`, 
-                      fontWeight: 400, 
-                      border: '1px solid #aaa9ae',
-                      fontSize: '12px',
-                      textAlign: 'center',
-                      padding: 0,
-                      backgroundColor: '#38679f'
-                    }}>Từ tháng</th>
-                    <th style={{ 
-                      width: `${(67 / 382) * 100}%`, 
-                      fontWeight: 400, 
-                      border: '1px solid #aaa9ae',
-                      fontSize: '12px',
-                      lineHeight: '1.2',
-                      textAlign: 'center',
-                      padding: 0,
-                      backgroundColor: '#38679f'
-                    }}>Đến<br/>tháng</th>
-                    <th style={{ 
-                      width: `${(123 / 382) * 100}%`, 
-                      fontWeight: 400, 
-                      border: '1px solid #aaa9ae',
-                      fontSize: '12px',
-                      textAlign: 'center',
-                      padding: 0,
-                      backgroundColor: '#38679f'
-                    }}>Đơn vị</th>
-                    <th style={{ 
-                      width: `${(92 / 382) * 100}%`, 
-                      fontWeight: 400, 
-                      border: '1px solid #aaa9ae',
-                      fontSize: '12px',
-                      lineHeight: '1.2',
-                      textAlign: 'center',
-                      padding: 0,
-                      backgroundColor: '#38679f'
-                    }}>Nghề nghiệp<br/>Chức vụ</th>
-                    <th style={{ 
-                      width: `${(32 / 382) * 100}%`, 
-                      border: '1px solid #aaa9ae',
-                      padding: 0,
-                      backgroundColor: '#38679f'
-                    }}></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {history.map((row, idx) => (
-                    <tr key={idx} style={{ height: '66px', backgroundColor: '#ffffff' }}>
-                      <td style={{ 
-                        textAlign: 'center', 
-                        fontWeight: 500, 
-                        fontSize: '12px',
-                        border: '1px solid #aaa9ae',
-                        padding: 0 
-                      }}>{row.from}</td>
-                      <td style={{ 
-                        textAlign: 'center', 
-                        fontWeight: 500, 
-                        fontSize: '12px',
-                        border: '1px solid #aaa9ae',
-                        padding: 0 
-                      }}>{row.to}</td>
-                      <td style={{ 
-                        fontWeight: 500, 
-                        fontSize: '10.5px',
-                        border: '1px solid #aaa9ae', 
-                        padding: '0 4px', 
-                        textAlign: 'center', 
-                        lineHeight: '1.25',
-                        wordBreak: 'break-word'
-                      }}>{row.company}</td>
-                      <td style={{ 
-                        textAlign: 'center', 
-                        fontWeight: 500, 
-                        fontSize: '12px',
-                        border: '1px solid #aaa9ae', 
-                        padding: '0 4px', 
-                        lineHeight: '1.3',
-                        wordBreak: 'break-word'
-                      }}>{renderPositionCell(row.position)}</td>
-                      <td style={{ 
-                        textAlign: 'center', 
-                        border: '1px solid #aaa9ae', 
-                        position: 'relative',
-                        padding: 0 
-                      }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" fill="#38679f"/>
-                          </svg>
-                        </div>
-                        <button
-                          onClick={() => onNavigate('salary-detail', { rowData: row, activeTab })}
-                          style={{
-                            position: 'absolute',
-                            inset: 0,
-                            background: 'transparent',
-                            border: 'none',
-                            outline: 'none',
-                            cursor: 'pointer',
-                            pointerEvents: 'auto',
-                            zIndex: 10
-                          }}
-                          aria-label={`Chi tiết dòng ${idx + 1}`}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
           </div>
         ) : (
           /* Non-BHXH/BHTN empty tab states: cover content area below tab bar */
