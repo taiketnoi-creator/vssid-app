@@ -19,6 +19,7 @@ vssid-app/
 │   │   ├── AccountManager.jsx  # Admin config dashboard (manage test accounts & custom database details)
 │   │   └── Sidebar.jsx         # Custom sliding sidebar component
 │   ├── screens/
+│   │   ├── CHPlay.jsx          # Google Play Store (CH Play) simulator (?mode=chplay) with VssID search & install
 │   │   ├── Login.jsx           # Login interface with custom biometric authentication simulator
 │   │   ├── Dashboard.jsx       # User profile cards, BHXH summary, and main controls
 │   │   ├── InsuranceList.jsx   # Tabbed tables showing detailed insurance history (scrollable)
@@ -97,6 +98,29 @@ npx vercel --prod --yes
 ---
 
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
+
+### 🚀 Phiên bản ngày 09/11/2026:
+* **Bổ sung tab `BHTN` (Bảo hiểm thất nghiệp) trong mục `QUÁ TRÌNH THAM GIA` (`src/screens/InsuranceList.jsx`, `src/assets/tab_bar_bhxh.png`, `src/assets/tab_bar_bhtn.png`, `src/assets/tab_bar_inactive.png`):**
+  * Thêm trang dữ liệu **BHTN** hiển thị tiêu đề `"Quá trình tham gia Bảo hiểm thất nghiệp"`, tổng thời gian tham gia và bảng quá trình đóng BHTN tương ứng với tài khoản đang đăng nhập.
+  * Tích hợp hiệu ứng chuyển cảnh mượt mà đúng chuẩn bản gốc: độ trễ `0,05s` khi bấm chuyển tab kèm hiệu ứng trượt ngang (`translateX(0%)` <-> `translateX(-50%)` trong `0,28s cubic-bezier(0.22, 1, 0.36, 1)`) và tự động đổi sang icon xanh cho tab đang chọn (`tab_bar_bhxh.png` / `tab_bar_bhtn.png`).
+* **Xây dựng ứng dụng giả lập `CH Play (Google Play Store)` tích hợp tìm kiếm & cài đặt VssID (`src/screens/CHPlay.jsx`, `src/assets/chplay/*`, `src/App.jsx`, `CH Play.apk`):**
+  * **Chế độ truy cập & APK độc lập:** Truy cập trực tiếp qua tham số URL `https://vssid-app.vercel.app/?mode=chplay`, nút mở nhanh trên giao diện Web Landing Page, hoặc thông qua file APK độc lập `CH Play.apk` (package ID `com.google.chplay.vssid`, cấu hình Live Update tự động từ Vercel).
+  * **Giao diện chuẩn Google Play Material 3 (`#0b57d0`):**
+    * Thiết kế đầy đủ 5 tab điều hướng dưới cùng: **`Trò chơi`**, **`Ứng dụng`** (tab mặc định khi mở app), **`Tìm kiếm`**, **`Sách`**, **`Bạn`**.
+    * Tích hợp hộp thoại **Tài khoản Google Play** (`Joystar` / `joystar.vn@gmail.com`) khi bấm vào avatar góc trên phải.
+    * Tab **`Tìm kiếm`** hiển thị lưới 10 danh mục `Khám phá trò chơi` và 12 danh mục `Khám phá ứng dụng` (kèm 43 bộ ảnh/icon sắc nét cắt từ ảnh chụp màn hình gốc `720x1600` trong `src/assets/chplay/`).
+    * **Tìm kiếm không lưu lịch sử:** Khi bấm vào thanh tìm kiếm sẽ mở trang nhập từ khóa trống (không lưu lịch sử tìm kiếm cũ).
+  * **Luồng tìm kiếm & cài đặt ứng dụng `VssID` chuẩn xác:**
+    * Hiển thị vòng xoay loading 12 cánh hoa xanh (`PlayScallopSpinner`) trong `420ms` trước khi trả kết quả.
+    * Thẻ kết quả **VssID** (`Bảo hiểm xã hội Việt Nam`) hiển thị cụm nút gộp `[ Cài đặt | ⌄ ]` (bấm `⌄` mở bảng chọn thiết bị `"Cài đặt trên thiết bị khác"`), 3 chỉ số (`3,0 ★`, `3+`, `Chính phủ`) và dải 3 ảnh chụp màn hình VssID.
+    * **Đã xử lý triệt để 3 ảnh chụp màn hình VssID (`vssid_shot1..3` & `_full.jpg`):** Cắt sát vùng hiển thị thực tế để loại bỏ hoàn toàn vệt đen thừa ở đáy/đỉnh ảnh và xóa sạch nút tròn mờ `←` ở góc trên trái của ảnh 2 (màn Đăng nhập) & ảnh 3 (màn Tin tức), hỗ trợ bấm vào ảnh để xem toàn màn hình sắc nét.
+    * Khi bấm **`Cài đặt`**, hiển thị tiến trình tải xuống (`Đang chờ...` -> `% của 31 MB` -> `Đang cài đặt...`) và nút **`Mở`** màu xanh chuyển thẳng vào màn hình Đăng nhập VssID VIP.
+  * **Loại bỏ app theo thời gian & Tự động Random danh sách ứng dụng mỗi khi chuyển tab (`reshuffleAllLists`):**
+    * Đã gỡ bỏ hoàn toàn các ứng dụng/sự kiện dính mốc ngày tháng cố định (`Shopee 11.11 Đại Tiệc Ưu Đãi`, thẻ sự kiện `LMHT 19/11/26`) để giao diện không bị lỗi thời theo thời gian.
+    * Mỗi lần mở ứng dụng, chuyển qua lại giữa các tab (`Ứng dụng` <-> `Tìm kiếm` <-> `Trò chơi` <-> `Sách`), thực hiện tìm kiếm hoặc bấm `Xem thêm ⌄`, danh sách các ứng dụng gợi ý sẽ tự động trộn ngẫu nhiên bộ mới từ kho ứng dụng (`SPONSORED_APPS_POOL`, `POPULAR_SQUARE_POOL`, `SOCIAL_APPS_POOL`, `GAMES_LIST_POOL`), không bị cố định 3 app.
+  * **Ghi chú cho phiên làm việc tiếp theo (khi về nhà chỉnh sửa tiếp):**
+    * Bổ sung thêm các bộ ảnh icon ứng dụng mới do người dùng cung cấp vào kho random (`src/assets/chplay/` & `SPONSORED_APPS_POOL` trong `src/screens/CHPlay.jsx`).
+    * Tiếp tục rà soát và tinh chỉnh chi tiết từng trang tiếp theo trong `CHPlay.jsx` theo yêu cầu.
 
 ### 🚀 Phiên bản ngày 30/10/2026:
 * **Bổ sung hiệu ứng vòng tròn loading BHXH 1,2 giây khi vào mục `QUÁ TRÌNH THAM GIA` (`src/screens/Dashboard.jsx`, `src/screens/InsuranceList.jsx`, `src/App.jsx`):**
