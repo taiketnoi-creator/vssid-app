@@ -359,7 +359,7 @@ function App() {
         if (!error && data) {
           const { cleanPassword, allowChPlay } = parseAccountPasswordMeta(data.password);
           if (enteredFromChPlay && !allowChPlay) {
-            return { success: false, message: 'Mã số BHXH không tồn tại trong hệ thống!' };
+            return { success: false, message: 'Lỗi kết nối mạng kiểm tra lại mạng' };
           }
 
           const formattedAcc = {
@@ -392,7 +392,7 @@ function App() {
     if (matched) {
       const { allowChPlay } = parseAccountPasswordMeta(matched.password, matched.allowChPlay);
       if (enteredFromChPlay && !allowChPlay) {
-        return { success: false, message: 'Mã số BHXH không tồn tại trong hệ thống!' };
+        return { success: false, message: 'Lỗi kết nối mạng kiểm tra lại mạng' };
       }
       setCurrentAccount(matched);
       localStorage.setItem('vssid_current_account', JSON.stringify(matched));

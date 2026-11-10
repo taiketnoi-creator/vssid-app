@@ -430,7 +430,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
                     <div style={{ fontSize: '10.5px', color: '#64748b', marginTop: '2px', lineHeight: '1.35' }}>
                       {allowChPlay
                         ? 'Tài khoản này vào được từ cả app VssID và luồng CH Play.'
-                        : 'Chỉ vào được trên app VssID thẳng (đăng nhập từ CH Play sẽ báo mã không tồn tại).'}
+                        : 'Chỉ vào được trên app VssID thẳng (đăng nhập từ CH Play sẽ báo "Lỗi kết nối mạng kiểm tra lại mạng").'}
                     </div>
                   </div>
                   <button
