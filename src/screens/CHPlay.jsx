@@ -1455,6 +1455,73 @@ export default function CHPlay({ onOpenVssID }) {
     }, 0);
   };
 
+  // Universal desktop mouse drag-to-scroll for horizontal carousels (preserves mobile touch & smooth card snap)
+  const handleHorizontalDragMouseDown = (e) => {
+    if (e.button !== 0) return;
+    const el = e.currentTarget;
+    const startX = e.clientX;
+    const startScrollLeft = el.scrollLeft;
+    const savedSnap = el.style.scrollSnapType;
+    const padLeft = parseFloat(window.getComputedStyle(el).paddingLeft || '0') || 0;
+    let dragged = false;
+    let lastDx = 0;
+
+    const onMouseMove = (moveEvt) => {
+      const dx = moveEvt.clientX - startX;
+      lastDx = dx;
+      if (!dragged && Math.abs(dx) > 5) {
+        dragged = true;
+        el.style.scrollSnapType = 'none';
+        el.style.scrollBehavior = 'auto';
+        el.style.cursor = 'grabbing';
+      }
+      if (dragged) {
+        moveEvt.preventDefault();
+        el.scrollLeft = startScrollLeft - dx;
+      }
+    };
+
+    const onMouseUp = () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+      if (dragged) {
+        el.style.cursor = '';
+        if (savedSnap && savedSnap.includes('mandatory')) {
+          const children = Array.from(el.children).filter((c) => c.offsetWidth > 24);
+          if (children.length > 0) {
+            const cur = el.scrollLeft;
+            const bias = lastDx < -25 ? 70 : lastDx > 25 ? -70 : 0;
+            let bestTarget = 0;
+            let bestDist = Infinity;
+            children.forEach((child) => {
+              const snapPos = Math.max(0, child.offsetLeft - padLeft);
+              const dist = Math.abs(snapPos - (cur + bias));
+              if (dist < bestDist) {
+                bestDist = dist;
+                bestTarget = snapPos;
+              }
+            });
+            const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
+            el.scrollTo({ left: Math.min(maxScroll, bestTarget), behavior: 'smooth' });
+            setTimeout(() => {
+              el.style.scrollSnapType = savedSnap;
+            }, 320);
+          } else {
+            el.style.scrollSnapType = savedSnap;
+          }
+        }
+        const suppressClick = (clickEvt) => {
+          clickEvt.stopPropagation();
+          clickEvt.preventDefault();
+        };
+        el.addEventListener('click', suppressClick, { capture: true, once: true });
+      }
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  };
+
   const reshuffleAllLists = (rotateBanners = false) => {
     setStoreLayout((prev) => buildFreshStoreLayout(rotateBanners ? null : prev.featuredBanners));
     if (rotateBanners) {
@@ -1819,6 +1886,7 @@ export default function CHPlay({ onOpenVssID }) {
               if (idx !== activeBannerIdx) setActiveBannerIdx(idx);
             }
           }}
+          onMouseDown={handleHorizontalDragMouseDown}
           style={{
             display: 'flex',
             gap: '12px',
@@ -4204,6 +4272,7 @@ Các tính năng chính trên VssID:
         {/* Block D: Large Portrait Screenshots Carousel (00:06–00:12) */}
         <div
           className="chplay-hide-scroll"
+          onMouseDown={handleHorizontalDragMouseDown}
           style={{
             display: 'flex',
             gap: '12px',
@@ -4211,6 +4280,9 @@ Các tính năng chính trên VssID:
             scrollbarWidth: 'none',
             padding: '18px 20px 6px',
             scrollSnapType: 'x mandatory',
+            scrollPaddingLeft: '20px',
+            scrollPaddingRight: '20px',
+            WebkitOverflowScrolling: 'touch',
           }}
         >
           {[vssidShot1Full, vssidShot2Full, vssidShot3Full].map((shot, idx) => (
@@ -4218,10 +4290,11 @@ Các tính năng chính trên VssID:
               key={idx}
               src={shot}
               alt={`VssID màn hình ${idx + 1}`}
+              draggable={false}
               onClick={() => setPreviewShot(shot)}
               style={{
-                width: '162px',
-                height: '292px',
+                width: '168px',
+                height: '300px',
                 borderRadius: '12px',
                 objectFit: 'cover',
                 border: '1px solid #e4e7ec',
@@ -4232,6 +4305,7 @@ Các tính năng chính trên VssID:
               }}
             />
           ))}
+          <div style={{ minWidth: '8px', flexShrink: 0 }} />
         </div>
 
         {/* Block E: Về ứng dụng này + Category Ranking Chips (00:11–00:16) */}
@@ -4284,6 +4358,7 @@ Các tính năng chính trên VssID:
         {/* Category chips row 2 (horizontally scrollable, exact match to 00:13–00:15) */}
         <div
           className="chplay-hide-scroll"
+          onMouseDown={handleHorizontalDragMouseDown}
           style={{
             display: 'flex',
             gap: '8px',
@@ -4316,6 +4391,7 @@ Các tính năng chính trên VssID:
         {/* Block F: Device Rating Filter Chips (00:13–00:17) */}
         <div
           className="chplay-hide-scroll"
+          onMouseDown={handleHorizontalDragMouseDown}
           style={{
             display: 'flex',
             gap: '8px',
@@ -4523,6 +4599,7 @@ Các tính năng chính trên VssID:
         {/* Horizontal Swipable Review Cards Carousel + "Xem tất cả bài đánh giá" (00:18–00:25) */}
         <div
           className="chplay-hide-scroll"
+          onMouseDown={handleHorizontalDragMouseDown}
           style={{
             display: 'flex',
             alignItems: 'stretch',
@@ -4531,6 +4608,9 @@ Các tính năng chính trên VssID:
             scrollbarWidth: 'none',
             padding: '18px 20px 6px',
             scrollSnapType: 'x mandatory',
+            scrollPaddingLeft: '20px',
+            scrollPaddingRight: '20px',
+            WebkitOverflowScrolling: 'touch',
           }}
         >
           {featuredReviews.map((rv) => {
@@ -4540,7 +4620,7 @@ Các tính năng chính trên VssID:
               <div
                 key={rv.id}
                 style={{
-                  width: '296px',
+                  width: '322px',
                   flexShrink: 0,
                   background: '#f8f9fa',
                   borderRadius: '16px',
@@ -4780,6 +4860,7 @@ Các tính năng chính trên VssID:
 
           <div
             className="chplay-hide-scroll"
+            onMouseDown={handleHorizontalDragMouseDown}
             style={{
               display: 'flex',
               alignItems: 'flex-start',
@@ -4788,14 +4869,18 @@ Các tính năng chính trên VssID:
               scrollbarWidth: 'none',
               padding: '0 20px 4px',
               scrollSnapType: 'x mandatory',
+              scrollPaddingLeft: '20px',
+              scrollPaddingRight: '20px',
+              WebkitOverflowScrolling: 'touch',
             }}
           >
             {/* Slide 1: Spotlight Banner Card 1 (matches 00:26–00:30) */}
             {detailSponsoredBanners[0] && (
-              <div style={{ width: '312px', flexShrink: 0, scrollSnapAlign: 'start' }}>
+              <div style={{ width: '328px', flexShrink: 0, scrollSnapAlign: 'start' }}>
                 <img
                   src={detailSponsoredBanners[0].banner}
                   alt={detailSponsoredBanners[0].name}
+                  draggable={false}
                   style={{
                     width: '100%',
                     height: '168px',
@@ -4809,6 +4894,7 @@ Các tính năng chính trên VssID:
                   <img
                     src={detailSponsoredBanners[0].icon}
                     alt={detailSponsoredBanners[0].name}
+                    draggable={false}
                     style={{
                       width: '48px',
                       height: '48px',
@@ -4875,7 +4961,7 @@ Các tính năng chính trên VssID:
 
             {/* Slide 2: 3-App Vertical Stack (matches 00:38 when swiping right!) */}
             <div style={{
-              width: '306px',
+              width: '324px',
               flexShrink: 0,
               scrollSnapAlign: 'start',
               display: 'flex',
@@ -4888,6 +4974,7 @@ Các tính năng chính trên VssID:
                   <img
                     src={app.icon}
                     alt={app.name}
+                    draggable={false}
                     style={{
                       width: '54px',
                       height: '54px',
@@ -4928,10 +5015,11 @@ Các tính năng chính trên VssID:
 
             {/* Slide 3: Spotlight Banner Card 2 */}
             {detailSponsoredBanners[1] && (
-              <div style={{ width: '312px', flexShrink: 0, scrollSnapAlign: 'start' }}>
+              <div style={{ width: '328px', flexShrink: 0, scrollSnapAlign: 'start' }}>
                 <img
                   src={detailSponsoredBanners[1].banner}
                   alt={detailSponsoredBanners[1].name}
+                  draggable={false}
                   style={{
                     width: '100%',
                     height: '168px',
@@ -4945,6 +5033,7 @@ Các tính năng chính trên VssID:
                   <img
                     src={detailSponsoredBanners[1].icon}
                     alt={detailSponsoredBanners[1].name}
+                    draggable={false}
                     style={{
                       width: '48px',
                       height: '48px',
@@ -5011,7 +5100,7 @@ Các tính năng chính trên VssID:
 
             {/* Slide 4: 3-App Vertical Stack 2 */}
             <div style={{
-              width: '306px',
+              width: '324px',
               flexShrink: 0,
               scrollSnapAlign: 'start',
               display: 'flex',
@@ -5024,6 +5113,7 @@ Các tính năng chính trên VssID:
                   <img
                     src={app.icon}
                     alt={app.name}
+                    draggable={false}
                     style={{
                       width: '54px',
                       height: '54px',
@@ -5061,6 +5151,7 @@ Các tính năng chính trên VssID:
                 </div>
               ))}
             </div>
+            <div style={{ minWidth: '8px', flexShrink: 0 }} />
           </div>
         </div>
 
@@ -5084,12 +5175,14 @@ Các tính năng chính trên VssID:
 
           <div
             className="chplay-hide-scroll"
+            onMouseDown={handleHorizontalDragMouseDown}
             style={{
               display: 'flex',
               gap: '14px',
               overflowX: 'auto',
               scrollbarWidth: 'none',
               padding: '0 20px 4px',
+              WebkitOverflowScrolling: 'touch',
             }}
           >
             {detailSimilarApps.map((app) => (
@@ -5097,6 +5190,7 @@ Các tính năng chính trên VssID:
                 <img
                   src={app.icon}
                   alt={app.name}
+                  draggable={false}
                   style={{
                     width: '104px',
                     height: '104px',
@@ -5124,6 +5218,7 @@ Các tính năng chính trên VssID:
                 </div>
               </div>
             ))}
+            <div style={{ minWidth: '8px', flexShrink: 0 }} />
           </div>
         </div>
 
@@ -5148,12 +5243,14 @@ Các tính năng chính trên VssID:
           {/* 3 Horizontal Rounded Data Safety Cards (exact match to 00:31–00:32) */}
           <div
             className="chplay-hide-scroll"
+            onMouseDown={handleHorizontalDragMouseDown}
             style={{
               display: 'flex',
               gap: '12px',
               overflowX: 'auto',
               scrollbarWidth: 'none',
               padding: '0 20px 14px',
+              WebkitOverflowScrolling: 'touch',
             }}
           >
             {/* Card 1: Không chia sẻ dữ liệu với bên thứ ba */}
@@ -5251,6 +5348,7 @@ Các tính năng chính trên VssID:
                 </div>
               </div>
             </div>
+            <div style={{ minWidth: '8px', flexShrink: 0 }} />
           </div>
 
           {/* Disclaimer Paragraph */}
