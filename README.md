@@ -100,6 +100,18 @@ npx vercel --prod --yes
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
 ### 🚀 Phiên bản ngày 10/11/2026:
+* **Hoàn thiện trang thông tin chi tiết ứng dụng `VssID` bên trong `CH Play` chuẩn 1:1 theo video mẫu (`src/screens/CHPlay.jsx`):**
+  * **Mở trang chi tiết mượt mà:** Khi tìm kiếm xong `VssID`, nhấn vào cụm icon/tên ứng dụng, dải 3 chỉ số (`3,0 ★ | 3+ | Chính phủ`) hoặc dòng mô tả ngắn đều mở vào trang chi tiết ứng dụng **VssID** (giữ nguyên thanh điều hướng 5 tab ở đáy màn hình đúng chuẩn Google Play).
+  * **Bố cục đầu trang chuẩn Google Play Material 3:** Thanh công cụ ghim đỉnh (`←` và menu `⋮`), cụm icon VssID `72x72px` kèm vòng tiến trình tải xuống, dải 3 cột chỉ số nằm phía trên nút gộp toàn chiều ngang `[ Cài đặt | ⌄ ]` + dòng phụ đề `"Cài đặt trên điện thoại. Còn thiết bị khác."` và dải 3 ảnh chụp màn hình VssID cỡ lớn (`162x292px`, bấm vào xem toàn màn hình).
+  * **Mục `Về ứng dụng này` & Chip phân hạng:** Hiển thị dòng giới thiệu `17.5px`, thẻ xếp hạng `#3 miễn phí phổ biến trong doanh nghiệp`, dải thẻ danh mục (`Du lịch và địa phương`, `Dịch vụ của chính phủ`, `Doanh nghiệp`) và trang con chi tiết (`Phiên bản 1.7.1`, `25 MB`, `Hơn 10.000.000 lượt tải`, `Có gì mới`).
+  * **Bộ lọc thiết bị, Xếp hạng sao & Đánh giá người dùng (`3,0 ★` — `154.670` bài):**
+    * Bộ lọc thiết bị tương tác (`✓ Điện thoại • 3,0 ★`, `XR`, `Máy tính`, `Máy tính bảng`) và dải 5 ngôi sao cho phép người dùng chấm điểm / viết bài đánh giá trực tiếp.
+    * Biểu đồ phân bổ 5 thanh ngang tỷ lệ chuẩn (`5★` và `1★` chiếm tỷ trọng chính tạo trung bình `3,0 ★`), kèm dải thẻ bài đánh giá vuốt ngang (`tich nguyen`, `Di Động Thế Giới`, `Gấu Nhồi Bơm`, tự động tính ngày tương đối không bị lỗi thời, bấm `👍 / 👎` tăng lượt hữu ích) và trang **`Xem tất cả bài đánh giá`** lọc theo từng mức sao.
+  * **Tận dụng kho 15 Banner & 37 Icon sẵn có với thuật toán chống trùng chéo (`16` ứng dụng độc lập trên trang chi tiết):**
+    * Mục **`Hỗ trợ ứng dụng`** đóng/mở linh hoạt (Website, Email, Địa chỉ BHXH Việt Nam, Chính sách bảo mật).
+    * Mục **`Được tài trợ • Được đề xuất cho bạn`:** Dải trượt ngang đan xen giữa **Thẻ Banner quảng cáo lớn** (lấy ngẫu nhiên từ `FEATURED_BANNERS_POOL` kèm nút viền `Cài đặt` + `Mua hàng trong ứng dụng`) và **Cột 3 ứng dụng xếp dọc** (lấy ngẫu nhiên từ `SPONSORED_APPS_POOL`).
+    * Mục **`Các ứng dụng tương tự`:** Dải 8 thẻ icon vuông lớn `104x104px` bo góc `20px` trộn ngẫu nhiên từ `POPULAR_SQUARE_POOL` (loại trừ toàn bộ ứng dụng đã xuất hiện ở mục tài trợ phía trên).
+    * Mục **`An toàn dữ liệu` & `Chính sách hoàn tiền của Google Play`:** 3 thẻ thông tin viền bo góc vuốt ngang (`Không chia sẻ dữ liệu với bên thứ ba`, `Không thu thập dữ liệu nào`, `Dữ liệu được mã hóa` + `Có thể yêu cầu xóa dữ liệu`) kèm trang chi tiết bảo mật.
 * **Nâng cấp dải Banner vuốt ngang không trùng lặp (Non-Repeating Carousel) & mở rộng kho ứng dụng Random trên `CH Play` (`src/screens/CHPlay.jsx`, `src/assets/chplay/banner_*.jpg`, `src/assets/chplay/ic_*.jpg`, `public/CH Play.apk`):**
   * **Dải 5 Banner quảng cáo vuốt ngang chuẩn Google Play Material 3 (`FEATURED_BANNERS_POOL` gồm 15 banner độc bản):** Thay thế thẻ banner đơn lẻ cố định ở đầu tab **`Ứng dụng`** bằng dải 5 thẻ banner trượt ngang mượt mà (`scroll-snap-type: x mandatory`, hé lộ mép thẻ kế tiếp bên phải kèm thanh chấm chỉ báo Material 3), cắt lọc sạch phần artwork sắc nét không dính chữ/nút thừa và đồng bộ thanh thông tin đáy chuẩn Android (`Cài đặt` / `Mở`).
   * **Thuật toán chống trùng lặp tuyệt đối (`drawUniqueBanners` & `buildFreshStoreLayout`):**

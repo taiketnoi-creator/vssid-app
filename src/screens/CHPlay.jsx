@@ -1082,6 +1082,118 @@ const HANDY_GAMES_POOL = [
   { id: 'kiddopia_sq', appKey: 'kiddopia', name: 'Kiddopia Toddler Games', rating: '4,5', icon: icKiddopia },
 ];
 
+function formatDaysAgoDate(daysAgo) {
+  const d = new Date(Date.now() - daysAgo * 86400000);
+  return `${d.getDate()}/${d.getMonth() + 1}/${String(d.getFullYear()).slice(-2)}`;
+}
+
+const VSSID_REVIEWS_POOL = [
+  {
+    id: 'rv_tichnguyen',
+    author: 'tich nguyen',
+    initial: 'T',
+    avatarBg: 'linear-gradient(145deg, #1e6b5c 0%, #3d9970 55%, #88c999 100%)',
+    avatarFg: '#ffffff',
+    stars: 1,
+    daysAgo: 7,
+    relTime: '7 ngày trước',
+    helpfulBase: 40,
+    featured: true,
+    content: 'ứng dụng xử lý thông tin rất chậm.báo lỗi liên tục.đề nghị cơ quan bảo hiểm lên xoá bỏ app đi',
+  },
+  {
+    id: 'rv_didongthegioi',
+    author: 'Di Động Thế Giới',
+    initial: 'D',
+    avatarBg: 'linear-gradient(145deg, #d4e157 0%, #afb42b 100%)',
+    avatarFg: '#1f1f1f',
+    stars: 1,
+    daysAgo: 15,
+    relTime: '2 tuần trước',
+    helpfulBase: 54,
+    featured: true,
+    content: 'Đăng nhập xong load mãi không xem được gì. mất cả cơ sở dữ liệu cũ mà không biết lí do, yêu cầu xử lí thì không giải quyết cho dân, đẩy trách nhiệm từ bên này qua bên khác, còn đổ lỗi cho dân. nói chung bhxh rất tệ, không đảm bảo quyền lợi gì cho dân cả',
+  },
+  {
+    id: 'rv_gaunhoibom',
+    author: 'Gấu Nhồi Bơm',
+    initial: 'G',
+    avatarBg: 'linear-gradient(145deg, #6d4c41 0%, #4e342e 100%)',
+    avatarFg: '#ffffff',
+    stars: 1,
+    daysAgo: 19,
+    relTime: '2 tuần trước',
+    helpfulBase: 90,
+    featured: true,
+    content: 'tệ, lỗi liên tục, chưa thấy app nào tệ như app này làm đủ các thể loại xong rồi vẫn lỗi không vào được',
+  },
+  {
+    id: 'rv_minhhoang',
+    author: 'Minh Hoàng Nguyễn',
+    initial: 'M',
+    avatarBg: '#1a73e8',
+    avatarFg: '#ffffff',
+    stars: 5,
+    daysAgo: 4,
+    relTime: '4 ngày trước',
+    helpfulBase: 28,
+    featured: false,
+    content: 'Ứng dụng rất tiện lợi khi đi khám chữa bệnh bằng thẻ BHYT điện tử, không cần mang thẻ giấy. Tra cứu quá trình đóng BHXH và BHTN đầy đủ, rõ ràng.',
+  },
+  {
+    id: 'rv_thuha',
+    author: 'Trần Thu Hà',
+    initial: 'H',
+    avatarBg: '#c2185b',
+    avatarFg: '#ffffff',
+    stars: 5,
+    daysAgo: 9,
+    relTime: '9 ngày trước',
+    helpfulBase: 19,
+    featured: false,
+    content: 'Đăng nhập bằng VNeID nhanh, xem được chi tiết mức đóng BHXH từng tháng của công ty, rất hữu ích cho người lao động.',
+  },
+  {
+    id: 'rv_vandung',
+    author: 'Lê Văn Dũng',
+    initial: 'D',
+    avatarBg: '#00796b',
+    avatarFg: '#ffffff',
+    stars: 4,
+    daysAgo: 12,
+    relTime: '12 ngày trước',
+    helpfulBase: 14,
+    featured: false,
+    content: 'Tra cứu sổ khám chữa bệnh và thẻ BHYT khá ổn, tuy nhiên giờ cao điểm đôi lúc tải hơi lâu một chút.',
+  },
+  {
+    id: 'rv_quocbao',
+    author: 'Phạm Quốc Bảo',
+    initial: 'B',
+    avatarBg: '#ef6c00',
+    avatarFg: '#ffffff',
+    stars: 3,
+    daysAgo: 23,
+    relTime: '3 tuần trước',
+    helpfulBase: 11,
+    featured: false,
+    content: 'Giao diện dễ nhìn, đầy đủ thông tin bảo hiểm xã hội nhưng cần cải thiện thêm tốc độ phản hồi máy chủ.',
+  },
+  {
+    id: 'rv_yennhi',
+    author: 'Hoàng Yến Nhi',
+    initial: 'N',
+    avatarBg: '#7b1fa2',
+    avatarFg: '#ffffff',
+    stars: 5,
+    daysAgo: 27,
+    relTime: '3 tuần trước',
+    helpfulBase: 22,
+    featured: false,
+    content: 'Tiện ích thiết thực, đi viện chỉ cần mở hình ảnh thẻ BHYT trên VssID là quét mã được ngay.',
+  },
+];
+
 // Build synchronized, cross-deduplicated store layout so NO two banners or visible apps collide on the same screen
 function buildFreshStoreLayout(existingBanners = null) {
   const featuredBanners = existingBanners || drawUniqueBanners(5);
@@ -1103,6 +1215,24 @@ function buildFreshStoreLayout(existingBanners = null) {
   const randomSearchInputAds = pickUniqueApps(SPONSORED_APPS_POOL, 3, usedOnSearch);
   const randomLimitedEvents = pickUniqueApps(SPONSORED_APPS_POOL, 4, new Set());
 
+  // Deduplicate across VssID Detail Page (2 spotlight banners + 6 sponsored stack apps + 8 similar apps = 16 distinct apps!)
+  const usedOnDetail = new Set();
+  const sponsoredByKey = new Map(SPONSORED_APPS_POOL.map((a) => [a.appKey, a]));
+  const detailSponsoredBanners = shuffleArray(FEATURED_BANNERS_POOL)
+    .slice(0, 2)
+    .map((b) => {
+      usedOnDetail.add(b.appKey);
+      const matched = sponsoredByKey.get(b.appKey);
+      return {
+        ...b,
+        developer: matched ? matched.developer : 'Google Play Partner',
+        categories: matched ? matched.categories : b.subtitle,
+      };
+    });
+  const detailSponsoredCol1 = pickUniqueApps(SPONSORED_APPS_POOL, 3, usedOnDetail);
+  const detailSponsoredCol2 = pickUniqueApps(SPONSORED_APPS_POOL, 3, usedOnDetail);
+  const detailSimilarApps = pickUniqueApps(POPULAR_SQUARE_POOL, 8, usedOnDetail);
+
   return {
     featuredBanners,
     randomAppsSponsored,
@@ -1113,6 +1243,10 @@ function buildFreshStoreLayout(existingBanners = null) {
     randomSearchStrip,
     randomSearchInputAds,
     randomLimitedEvents,
+    detailSponsoredBanners,
+    detailSponsoredCol1,
+    detailSponsoredCol2,
+    detailSimilarApps,
     randomBestsellerBooks: shuffleArray(BOOKS_BESTSELLERS_POOL),
     randomDiscountBooks: shuffleArray(BOOKS_DISCOUNT_POOL),
   };
@@ -1284,9 +1418,42 @@ export default function CHPlay({ onOpenVssID }) {
     randomSearchStrip,
     randomSearchInputAds,
     randomLimitedEvents,
+    detailSponsoredBanners,
+    detailSponsoredCol1,
+    detailSponsoredCol2,
+    detailSimilarApps,
     randomBestsellerBooks,
     randomDiscountBooks,
   } = storeLayout;
+
+  // Interactive states for VssID Full Detail View (matching d:\vss 2 reference video)
+  const [detailDeviceChip, setDetailDeviceChip] = useState('phone'); // 'phone' | 'xr' | 'pc' | 'tablet'
+  const [userRating, setUserRating] = useState(0);
+  const [writeReviewOpen, setWriteReviewOpen] = useState(false);
+  const [userReviewDraft, setUserReviewDraft] = useState('');
+  const [submittedUserReview, setSubmittedUserReview] = useState(null);
+  const [helpfulVotes, setHelpfulVotes] = useState({}); // { [reviewId]: 'yes' | 'no' }
+  const [supportExpanded, setSupportExpanded] = useState(false);
+  const [detailSubSheet, setDetailSubSheet] = useState(null); // null | 'about' | 'reviews' | 'datasafety' | 'similar'
+  const [reviewsStarFilter, setReviewsStarFilter] = useState('all'); // 'all' | 5 | 4 | 3 | 2 | 1
+  const [detailMenuOpen, setDetailMenuOpen] = useState(false);
+  const [autoUpdateEnabled, setAutoUpdateEnabled] = useState(true);
+  const [wishlisted, setWishlisted] = useState(false);
+  const [detailInfoDialog, setDetailInfoDialog] = useState(null); // null | 'gov' | 'age' | 'verified' | 'refund'
+  const detailScrollRef = useRef(null);
+
+  const openVssidDetail = () => {
+    reshuffleAllLists(false);
+    setDetailSubSheet(null);
+    setDetailMenuOpen(false);
+    setSupportExpanded(false);
+    setView('vssid_detail');
+    setTimeout(() => {
+      if (detailScrollRef.current) {
+        detailScrollRef.current.scrollTop = 0;
+      }
+    }, 0);
+  };
 
   const reshuffleAllLists = (rotateBanners = false) => {
     setStoreLayout((prev) => buildFreshStoreLayout(rotateBanners ? null : prev.featuredBanners));
@@ -2885,7 +3052,7 @@ export default function CHPlay({ onOpenVssID }) {
           {/* Row 1: Icon + VssID Title/Subtitle + Split Blue [ Cài đặt | ⌄ ] Button */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
             <div
-              onClick={() => setView('vssid_detail')}
+              onClick={openVssidDetail}
               style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0, cursor: 'pointer' }}
             >
               {/* VssID Icon with Circular Download Ring */}
@@ -3062,13 +3229,17 @@ export default function CHPlay({ onOpenVssID }) {
           </div>
 
           {/* Row 2: 3-Column Stats (3,0 ★ | 3+ | Chính phủ — exact match to frame_29.0.png) */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginTop: '20px',
-            marginBottom: '16px',
-          }}>
+          <div
+            onClick={openVssidDetail}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginTop: '20px',
+              marginBottom: '16px',
+              cursor: 'pointer',
+            }}
+          >
             <div style={{ flex: 1.1, textAlign: 'center' }}>
               <div style={{ fontSize: '14px', fontWeight: 600, color: '#1f1f1f', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2px' }}>
                 3,0 <span style={{ color: '#0b57d0', fontSize: '13px' }}>★</span>
@@ -3139,12 +3310,16 @@ export default function CHPlay({ onOpenVssID }) {
           </div>
 
           {/* Row 4: Official Description Tagline */}
-          <div style={{
-            fontSize: '12.8px',
-            color: '#444746',
-            lineHeight: '1.45',
-            marginTop: '12px',
-          }}>
+          <div
+            onClick={openVssidDetail}
+            style={{
+              fontSize: '12.8px',
+              color: '#444746',
+              lineHeight: '1.45',
+              marginTop: '12px',
+              cursor: 'pointer',
+            }}
+          >
             VssID là ứng dụng trên nền tảng di động chính thức của Bảo hiểm xã hội Việt Nam
           </div>
         </div>
@@ -3234,54 +3409,546 @@ export default function CHPlay({ onOpenVssID }) {
     );
   };
 
-  // VssID FULL DETAIL VIEW (When clicking into VssID icon/title)
+  // VssID FULL DETAIL VIEW (Exact 1:1 match to Google Play reference video in d:\vss 2)
   const renderVssIDDetailView = () => {
     const isWorking = installState === 'pending' || installState === 'downloading' || installState === 'installing';
     const radius = 34;
     const circumference = 2 * Math.PI * radius;
     const strokeDashoffset = circumference - (progress / 100) * circumference;
 
+    const featuredReviews = VSSID_REVIEWS_POOL.filter((r) => r.featured);
+    const filteredAllReviews =
+      reviewsStarFilter === 'all'
+        ? VSSID_REVIEWS_POOL
+        : VSSID_REVIEWS_POOL.filter((r) => r.stars === reviewsStarFilter);
+
+    const toggleHelpfulVote = (reviewId, voteType) => {
+      setHelpfulVotes((prev) => ({
+        ...prev,
+        [reviewId]: prev[reviewId] === voteType ? undefined : voteType,
+      }));
+    };
+
+    const renderStarsRow = (count, size = 12) => (
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '1.5px' }}>
+        {[1, 2, 3, 4, 5].map((s) => (
+          <svg key={s} width={size} height={size} viewBox="0 0 24 24" fill={s <= count ? '#0b57d0' : '#e0e2e7'}>
+            <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z" />
+          </svg>
+        ))}
+      </span>
+    );
+
+    // Sub-sheets inside VssID Detail ('about' | 'reviews' | 'datasafety' | 'similar')
+    if (detailSubSheet === 'about') {
+      return (
+        <div style={{ flex: 1, overflowY: 'auto', background: '#ffffff', paddingBottom: 'calc(92px + var(--chplay-safe-bottom, 0px))' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '14px',
+            height: '56px',
+            padding: '0 12px',
+            position: 'sticky',
+            top: 0,
+            background: '#ffffff',
+            borderBottom: '1px solid #e8eaed',
+            zIndex: 12,
+          }}>
+            <button
+              onClick={() => setDetailSubSheet(null)}
+              style={{ background: 'none', border: 'none', padding: '6px', cursor: 'pointer', display: 'flex' }}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <img src={icVssidStore} alt="VssID" style={{ width: '30px', height: '30px', borderRadius: '7px', objectFit: 'cover' }} />
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontSize: '15.5px', fontWeight: 500, color: '#1f1f1f' }}>VssID</div>
+              <div style={{ fontSize: '12px', color: '#444746' }}>Về ứng dụng này</div>
+            </div>
+          </div>
+
+          <div style={{ padding: '18px 20px' }}>
+            <div style={{ fontSize: '14px', color: '#303030', lineHeight: '1.6', whiteSpace: 'pre-line' }}>
+              {`VssID - Bảo hiểm xã hội số là ứng dụng trên nền tảng thiết bị di động chính thức của Bảo hiểm xã hội Việt Nam nhằm thiết lập kênh giao tiếp, tiếp cận thông tin, thực hiện dịch vụ công cho cá nhân tham gia giao dịch với cơ quan Bảo hiểm xã hội một cách tiện lợi, nhanh chóng và an toàn.
+
+Các tính năng chính trên VssID:
+• Sử dụng hình ảnh thẻ BHYT trên ứng dụng khi đi khám, chữa bệnh thay thế thẻ BHYT giấy.
+• Quản lý cá nhân: Tra cứu mã số BHXH, thẻ BHYT, quá trình tham gia BHXH, BHTN, BHTNLĐ-BNN, BHYT, thông tin hưởng các chế độ và sổ khám chữa bệnh.
+• Dịch vụ công trực tuyến: Cấp lại thẻ BHYT, chuyển địa bàn hưởng lương hưu/trợ cấp BHXH, đăng ký tài khoản cho con dưới 18 tuổi.
+• Tra cứu trực tuyến: Mã số BHXH, cơ quan BHXH, cơ sở khám chữa bệnh BHYT, điểm thu và đại lý thu trên toàn quốc.
+• Hỗ trợ tổng đài chăm sóc khách hàng 1900.9068 trực tuyến 24/7.`}
+            </div>
+
+            <div style={{ height: '1px', background: '#e8eaed', margin: '22px 0' }} />
+
+            <div style={{ fontSize: '16px', fontWeight: 500, color: '#1f1f1f', marginBottom: '8px' }}>Có gì mới</div>
+            <div style={{ fontSize: '13.5px', color: '#444746', lineHeight: '1.5' }}>
+              • Tối ưu hóa tốc độ đồng bộ dữ liệu quá trình tham gia BHXH, BHTN và thẻ BHYT điện tử.<br />
+              • Nâng cấp xác thực đăng nhập liên thông tài khoản định danh điện tử VNeID.<br />
+              • Cải thiện độ ổn định và giao diện người dùng.
+            </div>
+
+            <div style={{ height: '1px', background: '#e8eaed', margin: '22px 0' }} />
+
+            <div style={{ fontSize: '16px', fontWeight: 500, color: '#1f1f1f', marginBottom: '14px' }}>Thông tin ứng dụng</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {[
+                ['Phiên bản', '1.7.1'],
+                ['Kích thước tải xuống', '25 MB'],
+                ['Lượt tải xuống', 'Hơn 10.000.000'],
+                ['Yêu cầu hệ điều hành', 'Android 6.0 trở lên'],
+                ['Đơn vị cung cấp', 'Bảo hiểm xã hội Việt Nam'],
+                ['Ngày phát hành', '3 thg 11, 2020'],
+                ['Quyền của ứng dụng', 'Máy ảnh, Bộ nhớ, Thông báo, Sinh trắc học'],
+              ].map(([label, val]) => (
+                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', fontSize: '13.5px' }}>
+                  <span style={{ color: '#444746' }}>{label}</span>
+                  <span style={{ color: '#1f1f1f', fontWeight: 500, textAlign: 'right' }}>{val}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (detailSubSheet === 'reviews') {
+      return (
+        <div style={{ flex: 1, overflowY: 'auto', background: '#ffffff', paddingBottom: 'calc(92px + var(--chplay-safe-bottom, 0px))' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '14px',
+            height: '56px',
+            padding: '0 12px',
+            position: 'sticky',
+            top: 0,
+            background: '#ffffff',
+            borderBottom: '1px solid #e8eaed',
+            zIndex: 12,
+          }}>
+            <button
+              onClick={() => setDetailSubSheet(null)}
+              style={{ background: 'none', border: 'none', padding: '6px', cursor: 'pointer', display: 'flex' }}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <img src={icVssidStore} alt="VssID" style={{ width: '30px', height: '30px', borderRadius: '7px', objectFit: 'cover' }} />
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontSize: '15.5px', fontWeight: 500, color: '#1f1f1f' }}>Điểm xếp hạng và bài đánh giá</div>
+              <div style={{ fontSize: '12px', color: '#444746' }}>VssID • 3,0 ★ (154.670)</div>
+            </div>
+          </div>
+
+          {/* Star Filter Chips */}
+          <div className="chplay-hide-scroll" style={{ display: 'flex', gap: '8px', overflowX: 'auto', padding: '14px 20px 8px', scrollbarWidth: 'none' }}>
+            {[
+              { id: 'all', label: 'Tất cả' },
+              { id: 5, label: '5 ★' },
+              { id: 4, label: '4 ★' },
+              { id: 3, label: '3 ★' },
+              { id: 2, label: '2 ★' },
+              { id: 1, label: '1 ★' },
+            ].map((chip) => {
+              const active = reviewsStarFilter === chip.id;
+              return (
+                <button
+                  key={String(chip.id)}
+                  onClick={() => setReviewsStarFilter(chip.id)}
+                  style={{
+                    background: active ? '#d3e3fd' : '#ffffff',
+                    color: active ? '#041e49' : '#444746',
+                    border: active ? '1px solid #d3e3fd' : '1px solid #c4c7c5',
+                    borderRadius: '8px',
+                    padding: '6px 14px',
+                    fontSize: '13px',
+                    fontWeight: 500,
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                  }}
+                >
+                  {chip.label}
+                </button>
+              );
+            })}
+          </div>
+
+          <div style={{ padding: '10px 20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {submittedUserReview && (reviewsStarFilter === 'all' || reviewsStarFilter === submittedUserReview.stars) && (
+              <div style={{ paddingBottom: '18px', borderBottom: '1px solid #e8eaed' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      background: accountColor,
+                      color: '#ffffff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '14px',
+                      fontWeight: 600,
+                    }}>
+                      {accountInitial}
+                    </div>
+                    <span style={{ fontSize: '14px', fontWeight: 500, color: '#1f1f1f' }}>{accountName} (Bạn)</span>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+                  {renderStarsRow(submittedUserReview.stars, 12)}
+                  <span style={{ fontSize: '12px', color: '#444746' }}>{formatDaysAgoDate(0)}  Vừa xong</span>
+                </div>
+                <div style={{ fontSize: '13.5px', color: '#303030', lineHeight: '1.48', marginTop: '8px' }}>
+                  {submittedUserReview.text}
+                </div>
+              </div>
+            )}
+
+            {filteredAllReviews.map((rv) => {
+              const vote = helpfulVotes[rv.id];
+              const count = rv.helpfulBase + (vote === 'yes' ? 1 : 0);
+              return (
+                <div key={rv.id} style={{ paddingBottom: '18px', borderBottom: '1px solid #f0f2f5' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <div style={{
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        background: rv.avatarBg,
+                        color: rv.avatarFg,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '13.5px',
+                        fontWeight: 600,
+                      }}>
+                        {rv.initial}
+                      </div>
+                      <span style={{ fontSize: '14px', color: '#1f1f1f', fontWeight: 400 }}>{rv.author}</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746">
+                      <circle cx="12" cy="5" r="1.8" />
+                      <circle cx="12" cy="12" r="1.8" />
+                      <circle cx="12" cy="19" r="1.8" />
+                    </svg>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
+                    {renderStarsRow(rv.stars, 12)}
+                    <span style={{ fontSize: '12px', color: '#444746' }}>
+                      {formatDaysAgoDate(rv.daysAgo)}&nbsp;&nbsp;{rv.relTime}
+                    </span>
+                  </div>
+
+                  <div style={{ fontSize: '13.5px', color: '#303030', lineHeight: '1.48', marginTop: '8px' }}>
+                    {rv.content}
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '12px' }}>
+                    <span style={{ fontSize: '12px', color: '#444746' }}>Bài đánh giá này có hữu ích không?</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <button
+                        onClick={() => toggleHelpfulVote(rv.id, 'yes')}
+                        style={{
+                          background: vote === 'yes' ? '#d3e3fd' : 'transparent',
+                          border: 'none',
+                          borderRadius: '14px',
+                          padding: '4px 8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          cursor: 'pointer',
+                          color: vote === 'yes' ? '#0b57d0' : '#444746',
+                          fontSize: '12.5px',
+                        }}
+                      >
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+                          <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <span>{count}</span>
+                      </button>
+                      <button
+                        onClick={() => toggleHelpfulVote(rv.id, 'no')}
+                        style={{
+                          background: vote === 'no' ? '#e8eaed' : 'transparent',
+                          border: 'none',
+                          borderRadius: '14px',
+                          padding: '4px 6px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          cursor: 'pointer',
+                          color: '#444746',
+                        }}
+                      >
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+                          <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    if (detailSubSheet === 'datasafety') {
+      return (
+        <div style={{ flex: 1, overflowY: 'auto', background: '#ffffff', paddingBottom: 'calc(92px + var(--chplay-safe-bottom, 0px))' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '14px',
+            height: '56px',
+            padding: '0 12px',
+            position: 'sticky',
+            top: 0,
+            background: '#ffffff',
+            borderBottom: '1px solid #e8eaed',
+            zIndex: 12,
+          }}>
+            <button
+              onClick={() => setDetailSubSheet(null)}
+              style={{ background: 'none', border: 'none', padding: '6px', cursor: 'pointer', display: 'flex' }}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <img src={icVssidStore} alt="VssID" style={{ width: '30px', height: '30px', borderRadius: '7px', objectFit: 'cover' }} />
+            <div>
+              <div style={{ fontSize: '15.5px', fontWeight: 500, color: '#1f1f1f' }}>An toàn dữ liệu</div>
+              <div style={{ fontSize: '12px', color: '#444746' }}>VssID • Bảo hiểm xã hội Việt Nam</div>
+            </div>
+          </div>
+
+          <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+            <div style={{ fontSize: '13.5px', color: '#444746', lineHeight: '1.5' }}>
+              Sự an toàn bắt đầu từ việc nắm được cách nhà phát triển thu thập và chia sẻ dữ liệu của bạn. Các biện pháp bảo mật và bảo vệ quyền riêng tư đối với dữ liệu có thể thay đổi tùy theo cách sử dụng, khu vực và độ tuổi.
+            </div>
+
+            {[
+              {
+                title: 'Không chia sẻ dữ liệu với bên thứ ba',
+                desc: 'Nhà phát triển cho biết ứng dụng này không chia sẻ dữ liệu người dùng với các công ty hoặc tổ chức khác.',
+              },
+              {
+                title: 'Không thu thập dữ liệu nào',
+                desc: 'Nhà phát triển cho biết ứng dụng này không thu thập dữ liệu người dùng cho mục đích thương mại.',
+              },
+              {
+                title: 'Dữ liệu được mã hóa trong quá trình truyền',
+                desc: 'Dữ liệu của bạn được truyền qua kết nối bảo mật HTTPS/TLS.',
+              },
+              {
+                title: 'Có thể yêu cầu xóa dữ liệu',
+                desc: 'Nhà phát triển cung cấp cách thức để bạn có thể yêu cầu xóa dữ liệu tài khoản theo quy định.',
+              },
+            ].map((item) => (
+              <div key={item.title} style={{ border: '1px solid #dadce0', borderRadius: '12px', padding: '14px 16px' }}>
+                <div style={{ fontSize: '14.5px', fontWeight: 500, color: '#1f1f1f' }}>{item.title}</div>
+                <div style={{ fontSize: '13px', color: '#444746', lineHeight: '1.45', marginTop: '4px' }}>{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (detailSubSheet === 'similar') {
+      return (
+        <div style={{ flex: 1, overflowY: 'auto', background: '#ffffff', paddingBottom: 'calc(92px + var(--chplay-safe-bottom, 0px))' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '14px',
+            height: '56px',
+            padding: '0 12px',
+            position: 'sticky',
+            top: 0,
+            background: '#ffffff',
+            borderBottom: '1px solid #e8eaed',
+            zIndex: 12,
+          }}>
+            <button
+              onClick={() => setDetailSubSheet(null)}
+              style={{ background: 'none', border: 'none', padding: '6px', cursor: 'pointer', display: 'flex' }}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <div style={{ fontSize: '17px', fontWeight: 500, color: '#1f1f1f' }}>Các ứng dụng tương tự</div>
+          </div>
+
+          <div style={{ padding: '16px 20px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '18px 14px' }}>
+            {detailSimilarApps.map((app) => (
+              <div key={app.id} style={{ minWidth: 0 }}>
+                <img
+                  src={app.icon}
+                  alt={app.name}
+                  style={{
+                    width: '100%',
+                    aspectRatio: '1 / 1',
+                    borderRadius: '20px',
+                    objectFit: 'cover',
+                    border: '1px solid rgba(0,0,0,0.08)',
+                    display: 'block',
+                  }}
+                />
+                <div style={{
+                  fontSize: '12.5px',
+                  color: '#1f1f1f',
+                  marginTop: '7px',
+                  lineHeight: '1.3',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                }}>
+                  {app.name}
+                </div>
+                <div style={{ fontSize: '12px', color: '#444746', marginTop: '2px' }}>{app.rating} ★</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div style={{ flex: 1, overflowY: 'auto', background: '#ffffff', paddingBottom: 'calc(32px + var(--chplay-safe-bottom, 0px))' }}>
-        {/* Top bar */}
+      <div
+        ref={detailScrollRef}
+        onClick={() => {
+          if (detailMenuOpen) setDetailMenuOpen(false);
+        }}
+        style={{
+          flex: 1,
+          overflowY: 'auto',
+          background: '#ffffff',
+          paddingBottom: 'calc(92px + var(--chplay-safe-bottom, 0px))',
+          position: 'relative',
+        }}
+      >
+        {/* Sticky Top App Bar: ← on left, ⋮ on right (exact match to 00:06–00:41) */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: '56px',
-          padding: '0 12px',
+          height: '52px',
+          padding: '0 10px',
           position: 'sticky',
           top: 0,
           background: '#ffffff',
-          zIndex: 10,
+          zIndex: 15,
         }}>
           <button
             onClick={() => setView('search_results')}
-            style={{ background: 'none', border: 'none', padding: '6px', cursor: 'pointer', display: 'flex' }}
+            style={{ background: 'none', border: 'none', padding: '8px', cursor: 'pointer', display: 'flex', borderRadius: '50%' }}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
               <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+
+          <div style={{ position: 'relative' }}>
             <button
-              onClick={() => setView('search_input')}
-              style={{ background: 'none', border: 'none', padding: '6px', cursor: 'pointer', display: 'flex' }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setDetailMenuOpen((v) => !v);
+              }}
+              style={{ background: 'none', border: 'none', padding: '8px', cursor: 'pointer', display: 'flex', borderRadius: '50%' }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
-                <circle cx="11" cy="11" r="7" />
-                <line x1="20" y1="20" x2="16.2" y2="16.2" strokeLinecap="round" />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#1f1f1f">
+                <circle cx="12" cy="5" r="1.9" />
+                <circle cx="12" cy="12" r="1.9" />
+                <circle cx="12" cy="19" r="1.9" />
               </svg>
             </button>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="#1f1f1f">
-              <circle cx="12" cy="5" r="2" />
-              <circle cx="12" cy="12" r="2" />
-              <circle cx="12" cy="19" r="2" />
-            </svg>
+
+            {detailMenuOpen && (
+              <div
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  position: 'absolute',
+                  top: '42px',
+                  right: '4px',
+                  width: '238px',
+                  background: '#f8fafd',
+                  borderRadius: '12px',
+                  boxShadow: '0 6px 20px rgba(0,0,0,0.16)',
+                  border: '1px solid #e3e7ed',
+                  padding: '6px 0',
+                  zIndex: 30,
+                }}
+              >
+                <div
+                  onClick={() => {
+                    setWishlisted((w) => !w);
+                    setDetailMenuOpen(false);
+                  }}
+                  style={{ padding: '11px 16px', fontSize: '14px', color: '#1f1f1f', cursor: 'pointer' }}
+                >
+                  {wishlisted ? 'Xóa khỏi danh sách yêu thích' : 'Thêm vào danh sách yêu thích'}
+                </div>
+                <div
+                  onClick={() => {
+                    if (navigator.share) {
+                      navigator.share({ title: 'VssID', url: window.location.href }).catch(() => {});
+                    }
+                    setDetailMenuOpen(false);
+                  }}
+                  style={{ padding: '11px 16px', fontSize: '14px', color: '#1f1f1f', cursor: 'pointer' }}
+                >
+                  Chia sẻ
+                </div>
+                <div
+                  onClick={() => {
+                    setAutoUpdateEnabled((v) => !v);
+                  }}
+                  style={{
+                    padding: '11px 16px',
+                    fontSize: '14px',
+                    color: '#1f1f1f',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <span>Bật tự động cập nhật</span>
+                  <span style={{
+                    width: '18px',
+                    height: '18px',
+                    borderRadius: '3px',
+                    background: autoUpdateEnabled ? '#0b57d0' : 'transparent',
+                    border: autoUpdateEnabled ? '1.5px solid #0b57d0' : '1.5px solid #444746',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#ffffff',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                  }}>
+                    {autoUpdateEnabled ? '✓' : ''}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-        <div style={{ padding: '8px 20px' }}>
+        {/* Block A: Hero Icon + App Name + Developer (00:06–00:09) */}
+        <div style={{ padding: '4px 20px 0' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
             <div style={{ position: 'relative', width: '72px', height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
               {isWorking && (
@@ -3314,23 +3981,24 @@ export default function CHPlay({ onOpenVssID }) {
                 src={icVssidStore}
                 alt="VssID"
                 style={{
-                  width: isWorking ? '48px' : '70px',
-                  height: isWorking ? '48px' : '70px',
+                  width: isWorking ? '48px' : '72px',
+                  height: isWorking ? '48px' : '72px',
                   borderRadius: isWorking ? '50%' : '16px',
                   objectFit: 'cover',
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
+                  border: '1px solid rgba(0,0,0,0.08)',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.08)',
                   transition: 'all 0.25s ease',
                 }}
               />
             </div>
 
-            <div>
-              <div style={{ fontSize: '22px', fontWeight: 500, color: '#1f1f1f' }}>VssID</div>
-              <div style={{ fontSize: '14px', color: '#0b57d0', fontWeight: 500, marginTop: '2px' }}>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ fontSize: '22px', fontWeight: 500, color: '#1f1f1f', lineHeight: '1.25' }}>VssID</div>
+              <div style={{ fontSize: '14px', color: '#0b57d0', fontWeight: 500, marginTop: '4px' }}>
                 Bảo hiểm xã hội Việt Nam
               </div>
               {isWorking && (
-                <div style={{ fontSize: '12.5px', color: '#444746', marginTop: '4px' }}>
+                <div style={{ fontSize: '12.5px', color: '#0b57d0', fontWeight: 500, marginTop: '4px' }}>
                   {installState === 'pending'
                     ? 'Đang chờ...'
                     : installState === 'downloading'
@@ -3341,52 +4009,121 @@ export default function CHPlay({ onOpenVssID }) {
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div style={{ marginTop: '22px' }}>
+          {/* Block B: 3-Column Metrics Strip ABOVE Install Button (exact match to 00:06–00:10) */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: '20px',
+            marginBottom: '18px',
+          }}>
+            <div
+              onClick={() => setDetailSubSheet('reviews')}
+              style={{ flex: 1.15, textAlign: 'center', cursor: 'pointer' }}
+            >
+              <div style={{ fontSize: '14px', fontWeight: 600, color: '#1f1f1f', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2px' }}>
+                3,0 <span style={{ color: '#1f1f1f', fontSize: '12.5px' }}>★</span>
+              </div>
+              <div style={{ fontSize: '11.5px', color: '#444746', marginTop: '4px' }}>154 N bài đánh giá</div>
+            </div>
+
+            <div style={{ width: '1px', height: '24px', background: '#e0e3e7' }} />
+
+            <div
+              onClick={() => setDetailInfoDialog('age')}
+              style={{ flex: 1, textAlign: 'center', cursor: 'pointer' }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <span style={{
+                  border: '1.5px solid #1f1f1f',
+                  borderRadius: '2.5px',
+                  fontSize: '10.5px',
+                  fontWeight: 700,
+                  padding: '0 3.5px',
+                  lineHeight: '14px',
+                  color: '#1f1f1f',
+                }}>
+                  3+
+                </span>
+              </div>
+              <div style={{ fontSize: '11.5px', color: '#444746', marginTop: '4px' }}>3 tuổi trở lên ⓘ</div>
+            </div>
+
+            <div style={{ width: '1px', height: '24px', background: '#e0e3e7' }} />
+
+            <div
+              onClick={() => setDetailInfoDialog('gov')}
+              style={{ flex: 1, textAlign: 'center', cursor: 'pointer' }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
+                  <path d="M3 10l9-6 9 6M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M3 18h18M2 21h20" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <div style={{ fontSize: '11.5px', color: '#444746', marginTop: '4px' }}>Chính phủ ⓘ</div>
+            </div>
+          </div>
+
+          {/* Block C: Full-Width Split [ Cài đặt | ⌄ ] Pill Button + Device Subtext (00:06–00:11) */}
+          <div>
             {installState === 'not_installed' && (
-              <div style={{ display: 'flex', gap: '3px' }}>
-                <button
-                  onClick={handleStartInstall}
-                  style={{
-                    flex: 1,
-                    height: '40px',
-                    background: '#0b57d0',
-                    color: '#ffffff',
-                    border: 'none',
-                    borderTopLeftRadius: '20px',
-                    borderBottomLeftRadius: '20px',
-                    borderTopRightRadius: '4px',
-                    borderBottomRightRadius: '4px',
-                    fontSize: '14px',
-                    fontWeight: 500,
-                    cursor: 'pointer',
-                  }}
-                >
-                  Cài đặt
-                </button>
-                <button
+              <>
+                <div style={{ display: 'flex', gap: '2px' }}>
+                  <button
+                    onClick={handleStartInstall}
+                    style={{
+                      flex: 1,
+                      height: '40px',
+                      background: '#0b57d0',
+                      color: '#ffffff',
+                      border: 'none',
+                      borderTopLeftRadius: '20px',
+                      borderBottomLeftRadius: '20px',
+                      borderTopRightRadius: '4px',
+                      borderBottomRightRadius: '4px',
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Cài đặt
+                  </button>
+                  <button
+                    onClick={() => setOtherDevicesSheetOpen(true)}
+                    style={{
+                      width: '42px',
+                      height: '40px',
+                      background: '#0b57d0',
+                      color: '#ffffff',
+                      border: 'none',
+                      borderTopLeftRadius: '4px',
+                      borderBottomLeftRadius: '4px',
+                      borderTopRightRadius: '20px',
+                      borderBottomRightRadius: '20px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.4">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </button>
+                </div>
+                <div
                   onClick={() => setOtherDevicesSheetOpen(true)}
                   style={{
-                    width: '42px',
-                    height: '40px',
-                    background: '#0b57d0',
-                    color: '#ffffff',
-                    border: 'none',
-                    borderTopLeftRadius: '4px',
-                    borderBottomLeftRadius: '4px',
-                    borderTopRightRadius: '20px',
-                    borderBottomRightRadius: '20px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    fontSize: '12px',
+                    color: '#444746',
+                    textAlign: 'center',
+                    marginTop: '10px',
                     cursor: 'pointer',
                   }}
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.4">
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
-              </div>
+                  Cài đặt trên điện thoại. Còn thiết bị khác.
+                </div>
+              </>
             )}
 
             {isWorking && (
@@ -3462,61 +4199,1263 @@ export default function CHPlay({ onOpenVssID }) {
               </div>
             )}
           </div>
+        </div>
 
-          {/* 3-Column Stats */}
+        {/* Block D: Large Portrait Screenshots Carousel (00:06–00:12) */}
+        <div
+          className="chplay-hide-scroll"
+          style={{
+            display: 'flex',
+            gap: '12px',
+            overflowX: 'auto',
+            scrollbarWidth: 'none',
+            padding: '18px 20px 6px',
+            scrollSnapType: 'x mandatory',
+          }}
+        >
+          {[vssidShot1Full, vssidShot2Full, vssidShot3Full].map((shot, idx) => (
+            <img
+              key={idx}
+              src={shot}
+              alt={`VssID màn hình ${idx + 1}`}
+              onClick={() => setPreviewShot(shot)}
+              style={{
+                width: '162px',
+                height: '292px',
+                borderRadius: '12px',
+                objectFit: 'cover',
+                border: '1px solid #e4e7ec',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+                cursor: 'pointer',
+                flexShrink: 0,
+                scrollSnapAlign: 'start',
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Block E: Về ứng dụng này + Category Ranking Chips (00:11–00:16) */}
+        <div style={{ padding: '16px 20px 0' }}>
+          <div
+            onClick={() => setDetailSubSheet('about')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{ fontSize: '18px', fontWeight: 500, color: '#1f1f1f' }}>Về ứng dụng này</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="2">
+              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          <div
+            onClick={() => setDetailSubSheet('about')}
+            style={{
+              marginTop: '12px',
+              fontSize: '17.5px',
+              color: '#303030',
+              lineHeight: '1.42',
+              cursor: 'pointer',
+            }}
+          >
+            VssID là ứng dụng trên nền tảng di động chính thức của Bảo hiểm xã hội Việt Nam
+          </div>
+
+          {/* Ranking chip row 1 */}
+          <div style={{ marginTop: '16px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              border: '1px solid #c4c7c5',
+              borderRadius: '8px',
+              padding: '6px 12px',
+              fontSize: '13px',
+              fontWeight: 500,
+              color: '#444746',
+            }}>
+              #3 miễn phí phổ biến trong doanh nghiệp
+            </span>
+          </div>
+        </div>
+
+        {/* Category chips row 2 (horizontally scrollable, exact match to 00:13–00:15) */}
+        <div
+          className="chplay-hide-scroll"
+          style={{
+            display: 'flex',
+            gap: '8px',
+            overflowX: 'auto',
+            scrollbarWidth: 'none',
+            padding: '10px 20px 4px',
+          }}
+        >
+          {['Du lịch và địa phương', 'Dịch vụ của chính phủ', 'Doanh nghiệp'].map((tag) => (
+            <span
+              key={tag}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                border: '1px solid #c4c7c5',
+                borderRadius: '8px',
+                padding: '6px 12px',
+                fontSize: '13px',
+                fontWeight: 500,
+                color: '#444746',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Block F: Device Rating Filter Chips (00:13–00:17) */}
+        <div
+          className="chplay-hide-scroll"
+          style={{
+            display: 'flex',
+            gap: '8px',
+            overflowX: 'auto',
+            scrollbarWidth: 'none',
+            padding: '18px 20px 4px',
+          }}
+        >
+          {[
+            {
+              id: 'phone',
+              label: 'Điện thoại • 3,0 ★',
+              icon: (active) =>
+                active ? (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
+                    <polyline points="20 6 9 17 4 12" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="6" y="2" width="12" height="20" rx="2.5" />
+                    <line x1="12" y1="18" x2="12.01" y2="18" />
+                  </svg>
+                ),
+            },
+            {
+              id: 'xr',
+              label: 'XR',
+              icon: () => (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+                  <rect x="2" y="7" width="20" height="10" rx="3.5" />
+                  <path d="M9.5 17l2.5-3 2.5 3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              ),
+            },
+            {
+              id: 'pc',
+              label: 'Máy tính',
+              icon: () => (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+                  <rect x="3" y="4" width="18" height="12" rx="2" />
+                  <line x1="2" y1="20" x2="22" y2="20" strokeLinecap="round" />
+                </svg>
+              ),
+            },
+            {
+              id: 'tablet',
+              label: 'Máy tính bảng',
+              icon: () => (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+                  <rect x="4" y="2" width="16" height="20" rx="2.5" />
+                  <line x1="12" y1="18" x2="12.01" y2="18" />
+                </svg>
+              ),
+            },
+          ].map((dev) => {
+            const active = detailDeviceChip === dev.id;
+            return (
+              <button
+                key={dev.id}
+                onClick={() => setDetailDeviceChip(dev.id)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  background: active ? '#d3e3fd' : '#ffffff',
+                  color: active ? '#041e49' : '#444746',
+                  border: active ? '1px solid #d3e3fd' : '1px solid #c4c7c5',
+                  borderRadius: '8px',
+                  padding: '6px 12px',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  whiteSpace: 'nowrap',
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                }}
+              >
+                {dev.icon(active)}
+                <span>{dev.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Block G: Xếp hạng ứng dụng này (00:13–00:18) */}
+        <div style={{ padding: '20px 20px 0' }}>
+          <div style={{ fontSize: '16px', fontWeight: 500, color: '#1f1f1f' }}>Xếp hạng ứng dụng này</div>
+          <div style={{ fontSize: '12px', color: '#444746', marginTop: '2px' }}>
+            Cho người khác biết suy nghĩ của bạn
+          </div>
+
           <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: '22px',
-            marginBottom: '18px',
+            padding: '16px 6px 14px',
           }}>
-            <div style={{ flex: 1.1, textAlign: 'center' }}>
-              <div style={{ fontSize: '14px', fontWeight: 600, color: '#1f1f1f' }}>
-                3,0 <span style={{ color: '#0b57d0' }}>★</span>
-              </div>
-              <div style={{ fontSize: '11.5px', color: '#444746', marginTop: '3px' }}>154 N bài đánh giá</div>
-            </div>
-            <div style={{ width: '1px', height: '24px', background: '#e0e3e7' }} />
-            <div style={{ flex: 1, textAlign: 'center' }}>
-              <span style={{ border: '1.5px solid #1f1f1f', borderRadius: '2px', fontSize: '10.5px', fontWeight: 700, padding: '0 3px' }}>3+</span>
-              <div style={{ fontSize: '11.5px', color: '#444746', marginTop: '4px' }}>3 tuổi trở lên ⓘ</div>
-            </div>
-            <div style={{ width: '1px', height: '24px', background: '#e0e3e7' }} />
-            <div style={{ flex: 1, textAlign: 'center' }}>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1f1f1f" strokeWidth="2">
-                  <path d="M3 10l9-6 9 6M4 10h16M6 10v8M10 10v8M14 10v8M18 10v8M3 18h18M2 21h20" />
-                </svg>
-              </div>
-              <div style={{ fontSize: '11.5px', color: '#444746', marginTop: '3px' }}>Chính phủ ⓘ</div>
-            </div>
+            {[1, 2, 3, 4, 5].map((star) => {
+              const filled = star <= userRating;
+              return (
+                <button
+                  key={star}
+                  onClick={() => {
+                    setUserRating(star);
+                    setWriteReviewOpen(true);
+                  }}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: '4px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                  }}
+                >
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 24 24"
+                    fill={filled ? '#0b57d0' : 'none'}
+                    stroke={filled ? '#0b57d0' : '#444746'}
+                    strokeWidth="1.6"
+                  >
+                    <path
+                      d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Screenshots */}
-          <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', scrollbarWidth: 'none' }}>
-            {[
-              { thumb: vssidShot1, full: vssidShot1Full },
-              { thumb: vssidShot2, full: vssidShot2Full },
-              { thumb: vssidShot3, full: vssidShot3Full },
-            ].map((s, idx) => (
-              <img
-                key={idx}
-                src={s.thumb}
-                alt="VssID"
-                onClick={() => setPreviewShot(s.full)}
-                style={{ width: '112px', height: '200px', borderRadius: '10px', objectFit: 'cover', border: '1px solid #e6e9ef', cursor: 'pointer', flexShrink: 0 }}
-              />
-            ))}
-          </div>
-
-          <div style={{ marginTop: '18px', fontSize: '16px', fontWeight: 500, color: '#1f1f1f' }}>
-            Về ứng dụng này
-          </div>
-          <div style={{ marginTop: '8px', fontSize: '13.5px', color: '#444746', lineHeight: '1.5' }}>
-            VssID là ứng dụng trên nền tảng di động chính thức của Bảo hiểm xã hội Việt Nam phục vụ mục đích thiết lập kênh giao tiếp, tiếp cận thông tin, thực hiện dịch vụ công cho cá nhân tham gia BHXH, BHYT, BHTN.
+          <div
+            onClick={() => setWriteReviewOpen(true)}
+            style={{
+              display: 'inline-block',
+              fontSize: '13.5px',
+              fontWeight: 500,
+              color: '#0b57d0',
+              cursor: 'pointer',
+            }}
+          >
+            {submittedUserReview ? 'Chỉnh sửa bài đánh giá của bạn' : 'Viết bài đánh giá'}
           </div>
         </div>
+
+        {/* Block H: Điểm xếp hạng và bài đánh giá + 3,0 Histogram + Horizontal Review Cards (00:16–00:26) */}
+        <div style={{ padding: '24px 20px 0' }}>
+          <div
+            onClick={() => setDetailSubSheet('reviews')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{ fontSize: '18px', fontWeight: 500, color: '#1f1f1f' }}>Điểm xếp hạng và bài đánh giá</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="2">
+              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          <div
+            onClick={() => setDetailInfoDialog('verified')}
+            style={{
+              fontSize: '12px',
+              color: '#444746',
+              lineHeight: '1.42',
+              marginTop: '8px',
+              cursor: 'pointer',
+            }}
+          >
+            Điểm xếp hạng và bài đánh giá đã được xác minh và do những người sử dụng cùng loại thiết bị với bạn đưa ra ⓘ
+          </div>
+
+          {/* Giant 3,0 Score + 5-Bar Distribution */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '22px', marginTop: '16px' }}>
+            <div style={{ width: '92px', flexShrink: 0 }}>
+              <div style={{ fontSize: '50px', fontWeight: 400, color: '#1f1f1f', lineHeight: '1.02', letterSpacing: '-1px' }}>
+                3,0
+              </div>
+              <div style={{ marginTop: '6px' }}>{renderStarsRow(3, 14)}</div>
+              <div style={{ fontSize: '12px', color: '#444746', marginTop: '5px' }}>154.670</div>
+            </div>
+
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '5px' }}>
+              {[
+                { label: '5', pct: '48%' },
+                { label: '4', pct: '8%' },
+                { label: '3', pct: '5%' },
+                { label: '2', pct: '4%' },
+                { label: '1', pct: '38%' },
+              ].map((bar) => (
+                <div key={bar.label} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '12px', color: '#1f1f1f', width: '8px', fontWeight: 500 }}>{bar.label}</span>
+                  <div style={{ flex: 1, height: '8px', borderRadius: '999px', background: '#e8eaed', overflow: 'hidden' }}>
+                    <div style={{ width: bar.pct, height: '100%', borderRadius: '999px', background: '#0b57d0' }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Horizontal Swipable Review Cards Carousel + "Xem tất cả bài đánh giá" (00:18–00:25) */}
+        <div
+          className="chplay-hide-scroll"
+          style={{
+            display: 'flex',
+            alignItems: 'stretch',
+            gap: '12px',
+            overflowX: 'auto',
+            scrollbarWidth: 'none',
+            padding: '18px 20px 6px',
+            scrollSnapType: 'x mandatory',
+          }}
+        >
+          {featuredReviews.map((rv) => {
+            const vote = helpfulVotes[rv.id];
+            const count = rv.helpfulBase + (vote === 'yes' ? 1 : 0);
+            return (
+              <div
+                key={rv.id}
+                style={{
+                  width: '296px',
+                  flexShrink: 0,
+                  background: '#f8f9fa',
+                  borderRadius: '16px',
+                  padding: '16px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  scrollSnapAlign: 'start',
+                  border: '1px solid #eef1f5',
+                }}
+              >
+                <div>
+                  {/* Reviewer Header */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <div style={{
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        background: rv.avatarBg,
+                        color: rv.avatarFg,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '13.5px',
+                        fontWeight: 600,
+                      }}>
+                        {rv.initial}
+                      </div>
+                      <span style={{ fontSize: '14px', color: '#1f1f1f', fontWeight: 400 }}>{rv.author}</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746">
+                      <circle cx="12" cy="5" r="1.7" />
+                      <circle cx="12" cy="12" r="1.7" />
+                      <circle cx="12" cy="19" r="1.7" />
+                    </svg>
+                  </div>
+
+                  {/* Stars + Date + Relative Time */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '10px' }}>
+                    {renderStarsRow(rv.stars, 12)}
+                    <span style={{ fontSize: '12px', color: '#444746' }}>
+                      {formatDaysAgoDate(rv.daysAgo)}&nbsp;&nbsp;{rv.relTime}
+                    </span>
+                  </div>
+
+                  {/* Review Body */}
+                  <div style={{
+                    fontSize: '13.5px',
+                    color: '#303030',
+                    lineHeight: '1.46',
+                    marginTop: '10px',
+                  }}>
+                    {rv.content}
+                  </div>
+                </div>
+
+                {/* Helpful Footer */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: '16px',
+                  gap: '8px',
+                }}>
+                  <span style={{ fontSize: '11.8px', color: '#444746', lineHeight: '1.3' }}>
+                    Bài đánh giá này có hữu ích không?
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                    <button
+                      onClick={() => toggleHelpfulVote(rv.id, 'yes')}
+                      style={{
+                        background: vote === 'yes' ? '#d3e3fd' : 'transparent',
+                        border: 'none',
+                        borderRadius: '14px',
+                        padding: '4px 6px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        cursor: 'pointer',
+                        color: vote === 'yes' ? '#0b57d0' : '#444746',
+                        fontSize: '12.5px',
+                      }}
+                    >
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+                        <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <span>{count}</span>
+                    </button>
+                    <button
+                      onClick={() => toggleHelpfulVote(rv.id, 'no')}
+                      style={{
+                        background: vote === 'no' ? '#e8eaed' : 'transparent',
+                        border: 'none',
+                        borderRadius: '14px',
+                        padding: '4px 5px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        cursor: 'pointer',
+                        color: '#444746',
+                      }}
+                    >
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+                        <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+
+          {/* End-of-carousel "Xem tất cả bài đánh giá" link (exact match to 00:22) */}
+          <div
+            onClick={() => setDetailSubSheet('reviews')}
+            style={{
+              minWidth: '175px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '0 16px',
+              color: '#0b57d0',
+              fontSize: '14px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              flexShrink: 0,
+              scrollSnapAlign: 'start',
+            }}
+          >
+            Xem tất cả bài đánh giá
+          </div>
+        </div>
+
+        {/* Block I: Hỗ trợ ứng dụng Collapsible Accordion (00:25–00:27) */}
+        <div style={{ padding: '20px 20px 4px' }}>
+          <div
+            onClick={() => setSupportExpanded((v) => !v)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              cursor: 'pointer',
+              padding: '4px 0',
+            }}
+          >
+            <span style={{ fontSize: '18px', fontWeight: 500, color: '#1f1f1f' }}>Hỗ trợ ứng dụng</span>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#444746"
+              strokeWidth="2"
+              style={{
+                transform: supportExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                transition: 'transform 0.2s ease',
+              }}
+            >
+              <polyline points="6 9 12 15 18 9" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          {supportExpanded && (
+            <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '14px', paddingBottom: '6px' }}>
+              {[
+                {
+                  label: 'Trang web',
+                  sub: 'https://baohiemxahoi.gov.vn',
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="1.9">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                  ),
+                },
+                {
+                  label: 'Email hỗ trợ',
+                  sub: 'lienhe@vss.gov.vn',
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="1.9">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="m22 7-10 7L2 7" />
+                    </svg>
+                  ),
+                },
+                {
+                  label: 'Địa chỉ',
+                  sub: 'Số 6 Cương Kiên, Mễ Trì, Nam Từ Liêm, Hà Nội',
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="1.9">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  ),
+                },
+                {
+                  label: 'Chính sách quyền riêng tư',
+                  sub: 'https://baohiemxahoi.gov.vn/chinh-sach-bao-mat',
+                  icon: (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="1.9">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                  ),
+                },
+              ].map((row) => (
+                <div key={row.label} style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
+                  <div style={{ marginTop: '2px', flexShrink: 0 }}>{row.icon}</div>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: '14px', fontWeight: 500, color: '#1f1f1f' }}>{row.label}</div>
+                    <div style={{ fontSize: '12.5px', color: '#444746', marginTop: '1px', wordBreak: 'break-word' }}>{row.sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Block J: Được tài trợ • Được đề xuất cho bạn — Spotlight Banner + 3-App Stack Carousel (00:26–00:30 & 00:37–00:40) */}
+        <div style={{ paddingTop: '18px' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0 20px 12px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: '#1f1f1f' }}>Được tài trợ</span>
+              <span style={{ fontSize: '12px', color: '#444746' }}>•</span>
+              <span style={{ fontSize: '16.5px', fontWeight: 500, color: '#1f1f1f' }}>Được đề xuất cho bạn</span>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#444746">
+              <circle cx="12" cy="5" r="1.8" />
+              <circle cx="12" cy="12" r="1.8" />
+              <circle cx="12" cy="19" r="1.8" />
+            </svg>
+          </div>
+
+          <div
+            className="chplay-hide-scroll"
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '14px',
+              overflowX: 'auto',
+              scrollbarWidth: 'none',
+              padding: '0 20px 4px',
+              scrollSnapType: 'x mandatory',
+            }}
+          >
+            {/* Slide 1: Spotlight Banner Card 1 (matches 00:26–00:30) */}
+            {detailSponsoredBanners[0] && (
+              <div style={{ width: '312px', flexShrink: 0, scrollSnapAlign: 'start' }}>
+                <img
+                  src={detailSponsoredBanners[0].banner}
+                  alt={detailSponsoredBanners[0].name}
+                  style={{
+                    width: '100%',
+                    height: '168px',
+                    borderRadius: '12px',
+                    objectFit: 'cover',
+                    display: 'block',
+                    border: '1px solid rgba(0,0,0,0.06)',
+                  }}
+                />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '12px' }}>
+                  <img
+                    src={detailSponsoredBanners[0].icon}
+                    alt={detailSponsoredBanners[0].name}
+                    style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '10px',
+                      objectFit: 'cover',
+                      border: '1px solid rgba(0,0,0,0.08)',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{
+                      fontSize: '14.5px',
+                      fontWeight: 500,
+                      color: '#1f1f1f',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {detailSponsoredBanners[0].name}
+                    </div>
+                    <div style={{
+                      fontSize: '12px',
+                      color: '#444746',
+                      marginTop: '1px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {detailSponsoredBanners[0].developer} • {detailSponsoredBanners[0].rating} ★
+                    </div>
+                    <div style={{
+                      fontSize: '12px',
+                      color: '#444746',
+                      marginTop: '1px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {detailSponsoredBanners[0].subtitle}
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+                    <button
+                      style={{
+                        background: '#ffffff',
+                        color: '#0b57d0',
+                        border: '1px solid #747775',
+                        borderRadius: '18px',
+                        padding: '6px 16px',
+                        fontSize: '13.5px',
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Cài đặt
+                    </button>
+                    <span style={{ fontSize: '9.5px', color: '#444746', marginTop: '3px', whiteSpace: 'nowrap' }}>
+                      Mua hàng trong ứng dụng
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Slide 2: 3-App Vertical Stack (matches 00:38 when swiping right!) */}
+            <div style={{
+              width: '306px',
+              flexShrink: 0,
+              scrollSnapAlign: 'start',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+              paddingTop: '2px',
+            }}>
+              {detailSponsoredCol1.map((app) => (
+                <div key={app.id} style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                  <img
+                    src={app.icon}
+                    alt={app.name}
+                    style={{
+                      width: '54px',
+                      height: '54px',
+                      borderRadius: '12px',
+                      objectFit: 'cover',
+                      border: '1px solid rgba(0,0,0,0.08)',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{
+                      fontSize: '14.5px',
+                      color: '#1f1f1f',
+                      fontWeight: 400,
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {app.name}
+                    </div>
+                    <div style={{
+                      fontSize: '12px',
+                      color: '#444746',
+                      marginTop: '2px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {app.categories}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#444746', marginTop: '2px' }}>
+                      {app.rating} ★ &nbsp;&nbsp;{app.size}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Slide 3: Spotlight Banner Card 2 */}
+            {detailSponsoredBanners[1] && (
+              <div style={{ width: '312px', flexShrink: 0, scrollSnapAlign: 'start' }}>
+                <img
+                  src={detailSponsoredBanners[1].banner}
+                  alt={detailSponsoredBanners[1].name}
+                  style={{
+                    width: '100%',
+                    height: '168px',
+                    borderRadius: '12px',
+                    objectFit: 'cover',
+                    display: 'block',
+                    border: '1px solid rgba(0,0,0,0.06)',
+                  }}
+                />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '12px' }}>
+                  <img
+                    src={detailSponsoredBanners[1].icon}
+                    alt={detailSponsoredBanners[1].name}
+                    style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '10px',
+                      objectFit: 'cover',
+                      border: '1px solid rgba(0,0,0,0.08)',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{
+                      fontSize: '14.5px',
+                      fontWeight: 500,
+                      color: '#1f1f1f',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {detailSponsoredBanners[1].name}
+                    </div>
+                    <div style={{
+                      fontSize: '12px',
+                      color: '#444746',
+                      marginTop: '1px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {detailSponsoredBanners[1].developer} • {detailSponsoredBanners[1].rating} ★
+                    </div>
+                    <div style={{
+                      fontSize: '12px',
+                      color: '#444746',
+                      marginTop: '1px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {detailSponsoredBanners[1].subtitle}
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+                    <button
+                      style={{
+                        background: '#ffffff',
+                        color: '#0b57d0',
+                        border: '1px solid #747775',
+                        borderRadius: '18px',
+                        padding: '6px 16px',
+                        fontSize: '13.5px',
+                        fontWeight: 500,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Cài đặt
+                    </button>
+                    <span style={{ fontSize: '9.5px', color: '#444746', marginTop: '3px', whiteSpace: 'nowrap' }}>
+                      Mua hàng trong ứng dụng
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Slide 4: 3-App Vertical Stack 2 */}
+            <div style={{
+              width: '306px',
+              flexShrink: 0,
+              scrollSnapAlign: 'start',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+              paddingTop: '2px',
+            }}>
+              {detailSponsoredCol2.map((app) => (
+                <div key={app.id} style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                  <img
+                    src={app.icon}
+                    alt={app.name}
+                    style={{
+                      width: '54px',
+                      height: '54px',
+                      borderRadius: '12px',
+                      objectFit: 'cover',
+                      border: '1px solid rgba(0,0,0,0.08)',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{
+                      fontSize: '14.5px',
+                      color: '#1f1f1f',
+                      fontWeight: 400,
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {app.name}
+                    </div>
+                    <div style={{
+                      fontSize: '12px',
+                      color: '#444746',
+                      marginTop: '2px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {app.categories}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#444746', marginTop: '2px' }}>
+                      {app.rating} ★ &nbsp;&nbsp;{app.size}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Block K: Các ứng dụng tương tự (00:27–00:33) */}
+        <div style={{ paddingTop: '24px' }}>
+          <div
+            onClick={() => setDetailSubSheet('similar')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0 20px 14px',
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{ fontSize: '18px', fontWeight: 500, color: '#1f1f1f' }}>Các ứng dụng tương tự</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="2">
+              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          <div
+            className="chplay-hide-scroll"
+            style={{
+              display: 'flex',
+              gap: '14px',
+              overflowX: 'auto',
+              scrollbarWidth: 'none',
+              padding: '0 20px 4px',
+            }}
+          >
+            {detailSimilarApps.map((app) => (
+              <div key={app.id} style={{ width: '104px', flexShrink: 0 }}>
+                <img
+                  src={app.icon}
+                  alt={app.name}
+                  style={{
+                    width: '104px',
+                    height: '104px',
+                    borderRadius: '20px',
+                    objectFit: 'cover',
+                    border: '1px solid rgba(0,0,0,0.08)',
+                    display: 'block',
+                  }}
+                />
+                <div style={{
+                  fontSize: '13px',
+                  color: '#1f1f1f',
+                  marginTop: '8px',
+                  lineHeight: '1.3',
+                  height: '34px',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                }}>
+                  {app.name}
+                </div>
+                <div style={{ fontSize: '12px', color: '#444746', marginTop: '2px' }}>
+                  {app.rating} ★
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Block L: An toàn dữ liệu + Disclaimer + Chính sách hoàn tiền của Google Play (00:30–00:33) */}
+        <div style={{ paddingTop: '24px' }}>
+          <div
+            onClick={() => setDetailSubSheet('datasafety')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0 20px 14px',
+              cursor: 'pointer',
+            }}
+          >
+            <span style={{ fontSize: '18px', fontWeight: 500, color: '#1f1f1f' }}>An toàn dữ liệu</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="2">
+              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          {/* 3 Horizontal Rounded Data Safety Cards (exact match to 00:31–00:32) */}
+          <div
+            className="chplay-hide-scroll"
+            style={{
+              display: 'flex',
+              gap: '12px',
+              overflowX: 'auto',
+              scrollbarWidth: 'none',
+              padding: '0 20px 14px',
+            }}
+          >
+            {/* Card 1: Không chia sẻ dữ liệu với bên thứ ba */}
+            <div style={{
+              width: '162px',
+              minHeight: '178px',
+              border: '1px solid #c4c7c5',
+              borderRadius: '12px',
+              padding: '15px 14px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              flexShrink: 0,
+              boxSizing: 'border-box',
+            }}>
+              <div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="1.9">
+                  <circle cx="18" cy="5" r="3" />
+                  <circle cx="6" cy="12" r="3" />
+                  <circle cx="18" cy="19" r="3" />
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                </svg>
+                <div style={{ fontSize: '13px', color: '#1f1f1f', lineHeight: '1.36', marginTop: '10px', fontWeight: 400 }}>
+                  Không chia sẻ dữ liệu với bên thứ ba
+                </div>
+              </div>
+              <div
+                onClick={() => setDetailSubSheet('datasafety')}
+                style={{ fontSize: '11.5px', color: '#444746', lineHeight: '1.38', marginTop: '14px', cursor: 'pointer' }}
+              >
+                <span style={{ color: '#0b57d0', textDecoration: 'underline' }}>Tìm hiểu thêm</span> về cách nhà phát triển khai báo thông tin về hoạt động chia sẻ dữ liệu
+              </div>
+            </div>
+
+            {/* Card 2: Không thu thập dữ liệu nào */}
+            <div style={{
+              width: '162px',
+              minHeight: '178px',
+              border: '1px solid #c4c7c5',
+              borderRadius: '12px',
+              padding: '15px 14px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              flexShrink: 0,
+              boxSizing: 'border-box',
+            }}>
+              <div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="1.9">
+                  <path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="m8 16 4-4 4 4M12 12v9" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <div style={{ fontSize: '13px', color: '#1f1f1f', lineHeight: '1.36', marginTop: '10px', fontWeight: 400 }}>
+                  Không thu thập dữ liệu nào
+                </div>
+              </div>
+              <div
+                onClick={() => setDetailSubSheet('datasafety')}
+                style={{ fontSize: '11.5px', color: '#444746', lineHeight: '1.38', marginTop: '14px', cursor: 'pointer' }}
+              >
+                <span style={{ color: '#0b57d0', textDecoration: 'underline' }}>Tìm hiểu thêm</span> về cách nhà phát triển khai báo thông tin về hoạt động thu thập dữ liệu
+              </div>
+            </div>
+
+            {/* Card 3: Mã hóa + Xóa dữ liệu (stacked inside Card 3 matching right edge of 00:31–00:32) */}
+            <div style={{
+              width: '174px',
+              minHeight: '178px',
+              border: '1px solid #c4c7c5',
+              borderRadius: '12px',
+              padding: '15px 14px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              flexShrink: 0,
+              boxSizing: 'border-box',
+            }}>
+              <div>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="1.9">
+                  <rect x="4" y="11" width="16" height="10" rx="2" />
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                </svg>
+                <div style={{ fontSize: '12.5px', color: '#1f1f1f', lineHeight: '1.35', marginTop: '8px' }}>
+                  Dữ liệu được mã hóa trong quá trình truyền
+                </div>
+              </div>
+              <div style={{ marginTop: '12px' }}>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="1.9">
+                  <polyline points="3 6 5 6 21 6" />
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                </svg>
+                <div style={{ fontSize: '12.5px', color: '#1f1f1f', lineHeight: '1.35', marginTop: '6px' }}>
+                  Có thể yêu cầu xóa dữ liệu
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Disclaimer Paragraph */}
+          <div style={{
+            padding: '2px 20px 14px',
+            fontSize: '12.8px',
+            color: '#444746',
+            lineHeight: '1.48',
+          }}>
+            Các biện pháp bảo mật và bảo vệ quyền riêng tư đối với dữ liệu có thể thay đổi tùy theo cách sử dụng, khu vực và độ tuổi. Nhà phát triển đã cung cấp thông tin này và có thể cập nhật theo thời gian.
+          </div>
+
+          {/* Google Play Refund Policy Row */}
+          <div
+            onClick={() => setDetailInfoDialog('refund')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '8px 20px 16px',
+              cursor: 'pointer',
+            }}
+          >
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#444746" strokeWidth="2">
+              <polyline points="9 14 4 9 9 4" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M20 20v-7a4 4 0 0 0-4-4H4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span style={{ fontSize: '13.5px', fontWeight: 500, color: '#1f1f1f' }}>
+              Chính sách hoàn tiền của Google Play
+            </span>
+          </div>
+        </div>
+
+        {/* Interactive Write-a-Review Modal */}
+        {writeReviewOpen && (
+          <div
+            onClick={() => setWriteReviewOpen(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0,0,0,0.45)',
+              zIndex: 70,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '20px',
+            }}
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                width: '100%',
+                maxWidth: '356px',
+                background: '#ffffff',
+                borderRadius: '20px',
+                padding: '20px',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.22)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <img src={icVssidStore} alt="VssID" style={{ width: '40px', height: '40px', borderRadius: '9px' }} />
+                <div>
+                  <div style={{ fontSize: '16px', fontWeight: 500, color: '#1f1f1f' }}>VssID</div>
+                  <div style={{ fontSize: '12px', color: '#444746' }}>Bài đánh giá công khai với tên {accountName}</div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', margin: '16px 0' }}>
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => setUserRating(s)}
+                    style={{ background: 'none', border: 'none', padding: '4px', cursor: 'pointer' }}
+                  >
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill={s <= (userRating || 5) ? '#0b57d0' : 'none'} stroke="#0b57d0" strokeWidth="1.8">
+                      <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z" />
+                    </svg>
+                  </button>
+                ))}
+              </div>
+
+              <textarea
+                value={userReviewDraft}
+                onChange={(e) => setUserReviewDraft(e.target.value)}
+                placeholder="Mô tả trải nghiệm của bạn (không bắt buộc)"
+                rows={3}
+                style={{
+                  width: '100%',
+                  borderRadius: '10px',
+                  border: '1px solid #c4c7c5',
+                  padding: '10px 12px',
+                  fontSize: '13.5px',
+                  fontFamily: 'inherit',
+                  boxSizing: 'border-box',
+                  resize: 'none',
+                  outline: 'none',
+                }}
+              />
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '14px' }}>
+                <button
+                  onClick={() => setWriteReviewOpen(false)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#0b57d0',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    padding: '8px 12px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Hủy
+                </button>
+                <button
+                  onClick={() => {
+                    const stars = userRating || 5;
+                    setUserRating(stars);
+                    setSubmittedUserReview({
+                      stars,
+                      text: userReviewDraft.trim() || 'Ứng dụng hữu ích để tra cứu BHXH và thẻ BHYT.',
+                    });
+                    setWriteReviewOpen(false);
+                  }}
+                  style={{
+                    background: '#0b57d0',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '18px',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    padding: '8px 18px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Đăng
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Info Dialog for Chính phủ / 3+ / Verified / Refund */}
+        {detailInfoDialog && (
+          <div
+            onClick={() => setDetailInfoDialog(null)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0,0,0,0.45)',
+              zIndex: 70,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '24px',
+            }}
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                width: '100%',
+                maxWidth: '340px',
+                background: '#ffffff',
+                borderRadius: '22px',
+                padding: '22px',
+                boxShadow: '0 10px 28px rgba(0,0,0,0.2)',
+              }}
+            >
+              <div style={{ fontSize: '17px', fontWeight: 500, color: '#1f1f1f' }}>
+                {detailInfoDialog === 'gov'
+                  ? 'Ứng dụng chính thức của Chính phủ'
+                  : detailInfoDialog === 'age'
+                  ? '3 tuổi trở lên'
+                  : detailInfoDialog === 'verified'
+                  ? 'Giới thiệu về điểm xếp hạng và bài đánh giá'
+                  : 'Chính sách hoàn tiền của Google Play'}
+              </div>
+              <div style={{ fontSize: '13.5px', color: '#444746', lineHeight: '1.5', marginTop: '10px' }}>
+                {detailInfoDialog === 'gov'
+                  ? 'Google Play đã xác minh ứng dụng này trực thuộc Bảo hiểm xã hội Việt Nam — cơ quan nhà nước chính thức cung cấp dịch vụ công và thông tin bảo hiểm xã hội.'
+                  : detailInfoDialog === 'age'
+                  ? 'Nội dung phù hợp với mọi lứa tuổi từ 3 tuổi trở lên theo tiêu chuẩn phân loại nội dung quốc tế trên Google Play.'
+                  : detailInfoDialog === 'verified'
+                  ? 'Điểm xếp hạng được tính từ các bài đánh giá mới nhất của người dùng tại khu vực của bạn trên cùng loại thiết bị (Điện thoại).'
+                  : 'VssID là ứng dụng hoàn toàn miễn phí của Bảo hiểm xã hội Việt Nam và không thu bất kỳ khoản phí tải xuống nào trên Google Play.'}
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
+                <button
+                  onClick={() => setDetailInfoDialog(null)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#0b57d0',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    padding: '6px 12px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Đã hiểu
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   };
@@ -3706,7 +5645,12 @@ export default function CHPlay({ onOpenVssID }) {
         </>
       )}
 
-      {view === 'vssid_detail' && renderVssIDDetailView()}
+      {view === 'vssid_detail' && (
+        <>
+          {renderVssIDDetailView()}
+          {renderBottomNav()}
+        </>
+      )}
 
       {view === 'main' && (
         <>
