@@ -9,6 +9,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
   // Form State
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [allowChPlay, setAllowChPlay] = useState(true);
   const [fullName, setFullName] = useState('');
   const [bhxhCode, setBhxhCode] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -42,6 +43,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
       setEditingIndex(index);
       setUsername(acc.username || '');
       setPassword(acc.password || '');
+      setAllowChPlay(acc.allowChPlay !== false);
       setFullName(acc.fullName || '');
       setBhxhCode(acc.bhxhCode || '');
       setBirthday(acc.birthday || '');
@@ -55,6 +57,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
       setEditingIndex(null);
       setUsername('');
       setPassword('');
+      setAllowChPlay(true);
       setFullName('');
       setBhxhCode('');
       setBirthday('');
@@ -112,6 +115,7 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
       ...(editingIndex !== null && accounts[editingIndex]?.id ? { id: accounts[editingIndex].id } : {}),
       username,
       password,
+      allowChPlay,
       fullName,
       bhxhCode: bhxhCode || username, // default to username if empty
       birthday: birthday || '01/01/2000',
@@ -136,6 +140,17 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
 
     onUpdateAccounts(updatedAccounts, newAccount);
     setActiveView('list');
+  };
+
+  const handleToggleAccountChPlay = (index, e) => {
+    if (e) e.stopPropagation();
+    const target = accounts[index];
+    if (!target) return;
+    const nextAllow = target.allowChPlay === false ? true : false;
+    const updatedAcc = { ...target, allowChPlay: nextAllow };
+    const updated = [...accounts];
+    updated[index] = updatedAcc;
+    onUpdateAccounts(updated, updatedAcc);
   };
 
   const handleDelete = (index, e) => {
@@ -271,10 +286,38 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
                       <div style={{ fontSize: '14px', fontWeight: 700, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {acc.fullName}
                       </div>
-                      <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px', display: 'flex', gap: '8px' }}>
+                      <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                         <span>TK: <strong>{acc.username}</strong></span>
                         <span>|</span>
                         <span>BHXH: <strong>{acc.bhxhCode}</strong></span>
+                      </div>
+                      <div style={{ marginTop: '6px' }}>
+                        {(() => {
+                          const isChPlayAllowed = acc.allowChPlay !== false;
+                          return (
+                            <button
+                              type="button"
+                              onClick={(e) => handleToggleAccountChPlay(i, e)}
+                              title="Bấm để Bật / Tắt quyền đăng nhập từ CH Play cho tài khoản này"
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '5px',
+                                background: isChPlayAllowed ? '#dcfce7' : '#fee2e2',
+                                border: `1px solid ${isChPlayAllowed ? '#86efac' : '#fecaca'}`,
+                                color: isChPlayAllowed ? '#15803d' : '#dc2626',
+                                borderRadius: '999px',
+                                padding: '3px 9px',
+                                fontSize: '10.5px',
+                                fontWeight: 700,
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                              }}
+                            >
+                              <span>{isChPlayAllowed ? '▶️ CH Play: ĐANG BẬT' : '🚫 CH Play: ĐANG TẮT'}</span>
+                            </button>
+                          );
+                        })()}
                       </div>
                     </div>
                   </div>
@@ -366,6 +409,48 @@ const AccountManager = ({ isOpen, onClose, accounts, onUpdateAccounts, onQuickLo
                       placeholder="Mật khẩu..."
                     />
                   </div>
+                </div>
+
+                {/* Toggle switch for Cho phép đăng nhập từ CH Play */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '10px',
+                  background: allowChPlay ? '#f0fdf4' : '#fef2f2',
+                  border: `1px solid ${allowChPlay ? '#bbf7d0' : '#fecaca'}`,
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  marginTop: '2px'
+                }}>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: allowChPlay ? '#15803d' : '#dc2626' }}>
+                      Cho phép đăng nhập từ CH Play: {allowChPlay ? 'ĐANG BẬT' : 'ĐANG TẮT (Chặn CH Play)'}
+                    </div>
+                    <div style={{ fontSize: '10.5px', color: '#64748b', marginTop: '2px', lineHeight: '1.35' }}>
+                      {allowChPlay
+                        ? 'Tài khoản này vào được từ cả app VssID và luồng CH Play.'
+                        : 'Chỉ vào được trên app VssID thẳng (đăng nhập từ CH Play sẽ báo mã không tồn tại).'}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setAllowChPlay(prev => !prev)}
+                    style={{
+                      border: 'none',
+                      borderRadius: '20px',
+                      padding: '5px 12px',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      background: allowChPlay ? '#16a34a' : '#94a3b8',
+                      color: '#ffffff',
+                      flexShrink: 0,
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    {allowChPlay ? 'Tắt CH Play' : '+ Bật CH Play'}
+                  </button>
                 </div>
               </div>
 

@@ -63,6 +63,27 @@ const SEED_ACCOUNTS = [
   }
 ];
 
+const CHPLAY_META_REGEX = /::chplay=(0|1)$/;
+
+function parseAccountPasswordMeta(rawPassword, explicitAllowChPlay) {
+  const str = String(rawPassword ?? '');
+  const match = str.match(CHPLAY_META_REGEX);
+  const cleanPassword = match ? str.replace(CHPLAY_META_REGEX, '') : str;
+  const allowChPlay =
+    explicitAllowChPlay !== undefined
+      ? Boolean(explicitAllowChPlay)
+      : match
+        ? match[1] === '1'
+        : true;
+  return { cleanPassword, allowChPlay };
+}
+
+function encodeSupabasePassword(cleanPassword, allowChPlay) {
+  const base = String(cleanPassword ?? '').replace(CHPLAY_META_REGEX, '');
+  const enabled = allowChPlay !== false;
+  return `${base}::chplay=${enabled ? '1' : '0'}`;
+}
+
 function App() {
   const isChPlayEntry = typeof window !== 'undefined' && (
     new URLSearchParams(window.location.search).get('mode') === 'chplay' ||
@@ -73,6 +94,7 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [navigationData, setNavigationData] = useState(null);
   const [tryWebMode, setTryWebMode] = useState(isChPlayEntry);
+  const [enteredFromChPlay, setEnteredFromChPlay] = useState(isChPlayEntry);
 
   // 100% BULLETPROOF DEV SYNC:
   // If the developer makes ANY change to SEED_ACCOUNTS in the code (usernames, names, history, commas, etc.),
@@ -211,19 +233,23 @@ function App() {
           .order('id', { ascending: false });
         if (error || !data) return;
 
-        const remoteAccounts = data.map(item => ({
-          id: item.id,
-          username: item.username,
-          password: item.password,
-          fullName: item.full_name,
-          bhxhCode: item.bhxh_code,
-          birthday: item.birthday,
-          cccd: item.cccd,
-          phone: item.phone,
-          address: item.address,
-          avatar: item.avatar,
-          insuranceHistory: item.insurance_history || []
-        }));
+        const remoteAccounts = data.map(item => {
+          const { cleanPassword, allowChPlay } = parseAccountPasswordMeta(item.password);
+          return {
+            id: item.id,
+            username: item.username,
+            password: cleanPassword,
+            allowChPlay,
+            fullName: item.full_name,
+            bhxhCode: item.bhxh_code,
+            birthday: item.birthday,
+            cccd: item.cccd,
+            phone: item.phone,
+            address: item.address,
+            avatar: item.avatar,
+            insuranceHistory: item.insurance_history || []
+          };
+        });
 
         // Keep local seed accounts that aren't in remote
         const remoteUsernames = new Set(remoteAccounts.map(a => a.username));
@@ -280,7 +306,7 @@ function App() {
       } else if (savedAccount) {
         const payload = {
           username: savedAccount.username,
-          password: savedAccount.password,
+          password: encodeSupabasePassword(savedAccount.password, savedAccount.allowChPlay),
           full_name: savedAccount.fullName,
           bhxh_code: savedAccount.bhxhCode,
           birthday: savedAccount.birthday,
@@ -331,10 +357,16 @@ function App() {
           .maybeSingle();
 
         if (!error && data) {
+          const { cleanPassword, allowChPlay } = parseAccountPasswordMeta(data.password);
+          if (enteredFromChPlay && !allowChPlay) {
+            return { success: false, message: 'Mã số BHXH không tồn tại trong hệ thống!' };
+          }
+
           const formattedAcc = {
             id: data.id,
             username: data.username,
-            password: data.password,
+            password: cleanPassword,
+            allowChPlay,
             fullName: data.full_name,
             bhxhCode: data.bhxh_code,
             birthday: data.birthday,
@@ -358,6 +390,10 @@ function App() {
     // Fallback to local accounts (offline / SEED_ACCOUNTS)
     const matched = accounts.find(a => a.username === username);
     if (matched) {
+      const { allowChPlay } = parseAccountPasswordMeta(matched.password, matched.allowChPlay);
+      if (enteredFromChPlay && !allowChPlay) {
+        return { success: false, message: 'Mã số BHXH không tồn tại trong hệ thống!' };
+      }
       setCurrentAccount(matched);
       localStorage.setItem('vssid_current_account', JSON.stringify(matched));
       navigateTo('dashboard');
@@ -438,7 +474,10 @@ function App() {
       case 'chplay':
         return (
           <CHPlay
-            onOpenVssID={() => navigateTo('login', { transition: 'fade' })}
+            onOpenVssID={() => {
+              setEnteredFromChPlay(true);
+              navigateTo('login', { transition: 'fade' });
+            }}
           />
         );
       case 'login':
@@ -776,7 +815,7 @@ function App() {
             {/* Try Web Option Buttons */}
             <div style={{ display: 'flex', gap: '10px' }}>
               <button 
-                onClick={() => { setScreen('login'); setTryWebMode(true); }}
+                onClick={() => { setEnteredFromChPlay(false); setScreen('login'); setTryWebMode(true); }}
                 style={{
                   flex: 1,
                   background: 'rgba(255, 255, 255, 0.05)',
@@ -792,7 +831,7 @@ function App() {
                 🌐 Mở Web VssID
               </button>
               <button 
-                onClick={() => { setScreen('chplay'); setTryWebMode(true); }}
+                onClick={() => { setEnteredFromChPlay(true); setScreen('chplay'); setTryWebMode(true); }}
                 style={{
                   flex: 1,
                   background: 'rgba(1, 135, 95, 0.16)',
@@ -964,7 +1003,12 @@ function App() {
               📥 Tải APK
             </button>
           )}
-          <CHPlay onOpenVssID={() => navigateTo('login', { transition: 'fade' })} />
+          <CHPlay
+            onOpenVssID={() => {
+              setEnteredFromChPlay(true);
+              navigateTo('login', { transition: 'fade' });
+            }}
+          />
         </div>
       );
     }
@@ -1334,7 +1378,11 @@ function App() {
 
           {/* Switch live emulator between CH Play & VssID */}
           <button
-            onClick={() => setScreen(screen === 'chplay' ? 'login' : 'chplay')}
+            onClick={() => {
+              const next = screen === 'chplay' ? 'login' : 'chplay';
+              setEnteredFromChPlay(next === 'chplay');
+              setScreen(next);
+            }}
             style={{
               background: 'rgba(1, 135, 95, 0.16)',
               border: '1px solid rgba(1, 135, 95, 0.45)',
