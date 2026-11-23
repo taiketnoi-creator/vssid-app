@@ -99,6 +99,10 @@ npx vercel --prod --yes
 
 ## 📝 Recent Updates & Changelog (Lịch sử cập nhật)
 
+### 🚀 Phiên bản ngày 23/11/2026:
+* **Vẽ lại chuẩn 1:1 icon con mắt xem chi tiết trên màn hình `QUÁ TRÌNH THAM GIA` (`src/screens/InsuranceList.jsx`):**
+  * Thay thế icon con mắt Material dạng đặc (`fill` phẳng `18x18`) cũ bằng SVG vector sắc nét chuẩn VssID gốc (`21x15`, `viewBox="0 0 36 26"`): viền mắt hạnh nhân xanh ghi (`#63758a`, độ dày `2.4`), tròng mắt tròn xanh dương (`#3d6696`) đẩy cao nhẹ sát mí trên tạo khoảng trắng lòng mắt phía dưới, kèm vệt sáng cong trắng xanh (`#d8e8fa`) góc trên trái bên trong tròng mắt, áp dụng đồng bộ cho cả 2 tab `BHXH` và `BHTN`.
+
 ### 🚀 Phiên bản ngày 10/11/2026:
 * **Tích hợp công tắc Bật / Tắt quyền `Cho phép đăng nhập từ CH Play` riêng cho từng Tài khoản BHXH (`src/App.jsx`, `src/components/AccountManager.jsx`):**
   * **Nút gạt nhanh 1 chạm & trong form Thêm/Sửa tài khoản (`AccountManager.jsx`):** Mỗi hồ sơ BHXH có công tắc riêng (`▶️ CH Play: ĐANG BẬT` / `🚫 CH Play: ĐANG TẮT`) ngay trên thẻ danh sách tài khoản lẫn bên trong mục `🔑 THÔNG TIN ĐĂNG NHẬP` khi tạo mới/chỉnh sửa.
