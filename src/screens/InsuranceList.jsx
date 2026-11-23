@@ -558,30 +558,30 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false,
                               padding: 0 
                             }}>
                               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <svg width="21" height="15" viewBox="0 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="17" height="10" viewBox="0 0 36 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <defs>
                                     <clipPath id={`vssid-eye-clip-${paneTab}-${idx}`}>
-                                      <path d="M2.2 13C5.6 4.4 11.4 2.4 18 2.4C24.6 2.4 30.4 4.4 33.8 13C30.4 21.6 24.6 23.6 18 23.6C11.4 23.6 5.6 21.6 2.2 13Z" />
+                                      <path d="M1.5 10.5Q9.5 1.8 18 1.8Q26.5 1.8 34.5 10.5Q26.5 19.2 18 19.2Q9.5 19.2 1.5 10.5Z" />
                                     </clipPath>
                                   </defs>
                                   <path
-                                    d="M2.2 13C5.6 4.4 11.4 2.4 18 2.4C24.6 2.4 30.4 4.4 33.8 13C30.4 21.6 24.6 23.6 18 23.6C11.4 23.6 5.6 21.6 2.2 13Z"
+                                    d="M1.5 10.5Q9.5 1.8 18 1.8Q26.5 1.8 34.5 10.5Q26.5 19.2 18 19.2Q9.5 19.2 1.5 10.5Z"
                                     fill="#ffffff"
                                   />
                                   <g clipPath={`url(#vssid-eye-clip-${paneTab}-${idx})`}>
-                                    <circle cx="18" cy="11.2" r="8.1" fill="#3d6696" />
+                                    <circle cx="18" cy="9.5" r="7.0" fill="#3d6696" />
                                     <path
-                                      d="M12.9 11.6A5.2 5.2 0 0 1 17.5 6.0"
-                                      stroke="#d8e8fa"
-                                      strokeWidth="2.1"
+                                      d="M13.5 9.9A4.5 4.5 0 0 1 17.5 5.1"
+                                      stroke="#dcebfa"
+                                      strokeWidth="1.85"
                                       strokeLinecap="round"
                                       fill="none"
                                     />
                                   </g>
                                   <path
-                                    d="M2.2 13C5.6 4.4 11.4 2.4 18 2.4C24.6 2.4 30.4 4.4 33.8 13C30.4 21.6 24.6 23.6 18 23.6C11.4 23.6 5.6 21.6 2.2 13Z"
-                                    stroke="#63758a"
-                                    strokeWidth="2.4"
+                                    d="M1.5 10.5Q9.5 1.8 18 1.8Q26.5 1.8 34.5 10.5Q26.5 19.2 18 19.2Q9.5 19.2 1.5 10.5Z"
+                                    stroke="#5d7187"
+                                    strokeWidth="2.15"
                                     strokeLinejoin="round"
                                     strokeLinecap="round"
                                     fill="none"
