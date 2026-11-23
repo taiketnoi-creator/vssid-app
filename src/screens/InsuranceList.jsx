@@ -558,7 +558,7 @@ const InsuranceList = ({ currentAccount, onNavigate, showInitialLoading = false,
                               padding: 0 
                             }}>
                               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <svg width="17" height="10" viewBox="0 0 36 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="19.5" height="11.5" viewBox="0 0 36 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <defs>
                                     <clipPath id={`vssid-eye-clip-${paneTab}-${idx}`}>
                                       <path d="M1.5 10.5Q9.5 1.8 18 1.8Q26.5 1.8 34.5 10.5Q26.5 19.2 18 19.2Q9.5 19.2 1.5 10.5Z" />

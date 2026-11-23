@@ -101,7 +101,7 @@ npx vercel --prod --yes
 
 ### 🚀 Phiên bản ngày 23/11/2026:
 * **Vẽ lại chuẩn 1:1 icon con mắt xem chi tiết trên màn hình `QUÁ TRÌNH THAM GIA` (`src/screens/InsuranceList.jsx`):**
-  * Thay thế icon con mắt Material dạng đặc (`fill` phẳng `18x18`) cũ bằng SVG vector thanh mảnh chuẩn VssID gốc (`17x10`, `viewBox="0 0 36 21"`): viền mắt hạnh nhân vuốt nhọn hai đầu gọn gàng (`#5d7187`, độ dày `2.15`, không bầu tròn), tròng mắt tròn xanh dương (`#3d6696`) đẩy cao nhẹ sát mí trên tạo khoảng trắng lòng mắt phía dưới, kèm vệt sáng cong trắng xanh (`#dcebfa`) góc trên trái bên trong tròng mắt, áp dụng đồng bộ cho cả 2 tab `BHXH` và `BHTN`.
+  * Thay thế icon con mắt Material dạng đặc (`fill` phẳng `18x18`) cũ bằng SVG vector thanh mảnh chuẩn VssID gốc (`19.5x11.5`, `viewBox="0 0 36 21"`): viền mắt hạnh nhân vuốt nhọn hai đầu gọn gàng (`#5d7187`, độ dày `2.15`, không bầu tròn), tròng mắt tròn xanh dương (`#3d6696`) đẩy cao nhẹ sát mí trên tạo khoảng trắng lòng mắt phía dưới, kèm vệt sáng cong trắng xanh (`#dcebfa`) góc trên trái bên trong tròng mắt, áp dụng đồng bộ cho cả 2 tab `BHXH` và `BHTN`.
 
 ### 🚀 Phiên bản ngày 10/11/2026:
 * **Tích hợp công tắc Bật / Tắt quyền `Cho phép đăng nhập từ CH Play` riêng cho từng Tài khoản BHXH (`src/App.jsx`, `src/components/AccountManager.jsx`):**
